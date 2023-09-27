@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.pickmeup.jobstartup.dao.TestDAO">
-    <select id="selectTest" resultType="com.pickmeup.jobstartup.dto.TestDTO">
+<mapper namespace="com.pickmeup.jobstartup.dao.SampleDAO">
+    <select id="selectSampleDTOs" resultType="com.pickmeup.jobstartup.dto.SampleDTO">
         <![CDATA[
-            SELECT * FROM test_member
+        SELECT *
+        FROM SAMPLE_TABLE
         ]]>
     </select>
 </mapper>
