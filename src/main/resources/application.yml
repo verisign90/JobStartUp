@@ -1,0 +1,31 @@
+# Server
+server:
+  port: 8050
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+
+# DataBase
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@o4crxvm4aeoy626r_medium?TNS_ADMIN=C:/oracle19/instantclient_19_20/network/wallet
+    username: ADMIN
+    password: '!Q2w3e4r5t6y'
+    driver-class-name: oracle.jdbc.OracleDriver
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: false
+
+#Mybatis
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml
