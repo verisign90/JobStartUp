@@ -1,4 +1,4 @@
-package com.pickmeup.jobstartup.dto;
+package com.pickmeup.jobstartup.admin.dto;
 
 import lombok.Getter;
 import lombok.Setter;

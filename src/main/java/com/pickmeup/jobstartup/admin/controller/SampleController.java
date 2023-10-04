@@ -1,7 +1,7 @@
-package com.pickmeup.jobstartup.controller;
+package com.pickmeup.jobstartup.admin.controller;
 
-import com.pickmeup.jobstartup.dto.SampleDTO;
-import com.pickmeup.jobstartup.service.SampleService;
+import com.pickmeup.jobstartup.admin.dto.SampleDTO;
+import com.pickmeup.jobstartup.admin.service.SampleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
