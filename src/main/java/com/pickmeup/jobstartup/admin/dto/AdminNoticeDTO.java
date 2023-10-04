@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 @Getter
 @Setter
 @ToString
-public class NoticeDTO {
+public class AdminNoticeDTO {
 
     private int NOT_NO;
     private String NOT_TITLE;

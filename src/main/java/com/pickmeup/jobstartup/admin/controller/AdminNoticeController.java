@@ -2,9 +2,8 @@ package com.pickmeup.jobstartup.admin.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.pickmeup.jobstartup.admin.dto.AgeGroupDTO;
-import com.pickmeup.jobstartup.admin.dto.NoticeDTO;
-import com.pickmeup.jobstartup.admin.service.NoticeService;
+import com.pickmeup.jobstartup.admin.dto.AdminNoticeDTO;
+import com.pickmeup.jobstartup.admin.service.AdminNoticeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +13,9 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-public class NoticeController {
+public class AdminNoticeController {
 
-    private final NoticeService noticeService;
+    private final AdminNoticeService noticeService;
 
     @GetMapping("/admin/noticeList")
     public String noticeList(Model model) {
@@ -24,7 +23,7 @@ public class NoticeController {
         mapper.registerModule(new JavaTimeModule());
 
         try {
-            List<NoticeDTO> notice = noticeService.getAllNotice();
+            List<AdminNoticeDTO> notice = noticeService.getAllNotice();
             model.addAttribute("notice", notice);
 
             String noticeJson = mapper.writeValueAsString(noticeService.getAllNotice());
