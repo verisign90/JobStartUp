@@ -1,19 +1,19 @@
 package com.pickmeup.jobstartup.admin.service;
 
-import com.pickmeup.jobstartup.admin.dto.NoticeDTO;
-import com.pickmeup.jobstartup.admin.repository.NoticeRepository;
+import com.pickmeup.jobstartup.admin.dto.AdminNoticeDTO;
+import com.pickmeup.jobstartup.admin.repository.AdminNoticeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class NoticeService {
+public class AdminNoticeService {
 
     @Autowired
-    public NoticeRepository noticeRepository;
+    public AdminNoticeRepository noticeRepository;
 
-    public List<NoticeDTO> getAllNotice() {
+    public List<AdminNoticeDTO> getAllNotice() {
         return noticeRepository.selectNoticeList();
     }
 }
