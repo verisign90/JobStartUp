@@ -1,7 +1,7 @@
-package com.pickmeup.jobstartup.service;
+package com.pickmeup.jobstartup.admin.service;
 
-import com.pickmeup.jobstartup.dao.SampleDAO;
-import com.pickmeup.jobstartup.dto.SampleDTO;
+import com.pickmeup.jobstartup.admin.repository.SampleDAO;
+import com.pickmeup.jobstartup.admin.dto.SampleDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
