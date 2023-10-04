@@ -1,0 +1,112 @@
+.main-container {
+  border: 1px solid red;
+  margin-top: 3em;
+  margin-right: 30px;
+  margin-left: 30px;
+  padding: 20px;
+}
+
+.info-container {
+    border: 1px solid black;
+    margin: auto;
+    box-shadow: 0.1px 0.1px
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    border: 1px solid black;
+}
+
+.moving-button {
+    width: auto;
+    height: 20px;
+    border: none;
+    font-size: 10px;
+    font-weight: bold;
+    color: white;
+    border-radius: 7px;
+    background: green;
+    cursor: pointer;
+}
+
+.info-main-container {
+    display: flex;
+    margin: 5px;
+    border: 1px solid black;
+}
+
+.profile {
+    flex-basis: 30%;
+}
+
+.profile-pic {
+    border: 1px solid black;
+    margin: 5px;
+}
+
+.company-info {
+    flex-basis: 70%;
+    margin: 5px;
+    border: 1px solid blue;
+}
+
+
+.status-container {
+  border: 1px solid black;
+  margin-top: 10px;
+  height: 150px;
+  box-shadow: 0.1px 0.1px;
+  padding: 20px;
+}
+
+.content-label-container {
+  display: flex;  
+  
+}
+
+.content-label {
+  border: 1px solid black;
+  display: block;
+  text-align: center;
+  line-height: initial;
+  border-bottom: none;
+  width: auto;
+  height: auto;
+  font-weight: bold;
+  font-size: 13px;
+  background-color: white;
+  box-shadow: 1px 1px 2px 0 rgba(0,0,0,0.1);
+  cursor: pointer;
+}
+
+.content-container {
+    border: 1px solid black;
+}
+
+.content{
+    border: 2px solid green;
+    margin: 10px;
+    height: 50px;
+}
+
+
+.approval-container {
+  border: 1px solid black;
+  margin-top: 10px;
+  height: 250px;
+  box-shadow: 0.1px 0.1px;
+  padding: 20px;
+}
+
+.first-approval{
+  border: 1px solid black;
+  margin: 10px;
+}
+
+.last-approval{
+  border: 1px solid black;
+  margin: 10px;
+}
+
+

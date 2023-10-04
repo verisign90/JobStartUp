@@ -1,0 +1,45 @@
+package com.pickmeup.jobstartup.recruiter.appmanagement.service;
+
+
+import com.pickmeup.jobstartup.recruiter.appmanagement.dto.AppManageDTO;
+import com.pickmeup.jobstartup.recruiter.appmanagement.dto.AppResumeDTO;
+import com.pickmeup.jobstartup.recruiter.appmanagement.repository.AppManageRepository;
+
+import java.util.Map;
+
+public interface AppManageService {
+
+    //채용관리 지원자 상세 페이지: 1) 지원자 인적 정보
+    AppManageDTO selectAppInfoByMember(int status_no);
+
+    //채용관리 지원자 상세 페이지: 2) 지원자 이력 정보
+    AppResumeDTO selectAppResumeByMember(int resume_no);
+
+
+    //채용관리 지원자 상세 페이지: 2) 지원자 이력 정보 - 파일 다운로드
+
+
+
+    //채용관리 지원자 상세 페이지: 1차 면접일자 등록
+    int updateAppManageFirstEnroll(Map<String, Object> map);
+
+    //채용관리 지원자 상세 페이지: 1차 면접일자 반려
+    int updateAppManageFirstDenial(int status_no);
+
+    //채용관리 지원자 상세 페이지: 최종 면접일자 승인
+    int updateAppManageLastEnroll(int status_no);
+
+    //채용관리 지원자 상세 페이지: 최종 면접일자 반려
+    int updateAppManageLastDenial(int status_no);
+
+
+
+
+
+
+    //채용관리 지원자 상세 페이지: 1차 메일링(안내)
+    //채용관리 지원자 상세 페이지: 최종 메일링(안내)
+
+
+
+}

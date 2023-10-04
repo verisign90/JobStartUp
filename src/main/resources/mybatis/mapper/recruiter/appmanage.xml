@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--채용 관리 페이지-->
+<mapper namespace="com.pickmeup.jobstartup.recruiter.appmanagement.repository.AppManageRepository">
+
+    <!--채용관리 지원자 상세 페이지: 1) 지원자 인적 정보-->
+    <select id="selectAppInfoByMember" parameterType="int" resultType="com.pickmeup.jobstartup.recruiter.appmanagement.dto.AppManageDTO">
+        <![CDATA[
+        SELECT s.status_no, s.member_no, s.posting_no, s.first_pass, s.final_pass, s.interview_date, m.member_id, m.member_name, m.member_sex, m.member_hp, m.member_email FROM member m JOIN application_status s ON m.member_no = s.member_no WHERE s.status_no = #{status_no}
+        ]]>
+    </select>
+
+    <!--채용관리 지원자 상세 페이지: 2) 지원자 이력 정보-->
+    <select id="selectAppResumeByMember" parameterType="int" resultType="com.pickmeup.jobstartup.recruiter.appmanagement.dto.AppResumeDTO">
+        <![CDATA[
+        SELECT a.member_no, a.resume_no, r.resume_title, r.profile_orgname, r.profile_savname, r.resume_money, r.resume_skill, r.resume_orgname, r.resume_savname, r.resume_url FROM application_status a JOIN resume r ON a.resume_no = r.resume_no WHERE r.resume_no = #{resume_no}
+        ]]>
+    </select>
+
+    <!--채용관리 지원자 상세 페이지: 2) 지원자 이력 정보 - 파일 다운로드-->
+
+
+
+
+    <!--채용관리 지원자 상세 페이지: 1차 면접일자 등록 -->
+    <update id="updateAppManageFirstEnroll" parameterType="map">
+        <![CDATA[
+        UPDATE application_status
+        SET first_pass = 'Y', interview_date = TO_TIMESTAMP('#{interview_date}', 'YYYY-MM-DD HH24:MI:SS')
+        WHERE status_no = #{status_no};
+        ]]>
+    </update>
+
+    <!--채용관리 지원자 상세 페이지: 1차 면접일자 반려 -->
+    <update id="updateAppManageFirstDenial" parameterType="int">
+        <![CDATA[
+        UPDATE application_status
+        SET first_pass = 'F'
+        WHERE status_no = #{status_no};
+        ]]>
+    </update>
+
+    <!--채용관리 지원자 상세 페이지: 최종 면접일자 승인-->
+    <update id="updateAppManageLastEnroll" parameterType="int">
+        <![CDATA[
+        UPDATE application_status
+        SET final_pass = 'Y'
+        WHERE status_no = #{status_no};
+        ]]>
+    </update>
+
+    <!--채용관리 지원자 상세 페이지: 최종 면접일자 반려-->
+    <update id="updateAppManageLastDenial" parameterType="int">
+        <![CDATA[
+        UPDATE application_status
+        SET final_pass = 'F'
+        WHERE status_no = #{status_no};
+        ]]>
+    </update>
+
+    <!--채용관리 지원자 상세 페이지: 1차 메일링(안내)-->
+    <!--
+        <update id="updateAppManageFirstMail" parameterType="com.pickmeup.jobstartup.recruiter.appmanagement.dto.AppManageDTO">
+            <![CDATA[
+
+
+            ]]>
+        </update>
+    -->
+
+    <!--채용관리 지원자 상세 페이지: 최종 메일링(안내)-->
+    <!--    <update id="updateAppManageLastMail" parameterType="com.pickmeup.jobstartup.recruiter.appmanagement.dto.AppManageDTO">
+            <![CDATA[
+
+
+            ]]>
+        </update>-->
+
+</mapper>
