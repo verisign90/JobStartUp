@@ -18,45 +18,55 @@
         <img src="${pageContext.request.contextPath}/img/logo.png" alt="Logo">
     </div>
     <nav>
-        nav
+        <div>
+            menu1
+        </div>
+        <div>
+            menu2
+        </div>
+        <div>
+            menu3
+        </div>
+        <div>
+            menu4
+        </div>
+        <div>
+            menu5
+        </div>
     </nav>
+    <div id="sign_button">
+        <div class="sign_button_inner">
+            <button>SignIn</button>
+        </div>
+        <div class="sign_button_inner">
+            <button>SignUp</button>
+        </div>
+    </div>
 </header>
 <main>
     <aside>
-        <div>
-            대쉬보드
-        </div>
-        <div>
-            공지글 목록
-            <!--등록/검색/수정/삭제-->
-        </div>
-        <div>
-            박람회 목록
-            <!--등록/검색/수정/삭제-->
-            <div>
+        <ul>
+            <li>
+                대쉬보드
+            </li>
+            <li>
+                공지글 목록
+            </li>
+            <li>
+                박람회 목록
+            </li>
+            <li>
                 참여 업체 목록
-                <!--등록/검색/수정/삭제-->
-            </div>
-        </div>
-        <div>
-            공고 목록
-            <!--등록/검색/수정/삭제-->
-        </div>
-        <div>
-            유료 서비스 관리
-        </div>
+            </li>
+            <li>
+                공고 목록
+            </li>
+            <li>
+                유료 서비스 관리
+            </li>
+        </ul>
     </aside>
     <article>
-        main_article
-        <table>
-            <c:forEach var="data" items="${dashboardData}">
-                <tr>
-                    <td>${data.name}</td>
-                    <td>${data.age}</td>
-                </tr>
-            </c:forEach>
-        </table>
-
         <div class="chart_bundle">
             <!-- Bar Chart -->
             <div>
