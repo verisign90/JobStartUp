@@ -20,5 +20,5 @@ public interface ResumeRepository {
     public void deleteResume (int resume_no);
 
     //이력서 작성
-    public int insertResume (ResumeParameter resumeParameter);
+    public int insertResume (ResumeDTO resumeDTO);
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="languageCertificate">
+    <insert id="insertLanguageCertificate" parameterType="LanguageCertificateDTO">
+        <![CDATA[
+            INSERT INTO (LANG_NO, LANG_CER_EXAM, LANG_CER_GRADE, LANG_CER_DATE)
+            VALUES (#{lang_no}, #{lang_cer_exam}, #{lang_cer_grade}, #{lang_cer_date})
+        ]]>
+    </insert>
+</mapper>

@@ -30,20 +30,23 @@
     </delete>
 
     <!-- 이력서 등록 -->
-    <!--<insert id="insertResume" parameterType="ResumeDTO">
+    <insert id="insertResume" parameterType="ResumeDTO">
         <![CDATA[
         INSERT INTO RESUME (MEMBER_NO, RESUME_TITLE, PROFILE_ORGNAME, PROFILE_SAVNAME, RESUME_MONEY, RESUME_SKILL, RESUME_ORGNAME, RESUME_SAVNAME, RESUME_URL)
         VALUES (#{member_no}, #{resume_title}, #{profile_orgname}, #{profile_savname}, #{resume_money}, #{resume_skill}, #{resume_orgname}, #{resume_savname}, #{resume_url})
         ]]>
-    </insert>-->
+        <selectKey resultType="int" keyProperty="resume_no" order="AFTER">
+            SELECT RESUME_SEQ.CURRVAL FROM DUAL
+        </selectKey>
+    </insert>
 
     <!-- 이력서 등록 -->
-    <insert id="insertResume" parameterType="com.pickmeup.jobstartup.resume.dto.ResumeParameter" useGeneratedKeys="true" keyProperty="resume_no">
-        <!-- LANGUAGE_SEQ에서 LANG_NO 가져오기 -->
+    <!--<insert id="insertResume" parameterType="ResumeDTO" useGeneratedKeys="true" keyProperty="resume_no">
+
         <selectKey keyProperty="item.lang_no" resultType="int" order="BEFORE">
             SELECT NEXTVAL FOR LANGUAGE_SEQ AS lang_no FROM DUAL
         </selectKey>
-        <foreach collection="list" item="item" separator=";">
+        <foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM DUAL" separator=";">
 
             INSERT INTO RESUME (MEMBER_NO, RESUME_TITLE, PROFILE_ORGNAME, PROFILE_SAVNAME, RESUME_MONEY, RESUME_SKILL, RESUME_ORGNAME, RESUME_SAVNAME, RESUME_URL)
             VALUES (#{item.member_no}, #{item.resume_title}, #{item.profile_orgname}, #{item.profile_savname}, #{item.resume_money}, #{item.resume_skill}, #{item.resume_orgname}, #{item.resume_savname}, #{item.resume_url});
@@ -63,5 +66,5 @@
             INSERT INTO LANGUAGE_CERTIFICATE (LANG_NO, LANG_CER_EXAM, LANG_CER_GRADE, LANG_CER_DATE)
             VALUES (#{item.lang_no}, #{item.lang_cer_exam}, #{item.lang_cer_grade}, #{item.lang_cer_date});
         </foreach>
-    </insert>
+    </insert>-->
 </mapper>

@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
 public class LanguageCertificateDTO {
 
     private int lang_cer_no; //어학자격증 번호
@@ -17,6 +16,8 @@ public class LanguageCertificateDTO {
     private String lang_cer_exam; //어학 자격증명
     private String lang_cer_grade; //어학 점수 및 등급
     private Timestamp lang_cer_date; //자격증 취득일자
+
+    public LanguageCertificateDTO () {}
 
     /*@Builder
     public LanguageCertificateDTO (List<LanguageCertificateDTO> languageCertificateDTO) {

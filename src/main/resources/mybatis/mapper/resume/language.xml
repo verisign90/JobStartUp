@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="language">
+    <insert id="insertLanguage" parameterType="LanguageDTO">
+        <![CDATA[
+            INSERT INTO (RESUME_NO, LANG_NAME, LANG_LEVEL)
+            VALUES (#{resume_no}, #{lang_name}, #{lang_level})
+        ]]>
+        <selectKey resultType="int" keyProperty="lang_no" order="AFTER">
+            SELECT LANGUAGE_SEQ.CURRVAL FROM DUAL
+        </selectKey>
+    </insert>
+</mapper>

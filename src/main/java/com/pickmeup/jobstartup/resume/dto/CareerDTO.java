@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
 public class CareerDTO {
 
     private int career_no; //경력 글번호
@@ -18,6 +17,8 @@ public class CareerDTO {
     private String career_company; //회사
     private String business_type; //FK.경력직종
     private String career_work; //담당업무 및 성과
+
+    public CareerDTO () {}
 
     @Builder
     public CareerDTO(int career_no, int resume_no, String career_date, String career_company, String business_type, String career_work) {

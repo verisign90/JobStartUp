@@ -6,6 +6,11 @@
         <typeAlias alias="ApplyDTO" type="com.pickmeup.jobstartup.recruiter.apply.dto.ApplyDTO"/>
         <typeAlias alias="LocDTO" type="com.pickmeup.jobstartup.recruiter.apply.dto.LocDTO"/>
         <typeAlias alias="ResumeDTO" type="com.pickmeup.jobstartup.resume.dto.ResumeDTO"/>
+        <typeAlias alias="CareerDTO" type="com.pickmeup.jobstartup.resume.dto.CareerDTO"/>
+        <typeAlias alias="CertificateDTO" type="com.pickmeup.jobstartup.resume.dto.CertificateDTO"/>
+        <typeAlias alias="LanguageDTO" type="com.pickmeup.jobstartup.resume.dto.LanguageDTO"/>
+        <typeAlias alias="LanguageCertificateDTO" type="com.pickmeup.jobstartup.resume.dto.LanguageCertificateDTO"/>
+        <typeAlias alias="ResumeLocDTO" type="com.pickmeup.jobstartup.resume.dto.ResumeLocDTO"/>
         <typeAlias alias="FileDTO" type="com.pickmeup.jobstartup.recruiter.apply.dto.FileDTO"/>
     </typeAliases>
 
@@ -16,5 +21,4 @@
     <mappers>
         <package name="mybatis.mapper"/>
     </mappers>
-
 </configuration>
