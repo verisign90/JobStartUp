@@ -2,7 +2,10 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <typeAliases>
+        <typeAlias alias="ApplyDTO" type="com.pickmeup.jobstartup.recruiter.apply.dto.ApplyDTO"/>
+        <typeAlias alias="LocDTO" type="com.pickmeup.jobstartup.recruiter.apply.dto.LocDTO"/>
         <typeAlias alias="ResumeDTO" type="com.pickmeup.jobstartup.resume.dto.ResumeDTO"/>
+        <typeAlias alias="FileDTO" type="com.pickmeup.jobstartup.recruiter.apply.dto.FileDTO"/>
     </typeAliases>
 
     <mappers>

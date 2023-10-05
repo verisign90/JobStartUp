@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="apply">
+    <select id="insertApply" resultType="com.pickmeup.jobstartup.recruiter.apply.dto.ApplyDTO">
+
+    </select>
+
+    <select id="getCompanyNo" resultType="com.pickmeup.jobstartup.recruiter.apply.dto.ApplyDTO">
+        <![CDATA[
+        SELECT *
+        from company
+        where
+        ]]>
+
+    </select>
+
+
+    <insert id="insertInfo" parameterType="ApplyDTO">
+
+        <![CDATA[
+        insert into company (member_no,company_name,company_hp,ceo_name,company_type,business_type_code,company_address_code,company_sales,logo_orgname,logo_savname)
+        values(#{member_no},#{company_name},#{company_hp},#{ceo_name},#{company_type},#{business_type_code},#{company_address_code},#{company_sales},#{logo_orgname},#{logo_savname})
+        ]]>
+    </insert>
+
+    <select id="getUpperLoc" resultType="com.pickmeup.jobstartup.recruiter.apply.dto.LocDTO">
+        <![CDATA[
+        SELECT *
+        FROM detail_code
+        WHERE detail_code_num >= 11000 AND detail_code_num <= 39000
+        and code_level = 1
+        ORDER BY detail_code_num
+        ]]>
+
+    </select>
+
+    <select id="getLowerLoc" resultType="com.pickmeup.jobstartup.recruiter.apply.dto.LocDTO" parameterType="String">
+        <![CDATA[
+            SELECT *
+            FROM detail_code
+            WHERE detail_code_num >= #{upperLoc} + 1
+            AND detail_code_num < #{upperLoc}+ 1000
+            AND code_level = 2
+            ORDER BY detail_code_num
+        ]]>
+
+    </select>
+
+    <insert id="insertFile" parameterType="FileDTO">
+
+        <![CDATA[
+        insert into company_file(company_no,cfile_orgname,cfile_savname)
+        values(#{company_no},#{cfile_orgname},#{cfile_savname})
+        ]]>
+    </insert>
+</mapper>
