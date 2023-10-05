@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+
     <typeAliases>
         <typeAlias alias="ApplyDTO" type="com.pickmeup.jobstartup.recruiter.apply.dto.ApplyDTO"/>
         <typeAlias alias="LocDTO" type="com.pickmeup.jobstartup.recruiter.apply.dto.LocDTO"/>
@@ -8,7 +9,12 @@
         <typeAlias alias="FileDTO" type="com.pickmeup.jobstartup.recruiter.apply.dto.FileDTO"/>
     </typeAliases>
 
+    <typeHandlers>
+        <typeHandler handler="com.pickmeup.jobstartup.config.MemberTypeHandler" />
+    </typeHandlers>
+
     <mappers>
         <package name="mybatis.mapper"/>
     </mappers>
+
 </configuration>
