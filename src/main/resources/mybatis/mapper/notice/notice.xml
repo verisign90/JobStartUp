@@ -2,10 +2,41 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.pickmeup.jobstartup.notice.repository.NoticeRepository">
+    <sql id="category">
+        <if test="!category.equals('all')">
+           AND NOT_CATEGORY IN (#{category}, 'all')
+        </if>
+    </sql>
+    <sql id="search">
+        <!-- 검색 키워드가 있을 때-->
+        <if test="keyword != null and keyword != ''">
+            <choose>
+                <!--검색 유형이 있을 때-->
+                <when test="searchType != null and searchType != ''">
+                    <choose>
+                        <when test="'not_title'.equals(searchType)">
+                            AND NOT_TITLE LIKE '%' || #{keyword} || '%'
+                        </when>
+                        <when test="'not_content'.equals(searchType)">
+                            AND NOT_CONTENT LIKE '%' || #{keyword} || '%'
+                        </when>
+                    </choose>
+                </when>
+
+                <otherwise>
+                    AND (
+                            NOT_TITLE LIKE '%' || #{keyword} || '%'
+                        OR  NOT_CONTENT LIKE '%' || #{keyword} || '%'
+                    )
+                </otherwise>
+            </choose>
+        </if>
+    </sql>
+
     <insert id="insertNoticeDTO" parameterType="com.pickmeup.jobstartup.notice.dto.NoticeDTO">
         <![CDATA[
-            INSERT INTO NOTICE (NOT_TITLE, NOT_CONTENT)
-            VALUES (#{not_title}, #{not_content})
+            INSERT INTO NOTICE (NOT_TITLE, NOT_CONTENT, NOT_CATEGORY)
+            VALUES (#{not_title}, #{not_content}, #{not_category})
         ]]>
         <!-- INSERT 후(order="AFTER")의 결과를 not_no(keyProperty="not_no", parameterType="NoticeDTO")에 넣어주고 아래 sql 문 실행-->
         <selectKey resultType="long" order="AFTER" keyProperty="not_no">
@@ -28,12 +59,17 @@
 
     <select id="selectNoticeList" parameterType="com.pickmeup.jobstartup.common.paging.Criteria" resultType="com.pickmeup.jobstartup.notice.dto.NoticeDTO">
         <![CDATA[
-            SELECT * FROM (SELECT /*+ INDEX_DESC(NOTICE SYS_C0026505)*/ ROWNUM AS ROW_NUM, NOT_NO, NOT_TITLE, NOT_CONTENT, NOT_REGDATE, NOT_MODDATE FROM NOTICE WHERE ROWNUM <= #{currentPageNo}*#{recordsPerPage})
+            SELECT * FROM (SELECT /*+ INDEX_DESC(NOTICE SYS_C0026505)*/ ROWNUM AS ROW_NUM, NOT_NO, NOT_TITLE, NOT_CONTENT, NOT_REGDATE, NOT_MODDATE, NOT_CATEGORY FROM NOTICE WHERE ROWNUM <= #{currentPageNo}*#{recordsPerPage})
             WHERE ROW_NUM > #{startPage}
         ]]>
+            <include refid="category"/>
+            <include refid="search" />
     </select>
 
     <select id="selectNoticeCnt" parameterType="com.pickmeup.jobstartup.common.paging.Criteria" resultType="int">
         SELECT COUNT(not_no) FROM NOTICE
+        WHERE not_no > 0
+        <include refid="category"/>
+        <include refid="search" />
     </select>
 </mapper>

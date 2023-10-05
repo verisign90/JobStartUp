@@ -7,7 +7,6 @@
 <title>Notice List</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 <link rel="stylesheet" href="/css/notice/list.css" type="text/css" />
-<c:set var="category" value="${param.category}" />
 </head>
 <body>
     <div class="page_tits">
@@ -16,9 +15,9 @@
     <div class="content">
         <section id="contents">
             <ul class="webtong_tab_type03">
-                <li class="on"><a href="/notice/list">전체</a></li>
+                <li><a href="/notice/list">전체</a></li>
                 <li><a href="/notice/list/seeker">개인회원</a></li>
-                <li><a href="/notice/list/company">기업회원</a></li>
+                <li class="on"><a href="/notice/list/company">기업회원</a></li>
             </ul>
             <!--/* 검색 */-->
             <div class="search_box">
@@ -30,7 +29,7 @@
                             <option value="not_content">내용</option>
                         </select>
                         <input type="text" id="keyword" name="keyword" placeholder="키워드를 입력해 주세요." title="키워드 입력"/>
-                        <button type="button" class="bt_search" onclick="movePage(1, '${category}');"><i class="fas fa-search"></i><span class="skip_info">검색</span></button>
+                        <button type="button" class="bt_search" onclick="movePage(1);"><i class="fas fa-search"></i><span class="skip_info">검색</span></button>
                     </div>
                 </form>
             </div>
@@ -139,18 +138,20 @@
     }
 
 
-    function movePage(currentPageNo, category) {
+    function movePage(currentPageNo) {
         const form = document.getElementById('searchForm');
         const urlParams = new URLSearchParams(currentURL.search);
-        console.log(category);
+        const categoryParam = urlParams.get('category');
+        console.log(categoryParams);
         const queryParams = {
             currentPageNo: (currentPageNo) ? currentPageNo : 1,
             recordsPerPage: 10,
             pageSize: 10,
             searchType: form.searchType.value,
             keyword: form.keyword.value,
+            category : categoryParam
         }
-        location.href = location.pathname+'/'+category+'/'+ '?' + new URLSearchParams(queryParams).toString();
+        location.href = location.pathname + '?' + new URLSearchParams(queryParams).toString();
     }
 
 

@@ -5,9 +5,10 @@
 <!DOC TYPE html>
 <html lang="ko" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt">
 <head>
-    <title>Notice Form</title>
-</head>
+<title>Notice Form</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+</head>
 <script>
     //미리보기 이미지
     function setThumbnails(event){
@@ -56,6 +57,13 @@
 <h2>Notice Write Form</h2>
 <form action="/notice/write" enctype ="multipart/form-data" method="post" name="writeFrom" id="writeFrom" >
     <div class="writeForm">
+        <div name="optionCategory">
+            <select title="검색 유형 선택" id="not_category" name="not_category" class="selectCategory">
+                <option value="all">전체</option>
+                <option value="seeker">개인회원</option>
+                <option value="company">기업회원</option>
+            </select>
+        </div>
         <div name="titleDiv">
             <label for="not_title"> title </label>
             <input type="text" name="not_title" id="not_title"/>
@@ -70,7 +78,7 @@
             <div id="images_container"></div>
         </div>
     </div>
-    <button type"submit" name="subBtn" id="subBtn">입력</button>
+    <button type="submit" name="subBtn" id="subBtn">입력</button>
 </form>
 </body>
 </html>
