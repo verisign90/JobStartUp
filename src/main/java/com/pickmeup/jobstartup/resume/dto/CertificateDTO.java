@@ -6,10 +6,10 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
 public class CertificateDTO {
 
     private int cer_no; //자격증 글번호
@@ -17,6 +17,8 @@ public class CertificateDTO {
     private String cer_name; //자격증명
     private String cer_issuer; //자격증 발급기관
     private Timestamp cer_date; //자격증 발급날짜
+
+    public CertificateDTO () {}
 
     /*@Builder
     public CertificateDTO (List<CertificateDTO> certificateDTO) {

@@ -1,6 +1,8 @@
 package com.pickmeup.jobstartup.resume.controller;
 
 import com.pickmeup.jobstartup.resume.dto.*;
+import com.pickmeup.jobstartup.resume.repository.CertificateRepository;
+import com.pickmeup.jobstartup.resume.repository.LanguageRepository;
 import com.pickmeup.jobstartup.resume.repository.ResumeRepositoryImpl;
 import com.pickmeup.jobstartup.resume.service.ResumeServiceImpl;
 import jakarta.validation.Valid;
@@ -83,19 +85,27 @@ public class ResumeController {
     }*/
 
     @PostMapping ("/resumeWrite")
-    public String resumeWrite (@ModelAttribute ResumeParameter resumeParameter,
+    public String resumeWrite (@ModelAttribute ResumeDTO resumeDTO,
+                               @ModelAttribute CareerDTO careerDTO,
+                               @ModelAttribute CertificateDTO certificateDTO,
+                               @ModelAttribute LanguageDTO languageDTO,
+                               @ModelAttribute LanguageCertificateDTO languageCertificateDTO,
+                               @ModelAttribute ResumeLocDTO resumeLocDTO,
                                @RequestParam MultipartFile profileOrgNameFile,
                                @RequestParam MultipartFile resumeOrgNameFile) {
         logger.info("ResumeController-resumeWrite() 진입");
-        logger.info("resumeDTO: {}", resumeParameter.getResumeDTO());
 
         String profileOrgName = profileOrgNameFile.getOriginalFilename();
         String resumeOrgName = resumeOrgNameFile.getOriginalFilename();
 
-        resumeParameter.getResumeDTO().setProfile_orgname(profileOrgName);
-        resumeParameter.getResumeDTO().setResume_orgname(resumeOrgName);
+        resumeDTO.setProfile_orgname(profileOrgName);
+        resumeDTO.setResume_orgname(resumeOrgName);
 
-        resumeService.insertResume(resumeParameter);
+        logger.info("resumeDTO : {}", resumeDTO);
+        logger.info("resumeDTO.getLanguageDTOList() : {}", resumeDTO.getLanguageDTOList());
+
+
+        resumeService.insertResume(resumeDTO);
         return String.format("redirect:/seeker/resumeList");
     }
 }

@@ -45,8 +45,8 @@ public class ResumeRepositoryImpl implements ResumeRepository {
 
     //이력서 작성
     @Override
-    public int insertResume (ResumeParameter resumeParameter) {
+    public int insertResume (ResumeDTO resumeDTO) {
         logger.info("ResumeRepositoryImpl-insertResume() 진입");
-        return sqlSession.insert("resume.insertResume", resumeParameter);
+        return sqlSession.insert("resume.insertResume", resumeDTO);
     }
 }

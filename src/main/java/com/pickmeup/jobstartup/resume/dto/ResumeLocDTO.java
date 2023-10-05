@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
 public class ResumeLocDTO {
     
     private int resume_loc_no; //이력서 희망근무 글번호
@@ -28,6 +27,8 @@ public class ResumeLocDTO {
             resumeLocDTOList.add(resumeLoc);
         }
     }*/
+
+    public ResumeLocDTO () {}
 
     @Builder
     public ResumeLocDTO(int resume_loc_no, int resume_no, String loc_detail_code_num) {

@@ -5,8 +5,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
-@NoArgsConstructor
 public class ResumeDTO {
 
     private int resume_no; //이력서 글번호
@@ -19,6 +21,23 @@ public class ResumeDTO {
     private String resume_orgname; //이력서 첨부파일로 받을시 원본명
     private String resume_savname; //이력서 첨부파일로 받을시 저장명
     private String resume_url;//이력서 URL
+
+    @Builder.Default
+    private List<CareerDTO> careerDTOList = new ArrayList<>();
+
+    @Builder.Default
+    private List<ResumeLocDTO> resumeLocDTOList = new ArrayList<>();
+
+    @Builder.Default
+    private List<CertificateDTO> certificateDTOList = new ArrayList<>();
+
+    @Builder.Default
+    private List<LanguageDTO> languageDTOList = new ArrayList<>();
+
+    @Builder.Default
+    private List<LanguageCertificateDTO> languageCertificateDTOList = new ArrayList<>();
+
+    public ResumeDTO () {}
 
     @Builder
     public ResumeDTO (ResumeDTO resumeDTO) {
@@ -33,4 +52,5 @@ public class ResumeDTO {
         this.resume_savname = resumeDTO.getResume_savname();
         this.resume_url = resumeDTO.getResume_url();
     }
+
 }
