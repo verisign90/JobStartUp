@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/base.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/chart.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 </head>
 <body>
@@ -17,45 +18,55 @@
         <img src="${pageContext.request.contextPath}/img/logo.png" alt="Logo">
     </div>
     <nav>
-        nav
+        <div>
+            menu1
+        </div>
+        <div>
+            menu2
+        </div>
+        <div>
+            menu3
+        </div>
+        <div>
+            menu4
+        </div>
+        <div>
+            menu5
+        </div>
     </nav>
+    <div id="sign_button">
+        <div class="sign_button_inner">
+            <button>SignIn</button>
+        </div>
+        <div class="sign_button_inner">
+            <button>SignUp</button>
+        </div>
+    </div>
 </header>
 <main>
     <aside>
-        <div>
-            대쉬보드
-        </div>
-        <div>
-            공지글 목록
-            <!--등록/검색/수정/삭제-->
-        </div>
-        <div>
-            박람회 목록
-            <!--등록/검색/수정/삭제-->
-            <div>
+        <ul>
+            <li>
+                대쉬보드
+            </li>
+            <li>
+                공지글 목록
+            </li>
+            <li>
+                박람회 목록
+            </li>
+            <li>
                 참여 업체 목록
-                <!--등록/검색/수정/삭제-->
-            </div>
-        </div>
-        <div>
-            공고 목록
-            <!--등록/검색/수정/삭제-->
-        </div>
-        <div>
-            유료 서비스 관리
-        </div>
+            </li>
+            <li>
+                공고 목록
+            </li>
+            <li>
+                유료 서비스 관리
+            </li>
+        </ul>
     </aside>
     <article>
-        main_article
-        <table>
-            <c:forEach var="data" items="${dashboardData}">
-                <tr>
-                    <td>${data.name}</td>
-                    <td>${data.age}</td>
-                </tr>
-            </c:forEach>
-        </table>
-
         <div class="chart_bundle">
             <!-- Bar Chart -->
             <div>
@@ -107,6 +118,7 @@
 
     // PI Chart
     new Chart(ctxPi, {
+        plugins: [ChartDataLabels],
         type: 'pie',
         data: {
             labels: labels,
@@ -116,12 +128,44 @@
                     'rgba(255, 99, 132, 0.6)',
                     'rgba(75, 192, 192, 0.6)',
                     'rgba(255, 206, 86, 0.6)',
-                    'rgba(231, 233, 237, 0.6)',
-                    'rgba(54, 162, 235, 0.6)'
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(153, 102, 255, 0.6)',
+                    'rgba(255, 159, 64, 0.6)',
+                    'rgba(255, 129, 102, 0.6)',
+                    'rgba(52, 235, 164, 0.6)',
+                    'rgba(70, 130, 180, 0.6)',
+                    'rgba(231, 233, 237, 0.6)'
                 ]
             }]
+        },
+        options: {
+            plugins: {
+                datalabels: {
+                    display: true,
+                    formatter: (value, ctx) => {
+                        let sum = 0;
+                        let dataArr = ctx.chart.data.datasets[0].data;
+                        dataArr.map(data => {
+                            sum += data;
+                        });
+                        return /*(value * 100 / sum).toFixed(2)*/ null;
+                    },
+                    color: '#000'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            let value = context.raw;
+                            let sum = context.dataset.data.reduce((a, b) => a + b, 0);
+                            let percentage = (value * 100 / sum).toFixed(2);
+                            return percentage + `%`;
+                        }
+                    }
+                }
+            }
         }
     });
+
 
     // Line Chart
     new Chart(ctxLine, {

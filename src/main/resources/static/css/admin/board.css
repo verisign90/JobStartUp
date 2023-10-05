@@ -4,18 +4,74 @@ article table {
     font-size: larger;
 }
 
-#board_no {
-    width: 30px;
-    height: 50px;
+.img_jobfair {
+    height: 200px;
+    margin-right: 50px;
 }
 
-#board_title {
-    padding-left: 15px;
-    min-width: 350px;
+.jobfair_info {
+    display: flex;
+    align-items: center;
+}
+
+.jobfair_info_inner {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.jobfair_key {
+    width: 150px;
+    height: 30px;
+}
+
+.jobfair_value {
+    width: 500px;
+    height: 30px;
     overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-#board_date {
-    text-align: right;
+.jobfair_info_block {
+    display: flex;
+    align-items: center;
+}
+
+.jobfair_content {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    min-width: 900px;
+    max-width: 1500px;
+    overflow-x: hidden;
+}
+
+.jobfair_list {
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+}
+
+.board_no {
+    display: flex;
+    min-width: 30px;
+    height: 50px;
     padding-right: 50px;
+    justify-content: center;
+    align-items: center;
+}
+
+.board_title {
+    display: flex;
+    min-width: 500px;
+    width: 100%;
+    height: 50px;
+    align-items: center;
+}
+
+.board_date {
+    display: flex;
+    min-width: 260px;
+    height: 50px;
+    align-items: center;
 }
