@@ -46,13 +46,21 @@
     <aside>
         <ul>
             <li>
-                대쉬보드
+                <div class="aside_item">
+                    <a href="${pageContext.request.contextPath}/admin/dashboard">
+                        대쉬보드
+                    </a>
+                </div>
             </li>
             <li>
                 공지글 목록
             </li>
             <li>
-                박람회 목록
+                <div class="aside_item">
+                    <a href="${pageContext.request.contextPath}/admin/jobfairlist">
+                        박람회 목록
+                    </a>
+                </div>
             </li>
             <li>
                 참여 업체 목록
