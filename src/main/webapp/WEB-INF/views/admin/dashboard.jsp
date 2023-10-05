@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/base.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/chart.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 </head>
 <body>
@@ -107,6 +108,7 @@
 
     // PI Chart
     new Chart(ctxPi, {
+        plugins: [ChartDataLabels],
         type: 'pie',
         data: {
             labels: labels,
@@ -116,12 +118,44 @@
                     'rgba(255, 99, 132, 0.6)',
                     'rgba(75, 192, 192, 0.6)',
                     'rgba(255, 206, 86, 0.6)',
-                    'rgba(231, 233, 237, 0.6)',
-                    'rgba(54, 162, 235, 0.6)'
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(153, 102, 255, 0.6)',
+                    'rgba(255, 159, 64, 0.6)',
+                    'rgba(255, 129, 102, 0.6)',
+                    'rgba(52, 235, 164, 0.6)',
+                    'rgba(70, 130, 180, 0.6)',
+                    'rgba(231, 233, 237, 0.6)'
                 ]
             }]
+        },
+        options: {
+            plugins: {
+                datalabels: {
+                    display: true,
+                    formatter: (value, ctx) => {
+                        let sum = 0;
+                        let dataArr = ctx.chart.data.datasets[0].data;
+                        dataArr.map(data => {
+                            sum += data;
+                        });
+                        return /*(value * 100 / sum).toFixed(2)*/ null;
+                    },
+                    color: '#000'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            let value = context.raw;
+                            let sum = context.dataset.data.reduce((a, b) => a + b, 0);
+                            let percentage = (value * 100 / sum).toFixed(2);
+                            return percentage + `%`;
+                        }
+                    }
+                }
+            }
         }
     });
+
 
     // Line Chart
     new Chart(ctxLine, {

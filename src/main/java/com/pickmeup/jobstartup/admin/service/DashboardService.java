@@ -19,8 +19,8 @@ public class DashboardService {
     public List<DashboardDTO> getAllDashboardData() {
         return dashboardRepository.selectDashboardData();
     }
+    
     public List<AgeGroupDTO> getAgeGroupData() {
-        System.out.println("repository: " + dashboardRepository.selectAgeGroupData());
         return dashboardRepository.selectAgeGroupData();
     }
 }
