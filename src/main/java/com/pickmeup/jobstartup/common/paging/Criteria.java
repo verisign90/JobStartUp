@@ -17,8 +17,11 @@ public class Criteria {
     //화면 하단에 출력할 페이지 사이즈
     private int pageSize;
 
+    //category 유형
+    private String category;
+
     //검색 키워드
-    private String searchKeyword;
+    private String keyword;
 
     //검색 유형
     private String searchType;

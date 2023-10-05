@@ -29,13 +29,18 @@ public class NoticeController {
     @PostMapping("/write")
     public String write(NoticeDTO noticeDTO, @RequestParam("notFile_orgName") MultipartFile[] multipartFiles) throws Exception {
         noticeService.write(noticeDTO, multipartFiles);
-        return "/notice/list";
+        return "redirect:/notice/list";
     }
 
 
     //게시글 list
-    @GetMapping("/list")
-    public String getList(Criteria criteria, Model model) throws Exception {
+    @GetMapping(value = {"/list", "/list/{category}"})
+    public String getList(@PathVariable(required = false) String category, Criteria criteria, Model model) throws Exception {
+        if(category == null) {
+            category = "all";
+        }
+        System.out.println("category : "+category);
+        criteria.setCategory(category);
         PagingResponse<NoticeDTO> noticePage = noticeService.getList(criteria);
 
         //to jason
@@ -45,12 +50,22 @@ public class NoticeController {
         String noticePageJson = mapper.writeValueAsString(noticePage.getPagination());
         String criteriaJson = mapper.writeValueAsString(criteria);
 
-        System.out.println("pagination : "+noticePage.getPagination().toString());
-
         model.addAttribute("noticePage", noticePage);
         model.addAttribute("noticePageJson", noticePageJson);
         model.addAttribute("criteriaJson", criteriaJson);
         model.addAttribute("listJson", listJson);
+
+        switch (category) {
+            case "seeker" -> {
+                return "/notice/list_seeker";
+            } case "company" -> {
+                return "/notice/list_company";
+            }
+            case "all" -> {
+            }
+        }
         return "/notice/list";
     }
+
+
 }

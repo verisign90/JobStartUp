@@ -16,6 +16,7 @@ public class NoticeDTO {
     private LocalDateTime not_regDate;
     private LocalDateTime not_modDate;
     private List<NoticeFileDTO> fileDTOList;
+    private String not_category;
 
     @Builder
     public NoticeDTO(String not_title, String not_content) {

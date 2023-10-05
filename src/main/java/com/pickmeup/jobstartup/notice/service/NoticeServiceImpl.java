@@ -23,7 +23,7 @@ public class NoticeServiceImpl implements NoticeService {
 
     @Override
     public void write(NoticeDTO noticeDTO, MultipartFile[] multipartFiles) throws Exception {
-        String uploadPath = "C:/upload/notice/";
+        String uploadPath = "C:/jobStartUp_fileUpload/notice/";
         if(multipartFiles==null || multipartFiles[0].isEmpty()){
             noticeRepository.insertNoticeDTO(noticeDTO);
         } else {
