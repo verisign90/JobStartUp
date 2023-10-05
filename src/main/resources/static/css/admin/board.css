@@ -44,6 +44,7 @@ article table {
     min-width: 900px;
     max-width: 1500px;
     overflow-x: hidden;
+    padding-top: 50px;
 }
 
 .jobfair_list {
@@ -74,4 +75,9 @@ article table {
     min-width: 260px;
     height: 50px;
     align-items: center;
+}
+
+#registering_jobfair {
+    display: flex;
+    flex-direction: row-reverse;
 }
