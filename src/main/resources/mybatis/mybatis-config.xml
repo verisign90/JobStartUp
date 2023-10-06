@@ -15,7 +15,7 @@
     </typeAliases>
 
     <typeHandlers>
-        <typeHandler handler="com.pickmeup.jobstartup.config.MemberTypeHandler" />
+        <typeHandler handler="com.pickmeup.jobstartup.common.config.MemberTypeHandler" />
     </typeHandlers>
 
     <mappers>

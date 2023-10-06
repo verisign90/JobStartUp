@@ -1,6 +1,6 @@
-package com.pickmeup.jobstartup.repository;
+package com.pickmeup.jobstartup.common.repository;
 
-import com.pickmeup.jobstartup.entity.Member;
+import com.pickmeup.jobstartup.common.entity.Member;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 

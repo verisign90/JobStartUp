@@ -1,6 +1,6 @@
-package com.pickmeup.jobstartup.service;
+package com.pickmeup.jobstartup.common.service;
 
-import com.pickmeup.jobstartup.dto.JoinCommonDTO;
+import com.pickmeup.jobstartup.common.dto.JoinCommonDTO;
 
 public interface MemberService {
     //개인회원 아이디 중복 여부 검사

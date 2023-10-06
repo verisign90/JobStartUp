@@ -1,8 +1,8 @@
-package com.pickmeup.jobstartup.service;
+package com.pickmeup.jobstartup.common.service;
 
-import com.pickmeup.jobstartup.dto.JoinCommonDTO;
-import com.pickmeup.jobstartup.entity.Member;
-import com.pickmeup.jobstartup.repository.MemberRepository;
+import com.pickmeup.jobstartup.common.dto.JoinCommonDTO;
+import com.pickmeup.jobstartup.common.entity.Member;
+import com.pickmeup.jobstartup.common.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;

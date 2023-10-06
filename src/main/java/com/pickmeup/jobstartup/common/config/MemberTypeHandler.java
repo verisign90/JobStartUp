@@ -1,6 +1,6 @@
-package com.pickmeup.jobstartup.config;
+package com.pickmeup.jobstartup.common.config;
 
-import com.pickmeup.jobstartup.entity.MemberType;
+import com.pickmeup.jobstartup.common.entity.MemberType;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedJdbcTypes;

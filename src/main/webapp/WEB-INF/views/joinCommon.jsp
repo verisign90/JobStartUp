@@ -13,12 +13,13 @@
 <form action="/joinCommon" method="post" onsubmit="return onSubmitForm();">
    <div>
        <label for="member_id">아이디</label>
-       <input type="text" id="member_id" name="member_id" required>
-       <button type="button" onclick="checkDuplicate()">중복확인</button>
-   </div>
-   <div>
-      <label for="member_name">이름</label>
-      <input type="text" id="member_name" name="member_name" required>
+       <input type="text" id="member_id" name="member_id" required oninput="checkDuplicate()" placeholder="4~20자리 / 영문, 숫자, '_' 사용가능">
+       <p id="idCheckMsg"></p>
+       <c:forEach var="error" items="${errors}">
+           <c:if test="${error.field == 'member_id'}">
+               <p style="color: red;">${error.defaultMessage}</p>
+           </c:if>
+       </c:forEach>
    </div>
    <div>
        <label for="member_pw">비밀번호</label>
@@ -27,6 +28,16 @@
    <div>
        <label for="member_pw_confirm">비밀번호 확인</label>
        <input type="password" id="member_pw_confirm" name="member_pw_confirm" required>
+   </div>
+   <div>
+       <label for="member_name">이름</label>
+       <input type="text" id="member_name" name="member_name" required oninput="validateInput()" onblur="nameEmpty()" placeholder="이름 입력">
+       <p id="nameCheckMsg" style="color: red;"></p>
+        <c:forEach var="error" items="${errors}">
+           <c:if test="${error.field == 'member_name'}">
+               <p style="color: red;">${error.defaultMessage}</p>
+           </c:if>
+        </c:forEach>
    </div>
    <div>
        <label for="member_birth">생년월일</label>
@@ -62,102 +73,150 @@
    </div>
 </form>
 <script>
-    <%-- 아이디 중복 확인(추후 더 추가) --%>
-    function checkDuplicate() {
-        var memberId = document.getElementById("member_id").value;
+<%-- 아이디 유효성 검사 로직 --%>
+function isValidId(id) {
+    if (id.length < 4 || id.length > 20) {
+        return false;
+    }
 
-        if (!member_id) {
-            alert("아이디를 입력하세요.");
-            return;
-        }
+    const idPattern = /^[a-zA-Z0-9_]+$/;
+    return idPattern.test(id);
+}
 
+let timeoutId;
+function checkDuplicate() {
+    clearTimeout(timeoutId);
+
+    var memberId = document.getElementById("member_id").value;
+    var message = document.getElementById("idCheckMsg")
+
+    if (!isValidId(memberId)) {
+        message.innerText = "아이디는 4~20자의 영문, 숫자, '_'로 이루어져야 합니다.";
+        return;
+    }
+
+    if (!memberId) {
+        message.innerText = "아이디를 입력하세요.";
+        return;
+    }
+
+    timeoutId = setTimeout(() => {
         fetch('/checkDuplicate', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ member_id })
+                body: JSON.stringify({ member_id: memberId })
             })
             .then(response => response.json())
             .then(data => {
                 if (data.isDuplicate) {
-                    alert("이미 사용중인 아이디입니다.");
+                    message.innerText = "이미 사용 중인 아이디입니다.";
                 } else {
-                    alert("사용 가능한 아이디입니다.");
+                    message.innerText = "사용 가능한 아이디입니다.";
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert("오류가 발생했습니다. 다시 시도하세요.");
+                message.innerText = "오류가 발생했습니다. 다시 시도하세요.";
             });
+    }, 500);
+}
+
+<%-- 비밀번호 확인 --%>
+function validatePassword() {
+    var password = document.getElementById("member_pw").value;
+    var passwordConfirm = document.getElementById("member_pw_confirm").value;
+
+    if (password !== passwordConfirm) {
+        alert("비밀번호가 일치하지 않습니다.");
+        return false;
     }
+    return true;
+}
 
-    <%-- 비밀번호 확인 --%>
-    function validatePassword() {
-        var password = document.getElementById("member_pw").value;
-        var passwordConfirm = document.getElementById("member_pw_confirm").value;
+<%-- 카카오 주소 api 우편번호 찾기 --%>
+function sample6_execDaumPostcode() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+            var addr = '';  //주소 변수
+            var extraAddr = ''; //참고항목 변수
 
-        if (password !== passwordConfirm) {
-            alert("비밀번호가 일치하지 않습니다.");
-            return false;
-        }
-        return true;
-    }
-
-    <%-- 카카오 주소 api 우편번호 찾기 --%>
-    function sample6_execDaumPostcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                var addr = '';  //주소 변수
-                var extraAddr = ''; //참고항목 변수
-
-                if (data.userSelectedType === 'R') {
-                    addr = data.roadAddress;
-                } else {
-                    addr = data.jibunAddress;
-                }
-
-                if(data.userSelectedType === 'R'){
-                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                        extraAddr += data.bname;
-                    }
-                    if(data.buildingName !== '' && data.apartment === 'Y'){
-                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                    }
-                    if(extraAddr !== ''){
-                        extraAddr = ' (' + extraAddr + ')';
-                    }
-                    document.getElementById("sample6_extraAddress").value = extraAddr;
-
-                } else {
-                    document.getElementById("sample6_extraAddress").value = '';
-                }
-
-                document.getElementById('sample6_postcode').value = data.zonecode;
-                document.getElementById("sample6_address").value = addr;
-
-                document.getElementById("sample6_detailAddress").focus();
+            if (data.userSelectedType === 'R') {
+                addr = data.roadAddress;
+            } else {
+                addr = data.jibunAddress;
             }
-        }).open();
+
+            if(data.userSelectedType === 'R'){
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraAddr += data.bname;
+                }
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                if(extraAddr !== ''){
+                    extraAddr = ' (' + extraAddr + ')';
+                }
+                document.getElementById("sample6_extraAddress").value = extraAddr;
+
+            } else {
+                document.getElementById("sample6_extraAddress").value = '';
+            }
+
+            document.getElementById('sample6_postcode').value = data.zonecode;
+            document.getElementById("sample6_address").value = addr;
+
+            document.getElementById("sample6_detailAddress").focus();
+        }
+    }).open();
+}
+
+<%-- 주소 풀버전 만들기 --%>
+function address() {
+    var postcode = document.getElementById("sample6_postcode").value;
+    var address = document.getElementById("sample6_address").value;
+    var detailAddress = document.getElementById("sample6_detailAddress").value;
+    var extraAddress = document.getElementById("sample6_extraAddress").value;
+
+    document.getElementById("member_loc").value =
+        postcode + " " + address + " " + detailAddress + " " + extraAddress;
+}
+
+<%-- 폼 제출시 호출되는 함수 --%>
+function onSubmitForm() {
+    address();
+
+    return validatePassword();
+}
+
+<%-- 이름 유효성 검사 로직 --%>
+function validateInput() {
+    var nameInput = document.getElementById("member_name").value;
+    var message = document.getElementById("nameCheckMsg");
+
+    var namePattern = /^[a-zA-Z가-힣]+$/;
+
+    if (!namePattern.test(nameInput) && nameInput !== "") {
+        message.innerText = "이름에는 특수문자와 숫자를 사용할 수 없습니다.";
+    } else {
+        message.innerText = "";
     }
+}
 
-    <%-- 주소 풀버전 만들기 --%>
-    function address() {
-        var postcode = document.getElementById("sample6_postcode").value;
-        var address = document.getElementById("sample6_address").value;
-        var detailAddress = document.getElementById("sample6_detailAddress").value;
-        var extraAddress = document.getElementById("sample6_extraAddress").value;
+function nameEmpty() {
+    var nameInput = document.getElementById("member_name").value;
+    var message = document.getElementById("nameCheckMsg");
 
-        document.getElementById("member_loc").value =
-            postcode + " " + address + " " + detailAddress + " " + extraAddress;
+    if (!nameInput) {
+        message.innerText = "이름은 필수 입력 정보입니다.";
+    } else {
+        message.innerText = "";
     }
+}
 
-    <%-- 폼 제출시 호출되는 함수 --%>
-    function onSubmitForm() {
-        address();
 
-        return validatePassword();
-    }
+
 </script>
 </body>
 </html>

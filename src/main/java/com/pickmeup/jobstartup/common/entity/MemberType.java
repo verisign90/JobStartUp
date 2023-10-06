@@ -1,4 +1,4 @@
-package com.pickmeup.jobstartup.entity;
+package com.pickmeup.jobstartup.common.entity;
 
 public enum MemberType {
     COMMON("1"),

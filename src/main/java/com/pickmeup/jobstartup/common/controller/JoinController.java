@@ -1,7 +1,7 @@
-package com.pickmeup.jobstartup.controller;
+package com.pickmeup.jobstartup.common.controller;
 
-import com.pickmeup.jobstartup.dto.JoinCommonDTO;
-import com.pickmeup.jobstartup.service.MemberService;
+import com.pickmeup.jobstartup.common.dto.JoinCommonDTO;
+import com.pickmeup.jobstartup.common.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +34,7 @@ public class JoinController {
     public String joinCommon(@Valid @ModelAttribute JoinCommonDTO joinCommonDTO, BindingResult bindingResult, Model model) {
         //dto 유효성 검사
         if (bindingResult.hasErrors()) {
-            model.addAttribute("errorMessage", bindingResult.getFieldError().getDefaultMessage());
+            model.addAttribute("errors", bindingResult.getFieldErrors());
             return "joinCommon";
         }
 
@@ -57,8 +57,8 @@ public class JoinController {
     //개인회원 아이디 중복 확인
     @PostMapping("/checkDuplicate")
     public ResponseEntity<Map<String, Boolean>> checkDuplicate(@RequestBody Map<String, String> request) {
-        String memberId = request.get("memberId");
-        boolean isDuplicate = memberService.isDuplicateMemberId(memberId);
+        String member_id = request.get("member_id");
+        boolean isDuplicate = memberService.isDuplicateMemberId(member_id);
 
         Map<String, Boolean> response = new HashMap<>();
         response.put("isDuplicate", isDuplicate);

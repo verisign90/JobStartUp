@@ -29,6 +29,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.modelmapper:modelmapper:3.0.0'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.0'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
 
     //mail, chat, message
     implementation 'org.springframework.boot:spring-boot-starter-mail'
