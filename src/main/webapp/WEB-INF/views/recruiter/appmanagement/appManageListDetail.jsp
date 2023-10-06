@@ -10,9 +10,11 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css//recruiter/appManageListByMem.css">
-</head>
 
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/base.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/recruiter/appmanagement/appManageListDetail.css">
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/recruiter/appmanagement/appManageListDetail.js"></script>
+</head>
 
 <body>
 <div class="main-container">
@@ -56,16 +58,32 @@
                 지원 내용이라고 합니다
             </div>
             <div class="first-approval">
-                면접일자
-                <input type="date"/>
-                <input type="time"/>
-                <button type="button">등록</button>
-                <button type="button">반려</button>
+                <form action="/recruiter/firstEnroll" method="post">
+                    <input type="hidden" name="status_no" id="first_enroll" value="${selectInfo.status_no}">
+                    면접일자
+                    <input type="date" name="date" id="date_enroll"/>
+                    <input type="time" name="time" id="time_enroll"/>
+                    <button type="submit" class="first-enroll-button" id="first-enroll-button">등록</button>
+                    <fmt:formatDate value="${selectInfo.interview_date}" pattern="yyyy-MM-dd HH:mm" />
+                </form>
+                <form action="/recruiter/firstDenial" method="post">
+                    <input type="hidden" name="status_no" id="first_denial" value="${selectInfo.status_no}">
+                    <button type="button" class="first-denial-button">반려</button>
+                    ${selectInfo.first_pass}
+                </form>
             </div>
             <div class="last-approval">
                 최종 합격
-                <button type="button">등록</button>
-                <button type="button">반려</button>
+                <form action="/recruiter/finalEnroll" method="post">
+                    <input type="hidden" name="status_no" id="final_enroll" value="${selectInfo.status_no}">
+                    <button type="button" class="final-enroll-button">등록</button>
+                    ${selectInfo.final_pass}
+                </form>
+                <form action="/recruiter/finalDenial" method="post">
+                    <input type="hidden" name="status_no" id="final_denial" value="${selectInfo.status_no}">
+                    <button type="button" class="final-denial-button">반려</button>
+                    ${selectInfo.final_pass}
+                </form>
             </div>
         </div>
     </div>

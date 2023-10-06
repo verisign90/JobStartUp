@@ -21,7 +21,7 @@ public interface AppManageService {
 
 
     //채용관리 지원자 상세 페이지: 1차 면접일자 등록
-    int updateAppManageFirstEnroll(Map<String, Object> map);
+    int updateAppManageFirstEnroll(AppManageDTO appManageDTO);
 
     //채용관리 지원자 상세 페이지: 1차 면접일자 반려
     int updateAppManageFirstDenial(int status_no);

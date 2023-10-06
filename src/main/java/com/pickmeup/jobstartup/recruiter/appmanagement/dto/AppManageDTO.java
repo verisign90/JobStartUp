@@ -12,6 +12,7 @@ public class AppManageDTO {
     private int posting_no;
     private String first_pass;
     private String final_pass;
+    private String resume_no;
     private Date interview_date;
     private String member_id;
     private String member_name;
