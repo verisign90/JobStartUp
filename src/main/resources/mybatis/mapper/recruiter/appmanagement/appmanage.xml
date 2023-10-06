@@ -69,21 +69,11 @@
     </update>
 
     <!--채용관리 지원자 상세 페이지: 1차 메일링(안내)-->
-    <!--
-        <update id="updateAppManageFirstMail" parameterType="com.pickmeup.jobstartup.recruiter.appmanagement.dto.AppManageDTO">
-            <![CDATA[
 
 
-            ]]>
-        </update>
-    -->
 
     <!--채용관리 지원자 상세 페이지: 최종 메일링(안내)-->
-    <!--    <update id="updateAppManageLastMail" parameterType="com.pickmeup.jobstartup.recruiter.appmanagement.dto.AppManageDTO">
-            <![CDATA[
 
 
-            ]]>
-        </update>-->
 
 </mapper>

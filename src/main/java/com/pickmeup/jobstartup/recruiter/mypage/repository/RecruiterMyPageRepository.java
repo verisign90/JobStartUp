@@ -1,5 +1,13 @@
 package com.pickmeup.jobstartup.recruiter.mypage.repository;
 
+import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterCalendarDTO;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Mapper
+@Repository
 public interface RecruiterMyPageRepository {
 
     //기업 페이지: 회사 정보
@@ -10,6 +18,16 @@ public interface RecruiterMyPageRepository {
     //기업 페이지: 사진 수정
     //기업 페이지: pagination
 
+    //기업 페이지: calendar 입력
+    int insertRecruCalendar(RecruiterCalendarDTO recruiterCalendarDTO);
+
+    //기업 페이지: calendar 조회
+    List<RecruiterCalendarDTO> selectRecruCalendar(int company_no);
+
+    //기업 페이지: calendar 수정
+
+
+    //기업 페이지: calendar 삭제
 
 
 }

@@ -32,8 +32,6 @@ public class AppManageServiceImpl implements AppManageService{
 
 
 
-
-
     //채용관리 지원자 상세 페이지: 1차 면접일자 등록
     @Override
     public int updateAppManageFirstEnroll(AppManageDTO appManageDTO){

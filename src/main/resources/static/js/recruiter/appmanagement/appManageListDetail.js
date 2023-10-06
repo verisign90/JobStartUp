@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    /* 채용 절차(1차) 승인 */
+    /* 채용 절차(1차) 승인 및 면접일자 등록 */
     $(".first-enroll-button").on("click",function(){
         let status_no = document.getElementById("first_enroll").value;
         let date = document.getElementById("date_enroll").value;
@@ -29,7 +29,6 @@ $(document).ready(function(){
             }
         });
     });
-
 
     /* 채용 절차(1차) 반려 */
     $(".first-denial-button").on("click",function(){

@@ -1,45 +1,40 @@
-.main-container {
-  border: 1px solid red;
-  margin-top: 3em;
-  margin-right: 30px;
-  margin-left: 30px;
-  padding: 20px;
+/* <FullCalendar> https://fullcalendar.io/ */
+.calendar {
+    position: relative;
 }
 
-
-.title-container{
-    border: 1px solid black;
-    margin: auto;
-    box-shadow: 0.1px 0.1px
+/* 모달 스타일 */
+.modal {
+  display: none; /* 초기에 숨김 */
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.7);
 }
 
-.calendar-container{
-  border: 1px solid black;
-  margin-top: 10px;
-  height: 150px;
-  box-shadow: 0.1px 0.1px;
-  padding: 100px;
+.modal-content {
+  position: relative;
+  width: 700px;
+  height: auto;
+  MARGIN-TOP:30PX;
+  padding: 15px;
+  background: linear-gradient(180deg,#5164da 5%,#FFFFFE 5%);
+  box-shadow: 0 0px 2px 0 rgba( 31, 38, 135, 0.37 );
+  border-radius: 15px;
+  border: 1px rgba( 255, 255, 255, 0.18 );
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
-.calendar-edit{
-    border: 1px solid black;
-    margin: auto;
-    box-shadow: 0.1px 0.1px
+#closeBtn {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
 }
-
-.calendar-main{
-    border: 1px solid black;
-    margin: auto;
-    box-shadow: 0.1px 0.1px;
-}
-
-.table {
-  border-collapse: border-collapse;
-  margin: 5px;
-  border: 1px solid black;
-}
-
-th, td {
-  border: 1px solid black;
-}
-

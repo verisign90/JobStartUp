@@ -55,4 +55,37 @@
 
 
 
+
+    <!--기업 페이지: calendar 입력-->
+    <insert id="insertRecruCalendar" parameterType="com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterCalendarDTO">
+        <![CDATA[
+            INSERT INTO company_schedule(schedule_title, schedule_start, schedule_end, schedule_memo, company_no)
+            VALUES(#{schedule_title}, #{schedule_start}, #{schedule_end}, #{schedule_memo}, #{company_no});
+        ]]>
+    </insert>
+
+    <!--기업 페이지: calendar 조회 -->
+    <select id="selectRecruCalendar" parameterType="int" resultType="com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterCalendarDTO">
+        <![CDATA[
+            SELECT schedule_no, schedule_title, schedule_start, schedule_end, schedule_memo, company_no
+            FROM company_schedule
+            WHERE company_no = #{company_no}
+        ]]>
+    </select>
+
+    <!--기업 페이지: calendar 삭제-->
+
+
+
+
+
+
+    <!--기업 페이지: calendar 수정-->
+
+
+
+
+
+
+
 </mapper>
