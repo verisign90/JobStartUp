@@ -1,15 +1,10 @@
-/* <FullCalendar> https://fullcalendar.io/ */
+/* https://fullcalendar.io/ */
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     // new FullCalendar.Calendar(대상 DOM객체, {속성:속성값, 속성2:속성값2..})
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
-      headerToolbar: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay'
-      },
-      initialDate: '2021-04-12', // 초기 로딩 날짜.
+      locale: 'ko',
       navLinks: true, // can click day/week names to navigate views
       selectable: true,
       selectMirror: true,
@@ -17,16 +12,15 @@ document.addEventListener('DOMContentLoaded', function() {
       select: function(arg) {
           console.log(arg);
 
-        var title = prompt('입력할 일정:');
+        var schedule_title = prompt('입력할 일정:');
     // title 값이 있을때, 화면에 calendar.addEvent() json형식으로 일정을 추가
-        if (title) {
+        if (schedule_title) {
           calendar.addEvent({
-            title: title,
-            start: arg.start,
-            end: arg.end,
-            allDay: arg.allDay,
-            backgroundColor:"yellow",
-            textColor:"blue"
+            schedule_title: schedule_title,
+            schedule_start: arg.schedule_start,
+            schedule_end: arg.schedule_end,
+            schedule_memo: arg.schedule_memo,
+            company_no: arg.company_no,
           })
         }
         calendar.unselect()
@@ -42,14 +36,27 @@ document.addEventListener('DOMContentLoaded', function() {
       },
       editable: true,
       dayMaxEvents: true, // allow "more" link when too many events
-      events:
-      //================ ajax데이터 불러올 부분 =====================//
+      events:function(info, successCallback, failureCallback){
+              // ajax 처리로 데이터를 로딩 시킨다.
+              var company_no = 3;
+              $.ajax({
+                 type:"get",
+                 url:"calendar?company_no="+company_no,
+                 dataType:"json",
+                 success: function(data) {
+                     successCallback(data); // 데이터를 successCallback에 전달
+                 },
+                 error: function(xhr, status, error) {
+                     console.error("데이터 로딩 실패:", error);
+                     failureCallback(error);
+                 }
+              });
+      }
   });
-
-    calendar.render();
+  calendar.render();
 });
 
-// Modal 크기 조절
+// Calendar 일정 추가: 입력 창 Modal 크기 조절
 function openModal() {
     var url = "calendarPopup";
     var name = "recruiterCalendarPopUp";

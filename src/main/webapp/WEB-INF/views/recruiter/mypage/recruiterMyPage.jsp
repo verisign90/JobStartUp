@@ -18,6 +18,8 @@
 <body>
 <div class="main-container">
 
+    <div class="main-title-container"><h2>기업 페이지</h2></div>
+
     <div class="info-container">
         <div class="button-container">
             <button type="button" class="edit-button">정보 수정</button>
@@ -26,10 +28,10 @@
         <div class="info-main-container">
             <div class="profile">
                 <div class="profile-pic">
-                    사진
+                    사진(사진 출력 필요)
                 </div>
                 <div class="profile-edit-button-container">
-                    <button type="button" class="profile-edit-button">수정</button>
+                    <button type="button" class="profile-edit-button">프로필 수정</button>
                 </div>
             </div>
             <div class ="company-info">
@@ -39,6 +41,7 @@
     </div>
 
     <div class="status-container">
+        <div>버튼 클릭 - AJAX로 데이터 불러오기</div>
         <div class="content-label-container">
             <div class="content-label">박람회 현황</div>
             <div class="content-label">공고 관리</div>

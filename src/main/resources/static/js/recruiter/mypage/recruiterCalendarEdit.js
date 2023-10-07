@@ -1773,9 +1773,9 @@ var FullCalendar = (function (exports) {
             }
         },
         headerToolbar: {
-            start: 'title',
-            center: '',
-            end: 'addList today prev,next',
+            start: 'addList',
+            center: 'title',
+            end: 'today prev,next',
         },
         weekends: true,
         weekNumbers: false,
@@ -4204,7 +4204,7 @@ var FullCalendar = (function (exports) {
             prevYear: 'prev year',
             nextYear: 'next year',
             year: 'year',
-            today: 'today',
+            today: '오늘',
             month: 'month',
             week: 'week',
             day: 'day',

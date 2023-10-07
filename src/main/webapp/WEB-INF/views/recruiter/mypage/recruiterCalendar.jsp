@@ -24,11 +24,13 @@
 
 <body>
 
+<div class="main-container">
+    <div class="main-title-container"><h2>기업 페이지(일정)</h2></div>
     <div>
         ${recruiterCalendarDTOS}
     </div>
-
-
     <div id="calendar" class="calendar"></div>
+</div>
+
 </body>
 </html>

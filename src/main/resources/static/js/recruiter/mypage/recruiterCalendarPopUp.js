@@ -1,6 +1,5 @@
 $(document).ready(function(){
-
-    /* calendar */
+    /* calendar (Ajax 수정 예정) */
     $(".enroll_btn").on("click",function(){
         let schedule_title = document.getElementById("schedule_title").value;
         let schedule_start = document.getElementById("schedule_start").value;

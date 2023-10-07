@@ -19,6 +19,7 @@
 <body>
 <div class="main-container">
 
+    <div class="main-title-container"><h2>채용관리 페이지</h2></div>
     <div class="info-container">
         <div class="button-container">
             <button type="button" onclick="location.href='${pageContext.request.contextPath}/recruiter/myPage'" class="moving-button">기업페이지</button>
@@ -26,7 +27,7 @@
         <div class="info-main-container">
             <div class="profile">
                 <div class="profile-pic">
-                    ${selectResume.profile_savname}
+                    ${selectResume.profile_savname} (사진 출력 필요)
                 </div>
             </div>
             <div class ="company-info">
@@ -44,7 +45,7 @@
         </div>
         <div class="content-container">
             <div class="content">
-                지원 내용이라고 합니다
+                지원 내용이라고 합니다(파일 다운로드 포함)
             </div>
         </div>
     </div>
@@ -55,7 +56,7 @@
         </div>
         <div class="content-container">
             <div class="content">
-                지원 내용이라고 합니다
+                주의사항 안내 문구
             </div>
             <div class="first-approval">
                 <form action="/recruiter/firstEnroll" method="post">

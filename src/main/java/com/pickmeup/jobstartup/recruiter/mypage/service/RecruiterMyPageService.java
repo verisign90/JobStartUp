@@ -1,5 +1,6 @@
 package com.pickmeup.jobstartup.recruiter.mypage.service;
 
+import com.pickmeup.jobstartup.recruiter.appmanagement.dto.AppManageDTO;
 import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterCalendarDTO;
 
 import java.util.List;
@@ -7,6 +8,9 @@ import java.util.List;
 public interface RecruiterMyPageService {
 
     //기업 페이지: 회사 정보
+    AppManageDTO selectRecruiterInfo(int company_no);
+
+
     //기업 페이지: 1) 박람회 현황
     //기업 페이지: 2) 공고 관리
     //기업 페이지: 3) 지원자 관리
