@@ -6,6 +6,7 @@ import com.pickmeup.jobstartup.recruiter.appmanagement.service.AppManageService;
 
 import lombok.RequiredArgsConstructor;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,16 +45,10 @@ public class AppManageController {
 
 
 
-
     
     
     //(주의!!!!!!!!!!!) (예정) 공통 코드는 하나의 메서드로 묶기
 
-    
-    
-    
-    
-    
     //채용관리 지원자 상세 페이지: 1차 면접일자 승인
     @PostMapping("/firstEnroll")
     public String appManageFirstEnroll(@RequestParam String date, @RequestParam String time,
@@ -89,7 +84,7 @@ public class AppManageController {
 
     //채용관리 지원자 상세 페이지: 1차 면접일자 반려
     @PostMapping("/firstDenial")
-    public String appManageFirstDenial(@RequestParam int status_no, Model model){
+    public String appManageFirstDenial(@RequestParam int status_no, @NotNull Model model){
         //Business Logic
         int firstDenial = appManageService.updateAppManageFirstDenial(status_no);
 
@@ -106,7 +101,7 @@ public class AppManageController {
 
     //채용관리 지원자 상세 페이지: 최종 면접일자 승인
     @PostMapping("/finalEnroll")
-    public String appManageLastEnroll(@RequestParam int status_no, Model model){
+    public String appManageLastEnroll(@RequestParam int status_no, @NotNull Model model){
         //Business Logic
         int LastEnroll = appManageService.updateAppManageLastEnroll(status_no);
 
@@ -123,7 +118,7 @@ public class AppManageController {
 
     //채용관리 지원자 상세 페이지: 최종 면접일자 반려
     @PostMapping("/finalDenial")
-    public String appManageLastDenial(@RequestParam int status_no, Model model){
+    public String appManageLastDenial(@RequestParam int status_no, @NotNull Model model){
         //Business Logic
         int LastEnroll = appManageService.updateAppManageLastDenial(status_no);
 
@@ -140,6 +135,8 @@ public class AppManageController {
 
 
     //채용관리 지원자 상세 페이지: 1차 메일링(안내)
+
+
 
 
 
