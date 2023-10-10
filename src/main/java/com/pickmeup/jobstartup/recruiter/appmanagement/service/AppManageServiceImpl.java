@@ -32,11 +32,10 @@ public class AppManageServiceImpl implements AppManageService{
 
 
 
-
     //채용관리 지원자 상세 페이지: 1차 면접일자 등록
     @Override
-    public int updateAppManageFirstEnroll(Map<String, Object> map){
-        return appManageRepository.updateAppManageFirstEnroll(map);
+    public int updateAppManageFirstEnroll(AppManageDTO appManageDTO){
+        return appManageRepository.updateAppManageFirstEnroll(appManageDTO);
     };
 
     //채용관리 지원자 상세 페이지: 1차 면접일자 반려
@@ -57,8 +56,8 @@ public class AppManageServiceImpl implements AppManageService{
         return appManageRepository.updateAppManageLastDenial(status_no);
     };
 
-
     //채용관리 지원자 상세 페이지: 1차 메일링(안내)
+
     //채용관리 지원자 상세 페이지: 최종 메일링(안내)
 
 

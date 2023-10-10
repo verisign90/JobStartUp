@@ -5,8 +5,6 @@ import com.pickmeup.jobstartup.recruiter.appmanagement.dto.AppResumeDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
-import java.util.Map;
-
 @Mapper
 @Repository
 public interface AppManageRepository {
@@ -21,11 +19,10 @@ public interface AppManageRepository {
 
 
     //채용관리 지원자 상세 페이지: 1차 면접일자 등록
-    int updateAppManageFirstEnroll(Map<String, Object> map);
+    int updateAppManageFirstEnroll(AppManageDTO appManageDTO);
 
     //채용관리 지원자 상세 페이지: 1차 면접일자 반려
     int updateAppManageFirstDenial(int status_no);
-
 
     //채용관리 지원자 상세 페이지: 최종 면접일자 승인
     int updateAppManageLastEnroll(int status_no);
@@ -34,6 +31,8 @@ public interface AppManageRepository {
     int updateAppManageLastDenial(int status_no);
 
     //채용관리 지원자 상세 페이지: 1차 메일링(안내)
+
+
     //채용관리 지원자 상세 페이지: 최종 메일링(안내)
 
 
