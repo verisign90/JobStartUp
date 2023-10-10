@@ -15,49 +15,23 @@
         ]]>
     </select>
 
-    <!--기업 페이지: 1) 박람회 현황-->
-<!--
-    <select id="selectAppManageListByCom" resultType="">
-
-
-    </select>
--->
-
-    <!--기업 페이지: 2) 공고 관리-->
-<!--
-    <select id="selectAppManageListByCom" resultType="">
-
-
-    </select>
--->
-
-    <!--기업 페이지: 3) 지원자 관리-->
-    <select id="selectAppManageList" resultType="com.pickmeup.jobstartup.recruiter.appmanagement.dto.AppManageDTO">
+    <!--기업 페이지: 파일 - 저장된 로고 이름 확인 -->
+    <select id="selectComLogoName" parameterType="int" resultType="com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterFileDTO">
         <![CDATA[
-        SELECT s.status_no, s.member_no, s.posting_no, s.first_pass, s.final_pass, s.interview_date, p.company_no,
-                p.posting_title, p.posting_sdate, p.posting_edate
-        FROM application_status s JOIN job_posting p
-        ON s.posting_no = p.posting_no
-        WHERE company_no = #{company_no}
+            SELECT logo_orgname, logo_savname
+            FROM company
+            WHERE company_no = #{company_no}
         ]]>
     </select>
 
-    <!--기업 페이지: 정보 수정-->
-
-
-
-
-
-    <!--기업 페이지: 사진 수정-->
-
-
-
-
-
-    <!--기업 페이지: pagination-->
-
-
-
+    <!--기업 페이지: 파일 - 로고 수정(원본 삭제, 파일 업로드)-->
+    <update id="updateComLogo" parameterType="com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterFileDTO">
+        <![CDATA[
+            UPDATE company
+            SET logo_orgname = #{logo_orgname}, logo_savname = #{logo_savname}
+            WHERE company_no = #{company_no}
+        ]]>
+    </update>
 
     <!--기업 페이지: calendar 조회(수정중)-->
     <resultMap type="com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterCalendarDTO" id="scheduleList">
@@ -80,21 +54,5 @@
             VALUES(#{schedule_title}, #{schedule_start}, #{schedule_end}, #{schedule_memo}, #{company_no})
         ]]>
     </insert>
-
-
-    <!--기업 페이지: calendar 삭제-->
-
-
-
-
-
-
-    <!--기업 페이지: calendar 수정-->
-
-
-
-
-
-
 
 </mapper>

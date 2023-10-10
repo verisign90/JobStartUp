@@ -26,14 +26,19 @@
             <button type="button" class="edit-button">회원 탈퇴</button>
         </div>
         <div class="info-main-container">
-            <div class="profile">
-                <div class="profile-pic">
-                    사진(사진 출력 필요)
+            <form action="/recruiter/updateComLogo" method="POST" enctype="multipart/form-data">
+                <div class="profile">
+                    <div class="profile-pic">
+                        <img src="${imagePath}" id="preview"/>
+                    </div>
+                    <div class="profile-edit-button-container">
+                        <input type="hidden" class="profile-company-no" name="company_no" value="3">
+                        <input type="file" id="logoFile" name="logoFile" class="profile-edit-button" accept="image/*" required>
+                        <button type="submit" class="profile-edit-button">수정</button>
+                        <button type="button" onclick="location.href='/recruiter/downloadComLogo/${recruiterFileDTO.company_no}'">다운로드</button>
+                    </div>
                 </div>
-                <div class="profile-edit-button-container">
-                    <button type="button" class="profile-edit-button">프로필 수정</button>
-                </div>
-            </div>
+            </form>
             <div class ="company-info">
                 기업 정보
             </div>
