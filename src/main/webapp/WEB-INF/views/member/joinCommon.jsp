@@ -86,6 +86,8 @@
        <div id="certificationDiv" style="display: none;">
            <input type="text" id="member_hp2" placeholder="인증번호를 입력해 주세요">
            <button type="button" id="phone2Btn">확인</button>
+           <p id="countdown"></p>
+           <p id="hp2Msg"></p>
        </div>
    </div>
    <div>
@@ -342,20 +344,71 @@ function validatePhoneNumber() {
 }
 
 <%-- 핸드폰 본인인증 --%>
+var originalCode;
+
 $(document).ready(function(){
+    var countdownTimer;
+    var timeLeft = 180;
+
     $('#phone1Btn').click(function(){
-        if($('#phone1Btn').text() === '인증요청') {
-            $('#phone1Btn').text('재발송');
-            $('#certificationDiv').show();
-        } else {
-        }
+        var phoneNumber = $('#member_hp').val();
+
+        $.ajax({
+            url: '/phoneCheck',
+            type: 'POST',
+            data: { 'userPhoneNumber': phoneNumber },
+            success: function(response) {
+                $('#certificationDiv').show();
+                $('#phone1Btn').text('재발송');
+                timeLeft = 180;
+                startCountdown();
+            },
+            error: function(error) {
+                console.error('Error:', error);
+            }
+        });
     });
 
-    $('#phone2Btn').click(function(){
-        let member_hp2 = $('#member_hp2').val();
+$('#phone2Btn').click(function(){
+    var userEnteredCode = $('#member_hp2').val();
+
+    $.ajax({
+        url: '/verifyCode',
+        type: 'POST',
+        data: { 'userEnteredCode': userEnteredCode },
+        success: function(response) {
+            if(response.verified) {
+                $('#hp2Msg').text('인증이 완료되었습니다.');
+                $('#phone1Btn, #phone2Btn, #member_hp, #member_hp2').attr('disabled', 'disabled');
+            } else {
+                $('#hp2Msg').text('인증번호가 일치하지 않습니다. 다시 입력해 주세요');
+            }
+        },
+        error: function(error) {
+            console.error('Error:', error);
+        }
     });
 });
 
+<%-- 핸드폰 인증번호 입력 시간 3분 카운트다운 --%>
+    function startCountdown() {
+        clearInterval(countdownTimer);
+
+        countdownTimer = setInterval(function() {
+            var minutes = Math.floor(timeLeft / 60);
+            var seconds = timeLeft % 60;
+
+            $('#countdown').text('남은 시간: ' + minutes + '분 ' + seconds + '초');
+
+            timeLeft--;
+
+            if (timeLeft < 0) {
+                clearInterval(countdownTimer);
+                $('#hp2Msg').text('인증 시간이 만료되었습니다. 인증번호를 다시 받아주세요.');
+            }
+        }, 1000);
+    }
+});
 </script>
 </body>
 </html>

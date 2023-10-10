@@ -11,4 +11,6 @@ public interface MemberService {
 
     //회원 구분에 따른 메뉴ID 가져오기
     String getMemberMenuId(String memberType);
+
+    boolean sendSMS(String userPhoneNumber, String randomNumber);
 }

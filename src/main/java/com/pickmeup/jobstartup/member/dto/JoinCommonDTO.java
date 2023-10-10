@@ -31,8 +31,10 @@ public class JoinCommonDTO {
 
     @NotEmpty(message = "성별을 선택해 주세요")
     private String member_sex;
+
     @Pattern(regexp = "^\\d{3}\\d{3,4}\\d{4}$", message = "잘못된 휴대폰 번호입니다. 휴대폰 번호를 정확하게 입력해주세요.")
     private String member_hp;
+
     @Email(message = "올바른 이메일 형식이 아닙니다.")
     private String member_email;
     private String member_loc;
