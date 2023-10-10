@@ -18,24 +18,27 @@
         URL첨부<input type="text" name="resume_url" id="resume_url"/>
 
         <div>경력</div>
-        회사명<input type="text" name="career_company" id="career_company"/>
-        경력기간<input type="text" name="career_date" id="career_date"/>
-        경력직무<input type="text" name="business_type" id="business_type"/>
-        담당업무<input type="text" name="career_work" id="career_work"/>
+        회사명<input type="text" name="careerDTOList[0].career_company" id="career_company"/>
+        경력기간<input type="text" name="careerDTOList[0].career_date" id="career_date"/>
+        경력직무<input type="text" name="careerDTOList[0].business_type" id="business_type"/>
+        담당업무<input type="text" name="careerDTOList[0].career_work" id="career_work"/>
 
+        <!-- 자격증 -->
         <div>자격증</div>
-        자격증명<input type="text" name="cer_name" id="cer_name"/>
-        발급처<input type="text" name="cer_issuer" id="cer_issuer"/>
-        취득일자<input type="date" name="cer_date" id="cer_date"/>
+        자격증명<input type="text" name="certificateDTOList[0].cer_name" id="cer_name"/>
+        발급처<input type="text" name="certificateDTOList[0].cer_issuer" id="cer_issuer"/>
+        취득일자<input type="date" name="certificateDTOList[0].cer_date" id="cer_date"/>
 
+        <!-- 언어 -->
         <div>언어</div>
-        언어명<input type="text" name="lang_name" id="lang_name"/>
-        회화능력<input type="text" name="lang_level" id="lang_level"/>
+        언어명<input type="text" name="languageDTOList[0].lang_name" id="lang_name"/>
+        회화능력<input type="text" name="languageDTOList[0].lang_level" id="lang_level"/>
 
+        <!-- 어학 자격증 -->
         <div>어학 자격증</div>
-        자격증명<input type="text" name="lang_cer_exam" id="lang_cer_exam"/>
-        등급 및 점수<input type="text" name="lang_cer_grade" id="lang_cer_grade"/>
-        취득일자<input type="date" name="lang_cer_date" id="lang_cer_date"/>
+        자격증명<input type="text" name="languageCertificateDTOList[0].lang_cer_exam" id="lang_cer_exam"/>
+        등급 및 점수<input type="text" name="languageCertificateDTOList[0].lang_cer_grade" id="lang_cer_grade"/>
+        취득일자<input type="date" name="languageCertificateDTOList[0].lang_cer_date" id="lang_cer_date"/>
 
         <input type="submit" name="submitBtn" id="submitBtn" value="등록">
     </form>
