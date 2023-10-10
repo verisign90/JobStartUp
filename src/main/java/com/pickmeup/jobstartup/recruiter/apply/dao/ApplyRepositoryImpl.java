@@ -1,8 +1,6 @@
 package com.pickmeup.jobstartup.recruiter.apply.dao;
 
-import com.pickmeup.jobstartup.recruiter.apply.dto.ApplyDTO;
-import com.pickmeup.jobstartup.recruiter.apply.dto.FileDTO;
-import com.pickmeup.jobstartup.recruiter.apply.dto.LocDTO;
+import com.pickmeup.jobstartup.recruiter.apply.dto.*;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -17,6 +15,7 @@ public class ApplyRepositoryImpl implements ApplyRepository {
 
     @Override
     public void insertInfo(ApplyDTO applyDTO){
+        System.out.println("repository의 insertInfo까지왔음");
         sqlSession.insert("apply.insertInfo",applyDTO);
     }
 
@@ -30,5 +29,21 @@ public class ApplyRepositoryImpl implements ApplyRepository {
 
     public void insertFile(FileDTO fildDTO) {
         sqlSession.insert("apply.insertFile",fildDTO);
+    }
+
+    public ApplyDTO getCompanyNo() {
+
+       return sqlSession.selectOne("apply.getCompanyNo");
+    }
+    public List<JobDTO> getBusiness_type_code_up(){
+        return sqlSession.selectList("apply.getBusiness_type_code_up");
+    }
+
+    public List<JobDTO> getBusiness_type_code(String business_type_code_up){
+        return sqlSession.selectList("apply.getBusiness_type_code",business_type_code_up);
+    }
+
+    public void insertTest(TestDTO testDTO){
+        sqlSession.insert("apply.insertTest",testDTO);
     }
 }

@@ -12,6 +12,8 @@
         <typeAlias alias="LanguageCertificateDTO" type="com.pickmeup.jobstartup.resume.dto.LanguageCertificateDTO"/>
         <typeAlias alias="ResumeLocDTO" type="com.pickmeup.jobstartup.resume.dto.ResumeLocDTO"/>
         <typeAlias alias="FileDTO" type="com.pickmeup.jobstartup.recruiter.apply.dto.FileDTO"/>
+        <typeAlias alias="JobDTO" type="com.pickmeup.jobstartup.recruiter.apply.dto.JobDTO"/>
+        <typeAlias alias="TestDTO" type="com.pickmeup.jobstartup.recruiter.apply.dto.TestDTO"/>
     </typeAliases>
 
     <typeHandlers>

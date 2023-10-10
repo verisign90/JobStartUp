@@ -1,8 +1,6 @@
 package com.pickmeup.jobstartup.recruiter.apply.dao;
 
-import com.pickmeup.jobstartup.recruiter.apply.dto.ApplyDTO;
-import com.pickmeup.jobstartup.recruiter.apply.dto.FileDTO;
-import com.pickmeup.jobstartup.recruiter.apply.dto.LocDTO;
+import com.pickmeup.jobstartup.recruiter.apply.dto.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -19,4 +17,12 @@ public interface ApplyRepository {
     public List<LocDTO> getLowerLoc(String upperLoc);
 
     public void insertFile(FileDTO fileDTO);
+
+    public ApplyDTO getCompanyNo();
+
+    public List<JobDTO> getBusiness_type_code_up();
+
+    public List<JobDTO> getBusiness_type_code(String business_type_code);
+
+    public void insertTest(TestDTO testDTO);
 }
