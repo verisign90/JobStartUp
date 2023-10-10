@@ -13,7 +13,7 @@
     <!-- 기업 페이지 (일반) -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/base.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css//recruiter/mypage/recruiterMyPage.css">
-
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/recruiter/mypage/recruiterMyPage.js"></script>
 </head>
 <body>
 <div class="main-container">
@@ -29,12 +29,12 @@
             <form action="/recruiter/updateComLogo" method="POST" enctype="multipart/form-data">
                 <div class="profile">
                     <div class="profile-pic">
-                        <img src="${imagePath}" id="preview"/>
+                        <img id="preview" src="${pageContext.request.contextPath}/recruiter/printComLogo?company_no=${recruiterFileDTO.company_no}"/>
                     </div>
                     <div class="profile-edit-button-container">
                         <input type="hidden" class="profile-company-no" name="company_no" value="3">
-                        <input type="file" id="logoFile" name="logoFile" class="profile-edit-button" accept="image/*" required>
-                        <button type="submit" class="profile-edit-button">수정</button>
+                        <input type="file" id="logoFile" name="logoFile" accept="image/*" required>
+                        <button type="button" id="profile-edit-button">수정</button>
                         <button type="button" onclick="location.href='/recruiter/downloadComLogo/${recruiterFileDTO.company_no}'">다운로드</button>
                     </div>
                 </div>
@@ -48,9 +48,15 @@
     <div class="status-container">
         <div>버튼 클릭 - AJAX로 데이터 불러오기</div>
         <div class="content-label-container">
-            <div class="content-label">박람회 현황</div>
-            <div class="content-label">공고 관리</div>
-            <div class="content-label">지원자 관리</div>
+            <div class="content-label">
+                박람회 현황
+            </div>
+            <div class="content-label">
+                공고 관리
+            </div>
+            <div class="content-label">
+                지원자 관리
+            </div>
         </div>
 
         <div class="content-container">

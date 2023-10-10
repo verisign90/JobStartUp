@@ -4,14 +4,18 @@ import com.pickmeup.jobstartup.recruiter.appmanagement.dto.AppManageDTO;
 import com.pickmeup.jobstartup.recruiter.appmanagement.dto.AppResumeDTO;
 import com.pickmeup.jobstartup.recruiter.appmanagement.service.AppManageService;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
+import org.apache.commons.io.FileUtils;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -42,10 +46,24 @@ public class AppManageController {
     }
 
     //채용관리 지원자 상세 페이지: 2) 지원자 이력 정보 - 파일 다운로드
+    @RequestMapping("/downloadAppFiles/{status_no}")
+    public void download(@PathVariable int company_no, HttpServletResponse response) throws Exception{
+
+        //예정
+        String orgname = " ";
+        String savname = " ";
+
+        byte[] fileByte = FileUtils.readFileToByteArray(new File("C:\\jobStartUp_fileUpload\\"+savname));
+        response.setContentType("application/octet-stream");    //파일유형설정
+        response.setContentLength(fileByte.length);             //파일길이설정
+        response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(orgname,"UTF-8")+"\";"); //데이터형식/성향설정 (attachment: 첨부파일)
+        response.setHeader("Content-Transfer-Encoding", "binary");         //내용물 인코딩방식설정
+        response.getOutputStream().write(fileByte);             //버퍼의 출력스트림을 출력
+        response.getOutputStream().flush();                     //버퍼에 남아있는 출력스트림을 출력
+        response.getOutputStream().close();                     //출력스트림을 닫는다
+    }
 
 
-
-    
     
     //(주의!!!!!!!!!!!) (예정) 공통 코드는 하나의 메서드로 묶기
 
