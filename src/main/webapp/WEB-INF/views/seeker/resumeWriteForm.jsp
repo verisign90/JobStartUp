@@ -7,13 +7,13 @@
 </head>
 <body>
     <form action="${cPath}/seeker/resumeWrite" method="POST" enctype="multipart/form-data">
-        <input type="hidden" name="member_no" id="member_no" value="3"/>
+        <input type="hidden" name="member_no" id="member_no" value="1"/>
         <input type="text" name="resume_title" id="resume_title" placeholder="제목"/>
         <input type="file" name="profileOrgNameFile" id="profileOrgNameFile" placeholder="프로필사진"/>
         <input type="hidden" name="profile_savname" id="profile_savname" value="test"/>
         <input type="text" name="resume_money" id="resume_money" value="30000000"/>
         <input type="text" name="resume_skill" id="resume_skill" value="업무능력"/>
-        희망근무지역<input type="text" name="loc_detail_code_num" id="loc_detail_code_num"/>
+        희망근무지역<input type="text" name="resumeLocDTOList[0].loc_detail_code_num" id="loc_detail_code_num"/>
         첨부파일<input type="file" name="resumeOrgNameFile" id="resumeOrgNameFile"/>
         URL첨부<input type="text" name="resume_url" id="resume_url"/>
 

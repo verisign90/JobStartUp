@@ -33,6 +33,7 @@
             </c:forEach>
         </c:if>
         </tbody>
+        <a href="${cPath }/seeker/resumeWrite"><button type="button">글작성</button></a>
     </table>
 </body>
 </html>

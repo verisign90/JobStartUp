@@ -7,7 +7,10 @@
 </head>
 <body>
     ${resumeDetail}
+    ${resumeDetail.languageCertificateDTOList[0].lang_no}
+    <img src="/image/resume/${resumeDetail.profile_savname}"/>
+    <img src="/image/resume/${resumeDetail.resume_savname}"/>
     <a href="${cPath }/seeker/resumeModify"><button type="button">수정</button></a>
-    <a href="${cPath }/seeker/resumeDelete?resume_no=${resumeDetail.resume_no}"><button type="button">삭제</button></a>
+    <a href="${cPath }/seeker/resumeDelete?resume_no=${resumeDetail.resume_no}&lang_no=${resumeDetail.languageCertificateDTOList[0].lang_no}"><button type="button">삭제</button></a>
 </body>
 </html>

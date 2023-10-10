@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="languageCertificate">
+<mapper namespace="com.pickmeup.jobstartup.resume.repository.ResumeRepository">
     <insert id="insertLanguageCertificate" parameterType="LanguageCertificateDTO">
-        <![CDATA[
-            INSERT INTO (LANG_NO, LANG_CER_EXAM, LANG_CER_GRADE, LANG_CER_DATE)
-            VALUES (#{lang_no}, #{lang_cer_exam}, #{lang_cer_grade}, #{lang_cer_date})
-        ]]>
+        INSERT INTO LANGUAGE_CERTIFICATE (LANG_NO, LANG_CER_EXAM, LANG_CER_GRADE, LANG_CER_DATE)
+        VALUES
+        <foreach collection="languageCertificateDTOList" item="languageCertificateDTO" separator=",">
+            (#{languageCertificateDTO.lang_no}, #{languageCertificateDTO.lang_cer_exam}, #{languageCertificateDTO.lang_cer_grade}, #{languageCertificateDTO.lang_cer_date})
+        </foreach>
     </insert>
+
+    <delete id="deleteLanguageCertificate" parameterType="int">
+        <![CDATA[
+        DELETE LANGUAGE_CERTIFICATE
+        WHERE LANG_NO = #{lang_no}
+        ]]>
+    </delete>
 </mapper>

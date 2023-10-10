@@ -1,20 +1,16 @@
 package com.pickmeup.jobstartup.resume.controller;
 
 import com.pickmeup.jobstartup.resume.dto.*;
-import com.pickmeup.jobstartup.resume.repository.CertificateRepository;
-import com.pickmeup.jobstartup.resume.repository.LanguageRepository;
-import com.pickmeup.jobstartup.resume.repository.ResumeRepositoryImpl;
 import com.pickmeup.jobstartup.resume.service.ResumeServiceImpl;
-import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -38,7 +34,7 @@ public class ResumeController {
 
     //이력서 상세 조회
     @RequestMapping ("/resumeDetail")
-    public String resumeDetail (Model model,@RequestParam int resume_no) {
+    public String resumeDetail (Model model, @RequestParam int resume_no) {
         logger.info("ResumeController-resumeDetail() 진입");
         ResumeDTO resumeDetial = resumeService.selectResumeDetail(resume_no);
         logger.info("resumeDetail: {}", resumeDetial);
@@ -47,10 +43,13 @@ public class ResumeController {
     }
 
     //이력서 삭제
-    @RequestMapping ("/resumeDelete")
-    public String resumeDelete (@RequestParam int resume_no) {
+    @GetMapping ("/resumeDelete")
+    public String resumeDelete (@RequestParam int resume_no, @RequestParam int lang_no) {
         logger.info("ResumeController-resumeDelete() 진입");
-        resumeService.deleteResume(resume_no);
+
+        logger.info("ResumeController-resumeDelete lang_no: {}", lang_no);
+
+        resumeService.deleteResumeAttached(resume_no, lang_no);
         return String.format("redirect:/seeker/resumeList");
     }
 
@@ -61,38 +60,11 @@ public class ResumeController {
         return "seeker/resumeWriteForm";
     }
 
-    //이력서 등록 처리
-    /*@PostMapping ("/resumeWrite")
-    public String resumeWrite (@ModelAttribute ResumeDTO resumeDTO,
-                               @ModelAttribute List<ResumeLocDTO> resumeLocDTO,
-                               @ModelAttribute List<CareerDTO> careerDTO,
-                               @ModelAttribute List<CertificateDTO> certificateDTO,
-                               @ModelAttribute List<LanguageDTO> languageDTO,
-                               @ModelAttribute List<LanguageCertificateDTO> languageCertificateDTO,
-                               @RequestParam MultipartFile profileOrgNameFile,
-                               @RequestParam MultipartFile resumeOrgNameFile) {
-        logger.info("ResumeController-resumeWrite() 진입");
-        logger.info("resumeDTO: {}", resumeDTO);
-
-        String profileOrgName = profileOrgNameFile.getOriginalFilename();
-        String resumeOrgName = resumeOrgNameFile.getOriginalFilename();
-
-        resumeDTO.setProfile_orgname(profileOrgName);
-        resumeDTO.setResume_orgname(resumeOrgName);
-
-        resumeService.insertResume(resumeDTO, resumeLocDTO, careerDTO, certificateDTO, languageDTO, languageCertificateDTO);
-        return String.format("redirect:/seeker/resumeList");
-    }*/
-
+    //이력서 작성 처리
     @PostMapping ("/resumeWrite")
     public String resumeWrite (@ModelAttribute ResumeDTO resumeDTO,
-                               @ModelAttribute CareerDTO careerDTO,
-                               @ModelAttribute CertificateDTO certificateDTO,
-                               @ModelAttribute LanguageDTO languageDTO,
-                               @ModelAttribute LanguageCertificateDTO languageCertificateDTO,
-                               @ModelAttribute ResumeLocDTO resumeLocDTO,
                                @RequestParam MultipartFile profileOrgNameFile,
-                               @RequestParam MultipartFile resumeOrgNameFile) {
+                               @RequestParam MultipartFile resumeOrgNameFile) throws IOException {
         logger.info("ResumeController-resumeWrite() 진입");
 
         String profileOrgName = profileOrgNameFile.getOriginalFilename();
@@ -102,10 +74,18 @@ public class ResumeController {
         resumeDTO.setResume_orgname(resumeOrgName);
 
         logger.info("resumeDTO : {}", resumeDTO);
-        logger.info("resumeDTO.getLanguageDTOList() : {}", resumeDTO.getLanguageDTOList());
 
-
-        resumeService.insertResume(resumeDTO);
+        resumeService.insertResumeAttached(resumeDTO, profileOrgNameFile, resumeOrgNameFile);
         return String.format("redirect:/seeker/resumeList");
+    }
+
+    //이력서 수정폼 요청
+    @GetMapping ("/resumeModify")
+    public String resumeModifyForm (@RequestParam int resume_no) {
+        logger.info("ResumeController-resumeModifyForm() 진입");
+
+        ResumeDTO resumeDTO = resumeService.selectResumeDetail(resume_no);
+
+        return "seeker/resumeModifyForm";
     }
 }
