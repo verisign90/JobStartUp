@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.pickmeup.jobstartup.repository.MemberRepository">
+<mapper namespace="com.pickmeup.jobstartup.member.repository.MemberRepository">
     <!-- 개인회원 아이디 중복 확인 -->
     <select id="countByMemberId" resultType="int">
         select count(*) from member where member_id = #{member_id}
