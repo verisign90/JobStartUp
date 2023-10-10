@@ -1,9 +1,7 @@
 package com.pickmeup.jobstartup.recruiter.apply.service;
 
 
-import com.pickmeup.jobstartup.recruiter.apply.dto.ApplyDTO;
-import com.pickmeup.jobstartup.recruiter.apply.dto.FileDTO;
-import com.pickmeup.jobstartup.recruiter.apply.dto.LocDTO;
+import com.pickmeup.jobstartup.recruiter.apply.dto.*;
 
 import org.springframework.stereotype.Service;
 
@@ -20,7 +18,12 @@ public interface ApplyService {
 
     public void insertFile(List<FileDTO> fileDTOList);
 
-    public void getCompanyNo();
+    public ApplyDTO getCompanyNo();
 
 
+    public List<JobDTO> getBusiness_type_code_up();
+
+    public List<JobDTO> getBusiness_type_code(String business_type_code_up);
+
+    public void insertTest(TestDTO testDTO);
 }

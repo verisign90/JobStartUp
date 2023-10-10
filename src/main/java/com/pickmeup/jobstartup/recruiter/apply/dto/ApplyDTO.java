@@ -8,7 +8,7 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 public class ApplyDTO {
-
+    private int company_no;
     private int member_no;
     private String company_name;
     private String company_hp;
@@ -19,6 +19,7 @@ public class ApplyDTO {
     private String company_sales;
     private String logo_orgname;
     private String logo_savname;
+    private String company_address_detail;
 
 
     @Builder

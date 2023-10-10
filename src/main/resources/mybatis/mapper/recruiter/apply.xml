@@ -2,25 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="apply">
-    <select id="insertApply" resultType="com.pickmeup.jobstartup.recruiter.apply.dto.ApplyDTO">
-
-    </select>
-
     <select id="getCompanyNo" resultType="com.pickmeup.jobstartup.recruiter.apply.dto.ApplyDTO">
         <![CDATA[
         SELECT *
-        from company
-        where
+        FROM company
+        WHERE company_no = (SELECT MAX(company_no) FROM company)
         ]]>
-
     </select>
+
+
 
 
     <insert id="insertInfo" parameterType="ApplyDTO">
 
         <![CDATA[
-        insert into company (member_no,company_name,company_hp,ceo_name,company_type,business_type_code,company_address_code,company_sales,logo_orgname,logo_savname)
-        values(#{member_no},#{company_name},#{company_hp},#{ceo_name},#{company_type},#{business_type_code},#{company_address_code},#{company_sales},#{logo_orgname},#{logo_savname})
+        insert into company (member_no,company_name,company_hp,ceo_name,company_type,business_type_code,company_address_code,company_sales,logo_orgname,logo_savname,company_address_detail)
+        values(#{member_no},#{company_name},#{company_hp},#{ceo_name},#{company_type},#{business_type_code},#{company_address_code},#{company_sales},#{logo_orgname},#{logo_savname},#{company_address_detail})
         ]]>
     </insert>
 
@@ -54,4 +51,28 @@
         values(#{company_no},#{cfile_orgname},#{cfile_savname})
         ]]>
     </insert>
+
+    <select id="getBusiness_type_code_up" resultType="com.pickmeup.jobstartup.recruiter.apply.dto.JobDTO">
+        <![CDATA[
+        select * from detail_code
+        where group_code = 300 and code_level = 1
+        ]]>
+    </select>
+
+
+    <select id="getBusiness_type_code" resultType="com.pickmeup.jobstartup.recruiter.apply.dto.JobDTO" parameterType="String">
+        <![CDATA[
+        select * from detail_code
+        where parents_code = #{business_type_code_up}
+        ]]>
+
+    </select>
+
+    <select id="insertTest"  parameterType="TestDTO">
+        <![CDATA[
+        insert into test(test_id,first_name)
+        values(#{test_id},#{first_name})
+        ]]>
+
+    </select>
 </mapper>

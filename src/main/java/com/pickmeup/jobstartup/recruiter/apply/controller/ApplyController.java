@@ -1,8 +1,6 @@
 package com.pickmeup.jobstartup.recruiter.apply.controller;
 
-import com.pickmeup.jobstartup.recruiter.apply.dto.ApplyDTO;
-import com.pickmeup.jobstartup.recruiter.apply.dto.FileDTO;
-import com.pickmeup.jobstartup.recruiter.apply.dto.LocDTO;
+import com.pickmeup.jobstartup.recruiter.apply.dto.*;
 
 import com.pickmeup.jobstartup.recruiter.apply.service.ApplyService;
 import com.pickmeup.jobstartup.recruiter.apply.service.ApplyServiceImpl;
@@ -27,13 +25,31 @@ public class ApplyController {
     @Autowired
     public ApplyServiceImpl applyService;
 
+    @GetMapping("/test")
+    public String test(){
+
+        return "recruiter/test";
+    }
+
+    @PostMapping("/test")
+    public String insertTest(@ModelAttribute TestDTO testDTO){
+        System.out.println("testDTO 내용"+testDTO);
+        applyService.insertTest(testDTO);
+        return String.format("redirect:/test");
+    }
+
+
+
 
     @GetMapping("/apply")
     public String selectSample(Model model) {
         List<LocDTO> upperLoc = applyService.getUpperLoc();
+        List<JobDTO> upperJob = applyService.getBusiness_type_code_up();
         System.out.println("여기는 apply 컨트롤러");
         model.addAttribute("upperLoc", upperLoc);
+        model.addAttribute("upperJob", upperJob);
         System.out.println(upperLoc);
+        System.out.println(upperJob);
 
         return "recruiter/approvalRequest";
     }
@@ -43,6 +59,8 @@ public class ApplyController {
     @PostMapping("/apply")
     public String insertInfo(@ModelAttribute ApplyDTO applyDTO,@RequestParam("document") MultipartFile[] files,@RequestParam("logo") MultipartFile logoFile){
         System.out.println("여기는 apply post컨트롤러1");
+        System.out.println("상세주소"+applyDTO.getCompany_address_detail());
+
         //여기는 로고첨부
         if (!logoFile.isEmpty()) {
             try {
@@ -90,14 +108,22 @@ public class ApplyController {
                 }
             }
         }
+        System.out.println("applyDTO 인설트 전~~~~~~~~~~~~~~~~~");
+        System.out.println("applyDTO의 detail_code_num형태"+ applyDTO.getBusiness_type_code().getClass().getName());
+        System.out.println("applyDTO의 detail_code_num값"+ applyDTO.getBusiness_type_code());
+        //company테이블입력
         applyService.insertInfo(applyDTO);
-        applyService.getCompanyNo();
+
+        //company_no값을 가져오기
+        int company_no= applyService.getCompanyNo().getCompany_no();
+        System.out.println("company_no는 ~~~~~~~~" + company_no);
         for (FileDTO fileDTO : fileDTOList) {
             System.out.println("test FileDTO" + fileDTO);
+            fileDTO.setCompany_no(company_no);
         }
         applyService.insertFile(fileDTOList);
         System.out.println("여기는 apply post컨트롤러2");
-        return "recruiter/approvalRequest";
+        return String.format("redirect:/apply");
     }
 
     @GetMapping("/getLowerLoc")
@@ -105,6 +131,13 @@ public class ApplyController {
     public List<LocDTO> getLowerLoc(@RequestParam String upperLoc) {
         System.out.println(applyService.getLowerLoc(upperLoc));
         return applyService.getLowerLoc(upperLoc);
+    }
+
+    @GetMapping("/getBusiness_type_code_up")
+    @ResponseBody
+    public List<JobDTO> getBusiness_type_code(@RequestParam String business_type_code_up) {
+       // System.out.println(applyService.getLowerLoc(business_type_code_up));
+        return applyService.getBusiness_type_code(business_type_code_up);
     }
 
 
