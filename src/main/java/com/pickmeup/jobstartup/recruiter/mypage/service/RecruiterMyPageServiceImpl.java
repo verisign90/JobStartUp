@@ -1,20 +1,28 @@
 package com.pickmeup.jobstartup.recruiter.mypage.service;
 
 import com.pickmeup.jobstartup.recruiter.appmanagement.dto.AppManageDTO;
+import com.pickmeup.jobstartup.recruiter.appmanagement.dto.AppManageFileDTO;
 import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterCalendarDTO;
+import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterFileDTO;
 import com.pickmeup.jobstartup.recruiter.mypage.repository.RecruiterMyPageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class RecruiterMyPageServiceImpl implements RecruiterMyPageService{
 
     @Autowired
-    RecruiterMyPageRepository recruiterMyPageRepository;
+    private RecruiterMyPageRepository recruiterMyPageRepository;
 
     //기업 페이지: 회사 정보
     @Override
@@ -23,11 +31,55 @@ public class RecruiterMyPageServiceImpl implements RecruiterMyPageService{
     };
 
 
-    //기업 페이지: 1) 박람회 현황
-    //기업 페이지: 2) 공고 관리
-    //기업 페이지: 3) 지원자 관리
-    //기업 페이지: 정보 수정
-    //기업 페이지: 사진 수정
+    //기업 페이지: 1) 박람회 현황(Ajax)
+    //기업 페이지: 2) 공고 관리(Ajax)
+    //기업 페이지: 3) 지원자 관리(Ajax)
+    //기업 페이지: 정보 수정 리스트 (또는 approval 담당의 jsp 이용)
+    //기업 페이지: 정보 수정 (또는 approval 담당의 jsp 이용)
+
+    //기업 페이지: 파일 - 저장된 로고 이름 확인
+    @Override
+    public RecruiterFileDTO selectComLogoName(int company_no){
+        return recruiterMyPageRepository.selectComLogoName(company_no);
+    };
+
+    //기업 페이지: 파일 - 로고 수정(원본 삭제, 파일 업로드)
+    @Override
+    public int updateComLogo(MultipartFile logoFile, int company_no, String savedSavname){
+        if (!logoFile.isEmpty()) {
+            //1. 삭제: Logo Delete (saved file delete)
+            String DeleteDir = "C:\\JobStartUp_fileUpload";
+            String DeletefilePath = DeleteDir + File.separator + savedSavname;
+            File fileToDelete = new File(DeletefilePath);
+            fileToDelete.delete();
+
+            //2. 업로드: Logo Upload
+            String orgname = logoFile.getOriginalFilename();
+            String uploadDir = "C:\\JobStartUp_file";
+            String filePath = uploadDir + File.separator + orgname;
+            String uuid = UUID.randomUUID().toString();
+            String savname = uuid + orgname;
+            File file = new File(savname);
+            try {
+                logoFile.transferTo(file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            RecruiterFileDTO recruiterFileDTO = new RecruiterFileDTO();
+            recruiterFileDTO.setLogo_orgname(orgname);
+            recruiterFileDTO.setLogo_savname(savname);
+            recruiterFileDTO.setCompany_no(company_no);
+
+            return recruiterMyPageRepository.updateComLogo(recruiterFileDTO);
+        } else {
+            return 0;
+        }
+    }
+
+
+
+
     //기업 페이지: pagination
 
     //기업 페이지: calendar 조회
@@ -39,7 +91,6 @@ public class RecruiterMyPageServiceImpl implements RecruiterMyPageService{
     //기업 페이지: calendar 입력
     @Override
     public int insertRecruCalendar(RecruiterCalendarDTO recruiterCalendarDTO){
-
 
 
 

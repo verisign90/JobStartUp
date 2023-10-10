@@ -1,8 +1,12 @@
 package com.pickmeup.jobstartup.recruiter.appmanagement.dto;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
+@ToString
+@NoArgsConstructor
 public class AppResumeDTO {
 
     private int resume_no;

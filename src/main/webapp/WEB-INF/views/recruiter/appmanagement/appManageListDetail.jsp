@@ -45,7 +45,8 @@
         </div>
         <div class="content-container">
             <div class="content">
-                지원 내용이라고 합니다(파일 다운로드 포함)
+                지원 내용이라고 합니다(파일 다운로드 포함//파일 여러개? c:forEach)
+                <button type="button" onclick="location.href='/recruiter/downloadAppFiles/${selectInfo.status_no}'">다운로드</button>
             </div>
         </div>
     </div>
@@ -58,34 +59,44 @@
             <div class="content">
                 주의사항 안내 문구
             </div>
-            <div class="first-approval">
-                <form action="/recruiter/firstEnroll" method="post">
-                    <input type="hidden" name="status_no" id="first_enroll" value="${selectInfo.status_no}">
-                    면접일자
-                    <input type="date" name="date" id="date_enroll"/>
-                    <input type="time" name="time" id="time_enroll"/>
-                    <button type="submit" class="first-enroll-button" id="first-enroll-button">등록</button>
-                    <fmt:formatDate value="${selectInfo.interview_date}" pattern="yyyy-MM-dd HH:mm" />
-                </form>
-                <form action="/recruiter/firstDenial" method="post">
-                    <input type="hidden" name="status_no" id="first_denial" value="${selectInfo.status_no}">
-                    <button type="button" class="first-denial-button">반려</button>
-                    ${selectInfo.first_pass}
-                </form>
-            </div>
-            <div class="last-approval">
-                최종 합격
-                <form action="/recruiter/finalEnroll" method="post">
-                    <input type="hidden" name="status_no" id="final_enroll" value="${selectInfo.status_no}">
-                    <button type="button" class="final-enroll-button">등록</button>
-                    ${selectInfo.final_pass}
-                </form>
-                <form action="/recruiter/finalDenial" method="post">
-                    <input type="hidden" name="status_no" id="final_denial" value="${selectInfo.status_no}">
-                    <button type="button" class="final-denial-button">반려</button>
-                    ${selectInfo.final_pass}
-                </form>
-            </div>
+            <c:if test="${selectInfo.first_pass eq 'N'}">
+                <div class="first-approval">
+                    <form action="/recruiter/firstEnroll" method="post">
+                        <input type="hidden" name="status_no" id="first_enroll" value="${selectInfo.status_no}">
+                        면접일자
+                        <input type="date" name="date" id="date_enroll"/>
+                        <input type="time" name="time" id="time_enroll"/>
+                        <button type="submit" class="first-enroll-button" id="first-enroll-button">등록</button>
+                        <fmt:formatDate value="${selectInfo.interview_date}" pattern="yyyy-MM-dd HH:mm" />
+                    </form>
+                    <form action="/recruiter/firstDenial" method="post">
+                        <input type="hidden" name="status_no" id="first_denial" value="${selectInfo.status_no}">
+                        <button type="button" class="first-denial-button">반려</button>
+                        ${selectInfo.first_pass}
+                    </form>
+                </div>
+            </c:if>
+            <c:if test="${selectInfo.first_pass eq 'Y' && selectInfo.final_pass eq 'N'}">
+                <div class="last-approval">
+                    최종 합격 // 면접일자: <fmt:formatDate value="${selectInfo.interview_date}" pattern="yyyy-MM-dd HH:mm" />
+                    <form action="/recruiter/finalEnroll" method="post">
+                        <input type="hidden" name="status_no" id="final_enroll" value="${selectInfo.status_no}">
+                        <button type="button" class="final-enroll-button">등록</button>
+                        ${selectInfo.final_pass}
+                    </form>
+                    <form action="/recruiter/finalDenial" method="post">
+                        <input type="hidden" name="status_no" id="final_denial" value="${selectInfo.status_no}">
+                        <button type="button" class="final-denial-button">반려</button>
+                        ${selectInfo.final_pass}
+                    </form>
+                </div>
+            </c:if>
+            <c:if test="${selectInfo.final_pass eq 'Y'}">
+                채용이 승인된 지원자입니다.
+            </c:if>
+            <c:if test="${selectInfo.final_pass eq 'F'}">
+                채용이 거절된 지원자입니다.
+            </c:if>
         </div>
     </div>
 
