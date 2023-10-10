@@ -1,4 +1,4 @@
-package com.pickmeup.jobstartup.common.entity;
+package com.pickmeup.jobstartup.member.entity;
 
 import lombok.Getter;
 import lombok.Setter;

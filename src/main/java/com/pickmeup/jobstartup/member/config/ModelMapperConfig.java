@@ -1,4 +1,4 @@
-package com.pickmeup.jobstartup.common.config;
+package com.pickmeup.jobstartup.member.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
