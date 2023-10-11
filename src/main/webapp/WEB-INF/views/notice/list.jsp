@@ -8,6 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 <link rel="stylesheet" href="/css/notice/list.css" type="text/css" />
 <c:set var="category" value="${param.category}" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <div class="page_tits">
@@ -68,7 +69,6 @@
     // 게시글 리스트 조회
     function findAllPost() {
         const list = JSON.parse('${listJson}');
-        console.log(list);
         if ( !list.length ) {
             document.getElementById('list').innerHTML = '<td colspan="6"><div className="no_data_msg">검색된 결과가 없습니다.</div></td>';
             drawPage();
@@ -107,7 +107,7 @@
                 </tr>
             `;
         })
-        document.getElementById('list').innerHTML = html;
+        $("#list").empty().append(html);
     }
 
     function drawPage(pagination, criteria) {
@@ -147,8 +147,8 @@
             currentPageNo: (currentPageNo) ? currentPageNo : 1,
             recordsPerPage: 10,
             pageSize: 10,
-            searchType: form.searchType.value,
-            keyword: form.keyword.value,
+            searchType:$("#.searchType").val(),
+            keyword: $("#.keyword").val()
         }
         location.href = location.pathname+'/'+category+'/'+ '?' + new URLSearchParams(queryParams).toString();
     }

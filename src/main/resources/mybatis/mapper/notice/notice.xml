@@ -72,4 +72,40 @@
         <include refid="category"/>
         <include refid="search" />
     </select>
+
+    <select id="selectNotice" parameterType="long" resultType="com.pickmeup.jobstartup.notice.dto.NoticeDTO">
+        SELECT * FROM NOTICE
+        WHERE NOT_NO = #{notNo}
+    </select>
+
+    <select id="selectNoticeFile" parameterType="long" resultType="com.pickmeup.jobstartup.notice.dto.NoticeFileDTO">
+        SELECT * FROM NOTICE_FILE
+        WHERE NOT_NO = #{notNo}
+    </select>
+
+    <select id="selectNoticeFileByFileNo" parameterType="long" resultType="com.pickmeup.jobstartup.notice.dto.NoticeFileDTO">
+        SELECT * FROM NOTICE_FILE
+        WHERE NOTFILE_NO = #{notFileNo}
+    </select>
+
+    <update id="updateNoticeDTO" parameterType="com.pickmeup.jobstartup.notice.dto.NoticeDTO">
+        UPDATE NOTICE
+        SET NOT_TITLE = #{not_title}, NOT_CONTENT = #{not_content}, NOT_MODDATE = sysdate, NOT_CATEGORY = #{not_category}
+        WHERE NOT_NO = #{not_no}
+    </update>
+
+    <delete id="deleteFileAll" parameterType="long">
+        DELETE FROM NOTICE_FILE
+        WHERE NOT_NO = #{notNo}
+    </delete>
+
+    <delete id="deleteFileByFileNo" parameterType="long">
+        DELETE FROM NOTICE_FILE
+        WHERE NOTFILE_NO = #{notFileNo}
+    </delete>
+
+    <delete id="deleteNoticeByNo" parameterType="long">
+        DELETE FROM NOTICE
+        WHERE NOT_NO = #{notNo}
+    </delete>
 </mapper>

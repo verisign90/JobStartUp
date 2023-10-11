@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Arrays;
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/notice")
@@ -39,7 +41,6 @@ public class NoticeController {
         if(category == null) {
             category = "all";
         }
-        System.out.println("category : "+category);
         criteria.setCategory(category);
         PagingResponse<NoticeDTO> noticePage = noticeService.getList(criteria);
 
@@ -67,5 +68,44 @@ public class NoticeController {
         return "/notice/list";
     }
 
+    //상세 페이지
+    @GetMapping("/read/{not_no}")
+    public String readDetail(@PathVariable long not_no, Model model){
+        NoticeDTO noticeDTO = noticeService.readDatail(not_no);
+        model.addAttribute("noticeDTO", noticeDTO);
+        return "/notice/detail";
+    }
 
+    //수정 폼 요청
+    @GetMapping("/modify/{not_no}")
+    public String modify(@PathVariable long not_no, Model model) throws Exception {
+        NoticeDTO noticeDTO = noticeService.readDatail(not_no);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String categoryJson = mapper.writeValueAsString(noticeDTO.getNot_category());
+        String fileListJson = mapper.writeValueAsString(noticeDTO.getFileDTOList());
+        model.addAttribute("noticeDTO", noticeDTO);
+        model.addAttribute("categoryJson", categoryJson);
+        model.addAttribute("fileListJson", fileListJson);
+        return "/notice/modifyForm";
+    }
+
+    @PostMapping("/modify")
+    public String modify(NoticeDTO noticeDTO, @RequestParam("notFile_orgName") MultipartFile[] multipartFiles, @RequestParam(value = "preFileNo", required = false) long[] preFileNo) throws Exception {
+        //기존의 사진을 모두 삭제했을 때
+        if(preFileNo==null){
+            noticeService.modify(noticeDTO, multipartFiles);
+        } else {
+            Arrays.sort(preFileNo);
+            System.out.println(preFileNo.length);
+            noticeService.modify(noticeDTO, multipartFiles, preFileNo);
+        }
+        return "redirect:/notice/list";
+    }
+
+    @GetMapping("/delete/{not_no}")
+    public String delete(@PathVariable long not_no) throws Exception {
+        noticeService.delete(not_no);
+        return "redirect:/notice/list";
+    }
 }
