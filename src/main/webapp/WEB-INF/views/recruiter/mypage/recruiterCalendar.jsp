@@ -9,6 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>기업 서비스</title>
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
@@ -20,15 +21,13 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/recruiter/mypage/recruiterCalendarEdit.css"/>
     <script src="${pageContext.request.contextPath}/js/recruiter/mypage/recruiterCalendar.js"></script>
     <script src="${pageContext.request.contextPath}/js/recruiter/mypage/recruiterCalendarEdit.js"></script>
+
 </head>
 
 <body>
 
-<div class="main-container">
+<div class="main-container" style="width: 500px; height: 1000px;">
     <div class="main-title-container"><h2>기업 페이지(일정)</h2></div>
-    <div>
-        ${recruiterCalendarDTOS}
-    </div>
     <div id="calendar" class="calendar"></div>
 </div>
 

@@ -84,8 +84,8 @@ public class RecruiterMyPageServiceImpl implements RecruiterMyPageService{
 
     //기업 페이지: calendar 조회
     @Override
-    public List<RecruiterCalendarDTO> selectRecruCalendar(int company_no){
-        return recruiterMyPageRepository.selectRecruCalendar(company_no);
+    public List<RecruiterCalendarDTO> selectRecruCalendar(){
+        return recruiterMyPageRepository.selectRecruCalendar();
     }
 
     //기업 페이지: calendar 입력

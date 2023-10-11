@@ -42,7 +42,7 @@ public interface RecruiterMyPageRepository {
 
 
     //기업 페이지: calendar 조회
-    List<RecruiterCalendarDTO> selectRecruCalendar(int company_no);
+    List<RecruiterCalendarDTO> selectRecruCalendar();
 
     //기업 페이지: calendar 입력
     int insertRecruCalendar(RecruiterCalendarDTO recruiterCalendarDTO);

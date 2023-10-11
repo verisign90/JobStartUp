@@ -4,6 +4,7 @@ import com.pickmeup.jobstartup.recruiter.appmanagement.dto.AppManageDTO;
 import com.pickmeup.jobstartup.recruiter.appmanagement.dto.AppResumeDTO;
 import com.pickmeup.jobstartup.recruiter.appmanagement.service.AppManageService;
 
+import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterFileDTO;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
@@ -63,8 +64,6 @@ public class AppManageController {
         response.getOutputStream().close();                     //출력스트림을 닫는다
     }
 
-
-    
     //(주의!!!!!!!!!!!) (예정) 공통 코드는 하나의 메서드로 묶기
 
     //채용관리 지원자 상세 페이지: 1차 면접일자 승인

@@ -34,17 +34,9 @@
     </update>
 
     <!--기업 페이지: calendar 조회(수정중)-->
-    <resultMap type="com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterCalendarDTO" id="scheduleList">
-        <result property="schedule_start" column="schedule_start"/>
-        <result property="schedule_end" column="schedule_end"/>
-    </resultMap>
-    <select id="selectRecruCalendar" resultMap="scheduleList">
-        SELECT schedule_no, schedule_title, company_no, schedule_memo,
-        TO_char(schedule_start, 'YYYY-MM-DD"T"HH24:MI:SS') schedule_start,
-        TO_char(schedule_end, 'YYYY-MM-DD"T"HH24:MI:SS') schedule_end,
-        textcolor, backgroundcolor, bordercolor
+    <select id="selectRecruCalendar" parameterType="com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterCalendarDTO" resultType="map">
+        SELECT schedule_no, schedule_title, company_no, schedule_memo, schedule_start, schedule_end, textcolor, backgroundcolor, bordercolor
         FROM company_schedule
-        WHERE company_no = #{company_no}
     </select>
 
     <!--기업 페이지: calendar 입력(수정중)-->

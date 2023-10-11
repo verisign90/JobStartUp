@@ -64,8 +64,8 @@
                     <form action="/recruiter/firstEnroll" method="post">
                         <input type="hidden" name="status_no" id="first_enroll" value="${selectInfo.status_no}">
                         면접일자
-                        <input type="date" name="date" id="date_enroll"/>
-                        <input type="time" name="time" id="time_enroll"/>
+                        <input type="date" name="date" id="date_enroll" required/>
+                        <input type="time" name="time" id="time_enroll" required/>
                         <button type="submit" class="first-enroll-button" id="first-enroll-button">등록</button>
                         <fmt:formatDate value="${selectInfo.interview_date}" pattern="yyyy-MM-dd HH:mm" />
                     </form>
