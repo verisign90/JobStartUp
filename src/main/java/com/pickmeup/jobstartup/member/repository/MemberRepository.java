@@ -13,4 +13,6 @@ public interface MemberRepository {
     int save(Member member);
     //회원 구분에 따른 메뉴ID 가져오기
     String selectMenuId(String memberType);
+    //이메일 중복 확인
+    int countByEmail(String email);
 }
