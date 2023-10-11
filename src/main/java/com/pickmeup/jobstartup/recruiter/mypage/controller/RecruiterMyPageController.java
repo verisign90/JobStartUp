@@ -5,6 +5,7 @@ import com.pickmeup.jobstartup.recruiter.apply.service.ApplyServiceImpl;
 import com.pickmeup.jobstartup.recruiter.appmanagement.dto.AppManageDTO;
 import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterCalendarDTO;
 import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterFileDTO;
+import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterMyPageDTO;
 import com.pickmeup.jobstartup.recruiter.mypage.service.RecruiterMyPageService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -36,11 +37,14 @@ public class RecruiterMyPageController {
     @GetMapping("/myPage")
     public String companyInfo(@RequestParam int company_no, Model model) {
         //Business Logic
-        AppManageDTO appManageDTO = recruiterMyPageService.selectRecruiterInfo(company_no);         //이건? 바꿔야 함
+        RecruiterMyPageDTO recruiterMyPageDTO = recruiterMyPageService.selectRecruiterInfo(company_no);         //이건? 바꿔야 함
         RecruiterFileDTO recruiterFileDTO = recruiterMyPageService.selectComLogoName(company_no);   //file select
         //Model and View
         recruiterFileDTO.setCompany_no(company_no);
-        model.addAttribute("appManageDTO", appManageDTO);
+        model.addAttribute("recruiterMyPageDTO", recruiterMyPageDTO);
+
+        System.out.println(recruiterMyPageDTO);
+
         model.addAttribute("recruiterFileDTO", recruiterFileDTO);
         return "/recruiter/mypage/recruiterMyPage";
     }
@@ -87,6 +91,11 @@ public class RecruiterMyPageController {
     }
 
     //기업 페이지: pagination
+
+
+
+
+
 
 
     //기업 페이지: 파일 - 저장된 로고 출력
@@ -161,13 +170,6 @@ public class RecruiterMyPageController {
         response.getOutputStream().write(fileByte);             //버퍼의 출력스트림을 출력
         response.getOutputStream().flush();                     //버퍼에 남아있는 출력스트림을 출력
         response.getOutputStream().close();                     //출력스트림을 닫는다
-    }
-
-    //기업 페이지: 캘린더 (임시 - 기업 페이지에 추가할 예정)
-    @RequestMapping("/calendar")
-    public String viewCalendar(){
-
-        return "/recruiter/mypage/recruiterCalendar";
     }
 
     //기업 페이지: 캘린더 - 등록된 일정

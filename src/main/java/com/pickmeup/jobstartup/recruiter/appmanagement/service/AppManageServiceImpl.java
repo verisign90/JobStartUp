@@ -2,6 +2,7 @@ package com.pickmeup.jobstartup.recruiter.appmanagement.service;
 
 import com.pickmeup.jobstartup.recruiter.appmanagement.dto.AppManageDTO;
 import com.pickmeup.jobstartup.recruiter.appmanagement.dto.AppResumeDTO;
+import com.pickmeup.jobstartup.recruiter.appmanagement.dto.AppResumeFileDTO;
 import com.pickmeup.jobstartup.recruiter.appmanagement.repository.AppManageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +29,10 @@ public class AppManageServiceImpl implements AppManageService{
         return appManageRepository.selectAppResumeByMember(resume_no);
     }
 
-    //채용관리 지원자 상세 페이지: 2) 지원자 이력 정보 - 파일 다운로드
-
-
+    //채용관리 지원자 상세 페이지: 2) 지원자 이력 정보 - 파일(사진,이력서)
+    public AppResumeFileDTO selectAppResumeFileByMember(int resume_no){
+        return appManageRepository.selectAppResumeFileByMember(resume_no);
+    }
 
     //채용관리 지원자 상세 페이지: 1차 면접일자 등록
     @Override

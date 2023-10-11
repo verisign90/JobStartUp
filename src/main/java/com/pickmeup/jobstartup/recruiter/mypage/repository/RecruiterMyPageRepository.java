@@ -1,23 +1,19 @@
 package com.pickmeup.jobstartup.recruiter.mypage.repository;
 
-import com.pickmeup.jobstartup.recruiter.appmanagement.dto.AppManageDTO;
-import com.pickmeup.jobstartup.recruiter.appmanagement.dto.AppManageFileDTO;
 import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterCalendarDTO;
 import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterFileDTO;
+import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterMyPageDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Mapper
 @Repository
 public interface RecruiterMyPageRepository {
 
     //기업 페이지: 회사 정보
-    AppManageDTO selectRecruiterInfo(int company_no);
+    RecruiterMyPageDTO selectRecruiterInfo(int company_no);
 
     //기업 페이지: 1) 박람회 현황(Ajax)
     //기업 페이지: 2) 공고 관리(Ajax)

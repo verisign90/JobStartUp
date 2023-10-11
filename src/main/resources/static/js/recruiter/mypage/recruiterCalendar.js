@@ -6,8 +6,7 @@ function openModal() {
     window.open(url,name,option)
 }
 
-
-/* https://fullcalendar.io/ */
+// https://fullcalendar.io/
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -31,7 +30,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         eventsArray.push({
                             title: eventData[i].SCHEDULE_TITLE,
                             start: eventData[i].SCHEDULE_START,
-                            end: eventData[i].SCHEDULE_END,
                             allDay: eventData[i].ALL_DAY,
                             memo:  eventData[i].SCHEDULE_MEMO
                         });
@@ -42,15 +40,20 @@ document.addEventListener('DOMContentLoaded', function() {
                      failureCallback();
                  }
              });
-        }
+        },
+        customButtons: {
+            addList: {
+                text: '일정추가',
+                click: function() {
+                   openModal();
+                }
+            },
+        },
+        // end: eventData[i].SCHEDULE_END,
         // 캘린더 insert
 
 
-
-
-
         // 캘린더 delete
-
 
 
     });

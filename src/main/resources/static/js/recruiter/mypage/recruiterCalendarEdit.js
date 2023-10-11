@@ -1765,12 +1765,7 @@ var FullCalendar = (function (exports) {
         initialView: '',
         aspectRatio: 1.35,
         customButtons: {
-            addList: {
-                text: '일정추가',
-                click: function() {
-                   openModal();
-                }
-            },
+
         },
         headerToolbar: {
             start: 'addList',

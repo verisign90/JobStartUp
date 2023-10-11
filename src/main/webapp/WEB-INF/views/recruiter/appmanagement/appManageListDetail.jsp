@@ -17,6 +17,7 @@
 </head>
 
 <body>
+
 <div class="main-container">
 
     <div class="main-title-container"><h2>채용관리 페이지</h2></div>
@@ -27,7 +28,7 @@
         <div class="info-main-container">
             <div class="profile">
                 <div class="profile-pic">
-                    ${selectResume.profile_savname} (사진 출력 필요)
+                    <img id="preview" src="${pageContext.request.contextPath}/recruiter/printAppProfile?status_no=${selectInfo.status_no}" />
                 </div>
             </div>
             <div class ="company-info">
@@ -46,7 +47,7 @@
         <div class="content-container">
             <div class="content">
                 지원 내용이라고 합니다(파일 다운로드 포함//파일 여러개? c:forEach)
-                <button type="button" onclick="location.href='/recruiter/downloadAppFiles/${selectInfo.status_no}'">다운로드</button>
+                <button type="button" onclick="location.href='/recruiter/getAppFile/${selectInfo.status_no}'">다운로드</button>
             </div>
         </div>
     </div>

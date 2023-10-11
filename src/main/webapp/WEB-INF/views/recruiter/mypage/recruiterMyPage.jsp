@@ -14,11 +14,18 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/base.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css//recruiter/mypage/recruiterMyPage.css">
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/recruiter/mypage/recruiterMyPage.js"></script>
+
+    <!-- 캘린더 추가 -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/recruiter/mypage/recruiterCalendar.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/recruiter/mypage/recruiterCalendarEdit.css"/>
+    <script src="${pageContext.request.contextPath}/js/recruiter/mypage/recruiterCalendar.js"></script>
+    <script src="${pageContext.request.contextPath}/js/recruiter/mypage/recruiterCalendarEdit.js"></script>
+
 </head>
 <body>
 <div class="main-container">
 
-    <div class="main-title-container"><h2>기업 페이지</h2></div>
+    <div class="main-title-container"><h2>기업 마이페이지</h2></div>
 
     <div class="info-container">
         <div class="button-container">
@@ -26,22 +33,39 @@
             <button type="button" class="edit-button">회원 탈퇴</button>
         </div>
         <div class="info-main-container">
-            <form action="/recruiter/updateComLogo" method="POST" enctype="multipart/form-data">
-                <div class="profile">
-                    <div class="profile-pic">
-                        <img id="preview" src="${pageContext.request.contextPath}/recruiter/printComLogo?company_no=${recruiterFileDTO.company_no}"
-                             width="100px" height="200px" />
+            <div class="company">
+                <form action="/recruiter/updateComLogo" method="POST" enctype="multipart/form-data">
+                    <div class="profile">
+                        <div class="profile-pic">
+                            <img id="preview" src="${pageContext.request.contextPath}/recruiter/printComLogo?company_no=${recruiterFileDTO.company_no}" />
+                        </div>
+                        <div class="profile-edit-button-container">
+                            <input type="hidden" class="profile-company-no" name="company_no" value="${recruiterFileDTO.company_no}">
+                            <input type="file" id="logoFile" name="logoFile" accept="image/*" required>
+                            <button type="button" id="profile-edit-button">로고수정</button>
+                            <button type="button" onclick="location.href='/recruiter/downloadComLogo/${recruiterFileDTO.company_no}'">다운로드</button>
+                        </div>
                     </div>
-                    <div class="profile-edit-button-container">
-                        <input type="hidden" class="profile-company-no" name="company_no" value="3">
-                        <input type="file" id="logoFile" name="logoFile" accept="image/*" required>
-                        <button type="button" id="profile-edit-button">수정</button>
-                        <button type="button" onclick="location.href='/recruiter/downloadComLogo/${recruiterFileDTO.company_no}'">다운로드</button>
-                    </div>
+                </form>
+                <div class ="company-info">
+                    <div>${recruiterMyPageDTO.company_name}</div>
+                    <div>${recruiterMyPageDTO.company_hp}</div>
+                    <div>${recruiterMyPageDTO.ceo_name}</div>
+                    <div>${recruiterMyPageDTO.company_type}</div>
+                    <div>${recruiterMyPageDTO.business_type_code}</div>
+                    <div>${recruiterMyPageDTO.company_address_detail}</div>
+                    <div>${recruiterMyPageDTO.company_site}</div>
+                    <div>${recruiterMyPageDTO.listing_status}</div>
+                    <div>${recruiterMyPageDTO.company_est}</div>
+                    <div>${recruiterMyPageDTO.company_sales}</div>
                 </div>
-            </form>
-            <div class ="company-info">
-                기업 정보
+            </div>
+            <div class="question-answer">
+                <h2>Q&A</h2>
+            </div>
+            <div class="company-schedule">
+                <div id="calendar" class="calendar"></div>
+            </div>
             </div>
         </div>
     </div>

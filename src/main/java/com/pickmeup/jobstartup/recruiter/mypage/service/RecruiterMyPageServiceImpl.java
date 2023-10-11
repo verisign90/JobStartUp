@@ -1,9 +1,8 @@
 package com.pickmeup.jobstartup.recruiter.mypage.service;
 
-import com.pickmeup.jobstartup.recruiter.appmanagement.dto.AppManageDTO;
-import com.pickmeup.jobstartup.recruiter.appmanagement.dto.AppManageFileDTO;
 import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterCalendarDTO;
 import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterFileDTO;
+import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterMyPageDTO;
 import com.pickmeup.jobstartup.recruiter.mypage.repository.RecruiterMyPageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -26,7 +23,7 @@ public class RecruiterMyPageServiceImpl implements RecruiterMyPageService{
 
     //기업 페이지: 회사 정보
     @Override
-    public AppManageDTO selectRecruiterInfo(int company_no){
+    public RecruiterMyPageDTO selectRecruiterInfo(int company_no){
         return recruiterMyPageRepository.selectRecruiterInfo(company_no);
     };
 
