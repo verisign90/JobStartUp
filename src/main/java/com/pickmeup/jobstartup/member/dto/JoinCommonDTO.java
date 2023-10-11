@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
@@ -35,7 +36,8 @@ public class JoinCommonDTO {
     @Pattern(regexp = "^\\d{3}\\d{3,4}\\d{4}$", message = "잘못된 휴대폰 번호입니다. 휴대폰 번호를 정확하게 입력해주세요.")
     private String member_hp;
 
-    @Email(message = "올바른 이메일 형식이 아닙니다.")
+    @Email(message = "올바른 이메일 형식이 아닙니다")
+    @NotEmpty(message = "이메일 주소를 입력해 주세요")
     private String member_email;
     private String member_loc;
 }

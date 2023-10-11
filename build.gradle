@@ -30,6 +30,8 @@ dependencies {
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.0'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'net.nurigo:sdk:4.3.0'
+    implementation 'org.slf4j:slf4j-api'
+    implementation 'ch.qos.logback:logback-classic'
 
     //mail, chat, message
     implementation 'org.springframework.boot:spring-boot-starter-mail'

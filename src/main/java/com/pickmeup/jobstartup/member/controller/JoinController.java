@@ -68,6 +68,7 @@ public class JoinController {
 
     //개인회원 아이디 중복 확인
     @PostMapping("/checkDuplicate")
+    @ResponseBody
     public ResponseEntity<Map<String, Boolean>> checkDuplicate(@RequestBody Map<String, String> request) {
         String member_id = request.get("member_id");
         boolean isDuplicate = memberService.isDuplicateMemberId(member_id);
@@ -85,34 +86,49 @@ public class JoinController {
     }
 
     //4자리 인증번호 받기
-    @PostMapping("/phoneCheck")
-    public ResponseEntity<Map<String, String>> phoneCheck(HttpSession session,
-                                                          @RequestParam String userPhoneNumber) {
-        int randomNumber = new Random().nextInt(9000) + 1000;
-        memberService.sendSMS(userPhoneNumber, Integer.toString(randomNumber));
+//    @PostMapping("/phoneCheck")
+//    @ResponseBody
+//    public ResponseEntity<Map<String, String>> phoneCheck(HttpSession session,
+//                                                          @RequestParam String userPhoneNumber) {
+//        int randomNumber = new Random().nextInt(9000) + 1000;
+//        memberService.sendSMS(userPhoneNumber, Integer.toString(randomNumber));
+//
+//        session.setAttribute("verifyCode", Integer.toString(randomNumber));
+//        session.setAttribute("verifyCodeTime", System.currentTimeMillis());
+//
+//        Map<String, String> response = new HashMap<>();
+//        return new ResponseEntity<>(response, HttpStatus.OK);
+//    }
+//
+//    //문자로 받은 4자리 인증번호와 사용자가 입력한 4자리 인증번호가 일치하는지 확인
+//    @PostMapping("/verifyCode")
+//    @ResponseBody
+//    public ResponseEntity<Map<String, Object>> verifyCode(HttpSession session,
+//                                                          @RequestParam String userEnteredCode) {
+//        Map<String, Object> response = new HashMap<>();
+//
+//        String verifyCode = (String) session.getAttribute("verifyCode");
+//        Long verifyCodeTime = (Long) session.getAttribute("verifyCodeTime");
+//
+//        if(verifyCodeTime != null && System.currentTimeMillis() - verifyCodeTime <= 3 * 60 * 1000
+//                && userEnteredCode.equals(verifyCode)) {
+//            response.put("verified", true);
+//        } else {
+//            response.put("verified", false);
+//        }
+//        return new ResponseEntity<>(response, HttpStatus.OK);
+//    }
 
-        session.setAttribute("verifyCode", Integer.toString(randomNumber));
-        session.setAttribute("verifyCodeTime", System.currentTimeMillis());
+    @PostMapping("/duplicateEmail")
+    @ResponseBody
+    public ResponseEntity<Map<String, Boolean>> checkDuplicateEmail(@RequestBody Map<String, String> request) {
+        String member_email = request.get("member_email");
+        boolean isDuplicate = memberService.isDuplicateEmail(member_email);
 
-        Map<String, String> response = new HashMap<>();
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("isDuplicate", isDuplicate);
+
+        return ResponseEntity.ok(response);
     }
 
-    //문자로 받은 4자리 인증번호와 사용자가 입력한 4자리 인증번호가 일치하는지 확인
-    @PostMapping("/verifyCode")
-    public ResponseEntity<Map<String, Object>> verifyCode(HttpSession session,
-                                                          @RequestParam String userEnteredCode) {
-        Map<String, Object> response = new HashMap<>();
-
-        String verifyCode = (String) session.getAttribute("verifyCode");
-        Long verifyCodeTime = (Long) session.getAttribute("verifyCodeTime");
-
-        if(verifyCodeTime != null && System.currentTimeMillis() - verifyCodeTime <= 3 * 60 * 1000
-                && userEnteredCode.equals(verifyCode)) {
-            response.put("verified", true);
-        } else {
-            response.put("verified", false);
-        }
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
 }

@@ -76,23 +76,24 @@
    <div>
        <label for="member_hp">휴대폰</label>
        <input type="text" id="member_hp" name="member_hp" required pattern="^\d{3}\d{3,4}\d{4}$" placeholder="'-' 빼고 숫자만 입력">
-       <button type="button" id="phone1Btn">인증요청</button>
+       <%-- <button type="button" id="phone1Btn">인증요청</button> --%>
        <p id="hpMsg" style="color:red;"></p>
        <c:forEach var="error" items="${errors}">
           <c:if test="${error.field == 'member_hp'}">
               <p style="color: red;">${error.defaultMessage}</p>
           </c:if>
        </c:forEach>
-       <div id="certificationDiv" style="display: none;">
+       <%-- <div id="certificationDiv" style="display: none;">
            <input type="text" id="member_hp2" placeholder="인증번호를 입력해 주세요">
            <button type="button" id="phone2Btn">확인</button>
            <p id="countdown"></p>
            <p id="hp2Msg"></p>
-       </div>
+       </div> --%>
    </div>
    <div>
        <label for="member_email">이메일:</label>
-       <input type="email" id="member_email" name="member_email" required pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$" title="올바른 이메일 형식을 입력해주세요.">
+       <input type="email" id="member_email" name="member_email" required pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$" placeholder="email@jobstartup.com">
+       <p id="emailMsg" style="color:red;"></p>
    </div>
    <div>
        <input type="text" id="sample6_postcode" placeholder="우편번호">
@@ -343,7 +344,7 @@ function validatePhoneNumber() {
     }
 }
 
-<%-- 핸드폰 본인인증 --%>
+<%-- 핸드폰 본인인증
 var originalCode;
 
 $(document).ready(function(){
@@ -388,9 +389,9 @@ $('#phone2Btn').click(function(){
             console.error('Error:', error);
         }
     });
-});
+}); --%>
 
-<%-- 핸드폰 인증번호 입력 시간 3분 카운트다운 --%>
+<%-- 핸드폰 인증번호 입력 시간 3분 카운트다운
     function startCountdown() {
         clearInterval(countdownTimer);
 
@@ -408,6 +409,35 @@ $('#phone2Btn').click(function(){
             }
         }, 1000);
     }
+}); --%>
+
+<%-- 이메일 유효성 검사 --%>
+$(document).ready(function(){
+    $('#member_email').on('blur', function(){
+        var emailInput = $(this).val();
+
+        if(!emailInput.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/)) {
+            $('#emailMsg').text('잘못된 이메일 주소입니다. 이메일 주소를 정확하게 입력해주세요');
+            return;
+        }
+
+        $.ajax({
+            url: '/duplicateEmail',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ 'member_email': emailInput }),
+            success: function(response) {
+                if(response.isDuplicate) {
+                    $('#emailMsg').text('이미 사용 중인 이메일 주소입니다');
+                } else {
+                    $('#emailMsg').text('사용 가능한 이메일 주소입니다');
+                }
+            },
+            error: function(error) {
+                console.error('Error:', error);
+            }
+        });
+    });
 });
 </script>
 </body>

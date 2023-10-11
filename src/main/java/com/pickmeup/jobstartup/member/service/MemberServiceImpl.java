@@ -9,6 +9,8 @@ import net.nurigo.sdk.message.request.SingleMessageSendingRequest;
 import net.nurigo.sdk.message.response.SingleMessageSentResponse;
 import net.nurigo.sdk.message.service.DefaultMessageService;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +20,10 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final ModelMapper modelMapper;
     private final BCryptPasswordEncoder passwordEncoder;
-    private final DefaultMessageService messageService;
+//    private final DefaultMessageService messageService;
+    private static final Logger logger = LoggerFactory.getLogger(MemberService.class);
 
-    //개인회원 아이디 중복 여부 검사
+    //아이디 중복 여부 검사
     @Override
     public boolean isDuplicateMemberId(String memberId) {
         int count = memberRepository.countByMemberId(memberId);
@@ -30,19 +33,25 @@ public class MemberServiceImpl implements MemberService {
     //회원가입
     @Override
     public void join(JoinCommonDTO joinCommonDTO) {
+        logger.info("dto: {}", joinCommonDTO);
+
         if (!isValidDate(joinCommonDTO.getMember_birth())) {
             throw new IllegalArgumentException("YYYYMMDD 입력 형식을 확인해 주세요");
         }
 
         Member member = convertDtoToEntity(joinCommonDTO);
+        logger.info("Member entity: {}", member);
 
         String encryptedPassword = passwordEncoder.encode(joinCommonDTO.getMember_pw());
         member.setMember_pw(encryptedPassword);
+        logger.info("Encrypted password: {}", encryptedPassword);
 
         String menuId = getMemberMenuId(joinCommonDTO.getMember_type().getCode());
         member.setMenu_id(menuId);
+        logger.info("menu ID: {}", menuId);
 
         memberRepository.save(member);
+        logger.info("save: {}", member);
     }
 
     //회원 구분에 따른 메뉴ID 가져오기
@@ -96,23 +105,28 @@ public class MemberServiceImpl implements MemberService {
     }
 
     //4자리 인증번호 받기
+//    @Override
+//    public boolean sendSMS(String userPhoneNumber, String randomNumber) {
+//        Message message = new Message();
+//        message.setFrom("01047975797");
+//        message.setTo(userPhoneNumber);
+//        message.setText("인증번호는 " + randomNumber + "입니다.");
+//
+//        try {
+//            SingleMessageSentResponse response = messageService.sendOne(new SingleMessageSendingRequest(message));
+//
+//            if("2000".equals(response.getStatusCode())) {
+//                return true;
+//            } else {
+//                return false;
+//            }
+//        } catch(Exception e) {
+//            return false;
+//        }
+//    }
+//
     @Override
-    public boolean sendSMS(String userPhoneNumber, String randomNumber) {
-        Message message = new Message();
-        message.setFrom("01047975797");
-        message.setTo(userPhoneNumber);
-        message.setText("인증번호는 " + randomNumber + "입니다.");
-
-        try {
-            SingleMessageSentResponse response = messageService.sendOne(new SingleMessageSendingRequest(message));
-
-            if("2000".equals(response.getStatusCode())) {
-                return true;
-            } else {
-                return false;
-            }
-        } catch(Exception e) {
-            return false;
-        }
+    public boolean isDuplicateEmail(String emailInput) {
+        return memberRepository.countByEmail(emailInput) > 0;
     }
 }
