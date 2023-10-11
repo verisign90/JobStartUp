@@ -15,7 +15,10 @@ public interface AppManageRepository {
     //채용관리 지원자 상세 페이지: 2) 지원자 이력 정보
     AppResumeDTO selectAppResumeByMember(int resume_no);
 
-    //채용관리 지원자 상세 페이지: 2) 지원자 이력 정보 - 파일 다운로드
+    //채용관리 지원자 상세 페이지: 2) 지원자 이력 정보 - 파일 읽기(사진)
+
+
+    //채용관리 지원자 상세 페이지: 2) 지원자 이력 정보 - 파일 다운로드(이력서)
 
 
     //채용관리 지원자 상세 페이지: 1차 면접일자 등록

@@ -7,6 +7,7 @@
 <title>Notice List</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 <link rel="stylesheet" href="/css/notice/list.css" type="text/css" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <div class="page_tits">
@@ -106,7 +107,7 @@
                 </tr>
             `;
         })
-        document.getElementById('list').innerHTML = html;
+        $("#list").empty().append(html);
     }
 
     function drawPage(pagination, criteria) {
@@ -147,8 +148,8 @@
             currentPageNo: (currentPageNo) ? currentPageNo : 1,
             recordsPerPage: 10,
             pageSize: 10,
-            searchType: form.searchType.value,
-            keyword: form.keyword.value,
+            searchType:$("#.searchType").val(),
+            keyword: $("#.keyword").val(),
             category : categoryParam
         }
         location.href = location.pathname + '?' + new URLSearchParams(queryParams).toString();

@@ -25,6 +25,24 @@ public interface NoticeRepository {
 
     //공지글 개수
     public int selectNoticeCnt(Criteria criteria) throws DataAccessException;
+
+    //공지게시글 상세페이지
+    public NoticeDTO selectNotice(long notNo);
+
+    //공지게시글 파일리스트
+    public List<NoticeFileDTO> selectNoticeFile(long notNo);
+
+    //공지 게시글 파일 조회
+    public NoticeFileDTO selectNoticeFileByFileNo(long notFileNo);
+
+    // 공지게시글 수정
+    public void updateNoticeDTO(NoticeDTO noticeDTO);
+
+    // 파일 모두 삭제
+    public void deleteFileAll(long notNo);
     
-    //공지글 검색 - 페이징
+    // 파일 부분 삭제
+    public void deleteFileByFileNo(long notFileNo);
+
+    public void deleteNoticeByNo(long notNo);
 }
