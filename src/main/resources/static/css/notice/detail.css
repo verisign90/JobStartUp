@@ -1,0 +1,62 @@
+
+.view small{
+  font-size: 0.8rem;
+  color:#aaa;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.posting {
+  border-top: 2px solid #666;
+  border-bottom: 2px solid #666;
+}
+
+.posting .date {
+  padding: 5px 0;
+  border-bottom: 1px solid #999;
+}
+
+.posting .date{
+  display: flex;
+  justify-content: end;
+  font-size: 0.8rem;
+}
+
+.posting .date {
+  padding: 0 4px;
+  display: flex;
+}
+
+.posting .date{
+  color:#000;
+}
+
+.posting .date {
+  color:#aaa;
+}
+
+
+.btn {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn button {
+  width: 30%;
+  border: 0;
+  margin-top: 30px;
+  transition: 0.5s;
+}
+
+.btn button[name=modify], .btn button[name=list] {
+  background: #ddd;
+}
+
+.btn button[name=delete] {
+  background: #666;
+  color: white;
+}
+
+.btn button[name=list]:hover, .btn button[name=modify]:hover, .btn button[name=delete]:hover, .secret button:hover {
+  background: #111;
+  color: white;
+}

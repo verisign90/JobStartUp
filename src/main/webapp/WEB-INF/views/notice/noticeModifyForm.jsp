@@ -8,23 +8,24 @@
 <title>Notice Form</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-  <link rel="stylesheet" href="/css/notice/base.css" type="text/css">
+  <link rel="stylesheet" href="/css/common/base.css" type="text/css">
   <link rel="stylesheet" href="/css/notice/writeForm.css" type="text/css">
 </head>
 <body>
   <article class="board">
     <h1>Notice</h1>
     <section class="contents">
-      <h4>글 작성하기</h4>
+      <h4>글 수정하기</h4>
       <div class="inner">
-          <form action="/notice/write" enctype ="multipart/form-data" method="post" name="writeFrom" id="writeFrom" class="txt">
+          <form action="/notice/modify" enctype ="multipart/form-data" method="post" name="writeFrom" id="writeFrom" class="txt">
+          <input type="hidden" value="${noticeDTO.not_no}" id="not_no" name="not_no"/>
             <select class="selectCategory" name="not_category" id="not_category">
               <option value="all" selected>전체</option>
               <option value="seeker">일반회원</option>
               <option value="company">기업회원</option>
             </select>
-              <input type="text" name="not_title" id="not_title" placeholder="제목을 입력하세요.">
-              <textarea name="not_content" id="not_content" placeholder="내용을 입력하세요."></textarea>
+              <input type="text" name="not_title" id="not_title" value="${noticeDTO.not_title}">
+              <textarea name="not_content" id="not_content">${noticeDTO.not_content}</textarea>
               <div class="file">
                 <label for="notFile_orgName"><div class="btn-upload">+</div></label>
                 <input type="file" multiple="multiple" name="notFile_orgName" id="notFile_orgName" />
@@ -42,12 +43,11 @@
   <div id="top">
     <a href="#">TOP</a>
   </div>
-  <script>
-      ( /* att_zone : 이미지들이 들어갈 위치 id, btn : file tag id */
+<script>
+      (
         imageView = function imageView(att_zone, notFile_orgName){
-
           var attZone = document.getElementById(att_zone);
-          var notFile_orgName = document.getElementById(notFile_orgName)
+          var notFile_orgName = document.getElementById(notFile_orgName);
           var sel_files = [];
 
           // 이미지와 체크 박스를 감싸고 있는 div 속성
@@ -61,12 +61,11 @@
 
           notFile_orgName.onchange = function(e){
             var files = e.target.files;
-            var fileArr = Array.prototype.slice.call(files)
+            var fileArr = Array.prototype.slice.call(files);
             for(f of fileArr){
               imageLoader(f);
             }
           }
-
 
           // 탐색기에서 드래그앤 드롭 사용
           attZone.addEventListener('dragenter', function(e){
@@ -92,31 +91,28 @@
 
           }, false)
 
-
-
           /*첨부된 이미지를 배열에 넣고 미리보기 */
           imageLoader = function(file){
             sel_files.push(file);
             var reader = new FileReader();
             reader.onload = function(ee){
-              let img = document.createElement('img')
-              img.setAttribute('style', img_style)
+              let img = document.createElement('img');
+              img.setAttribute('style', img_style);
               img.src = ee.target.result;
               attZone.appendChild(makeDiv(img, file));
             }
-
             reader.readAsDataURL(file);
           }
 
           /*첨부된 파일이 있는 경우 checkbox와 함께 attZone에 추가할 div를 만들어 반환 */
           makeDiv = function(img, file){
-            var div = document.createElement('div')
-            div.setAttribute('style', div_style)
+            var div = document.createElement('div');
+            div.setAttribute('style', div_style);
 
-            var btn = document.createElement('input')
-            btn.setAttribute('type', 'button')
-            btn.setAttribute('value', 'x')
-            btn.setAttribute('class', 'xBtn')
+            var btn = document.createElement('input');
+            btn.setAttribute('type', 'button');
+            btn.setAttribute('value', 'x');
+            btn.setAttribute('class', 'xBtn');
             btn.setAttribute('delFile', file.name);
             btn.setAttribute('style', chk_style);
             btn.onclick = function(ev){
@@ -135,14 +131,70 @@
               }
               notFile_orgName.files = dt.files;
               var p = ele.parentNode;
-              attZone.removeChild(p)
+              attZone.removeChild(p);
             }
-            div.appendChild(img)
-            div.appendChild(btn)
-            return div
+            div.appendChild(img);
+            div.appendChild(btn);
+            return div;
           }
+
+          /* 기존에 저장된 이미지 div 반환 */
+          makePreDiv = function(img, hiddenInput){
+            var div = document.createElement('div');
+            div.setAttribute('style', div_style);
+
+            var btn = document.createElement('input');
+            btn.setAttribute('type', 'button');
+            btn.setAttribute('value', 'x');
+            btn.setAttribute('class', 'xBtn');
+            btn.setAttribute('style', chk_style);
+            btn.onclick = function(ev){
+              var ele = ev.srcElement;
+              var p = ele.parentNode;
+              attZone.removeChild(p);
+              var hiddenInput = ele.parentNode.querySelector('#hiddenField');
+              if (hiddenInput) {
+                hiddenInput.parentNode.removeChild(hiddenInput);
+              }
+            }
+            div.appendChild(img);
+            div.appendChild(hiddenInput);
+            div.appendChild(btn);
+            return div;
+          }
+
+        // fileListJson 값 가져오기
+        var fileListJson='${fileListJson}';
+
+        // JSON 문자열을 객체 배열로 변환
+        var fileListArray=JSON.parse(fileListJson);
+
+        // 이미지 불러오기 및 표시
+        fileListArray.forEach(function(item){
+          let img=document.createElement('img');
+          img.src='/image/notice/'+item.notFile_savName;
+          img.setAttribute('style', img_style);
+
+          let hiddenInput = document.createElement('input');
+          hiddenInput.setAttribute('type', 'hidden');
+          hiddenInput.setAttribute('name', 'preFileNo');
+          hiddenInput.setAttribute('id', 'hiddenField');
+          hiddenInput.setAttribute('value', item.notFile_no);
+          attZone.appendChild(makePreDiv(img,hiddenInput));
+        });
         }
       )('att_zone', 'notFile_orgName')
+
+      // optional selected 값 변경
+      var selectedValue = ${categoryJson};
+      var selectElement = document.getElementById('not_category');
+
+      for (var i = 0; i < selectElement.options.length; i++) {
+        if (selectElement.options[i].value === selectedValue) {
+            selectElement.selectedIndex = i;
+            break;
+        }
+      }
 
       $('#top').click(function() {
         $('html, body').animate({

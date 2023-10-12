@@ -1,0 +1,180 @@
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+@import url('https://webfontworld.github.io/kopus/KoPubWorldBatang.css');
+@font-face { font-family: 'SF_HambakSnow'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2106@1.1/SF_HambakSnow.woff') format('woff'); font-weight: normal; font-style: normal; }
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* outline: silver solid 1px; */
+}
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: black;
+  letter-spacing: 0.1px;
+  word-break: keep-all;
+  padding: 50px 5%;
+  margin: 0 auto;
+}
+
+h1 {
+  font-family: 'SF_HambakSnow';
+  font-size: 3rem;
+  line-height: 3.5rem;
+  padding-bottom: 40px;
+  text-align: center;
+}
+
+h3 {
+  font-family: 'KoPubWorldBatang';
+  font-size: 1.5rem;
+  line-height: 2.5rem;
+  padding: 30px 0;
+  text-align: center;
+}
+
+h4 {
+  font-size: 1.3rem;
+  line-height: 2rem;
+  text-align: center;
+}
+
+h5 {
+  font-size: 0.95rem;
+  line-height: 1.5rem;
+  font-weight: 400;
+}
+
+button {
+  display: inline-block;
+  height: 50px;
+  font-size: 1rem;
+  font-weight: bold;
+  background: none;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+  transition: 0.4s;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #222;
+  color: #fff;
+}
+
+input::placeholder, textarea::placeholder {
+  color:#888;
+}
+
+li {
+  list-style: none;
+}
+
+/*--------- TOP anchor ---------*/
+#top {
+  font-size: 1rem;
+  line-height: 3.2rem;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  background: #333;
+  box-shadow: 1px 1px 1px 1px #ccc;
+  text-align: center;
+  border-radius: 50%;
+  position: fixed;
+  display: scroll;
+  bottom: 40px;
+  right: 3%;
+  transition: 0.4s;
+}
+
+#top a {
+  text-decoration: none;
+  color:white;
+}
+
+#top:hover {
+  transform: scale(1.1);
+  background: #e6002d;
+}
+
+/*--------- common class setting ---------*/
+
+article {
+  margin: 200px 0;
+}
+
+.contents {
+  border-radius: 10px;
+  border: 1px solid #999;
+  padding: 50px 5%;
+}
+
+.inner {
+  padding-top: 30px;
+}
+
+.txt {
+  padding-top: 20px;
+}
+
+.bold {
+  display: inline-block;
+  font-weight: bold;
+}
+
+.gray {
+  color:#aaa;
+}
+
+.red {
+  color:#e6002d;
+}
+
+.sans {
+  font-family: 'Noto Sans KR', sans-serif;
+  text-align: left;
+  padding: 10px 0;
+  border-bottom: 2px solid #666;
+}
+
+img {
+  width: 100%;
+  vertical-align: top;
+}
+
+input, select {
+  height: 40px;
+  font-size: 1rem;
+/*  padding-left: 7px;*/
+}
+
+select, textarea {
+  border: 1px solid #bbb;
+  border-radius: 5px;
+  width: 100%;
+}
+
+textarea {
+  height: 200px;
+  padding:10px 0 0 7px;
+  resize: none;
+  font-size: 1rem;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+input[type=checkbox] {
+  height: auto;
+  transform : scale(1.5);
+  margin: 0 10px;
+  vertical-align: middle;
+}
+
+a, a:link, a:visited, a:active {
+  text-decoration-line: none;
+  color: white;
+}

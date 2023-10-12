@@ -1,0 +1,167 @@
+select[name=select] {
+  margin: 10px 0 10px 0;
+}
+
+.qna .txt #textarea {
+  border-bottom: 0;
+  border-radius: 5px 5px 0 0;
+  margin: 10px 0 0px 0;
+}
+
+.length {
+  display: block;
+  width: 100%;
+  height: 30px;
+  padding: 2px 5px;
+  border: 1px solid #bbb;
+  margin: -3px 0;
+  border-radius: 0 0 5px 5px;
+  color : #6a6a6a;
+}
+
+.q_type {
+    height: 12px;
+    margin: 5px;
+}
+
+.wrap_input {
+    margin: 10px 0 10px 0;
+}
+
+.file {
+  display: flex;
+  margin: 20px 0;
+}
+
+.upload {
+  margin-right: 10px;
+  width: 100px;
+  height: 50px;
+  background: #eee;
+  font-size: 1.1rem;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:0.2s;
+}
+
+.upload:hover {
+  background: #777;
+  color: #fff;
+}
+
+#qFile_orgName {
+  display: none;
+}
+
+#email {
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    width: 100%;
+    padding : 5px;
+}
+
+input[name=file] {
+  display: block;
+  width: 120px;
+  height: 50px;
+}
+
+.file h5 {
+  font-size: 0.8rem;
+  line-height: 1.3rem;
+}
+
+.answer {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.call {
+  margin-top: 40px;
+  background: #f8f8f8;
+  padding: 30px 3%;
+  text-align: left;
+  border-radius: 10px;
+}
+
+.section-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  min-width: 120px;
+}
+
+.typography {
+  font-weight: 700;
+  font-size: 1.125rem;
+  letter-spacing: -.005em;
+  line-height: 26px;
+  color: #171717;
+  margin-bottom: 10px;
+}
+
+.typography-bold {
+  font-size: .875rem;
+  font-weight: 700;
+  letter-spacing: -.005em;
+  line-height: 22px;
+  color: #6a6a6a;
+}
+
+.typography-section {
+  font-size: .875rem;
+  font-color: #6a6a6a;
+}
+
+.typography-checked {
+   color: #6a6a6a;
+   font-size: .875rem;
+   letter-spacing: -.005em;
+   line-height: 24px;
+   font-weight: 400;
+}
+
+.typography-border {
+   border-top: 1px solid #e8e8e8;
+   margin-top: 24px;
+   padding: 24px 0 0;
+   border-radius: 0;
+}
+
+em {
+   color:#5D4FFF;
+   font: inherit;
+}
+
+.mail input, .mail select, .done button[name=home], .done button[name=go] {
+  width: 48%;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+}
+
+.answer button {
+  margin-top: 40px;
+  width: 100%;
+  background: #7A41FF;
+  color:white;
+  font-size: 1.1rem;
+  transition: 0.5s;
+}
+
+.answer button:hover {
+  background: #000;
+}
+
+button.no-hover:hover {
+  background-color: initial;
+  color: initial;
+}
+
+.h-class {
+    margin-left : 20px;
+}

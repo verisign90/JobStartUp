@@ -1,0 +1,73 @@
+.txt input[name=not_title] {
+  width:100%;
+  margin-bottom: 20px;
+  border: 0;
+  border-bottom: 1px solid #bbb;
+}
+
+.btn-upload {
+  margin: 35px 10px 0 0;
+  width: 60px;
+  height: 60px;
+  background: #eee;
+  color: #aaa;
+  font-size: 2rem;
+  border: 0;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:0.2s;
+}
+
+.btn-upload:hover {
+  background: #777;
+  color: #fff;
+}
+
+#notFile_orgName {
+  display: none;
+}
+
+.btn {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn button {
+  width: 48.5%;
+  border: 0;
+  margin-top: 30px;
+  transition: 0.5s;
+}
+
+.btn button[name=list] {
+  background: #ddd;
+}
+
+.btn button[name=sign] {
+  background: #666;
+  color: white;
+}
+
+.btn button[name=list]:hover, .btn button[name=sign]:hover, .secret button:hover {
+  background: #111;
+  color: white;
+}
+
+#att_zone{
+	width: 660px;
+	min-height:150px;
+	padding:10px;
+	border:1px solid #bbb;
+    margin-top: 16px;
+    border-radius: 5px;
+}
+
+#att_zone:empty:before{
+	content : attr(data-placeholder);
+	color : #bbb;
+	font-size:.9em;
+}

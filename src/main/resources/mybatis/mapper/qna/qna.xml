@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pickmeup.jobstartup.qna.repository.QnARepository">
+   <insert id="insertQuestion" parameterType="com.pickmeup.jobstartup.qna.dto.QuestionDTO">
+        <![CDATA[
+            INSERT INTO QUESTION (MEMBER_NO, Q_TYPE, COMPANY_NO, Q_CATEGORY, Q_CONTENT)
+            VALUES (#{member_no}, #{q_type}, #{company_no}, #{q_category}, #{q_content})
+        ]]>
+        <selectKey resultType="long" order="AFTER" keyProperty="q_no">
+            <![CDATA[
+                    SELECT MAX(q_no) FROM QUESTION
+            ]]>
+        </selectKey>
+   </insert>
+    <insert id="insertQuestionFile" parameterType="com.pickmeup.jobstartup.qna.dto.QuestionFileDTO">
+        <![CDATA[
+            INSERT INTO QUESTION_FILE (Q_NO, QFILE_ORGNAME, QFILE_SAVNAME, QFILE_TYPE)
+            VALUES (#{q_no}, #{qFile_orgName}, #{qFile_savName}, #{qFile_type})
+        ]]>
+    </insert>
+    <select id="selectQno" resultType="long">
+        <![CDATA[
+             SELECT MAX(q_no) FROM QUESTION
+        ]]>
+    </select>
+</mapper>
