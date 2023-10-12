@@ -6,6 +6,7 @@
         <![CDATA[
         SELECT *
         FROM JOB_FAIR
+        ORDER BY JOBFAIR_NO DESC
         ]]>
     </select>
     <select id="selectJobFairByNo" resultType="com.pickmeup.jobstartup.jobfair.dto.JobFairDTO">
@@ -16,4 +17,29 @@
         ORDER BY JOBFAIR_NO DESC
         ]]>
     </select>
+    <select id="selectEntryDTOListByNo" resultType="com.pickmeup.jobstartup.jobfair.dto.EntryDTO">
+        <![CDATA[
+        SELECT JFE.JOBFAIRENTRY_NO, JFE.COMPANY_NO, JFE.JOBFAIR_NO, C.COMPANY_NAME, C.LOGO_SAVNAME
+        FROM JOB_FAIR_ENTRY JFE,
+             COMPANY C
+        WHERE JFE.COMPANY_NO = C.COMPANY_NO
+          AND JFE.JOBFAIR_NO = #{JOBFAIR_NO}
+        ]]>
+    </select>
+
+    <insert id="writeJobFair" parameterType="com.pickmeup.jobstartup.jobfair.dto.JobFairDTO">
+    <![CDATA[
+        INSERT INTO JOB_FAIR (JOBFAIR_TITLE, JOBFAIR_CONTENT, JOBFAIR_SDATE, JOBFAIR_EDATE, JOBFAIR_PLACE,
+                              JOBFAIR_TARGET, JOBFAIR_HOST, JOBFAIR_SITE, JOBFAIR_LOC_CODE)
+        VALUES (NVL(#{JOBFAIR_TITLE}, '박람회 명'), #{JOBFAIR_CONTENT}, #{JOBFAIR_SDATE}, #{JOBFAIR_EDATE},
+                #{JOBFAIR_PLACE},
+                #{JOBFAIR_TARGET}, #{JOBFAIR_HOST}, #{JOBFAIR_SITE}, #{JOBFAIR_LOC_CODE})
+        ]]>
+    </insert>
+    <insert id="save" parameterType="com.pickmeup.jobstartup.jobfair.dto.JobFairFileDTO">
+    <![CDATA[
+        INSERT INTO JOB_FAIR_FILE (JBFILE_ORGNAME, JBFILE_SAVNAME, JBFILE_TYPE)
+        VALUES (#{JBFILE_ORGNAME}, #{JBFILE_SAVNAME}, #{JBFILE_TYPE})
+        ]]>
+</insert>
 </mapper>

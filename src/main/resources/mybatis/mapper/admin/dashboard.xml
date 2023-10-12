@@ -5,41 +5,38 @@
     <select id="selectDashboardData" resultType="com.pickmeup.jobstartup.admin.dto.DashboardDTO">
         <![CDATA[
         SELECT *
-        FROM TEST_MEMBER
+        FROM MEMBER
         ]]>
     </select>
 
     <select id="selectAgeGroupData" resultType="com.pickmeup.jobstartup.admin.dto.AgeGroupDTO">
     <![CDATA[
         SELECT CASE
-                   WHEN AGE < 10 THEN '10세 미만'
-                   WHEN AGE BETWEEN 10 AND 19 THEN '10대'
-                   WHEN AGE BETWEEN 20 AND 29 THEN '20대'
-                   WHEN AGE BETWEEN 30 AND 39 THEN '30대'
-                   WHEN AGE BETWEEN 40 AND 49 THEN '40대'
-                   WHEN AGE BETWEEN 50 AND 59 THEN '50대'
-                   WHEN AGE BETWEEN 60 AND 69 THEN '60대'
-                   WHEN AGE BETWEEN 70 AND 79 THEN '70대'
-                   WHEN AGE BETWEEN 80 AND 89 THEN '80대'
-                   WHEN AGE BETWEEN 90 AND 99 THEN '90대'
-                   ELSE '100세 이상'
+                   WHEN TRUNC(MONTHS_BETWEEN(SYSDATE, MEMBER_BIRTH) / 12) < 10 THEN '10세 미만'
+                   WHEN TRUNC(MONTHS_BETWEEN(SYSDATE, MEMBER_BIRTH) / 12) BETWEEN 10 AND 19 THEN '10대'
+                   WHEN TRUNC(MONTHS_BETWEEN(SYSDATE, MEMBER_BIRTH) / 12) BETWEEN 20 AND 29 THEN '20대'
+                   WHEN TRUNC(MONTHS_BETWEEN(SYSDATE, MEMBER_BIRTH) / 12) BETWEEN 30 AND 39 THEN '30대'
+                   WHEN TRUNC(MONTHS_BETWEEN(SYSDATE, MEMBER_BIRTH) / 12) BETWEEN 40 AND 49 THEN '40대'
+                   WHEN TRUNC(MONTHS_BETWEEN(SYSDATE, MEMBER_BIRTH) / 12) BETWEEN 50 AND 59 THEN '50대'
+                   WHEN TRUNC(MONTHS_BETWEEN(SYSDATE, MEMBER_BIRTH) / 12) BETWEEN 60 AND 69 THEN '60대'
+                   ELSE '70세 이상'
                    END AS ageRange,
                COUNT(*) AS count
-        FROM TEST_MEMBER
-        GROUP BY CASE
-            WHEN AGE < 10 THEN '10세 미만'
-            WHEN AGE BETWEEN 10 AND 19 THEN '10대'
-            WHEN AGE BETWEEN 20 AND 29 THEN '20대'
-            WHEN AGE BETWEEN 30 AND 39 THEN '30대'
-            WHEN AGE BETWEEN 40 AND 49 THEN '40대'
-            WHEN AGE BETWEEN 50 AND 59 THEN '50대'
-            WHEN AGE BETWEEN 60 AND 69 THEN '60대'
-            WHEN AGE BETWEEN 70 AND 79 THEN '70대'
-            WHEN AGE BETWEEN 80 AND 89 THEN '80대'
-            WHEN AGE BETWEEN 90 AND 99 THEN '90대'
-            ELSE '100세 이상'
+        FROM
+            MEMBER
+        GROUP BY
+            CASE
+            WHEN TRUNC(MONTHS_BETWEEN(SYSDATE, MEMBER_BIRTH) / 12) < 10 THEN '10세 미만'
+            WHEN TRUNC(MONTHS_BETWEEN(SYSDATE, MEMBER_BIRTH) / 12) BETWEEN 10 AND 19 THEN '10대'
+            WHEN TRUNC(MONTHS_BETWEEN(SYSDATE, MEMBER_BIRTH) / 12) BETWEEN 20 AND 29 THEN '20대'
+            WHEN TRUNC(MONTHS_BETWEEN(SYSDATE, MEMBER_BIRTH) / 12) BETWEEN 30 AND 39 THEN '30대'
+            WHEN TRUNC(MONTHS_BETWEEN(SYSDATE, MEMBER_BIRTH) / 12) BETWEEN 40 AND 49 THEN '40대'
+            WHEN TRUNC(MONTHS_BETWEEN(SYSDATE, MEMBER_BIRTH) / 12) BETWEEN 50 AND 59 THEN '50대'
+            WHEN TRUNC(MONTHS_BETWEEN(SYSDATE, MEMBER_BIRTH) / 12) BETWEEN 60 AND 69 THEN '60대'
+            ELSE '70세 이상'
         END
-        ORDER BY ageRange
+        ORDER BY
+    ageRange
         ]]>
     </select>
 </mapper>

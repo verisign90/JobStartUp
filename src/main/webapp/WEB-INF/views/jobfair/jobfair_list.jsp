@@ -100,7 +100,9 @@
             </c:forEach>
         </ul>
         <div id="registering_jobfair">
-            <button>박람회 등록</button>
+            <a href="${pageContext.request.contextPath}/admin/jobfair/write" class="button-link">
+                등록하기
+            </a>
         </div>
     </article>
 </main>
