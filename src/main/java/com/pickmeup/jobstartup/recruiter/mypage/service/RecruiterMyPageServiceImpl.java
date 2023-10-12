@@ -52,19 +52,22 @@ public class RecruiterMyPageServiceImpl implements RecruiterMyPageService{
     @Override
     public int updateComLogo(MultipartFile logoFile, int company_no, String savedSavname){
         if (!logoFile.isEmpty()) {
+            
+            //file 경로는 로고 정보를 넣는 경로 이용하기(수정 예정)
+            
             //1. 삭제: Logo Delete (saved file delete)
-            String DeleteDir = "C:\\JobStartUp_fileUpload";
+            String DeleteDir = "C:\\JobStartUp_fileUpload\\recruiterMyPage\\";
             String DeletefilePath = DeleteDir + File.separator + savedSavname;
             File fileToDelete = new File(DeletefilePath);
             fileToDelete.delete();
 
             //2. 업로드: Logo Upload
             String orgname = logoFile.getOriginalFilename();
-            String uploadDir = "C:\\JobStartUp_file";
-            String filePath = uploadDir + File.separator + orgname;
+            String uploadDir = "C:\\JobStartUp_fileUpload\\recruiterMyPage\\";
             String uuid = UUID.randomUUID().toString();
             String savname = uuid + orgname;
-            File file = new File(savname);
+            String uploadfilePath = uploadDir + File.separator + savname;
+            File file = new File(uploadfilePath);
             try {
                 logoFile.transferTo(file);
             } catch (IOException e) {
