@@ -56,14 +56,14 @@ public class RecruiterMyPageServiceImpl implements RecruiterMyPageService{
             //file 경로는 로고 정보를 넣는 경로 이용하기(수정 예정)
             
             //1. 삭제: Logo Delete (saved file delete)
-            String DeleteDir = "C:\\JobStartUp_fileUpload\\recruiterMyPage\\";
+            String DeleteDir = "C:\\JobStartUp_fileUpload\\recruiterApply\\";
             String DeletefilePath = DeleteDir + File.separator + savedSavname;
             File fileToDelete = new File(DeletefilePath);
             fileToDelete.delete();
 
             //2. 업로드: Logo Upload
             String orgname = logoFile.getOriginalFilename();
-            String uploadDir = "C:\\JobStartUp_fileUpload\\recruiterMyPage\\";
+            String uploadDir = "C:\\JobStartUp_fileUpload\\recruiterApply\\";
             String uuid = UUID.randomUUID().toString();
             String savname = uuid + orgname;
             String uploadfilePath = uploadDir + File.separator + savname;
