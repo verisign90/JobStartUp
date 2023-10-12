@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pickmeup.jobstartup.recruiter.jobposting.repository.JobPostingRepository">
+
+    <!--채용공고 등록-->
+    <insert id="insertJobPostingDTO" parameterType="JobPostingDTO">
+        <![CDATA[
+        INSERT INTO JOB_POSTING (COMPANY_NO, POSTING_TITLE, POSTING_CAREER, POSTING_ACADEMY, POSTING_LABOR, POSTING_SALARY, POSTING_SDATE, POSTING_EDATE, POSTING_CONTENT, POSTING_CNT, POSTING_WORKING_DAY, POSTING_SWORK, POSTING_EWORK)
+        VALUES (#{company_no}, #{posting_title}, #{posting_career}, #{posting_academy}, #{posting_labor}, #{posting_salary}, #{posting_sdate}, #{posting_edate}, #{posting_content}, #{posting_cnt}, #{posting_working_day}, #{posting_swork}, #{posting_ework})
+    ]]>
+    </insert>
+
+    <!--<select id="selectCompany" resultType="com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterMyPageDTO">
+        <![CDATA[
+        SELECT COMPANY_NO
+        FROM COMPANY
+        ]]>
+    </select>-->
+
+    <!--채용공고 목록조회-->
+    <select id="selectJPlist" parameterType="int" resultType="JobPostingDTO">
+        <![CDATA[
+        SELECT POSTING_TITLE,POSTING_
+        FROM JOBPOSTING
+        ORDER BY POSTING_NO DESC
+        ]]>
+    </select>
+
+    <!--공고상세조회-->
+    <select id="selectJPdetail" parameterType="int" resultType="JobPostingDTO">
+    <![CDATA[
+        SELECT POSTING_NO,
+               POSTING_TITLE,
+               POSTING_CAREER,
+               POSTING_ACADEMY,
+               POSTING_LABOR,
+               POSTING_SALARY,
+               POSTING_SWORK,
+               POSTING_EWORK,
+               POSTING_CONTENT,
+               POSTING_WORKING_DAY,
+               POSTING_SDATE,
+               POSTING_EDATE
+        FROM JOBPOSTING
+        WHERE POSTING_NO = #{posting_no}
+        ]]>
+    </select>
+
+    <!--상위주소-->
+    <select id="getUpperLoc" resultType="com.pickmeup.jobstartup.recruiter.apply.dto.LocDTO">
+        <![CDATA[
+        SELECT *
+        FROM detail_code
+        WHERE detail_code_num >= 11000
+          AND detail_code_num <= 39000
+          and code_level = 1
+        ORDER BY detail_code_num
+        ]]>
+    </select>
+    <!--하위주소-->
+    <select id="getLowerLoc" resultType="com.pickmeup.jobstartup.recruiter.apply.dto.LocDTO" parameterType="String">
+        <![CDATA[
+        SELECT *
+        FROM detail_code
+        WHERE detail_code_num >= #{upperLoc} + 1
+          AND detail_code_num < #{upperLoc} + 1000
+          AND code_level = 2
+        ORDER BY detail_code_num
+        ]]>
+    </select>
+
+
+</mapper>
