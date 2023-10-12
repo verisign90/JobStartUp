@@ -1765,12 +1765,11 @@ var FullCalendar = (function (exports) {
         initialView: '',
         aspectRatio: 1.35,
         customButtons: {
-
         },
         headerToolbar: {
-            start: 'addList',
-            center: 'title',
-            end: 'prev,next dayGridMonth today',
+            start: '',
+            center: '',
+            end: '',
         },
         weekends: true,
         weekNumbers: false,

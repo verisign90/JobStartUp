@@ -20,6 +20,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RequestMapping("/recruiter")
@@ -42,9 +44,6 @@ public class RecruiterMyPageController {
         //Model and View
         recruiterFileDTO.setCompany_no(company_no);
         model.addAttribute("recruiterMyPageDTO", recruiterMyPageDTO);
-
-        System.out.println(recruiterMyPageDTO);
-
         model.addAttribute("recruiterFileDTO", recruiterFileDTO);
         return "/recruiter/mypage/recruiterMyPage";
     }
@@ -89,14 +88,6 @@ public class RecruiterMyPageController {
 
         return "";
     }
-
-    //기업 페이지: pagination
-
-
-
-
-
-
 
     //기업 페이지: 파일 - 저장된 로고 출력
     @RequestMapping("/printComLogo")
@@ -172,63 +163,28 @@ public class RecruiterMyPageController {
         response.getOutputStream().close();                     //출력스트림을 닫는다
     }
 
-    //기업 페이지: 캘린더 - 등록된 일정
+    //기업 페이지: 조회 - 캘린더 일정
     @GetMapping(value = "/getCalendar", params = "method=data", produces = "application/json")
     @ResponseBody // JSON 데이터를 반환
     public List<RecruiterCalendarDTO> selectPlan() {
-
         List<RecruiterCalendarDTO> calendarList = recruiterMyPageService.selectRecruCalendar();
         return calendarList; // 실제 데이터를 반환
     }
 
     //기업 페이지: 캘린더 팝업
-    @PostMapping("/calendarPopup")
+    @RequestMapping("/calendarPopup")
     public String companyCalendarPop(){
-
-
-
-
-
-
         return "/recruiter/mypage/recruiterCalendarPopUp";
     }
 
-
- /*   //기업 페이지: calendar 페이지
-    @GetMapping("/getCalendar")
-    public String companyCalendar(@RequestParam int company_no, Model mv){
-        //Business Logic
-        List<Map<String, Object>> recruiterCalendarDTOS = recruiterMyPageService.selectRecruCalendar(company_no);
-        List<Map<String, Object>> result = new ArrayList<>();
-
-        for (int i = 0; i < recruiterCalendarDTOS.size(); i++) {
-
-            JSONObject jsonObject = new JSONObject();
-
-            // recruiterCalendarDTO에서 원하는 필드 추출하여 JSON에 추가
-            jsonObject.put("title", recruiterCalendarDTOS.get(i).get("SCHEDULE_TITLE"));
-            jsonObject.put("start", recruiterCalendarDTOS.get(i).get("SCHEDULE_START").toString().substring(0,10));
-            jsonObject.put("end", recruiterCalendarDTOS.get(i).get("SCHEDULE_END").toString().substring(0,10));
-            //jsonObject.put("start", recruiterCalendarDTOS.get(i).get("SCHEDULE_START"));
-            //jsonObject.put("end", recruiterCalendarDTOS.get(i).get("SCHEDULE_END"));
-            //jsonObject.put("start", "\""+recruiterCalendarDTOS.get(i).get("SCHEDULE_START").toString().substring(0,10)+"\"");
-            //jsonObject.put("end", "\""+recruiterCalendarDTOS.get(i).get("SCHEDULE_END").toString().substring(0,10)+"\"");
-
-            // JSON을 Map으로 변환
-            Map<String, Object> paramMap = jsonObject.toMap();
-
-            // List에 Map 추가
-            result.add(paramMap);
-        }
-
-        System.out.println("0"+result.get(0));
-        System.out.println("1"+result.get(1));
-        System.out.println("2"+result.get(2));
-
-        mv.addAttribute("result",result);
-        return "/recruiter/mypage/recruiterCalendar";
-    }*/
-
+    //기업 페이지: 입력 - 캘린더 일정
+    @ResponseBody
+    @PostMapping(value = "/insertCalendar", produces = "application/json")
+    public String insertCalendar(@RequestBody RecruiterCalendarDTO recruiterCalendarDTO
+                                ,@RequestParam String method){
+            recruiterMyPageService.insertRecruCalendar(recruiterCalendarDTO);
+            return "success";
+    }
 
 
 

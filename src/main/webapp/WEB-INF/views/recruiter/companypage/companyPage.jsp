@@ -7,8 +7,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>웹 페이지 제목</title>
+    <title>기업 소개 페이지</title>
 </head>
 <body>
+
+    <h2>기업 소개 페이지</h2>
+
+
 </body>
 </html>

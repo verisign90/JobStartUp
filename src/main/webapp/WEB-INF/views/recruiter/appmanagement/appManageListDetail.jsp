@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>지원자 상세 조회</title>
+    <title>채용자 관리 페이지</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
@@ -95,7 +95,7 @@
             <c:if test="${selectInfo.final_pass eq 'Y'}">
                 채용이 승인된 지원자입니다.
             </c:if>
-            <c:if test="${selectInfo.final_pass eq 'F'}">
+            <c:if test="${selectInfo.first_pass eq 'F' || selectInfo.final_pass eq 'F'}">
                 채용이 거절된 지원자입니다.
             </c:if>
         </div>

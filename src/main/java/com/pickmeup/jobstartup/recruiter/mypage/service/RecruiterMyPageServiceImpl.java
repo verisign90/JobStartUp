@@ -28,9 +28,9 @@ public class RecruiterMyPageServiceImpl implements RecruiterMyPageService{
     };
 
 
-    //기업 페이지: 1) 박람회 현황(Ajax)
-    //기업 페이지: 2) 공고 관리(Ajax)
-    //기업 페이지: 3) 지원자 관리(Ajax)
+    //기업 페이지: 1) 박람회 현황(Ajax) + pagination
+    //기업 페이지: 2) 공고 관리(Ajax) + pagination
+    //기업 페이지: 3) 지원자 관리(Ajax) + pagination
     //기업 페이지: 정보 수정 리스트 (또는 approval 담당의 jsp 이용)
     //기업 페이지: 정보 수정 (또는 approval 담당의 jsp 이용)
 
@@ -74,11 +74,6 @@ public class RecruiterMyPageServiceImpl implements RecruiterMyPageService{
         }
     }
 
-
-
-
-    //기업 페이지: pagination
-
     //기업 페이지: calendar 조회
     @Override
     public List<RecruiterCalendarDTO> selectRecruCalendar(){
@@ -88,10 +83,7 @@ public class RecruiterMyPageServiceImpl implements RecruiterMyPageService{
     //기업 페이지: calendar 입력
     @Override
     public int insertRecruCalendar(RecruiterCalendarDTO recruiterCalendarDTO){
-
-
-
-        return 0;
+        return recruiterMyPageRepository.insertRecruCalendar(recruiterCalendarDTO);
     }
 
     //기업 페이지: calendar 삭제
