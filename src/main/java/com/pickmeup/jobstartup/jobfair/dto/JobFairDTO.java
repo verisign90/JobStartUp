@@ -3,9 +3,9 @@ package com.pickmeup.jobstartup.jobfair.dto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
@@ -14,8 +14,6 @@ public class JobFairDTO {
 
     private Long JOBFAIR_NO;
     private String JOBFAIR_TITLE;
-    private LocalDateTime JOBFAIR_SDATE;
-    private LocalDateTime JOBFAIR_EDATE;
     private String JOBFAIR_PLACE;
     private String JOBFAIR_TARGET;
     private String JOBFAIR_HOST;
@@ -23,11 +21,17 @@ public class JobFairDTO {
     private String JOBFAIR_LOC_CODE;
     private String JOBFAIR_CONTENT;
 
-    public String getJOBFAIR_SDATE() {
-        return JOBFAIR_SDATE.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private LocalDateTime JOBFAIR_SDATE;
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private LocalDateTime JOBFAIR_EDATE;
+
+    public String getStringJOBFAIR_SDATE() {
+        return JOBFAIR_SDATE.toLocalDate().toString();
     }
 
-    public String getJOBFAIR_EDATE() {
-        return JOBFAIR_EDATE.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+    public String getStrigJOBFAIR_EDATE() {
+        return JOBFAIR_EDATE.toLocalDate().toString();
     }
 }

@@ -45,6 +45,8 @@ aside {
     box-sizing: border-box;
     padding-left: 25px;
     padding-top: 50px;
+    position: sticky;
+    top: 100px;
 }
 
 section {
@@ -70,6 +72,7 @@ footer {
 
 ul {
     list-style-type: none;
+    padding: 0 20px;
 }
 
 li {

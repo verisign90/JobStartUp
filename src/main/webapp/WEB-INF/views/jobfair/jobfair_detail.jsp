@@ -93,7 +93,7 @@
                         date
                     </div>
                     <div class="jobfair_value">
-                        ${jobFair.JOBFAIR_SDATE} - ${jobFair.JOBFAIR_EDATE}
+                        ${jobFair.stringJOBFAIR_SDATE} - ${jobFair.strigJOBFAIR_EDATE}
                     </div>
                 </div>
                 <div class="jobfair_info_block">
@@ -132,6 +132,17 @@
         </div>
         <div class="jobfair_content">
             ${jobFair.JOBFAIR_CONTENT}
+        </div>
+        <div>
+            <ul>
+                참여 업체 목록
+                <c:forEach var="entryCompany" items="${entryCompany}">
+                    <hr/>
+                    <li class="jobfair_list">
+                        <div class="board_no">${entryCompany.COMPANY_NAME}</div>
+                    </li>
+                </c:forEach>
+            </ul>
         </div>
     </article>
 </main>
