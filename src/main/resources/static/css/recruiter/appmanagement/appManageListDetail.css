@@ -1,5 +1,9 @@
+
+.main-title-container {
+     text-align: center;
+}
+
 .main-container {
-  border: 1px solid red;
   margin-top: 3em;
   margin-right: 30px;
   margin-left: 30px;
@@ -55,14 +59,13 @@
 .status-container {
   border: 1px solid black;
   margin-top: 10px;
-  height: 150px;
+  height: auto;
   box-shadow: 0.1px 0.1px;
   padding: 20px;
 }
 
 .content-label-container {
   display: flex;  
-  
 }
 
 .content-label {
@@ -87,7 +90,7 @@
 .content{
     border: 2px solid green;
     margin: 10px;
-    height: 50px;
+    height: auto;
 }
 
 

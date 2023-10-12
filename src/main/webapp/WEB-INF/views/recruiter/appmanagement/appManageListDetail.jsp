@@ -32,10 +32,24 @@
                 </div>
             </div>
             <div class ="company-info">
-                이름: <input type="text" value="${selectInfo.member_name}" readonly/>
-                성별: <input type="text" value="${selectInfo.member_sex}" readonly/>
-                연락처: <input type="text" value="${selectInfo.member_hp}" readonly/>
-                이메일: <input type="text" value="${selectInfo.member_email}" readonly/>
+                <table>
+                    <tr>
+                        <th>지원자 성명</th>
+                        <td>${selectInfo.member_name}</td>
+                    </tr>
+                    <tr>
+                        <th>지원자 성별</th>
+                        <td>${selectInfo.member_sex}</td>
+                    </tr>
+                    <tr>
+                        <th>지원자 연락처</th>
+                        <td>${selectInfo.member_hp}</td>
+                    </tr>
+                    <tr>
+                        <th>지원자 이메일</th>
+                        <td>${selectInfo.member_email}</td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>
@@ -46,8 +60,28 @@
         </div>
         <div class="content-container">
             <div class="content">
-                지원 내용이라고 합니다(파일 다운로드 포함//파일 여러개? c:forEach)
-                <button type="button" onclick="location.href='/recruiter/getAppFile/${selectInfo.status_no}'">다운로드</button>
+                <table>
+                    <tr>
+                        <th>이력서 제목</th>
+                        <td>${selectResume.resume_title}</td>
+                    </tr>
+                    <tr>
+                        <th>희망 연봉</th>
+                        <td>${selectResume.resume_money}</td>
+                    </tr>
+                    <tr>
+                        <th>업무 능력</th>
+                        <td>${selectResume.resume_skill}</td>
+                    </tr>
+                    <tr>
+                        <th>링크</th>
+                        <td>${selectResume.resume_url}</td>
+                    </tr>
+                    <tr>
+                        <th>서류</th>
+                        <td><button type="button" onclick="location.href='/recruiter/getAppFile/${selectInfo.status_no}'">다운로드</button></td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>
@@ -100,8 +134,6 @@
             </c:if>
         </div>
     </div>
-
-
 </div>
 </body>
 </html>

@@ -76,7 +76,7 @@
 
 .status-container {
     margin-top: 10px;
-    height: 600px;
+    height: auto;
     padding: 20px;
 
 }
@@ -104,85 +104,13 @@
 }
 
 .content-container {
-    height: 500px;
+    height: auto;
     border: 1px solid black;
     box-shadow: 1px 1px 2px 0 rgba(0,0,0,0.1);
 }
 
 .content{
-    height: 100px;
+    height: auto;
     border: 1px solid gray;
-    margin: 10px;
-    height: 50px;
-}
-
-
-
-
-
-/* 캘린더 */
-
-.company-schedule {
-    flex-basis: 30%;
     margin: 5px;
 }
-
-/*요일*/
-.fc-col-header-cell-cushion {
-    color: #000;
-}
-.fc-col-header-cell-cushion:hover {
-    text-decoration: none;
-    color:#000;
-}
-/*일자*/
-.fc-daygrid-day-number{
-    color: #000;
-    font-size:1em;
-}
-
-/*종일제목*/
-.fc-event-title.fc-sticky{
-
-}
-/*more버튼*/
-.fc-daygrid-more-link.fc-more-link{
-    color: #000;
-}
-/*일정시간*/
-.fc-daygrid-event > .fc-event-time{
-    color:#000;
-}
-/*시간제목*/
-.fc-daygrid-dot-event > .fc-event-title{
-    color:#000 !important;
-}
-/*가로 줄 - 월달력 종일 or 복수일자*/
-.fc-h-event{
-
-}
-/*세로 줄 - 주달력, 일달력*/
-.fc-v-event{
-
-}
-/*title 옆에 점*/
-.fc-daygrid-event-dot{
-
-}
-/*month/week/day*/
-.fc-button-active{
-    border-color: #ffc107 		!important;
-    background-color: #ffc107 	!important;
-    color: #000 				!important;
-    font-weight: bold 			!important;
-}
-/*노란버튼*/
-.btn-warning{
-    font-weight: bold;
-}
-/*모달 푸터*/
-.modal-footer{
-    display:inline-block;
-}
-
-

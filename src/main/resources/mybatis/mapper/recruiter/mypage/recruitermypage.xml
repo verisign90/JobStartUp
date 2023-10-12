@@ -51,4 +51,27 @@
 
     <!--기업 페이지: calendar 수정(수정중)-->
     <!--기업 페이지: calendar 삭제(수정중)-->
+
+    <!--기업 페이지: 1) 박람회 현황(Ajax) + pagination-->
+<!--    <select id="getJobFairList" resultType="">
+
+    </select>-->
+
+    <!--기업 페이지: 2) 공고 관리(Ajax) + pagination-->
+    <select id="getJobPostingList" resultType="com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterJobPostingDTO">
+        <![CDATA[
+            SELECT posting_no, posting_title, posting_sdate, posting_edate, isshow
+            FROM JOB_POSTING
+            WHERE company_no = 4
+            ORDER BY posting_no DESC
+        ]]>
+    </select>
+
+    <!--기업 페이지: 3) 지원자 관리(Ajax) + pagination-->
+<!--    <select id="getAppList" resultType="">
+
+    </select>-->
+
+
+
 </mapper>

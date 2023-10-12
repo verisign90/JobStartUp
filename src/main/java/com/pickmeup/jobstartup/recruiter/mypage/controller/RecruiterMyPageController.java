@@ -3,8 +3,10 @@ package com.pickmeup.jobstartup.recruiter.mypage.controller;
 import com.pickmeup.jobstartup.recruiter.apply.dto.ApplyDTO;
 import com.pickmeup.jobstartup.recruiter.apply.service.ApplyServiceImpl;
 import com.pickmeup.jobstartup.recruiter.appmanagement.dto.AppManageDTO;
+import com.pickmeup.jobstartup.recruiter.jobposting.dto.JobPostingDTO;
 import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterCalendarDTO;
 import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterFileDTO;
+import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterJobPostingDTO;
 import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterMyPageDTO;
 import com.pickmeup.jobstartup.recruiter.mypage.service.RecruiterMyPageService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -45,32 +47,42 @@ public class RecruiterMyPageController {
         recruiterFileDTO.setCompany_no(company_no);
         model.addAttribute("recruiterMyPageDTO", recruiterMyPageDTO);
         model.addAttribute("recruiterFileDTO", recruiterFileDTO);
+
+        //임시
+        List<RecruiterJobPostingDTO> recruiterJobPostingDTO = recruiterMyPageService.getJobPostingList(company_no);
+        model.addAttribute("recruiterJobPostingDTO",recruiterJobPostingDTO);
+        System.out.println(recruiterJobPostingDTO);
+        
+        
+        
         return "/recruiter/mypage/recruiterMyPage";
     }
 
     //기업 페이지: 1) 박람회 현황(Ajax) + pagination
-    @PostMapping("/recJobFairList")
+    @PostMapping("/getJobFairList")
     public String companyJobFairList() {
         //Parameter: company_no
-        //Business Logic: call InfoList.
+        //Business Logic: call JobFairList
         //Model and View
         return "";
     }
 
     //기업 페이지: 2) 공고 관리(Ajax) + pagination
-    @PostMapping("/recApprovalList")
-    public String companyApprovalList() {
-        //Parameter: company_no
-        //Business Logic: call InfoList.
+    @PostMapping("/getJobPostingList")
+    public String companyJobPostingList(@RequestParam int company_no, Model model,
+                                         List<RecruiterJobPostingDTO> recruiterJobPostingDTO) {
+        //Business Logic: call JobPostingList
+        recruiterJobPostingDTO = recruiterMyPageService.getJobPostingList(company_no);
         //Model and View
-        return "";
+        model.addAttribute("recruiterJobPostingDTO",recruiterJobPostingDTO);
+        return "/recruiter/mypage/recruiterMyPage";
     }
 
     //기업 페이지: 3) 지원자 관리(Ajax) + pagination
-    @PostMapping("/recManageAppList")
-    public String companyManageAppList() {
+    @PostMapping("/getAppList")
+    public String companyAppList() {
         //Parameter: company_no
-        //Business Logic: call InfoList.
+        //Business Logic: call AppList
         //Model and View
         return "";
     }
@@ -163,6 +175,12 @@ public class RecruiterMyPageController {
         response.getOutputStream().close();                     //출력스트림을 닫는다
     }
 
+    //기업 페이지: 캘린더 팝업
+    @RequestMapping("/calendarPopup")
+    public String companyCalendarPop(){
+        return "/recruiter/mypage/recruiterCalendarPopUp";
+    }
+
     //기업 페이지: 조회 - 캘린더 일정
     @GetMapping(value = "/getCalendar", params = "method=data", produces = "application/json")
     @ResponseBody // JSON 데이터를 반환
@@ -171,20 +189,24 @@ public class RecruiterMyPageController {
         return calendarList; // 실제 데이터를 반환
     }
 
-    //기업 페이지: 캘린더 팝업
-    @RequestMapping("/calendarPopup")
-    public String companyCalendarPop(){
-        return "/recruiter/mypage/recruiterCalendarPopUp";
-    }
-
     //기업 페이지: 입력 - 캘린더 일정
     @ResponseBody
     @PostMapping(value = "/insertCalendar", produces = "application/json")
     public String insertCalendar(@RequestBody RecruiterCalendarDTO recruiterCalendarDTO
                                 ,@RequestParam String method){
-            recruiterMyPageService.insertRecruCalendar(recruiterCalendarDTO);
-            return "success";
+        recruiterMyPageService.insertRecruCalendar(recruiterCalendarDTO);
+        return "success";
     }
+
+    //기업 페이지: 삭제 - 캘린더 일정
+/*    @ResponseBody
+    @PostMapping(value = "/deleteCalendar", produces = "application/json")
+    public String deleteCalendar(@RequestBody RecruiterCalendarDTO recruiterCalendarDTO
+                                ,@RequestParam String method){
+        recruiterMyPageService.deleteRecruCalendar(recruiterCalendarDTO);
+        return "success";
+    }*/
+
 
 
 
