@@ -133,6 +133,23 @@
         <div class="jobfair_content">
             ${jobFair.JOBFAIR_CONTENT}
         </div>
+                <div id="registering_jobfair">
+            <a href="${pageContext.request.contextPath}/admin/jobfair/delete?jobFairNo=${jobFair.JOBFAIR_NO}"
+               class="button-link">
+                삭제하기
+            </a>
+        </div>
+        <div>
+            <ul>
+                참여 업체 목록
+                <c:forEach var="entryCompany" items="${entryCompany}">
+                    <hr/>
+                    <li class="jobfair_list">
+                        <div class="board_no">${entryCompany.COMPANY_NAME}</div>
+                    </li>
+                </c:forEach>
+            </ul>
+        </div>
     </article>
 </main>
 <footer>
