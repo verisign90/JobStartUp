@@ -1,14 +1,10 @@
 package com.pickmeup.jobstartup.recruiter.jobposting.dto;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.sql.Timestamp;
 
-@Getter
-@Setter
+@Data
 @ToString
 @NoArgsConstructor
 public class JobPostingDTO {

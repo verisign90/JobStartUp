@@ -32,6 +32,7 @@ function clickInsert(){
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
+        //calendar 설정(customize)
         locale: 'ko',
         initialDate: new Date(),
         navLinks: true,
@@ -42,13 +43,16 @@ document.addEventListener('DOMContentLoaded', function() {
             center: 'title',
             end: 'prev,next dayGridMonth today',
         },
+
+        //calendar CRUD
         customButtons: {
             addEventButton: {
                 text: '추가',
+                // 캘린더 '추가' 버튼 클릭 이벤트 발생
                 click: function() {
                     openModal();
 
-                    // 캘린더 '추가' 버튼 클릭: insert
+                    // Insert: 캘린더 '추가' 버튼 클릭
                     var clickInsertButton = document.querySelector('#addCalendar');
                     clickInsertButton.addEventListener('click', function() {
                         var SCHEDULE_TITLE = document.getElementById('SCHEDULE_TITLE').value;
@@ -75,7 +79,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         });
                         closeModal();
                     });
-                    // 캘린더 '닫기' 버튼 클릭
+
+                    // 캘린더 모달창 '닫기' 버튼 클릭 이벤트 발생
                     var clickCloseButton = document.querySelector('#closeModal');
                     clickCloseButton.addEventListener('click', function() {
                         closeModal();
@@ -84,7 +89,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             },
         },
-        // 캘린더 read
+
+        // Select: page 로딩 시 캘린더 정보 로딩
         events: function(info, successCallback, failureCallback) {
              $.ajax({
                  type: "GET",
@@ -111,12 +117,19 @@ document.addEventListener('DOMContentLoaded', function() {
                  }
              });
         },
-        // 캘린더 delete
 
+        // Delete: 캘린더 정보 삭제
+/*        eventClick: function(arg) {
+            if (confirm(title+'등록된 일정을 삭제하시겠습니까?')) {
+                arg.event.remove();
+            }
+        }*/
 
 
 
 
     });
+
+    // calendar 랜더링
     calendar.render();
 });

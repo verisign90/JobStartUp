@@ -1,7 +1,9 @@
 package com.pickmeup.jobstartup.recruiter.mypage.service;
 
+import com.pickmeup.jobstartup.recruiter.jobposting.dto.JobPostingDTO;
 import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterCalendarDTO;
 import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterFileDTO;
+import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterJobPostingDTO;
 import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterMyPageDTO;
 import com.pickmeup.jobstartup.recruiter.mypage.repository.RecruiterMyPageRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +31,13 @@ public class RecruiterMyPageServiceImpl implements RecruiterMyPageService{
 
 
     //기업 페이지: 1) 박람회 현황(Ajax) + pagination
+
     //기업 페이지: 2) 공고 관리(Ajax) + pagination
+    @Override
+    public List<RecruiterJobPostingDTO> getJobPostingList(int company_no){
+        return recruiterMyPageRepository.getJobPostingList(company_no);
+    }
+
     //기업 페이지: 3) 지원자 관리(Ajax) + pagination
     //기업 페이지: 정보 수정 리스트 (또는 approval 담당의 jsp 이용)
     //기업 페이지: 정보 수정 (또는 approval 담당의 jsp 이용)
@@ -83,6 +91,15 @@ public class RecruiterMyPageServiceImpl implements RecruiterMyPageService{
     //기업 페이지: calendar 입력
     @Override
     public int insertRecruCalendar(RecruiterCalendarDTO recruiterCalendarDTO){
+
+        //schedule_end 특정 위치 값 변경 (+1) : calendar 마지막 날 exclusive 되는 문제 해결
+        String orgEndDate = recruiterCalendarDTO.getSchedule_end();
+        int subEndDate = Integer.parseInt(orgEndDate.substring(8)); // 시작 인덱스를 8로 변경
+        int addEndDate = subEndDate + 1;
+        String strSubEndDate = Integer.toString(addEndDate);
+        String editedEndDate = orgEndDate.substring(0, 8) + strSubEndDate; // 시작 인덱스를 0으로 변경
+        recruiterCalendarDTO.setSchedule_end(editedEndDate);
+
         return recruiterMyPageRepository.insertRecruCalendar(recruiterCalendarDTO);
     }
 

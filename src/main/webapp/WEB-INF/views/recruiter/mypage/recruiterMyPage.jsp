@@ -89,6 +89,7 @@
         </div>
 
     <div class="status-container">
+
         <div class="content-label-container">
             <div id="apply-manage" class="content-label">
                 지원자 관리
@@ -102,18 +103,24 @@
         </div>
 
         <div class="content-container">
-            <div class="content">
-                최근 박람회 지원 현황
-            </div>
-            <div class="content">
-                최근 박람회 지원 현황
-            </div>
-            <div class="content">
-                최근 박람회 지원 현황
-            </div>
-            <div class="content">
-                최근 박람회 지원 현황
-            </div>
+            <c:forEach var="jobPosting" items="${recruiterJobPostingDTO}" varStatus="status">
+                <div class="content">
+                    <table>
+                        <tr>
+                            <th>공고 제목</th>
+                            <td>${jobPosting.posting_title}</td>
+                        </tr>
+                        <tr>
+                            <th>공고 시작일</th>
+                            <td><fmt:formatDate value="${jobPosting.posting_sdate}" pattern="yyyy년 MM월 dd일"/></td>
+                        </tr>
+                        <tr>
+                            <th>공고 종료일</th>
+                            <td><fmt:formatDate value="${jobPosting.posting_edate}" pattern="yyyy년 MM월 dd일"/></td>
+                        </tr>
+                    </table>
+                </div>
+            </c:forEach>
         </div>
     </div>
 </div>
