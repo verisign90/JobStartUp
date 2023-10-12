@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pickmeup.jobstartup.seeker.resume.repository.ResumeRepository">
+    <insert id="insertResumeLoc" parameterType="java.util.List">
+        INSERT INTO RESUME_LOC (RESUME_NO, LOC_DETAIL_CODE_NUM)
+        VALUES
+        <foreach collection="resumeLocDTOList" item="resumeLocDTO" separator=",">
+            (#{resumeLocDTO.resume_no}, #{resumeLocDTO.loc_detail_code_num})
+        </foreach>
+    </insert>
+
+    <delete id="deleteResumeLoc" parameterType="int">
+        <![CDATA[
+        DELETE RESUME_LOC
+        WHERE RESUME_NO=#{resume_no}
+        ]]>
+    </delete>
+
+    <update id="modifyResumeLoc">
+        <foreach collection="resumeLocDTOList" item="resumeLocDTO" separator=";">
+            UPDATE RESUME_LOC
+            SET LOC_DETAIL_CODE_NUM = #{resumeLocDTO.loc_detail_code_num}
+            WHERE RESUME_LOC_NO = #{resumeLocDTO.resume_loc_no}
+        </foreach>
+    </update>
+</mapper>
