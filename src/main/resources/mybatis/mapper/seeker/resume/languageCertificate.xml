@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pickmeup.jobstartup.seeker.resume.repository.ResumeRepository">
+    <insert id="insertLanguageCertificate" parameterType="java.util.List">
+        INSERT INTO LANGUAGE_CERTIFICATE (LANG_NO, LANG_CER_EXAM, LANG_CER_GRADE, LANG_CER_DATE)
+        VALUES
+        <foreach collection="languageCertificateDTOList" item="languageCertificateDTO" separator=",">
+            (#{languageCertificateDTO.lang_no}, #{languageCertificateDTO.lang_cer_exam}, #{languageCertificateDTO.lang_cer_grade}, #{languageCertificateDTO.lang_cer_date})
+        </foreach>
+    </insert>
+
+    <delete id="deleteLanguageCertificate" parameterType="int">
+        <![CDATA[
+        DELETE LANGUAGE_CERTIFICATE
+        WHERE LANG_NO = #{lang_no}
+        ]]>
+    </delete>
+
+    <update id="modifyLanguageCertificate" parameterType="java.util.List">
+        <foreach collection="languageCertificateDTOList" item="languageCertificateDTO" separator=";">
+            UPDATE LANGUAGE_CERTIFICATE
+            SET
+                LANG_CER_EXAM = #{languageCertificateDTO.lang_cer_exam},
+                LANG_CER_GRADE = #{languageCertificateDTO.lang_cer_grade},
+                LANG_CER_DATE = #{languageCertificateDTO.lang_cer_date}
+            WHERE
+                LANG_CER_NO = #{languageCertificateDTO.lang_cer_no}
+        </foreach>
+    </update>
+</mapper>

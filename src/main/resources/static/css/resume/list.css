@@ -1,0 +1,49 @@
+.wrap {
+    width: 1280px;
+    margin: 0 auto;
+}
+
+all {
+    font-family: "Malgun Gothic",dotum,gulim,sans-serif;
+}
+
+.resume_list_wrap {
+    margin-top: 56px;
+    letter-spacing: -1px;
+}
+
+.resume_item:first-child {
+    border-top: 1px solid #d7dce5;
+}
+
+.resume_item {
+    margin: 0;
+    border: none;
+    border-bottom: 1px solid #eaedf4;
+    padding: 50px;
+}
+
+.resume_item .tit {
+    display: inline-block;
+    position: relative;
+    margin-bottom: 12px;
+    max-width: 764px;
+    color: #373f57;
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 40px;
+    justify-content: space-between;
+}
+
+.resume_list>li {
+    margin-bottom: -57px;
+    position: relative;
+}
+
+ul{
+    list-style:none;
+}
+
+a {
+
+}

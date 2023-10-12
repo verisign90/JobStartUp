@@ -15,6 +15,6 @@ public class JobPostingController {
 
     @GetMapping("/write")
     public String write(){
-        return "/recruiter/jobPosting/JPwriteForm";
+        return "/recruiter/recruiterJPwriteForm";
     }
 }

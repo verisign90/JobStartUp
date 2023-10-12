@@ -1,0 +1,26 @@
+.layout_nav_wrap {
+    border-bottom: 1px solid #c7cacd;
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+    height: 100px;
+    align-items: center;
+}
+
+.layout_nav {
+}
+
+.layout_nav_menu {
+    display: inline-block;
+    width: auto;
+}
+
+.layout_side {
+    display: block;
+    border-right: 1px solid #c7cacd;
+    float: left;
+    width: 15%;
+    height: 100%;
+    padding: 30px;
+}
+
