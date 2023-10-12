@@ -72,7 +72,7 @@ article table {
 
 .board_date {
     display: flex;
-    min-width: 220px;
+    min-width: 260px;
     height: 50px;
     align-items: center;
 }
