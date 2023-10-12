@@ -25,4 +25,7 @@
         SELECT count(*) FROM member WHERE member_email = #{member_email}
     </select>
 
+    <select id="findByUsername" parameterType="String" resultType="com.pickmeup.jobstartup.member.entity.Member">
+        SELECT * FROM member WHERE member_id = #{username}
+    </select>
 </mapper>

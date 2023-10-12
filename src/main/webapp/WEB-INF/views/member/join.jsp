@@ -11,5 +11,6 @@
 <h2>회원가입</h2>
 <button onclick="location.href='/joinCommon'">개인회원 가입</button>
 <button onclick="location.href='/joinCompany'">기업회원 가입</button>
+<button onclick="location.href='/login'">로그인</button>
 </body>
 </html>
