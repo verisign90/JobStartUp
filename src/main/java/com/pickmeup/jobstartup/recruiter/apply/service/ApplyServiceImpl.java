@@ -53,4 +53,12 @@ public class ApplyServiceImpl implements ApplyService {
         applyRepository.insertTest(testDTO);
     }
 
+    public ApplyDTO getCompanyList(){
+        return applyRepository.getCompanyList();
+    }
+
+    public List<FileDTO> getFileList(int company_no){
+        return applyRepository.getFileList(company_no);
+    }
+
 }

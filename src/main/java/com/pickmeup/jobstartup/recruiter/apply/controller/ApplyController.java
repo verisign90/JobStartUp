@@ -8,6 +8,9 @@ import com.pickmeup.jobstartup.recruiter.apply.service.ApplyServiceImpl;
 import com.zaxxer.hikari.util.FastList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,11 +29,7 @@ public class ApplyController {
     @Autowired
     public ApplyServiceImpl applyService;
 
-    @GetMapping("/test")
-    public String test(){
 
-        return "recruiter/test";
-    }
 
     @PostMapping("/test")
     public String insertTest(@ModelAttribute TestDTO testDTO){
@@ -39,8 +39,53 @@ public class ApplyController {
     }
 
 
+    @GetMapping("/download")
+    public ResponseEntity<byte[]> downloadFile(@RequestParam("fileName") String fileName) throws IOException {
+        // 파일을 읽어올 디렉토리 경로
+        String directory = "C:\\JobStartUp_file";  // 실제 디렉토리 경로로 수정
+        System.out.println("getMapping/download 에서 fileName 값"+ fileName);
+        // 파일을 읽어올 File 객체 생성
+        File file = new File(directory, fileName);
+
+        // 파일이 존재하는지 확인
+        if (file.exists()) {
+            // 파일을 byte 배열로 읽어오기
+            byte[] fileBytes = Files.readAllBytes(file.toPath());
+
+            // 파일 다운로드를 위한 HttpHeaders 설정
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+            headers.setContentDispositionFormData("attachment", fileName);
+
+            // 파일 byte 배열과 HttpHeaders를 ResponseEntity로 감싸서 반환
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .body(fileBytes);
+        } else {
+            // 파일이 존재하지 않을 경우 에러 응답
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 
+    //신청서 요청
+    @GetMapping("/modify/{company_no}")
+    public String modify(@PathVariable("company_no") int company_no ,Model model) {
+        List<FileDTO> fileDTOList = applyService.getFileList(company_no);
+        System.out.println("여기는 modify"+ fileDTOList );
+        model.addAttribute("fileDTOList",fileDTOList);
+
+
+
+       /* model.addAttribute("upperLoc", upperLoc);
+        model.addAttribute("upperJob", upperJob);
+        System.out.println(upperLoc);
+        System.out.println(upperJob);*/
+
+        return "recruiter/modify";
+    }
+
+    //신청서 작성양식
     @GetMapping("/apply")
     public String selectSample(Model model) {
         List<LocDTO> upperLoc = applyService.getUpperLoc();
@@ -51,11 +96,10 @@ public class ApplyController {
         System.out.println(upperLoc);
         System.out.println(upperJob);
 
-        return "recruiter/approvalRequest";
+        return "recruiter/approvalRequest2";
     }
 
-
-
+    //신청서 제출
     @PostMapping("/apply")
     public String insertInfo(@ModelAttribute ApplyDTO applyDTO,@RequestParam("document") MultipartFile[] files,@RequestParam("logo") MultipartFile logoFile){
         System.out.println("여기는 apply post컨트롤러1");
@@ -126,6 +170,7 @@ public class ApplyController {
         return String.format("redirect:/apply");
     }
 
+    //하위지역 받아오기
     @GetMapping("/getLowerLoc")
     @ResponseBody
     public List<LocDTO> getLowerLoc(@RequestParam String upperLoc) {
@@ -133,6 +178,7 @@ public class ApplyController {
         return applyService.getLowerLoc(upperLoc);
     }
 
+    //하위 업종코드 받아오기
     @GetMapping("/getBusiness_type_code_up")
     @ResponseBody
     public List<JobDTO> getBusiness_type_code(@RequestParam String business_type_code_up) {

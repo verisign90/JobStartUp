@@ -46,4 +46,12 @@ public class ApplyRepositoryImpl implements ApplyRepository {
     public void insertTest(TestDTO testDTO){
         sqlSession.insert("apply.insertTest",testDTO);
     }
+
+    public ApplyDTO getCompanyList(){
+       return sqlSession.selectOne("apply.getCompanyList");
+    }
+
+    public List<FileDTO> getFileList(int company_no){
+        return sqlSession.selectList("apply.getFileList",company_no);
+    }
 }
