@@ -24,7 +24,7 @@ public class NoticeController {
     //게시글 등록 폼
     @GetMapping("/write")
     public String writeForm(){
-        return "/notice/writeForm";
+        return "/notice/noticeWriteForm";
     }
 
     //게시글 등록
@@ -65,7 +65,7 @@ public class NoticeController {
             case "all" -> {
             }
         }
-        return "/notice/list";
+        return "/notice/noticeList";
     }
 
     //상세 페이지
@@ -73,7 +73,7 @@ public class NoticeController {
     public String readDetail(@PathVariable long not_no, Model model){
         NoticeDTO noticeDTO = noticeService.readDatail(not_no);
         model.addAttribute("noticeDTO", noticeDTO);
-        return "/notice/detail";
+        return "/notice/noticeDetail";
     }
 
     //수정 폼 요청
@@ -87,7 +87,7 @@ public class NoticeController {
         model.addAttribute("noticeDTO", noticeDTO);
         model.addAttribute("categoryJson", categoryJson);
         model.addAttribute("fileListJson", fileListJson);
-        return "/notice/modifyForm";
+        return "/notice/noticeModifyForm";
     }
 
     @PostMapping("/modify")
