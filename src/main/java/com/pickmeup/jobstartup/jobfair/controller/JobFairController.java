@@ -47,9 +47,6 @@ public class JobFairController {
 
             String jobFairJson = mapper.writeValueAsString(jobFair);
             model.addAttribute("jobFairJson", jobFairJson);
-
-            System.out.println(jobFair.getJOBFAIR_NO() + 3);
-            System.out.println(jobFair);
         } catch (Exception e) {
             e.printStackTrace();
         }
