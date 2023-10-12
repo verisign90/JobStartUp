@@ -10,16 +10,14 @@ import java.util.Date;
 @ToString
 @NoArgsConstructor
 public class RecruiterCalendarDTO {
-
     private int schedule_no;
     private String schedule_title;
     private int company_no;
     private String schedule_memo;
     private String schedule_start;
     private String schedule_end;
+    private boolean allDay;
     private String textColor;
     private String backgroundColor;
     private String borderColor;
-
-
 }

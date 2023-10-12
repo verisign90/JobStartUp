@@ -14,7 +14,7 @@
         ]]>
     </select>
 
-    <!--채용관리 지원자 상세 페이지: 2) 지원자 이력 정보-->
+    <!--채용관리 지원자 상세 페이지: 2) 지원자 이력 정보 - 일반 -->
     <select id="selectAppResumeByMember" parameterType="int" resultType="com.pickmeup.jobstartup.recruiter.appmanagement.dto.AppResumeDTO">
         <![CDATA[
         SELECT a.member_no, a.resume_no, r.resume_title, r.profile_orgname, r.profile_savname,
@@ -24,17 +24,14 @@
         ]]>
     </select>
 
-    <!--채용관리 지원자 상세 페이지: 2) 지원자 이력 정보 - 파일 읽기(사진)-->
-
-
-    <!--채용관리 지원자 상세 페이지: 2) 지원자 이력 정보 - 파일 다운로드(이력서)-->
-
-
-
-
-
-
-
+    <!--채용관리 지원자 상세 페이지: 2) 지원자 이력 정보 - 파일(사진,이력서)-->
+    <select id="selectAppResumeFileByMember" parameterType="int" resultType="com.pickmeup.jobstartup.recruiter.appmanagement.dto.AppResumeFileDTO">
+        <![CDATA[
+        SELECT resume_no, profile_orgname, profile_savname, resume_orgname, resume_savname
+        FROM resume
+        WHERE resume_no = #{resume_no}
+        ]]>
+    </select>
 
     <!--채용관리 지원자 상세 페이지: 1차 등록 -->
     <update id="updateAppManageFirstEnroll" parameterType="com.pickmeup.jobstartup.recruiter.appmanagement.dto.AppManageDTO">

@@ -5,7 +5,7 @@ import lombok.*;
 @Data
 @ToString
 @NoArgsConstructor
-public class AppManageFileDTO {
+public class AppResumeFileDTO {
     private int resume_no;;
     private String profile_orgname;
     private String profile_savname;

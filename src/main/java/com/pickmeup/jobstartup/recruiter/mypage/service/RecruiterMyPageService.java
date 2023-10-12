@@ -1,19 +1,16 @@
 package com.pickmeup.jobstartup.recruiter.mypage.service;
 
-import com.pickmeup.jobstartup.recruiter.appmanagement.dto.AppManageDTO;
-import com.pickmeup.jobstartup.recruiter.appmanagement.dto.AppManageFileDTO;
 import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterCalendarDTO;
 import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterFileDTO;
+import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterMyPageDTO;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public interface RecruiterMyPageService {
 
     //기업 페이지: 회사 정보
-    AppManageDTO selectRecruiterInfo(int company_no);
+    RecruiterMyPageDTO selectRecruiterInfo(int company_no);
 
 
     //기업 페이지: 1) 박람회 현황(Ajax)
@@ -30,23 +27,17 @@ public interface RecruiterMyPageService {
     int updateComLogo(MultipartFile logoFile, int company_no, String savedSavname);
 
 
-
-
     //기업 페이지: pagination
 
     //기업 페이지: calendar 입력
     int insertRecruCalendar(RecruiterCalendarDTO recruiterCalendarDTO);
 
     //기업 페이지: calendar 조회
-    List<RecruiterCalendarDTO> selectRecruCalendar(int company_no);
-
+    List<RecruiterCalendarDTO> selectRecruCalendar();
 
     //기업 페이지: calendar 삭제
 
-
     //기업 페이지: calendar 수정
-
-
 
 
 }
