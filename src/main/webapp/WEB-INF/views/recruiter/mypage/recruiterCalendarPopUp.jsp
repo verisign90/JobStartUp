@@ -7,20 +7,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>웹 페이지 제목</title>
+    <title>기업 마이페이지(캘린더 등록)</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/recruiter/mypage/recruiterCalendarPopUp.css"/>
     <script src="${pageContext.request.contextPath}/js/recruiter/mypage/recruiterCalendarPopUp.js"></script>
-
-    <script>
-
-
-
-
-    </script>
 
 </head>
 <body>

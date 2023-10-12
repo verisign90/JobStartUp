@@ -1,5 +1,10 @@
+
+.main-title-container{
+    text-align: center;
+
+}
+
 .main-container {
-  border: 1px solid red;
   margin-top: 3em;
   margin-right: 30px;
   margin-left: 30px;
@@ -7,15 +12,11 @@
 }
 
 .info-container {
-    border: 1px solid black;
     margin: auto;
-    box-shadow: 0.1px 0.1px
 }
 
 .button-container {
-    display: flex;
-    justify-content: flex-end;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
 }
 
 .edit-button {
@@ -25,15 +26,16 @@
     font-size: 10px;
     font-weight: bold;
     color: white;
-    border-radius: 7px;
-    background: green;
+    border-radius: 2rem;
+    background: #7A41FF;
+    background: linear-gradient(to left, #7a60ff, #cd9ffa);
     cursor: pointer;
 }
 
 .info-main-container {
     display: flex;
     margin: 5px;
-    border: 1px solid black;
+/*    border: 1px solid black;*/
 }
 
 .company {
@@ -44,9 +46,14 @@
     flex-basis: 30%;
 }
 
-.profile-pic {
-    border: 1px solid black;
-    margin: 5px;
+.profile-pic{
+    margin: 8px;
+}
+
+#preview {
+    margin: auto;
+    display: block;
+    border-radius: 10%;
 }
 
 .profile-edit-button {
@@ -56,134 +63,126 @@
 .company-info {
     flex-basis: 35%;
     margin: 5px;
-    border: 1px solid blue;
+    /*border: 1px solid blue;*/
 }
 
 .question-answer {
     flex-basis: 35%;
     border: 1px solid red;
     margin: 5px;
+    padding: 5px;
 }
-
-/* 캘린더 */
-.company-schedule {
-    flex-basis: 30%;
-    margin: 5px;
-    border: 1px solid blue;
-}
-
-  /*요일*/
-  .fc-col-header-cell-cushion {
-	color: #000;
-  }
-  .fc-col-header-cell-cushion:hover {
-	text-decoration: none;
-	color:#000;
-  }
-  /*일자*/
-  .fc-daygrid-day-number{
-	color: #000;
-	font-size:1em;
-  }
-
-  /*종일제목*/
-  .fc-event-title.fc-sticky{
-
-  }
-  /*more버튼*/
-  .fc-daygrid-more-link.fc-more-link{
-	color: #000;
-  }
-  /*일정시간*/
-  .fc-daygrid-event > .fc-event-time{
-	color:#000;
-  }
-  /*시간제목*/
-  .fc-daygrid-dot-event > .fc-event-title{
-    color:#000 !important;
-  }
-  /*가로 줄 - 월달력 종일 or 복수일자*/
-  .fc-h-event{
-
-  }
-  /*세로 줄 - 주달력, 일달력*/
-  .fc-v-event{
-
-  }
-  /*title 옆에 점*/
-  .fc-daygrid-event-dot{
-
-  }
-  /*month/week/day*/
-  .fc-button-active{
-	border-color: #ffc107 		!important;
-	background-color: #ffc107 	!important;
-	color: #000 				!important;
-	font-weight: bold 			!important;
-  }
-  /*노란버튼*/
-  .btn-warning{
-  	font-weight: bold;
-  }
-  /*모달 푸터*/
-  .modal-footer{
-  	display:inline-block;
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 .status-container {
-  border: 1px solid black;
-  margin-top: 10px;
-  height: 300px;
-  box-shadow: 0.1px 0.1px;
-  padding: 20px;
+    margin-top: 10px;
+    height: 600px;
+    padding: 20px;
+
 }
 
 .content-label-container {
-  display: flex;
+    display: flex;
 
 }
 
 .content-label {
-  border: 1px solid black;
-  display: block;
-  text-align: center;
-  line-height: initial;
-  border-bottom: none;
-  width: auto;
-  height: auto;
-  font-weight: bold;
-  font-size: 13px;
-  background-color: white;
-  box-shadow: 1px 1px 2px 0 rgba(0,0,0,0.1);
-  cursor: pointer;
+    border: 1px solid black;
+    border-top-left-radius: 15%;
+    border-top-right-radius: 15%;
+    display: block;
+    text-align: center;
+    line-height: initial;
+    border-bottom: none;
+    width: auto;
+    height: auto;
+    font-weight: bold;
+    font-size: 15px;
+    background-color: white;
+    cursor: pointer;
+    margin-right: 5px;
 }
 
 .content-container {
+    height: 500px;
     border: 1px solid black;
+    box-shadow: 1px 1px 2px 0 rgba(0,0,0,0.1);
 }
 
 .content{
-    border: 2px solid green;
+    height: 100px;
+    border: 1px solid gray;
     margin: 10px;
     height: 50px;
 }
+
+
+
+
+
+/* 캘린더 */
+
+.company-schedule {
+    flex-basis: 30%;
+    margin: 5px;
+}
+
+/*요일*/
+.fc-col-header-cell-cushion {
+    color: #000;
+}
+.fc-col-header-cell-cushion:hover {
+    text-decoration: none;
+    color:#000;
+}
+/*일자*/
+.fc-daygrid-day-number{
+    color: #000;
+    font-size:1em;
+}
+
+/*종일제목*/
+.fc-event-title.fc-sticky{
+
+}
+/*more버튼*/
+.fc-daygrid-more-link.fc-more-link{
+    color: #000;
+}
+/*일정시간*/
+.fc-daygrid-event > .fc-event-time{
+    color:#000;
+}
+/*시간제목*/
+.fc-daygrid-dot-event > .fc-event-title{
+    color:#000 !important;
+}
+/*가로 줄 - 월달력 종일 or 복수일자*/
+.fc-h-event{
+
+}
+/*세로 줄 - 주달력, 일달력*/
+.fc-v-event{
+
+}
+/*title 옆에 점*/
+.fc-daygrid-event-dot{
+
+}
+/*month/week/day*/
+.fc-button-active{
+    border-color: #ffc107 		!important;
+    background-color: #ffc107 	!important;
+    color: #000 				!important;
+    font-weight: bold 			!important;
+}
+/*노란버튼*/
+.btn-warning{
+    font-weight: bold;
+}
+/*모달 푸터*/
+.modal-footer{
+    display:inline-block;
+}
+
+

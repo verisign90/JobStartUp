@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 기업 소개 페이지 -->
+<mapper namespace="com.pickmeup.jobstartup.recruiter.companypage.repository.CompanyPageRepository">
+
+<!--    <select id="" resultType="">
+        <![CDATA[
+        SELECT
+        FROM
+        WHERE
+        ]]>
+    </select>-->
+
+</mapper>

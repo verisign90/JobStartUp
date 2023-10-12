@@ -33,10 +33,12 @@
         ]]>
     </update>
 
-    <!--기업 페이지: calendar 조회(수정중)-->
+    <!--기업 페이지: calendar 조회-->
     <select id="selectRecruCalendar" parameterType="com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterCalendarDTO" resultType="map">
-        SELECT schedule_no, schedule_title, company_no, schedule_memo, schedule_start, schedule_end, textcolor, backgroundcolor, bordercolor
-        FROM company_schedule
+        <![CDATA[
+            SELECT schedule_no, schedule_title, company_no, schedule_memo, schedule_start, schedule_end, textcolor, backgroundcolor, bordercolor
+            FROM company_schedule
+        ]]>
     </select>
 
     <!--기업 페이지: calendar 입력(수정중)-->
@@ -47,4 +49,6 @@
         ]]>
     </insert>
 
+    <!--기업 페이지: calendar 수정(수정중)-->
+    <!--기업 페이지: calendar 삭제(수정중)-->
 </mapper>
