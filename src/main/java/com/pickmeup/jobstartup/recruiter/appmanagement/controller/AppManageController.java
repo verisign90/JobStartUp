@@ -67,7 +67,7 @@ public class AppManageController {
         String profile_savname = appResumeFileDTO.getProfile_savname();
 
         //File: 경로 설정
-        String fileRepository = "C:\\jobStartUp_fileUpload";
+        String fileRepository = "C:\\JobStartUp_fileUpload\\profile_img\\";
         String path = fileRepository+"\\"+profile_savname;
         File file = new File(path);
 
@@ -102,10 +102,10 @@ public class AppManageController {
         String resume_orgname = appResumeFileDTO.getResume_orgname();
         String resume_savname = appResumeFileDTO.getResume_savname();
 
-        byte[] fileByte = FileUtils.readFileToByteArray(new File("C:\\jobStartUp_fileUpload\\"+resume_savname));
+        byte[] fileByte = FileUtils.readFileToByteArray(new File("C:\\JobStartUp_fileUpload\\resumeFile\\"+resume_savname));
         response.setContentType("application/octet-stream");    //파일유형설정
         response.setContentLength(fileByte.length);             //파일길이설정
-        response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(resume_orgname,"UTF-8")+"\";"); //데이터형식/성향설정 (attachment: 첨부파일)
+        response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(resume_savname,"UTF-8")+"\";"); //데이터형식/성향설정 (attachment: 첨부파일)
         response.setHeader("Content-Transfer-Encoding", "binary");         //내용물 인코딩방식설정
         response.getOutputStream().write(fileByte);             //버퍼의 출력스트림을 출력
         response.getOutputStream().flush();                     //버퍼에 남아있는 출력스트림을 출력
