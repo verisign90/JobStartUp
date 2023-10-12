@@ -8,12 +8,16 @@
     <typeAliases>
         <typeAlias alias="ApplyDTO" type="com.pickmeup.jobstartup.recruiter.apply.dto.ApplyDTO"/>
         <typeAlias alias="LocDTO" type="com.pickmeup.jobstartup.recruiter.apply.dto.LocDTO"/>
-        <typeAlias alias="ResumeDTO" type="com.pickmeup.jobstartup.resume.dto.ResumeDTO"/>
-        <typeAlias alias="CareerDTO" type="com.pickmeup.jobstartup.resume.dto.CareerDTO"/>
-        <typeAlias alias="CertificateDTO" type="com.pickmeup.jobstartup.resume.dto.CertificateDTO"/>
-        <typeAlias alias="LanguageDTO" type="com.pickmeup.jobstartup.resume.dto.LanguageDTO"/>
-        <typeAlias alias="LanguageCertificateDTO" type="com.pickmeup.jobstartup.resume.dto.LanguageCertificateDTO"/>
-        <typeAlias alias="ResumeLocDTO" type="com.pickmeup.jobstartup.resume.dto.ResumeLocDTO"/>
+        <typeAlias alias="ResumeDTO" type="com.pickmeup.jobstartup.seeker.resume.dto.ResumeDTO"/>
+        <typeAlias alias="CareerDTO" type="com.pickmeup.jobstartup.seeker.resume.dto.CareerDTO"/>
+        <typeAlias alias="CertificateDTO" type="com.pickmeup.jobstartup.seeker.resume.dto.CertificateDTO"/>
+        <typeAlias alias="LanguageDTO" type="com.pickmeup.jobstartup.seeker.resume.dto.LanguageDTO"/>
+        <typeAlias alias="LanguageCertificateDTO" type="com.pickmeup.jobstartup.seeker.resume.dto.LanguageCertificateDTO"/>
+        <typeAlias alias="ResumeLocDTO" type="com.pickmeup.jobstartup.seeker.resume.dto.ResumeLocDTO"/>
+        <typeAlias alias="PostingBookmarkDTO" type="com.pickmeup.jobstartup.seeker.applicationSupport.dto.PostingBookmarkDTO"/>
+        <typeAlias alias="CompanyFollowDTO" type="com.pickmeup.jobstartup.seeker.applicationSupport.dto.CompanyFollowDTO"/>
+        <typeAlias alias="ResumeApplyDTO" type="com.pickmeup.jobstartup.seeker.applicationSupport.dto.ResumeApplyDTO"/>
+        <typeAlias alias="JobPostingDTO" type="com.pickmeup.jobstartup.recruiter.jobposting.dto.JobPostingDTO"/>
         <typeAlias alias="FileDTO" type="com.pickmeup.jobstartup.recruiter.apply.dto.FileDTO"/>
         <typeAlias alias="JobDTO" type="com.pickmeup.jobstartup.recruiter.apply.dto.JobDTO"/>
         <typeAlias alias="TestDTO" type="com.pickmeup.jobstartup.recruiter.apply.dto.TestDTO"/>

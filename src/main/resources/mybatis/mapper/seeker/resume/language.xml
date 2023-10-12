@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pickmeup.jobstartup.seeker.resume.repository.ResumeRepository">
+    <insert id="insertLanguage" parameterType="java.util.List">
+        INSERT INTO LANGUAGE(LANG_NO, RESUME_NO, LANG_NAME, LANG_LEVEL)
+        VALUES
+        <foreach collection="languageDTOList" item="languageDTO" separator=",">
+            (LANGUAGE_SEQ.NEXTVAL ,#{languageDTO.resume_no}, #{languageDTO.lang_name}, #{languageDTO.lang_level})
+        </foreach>
+        <selectKey resultType="int" keyProperty="lang_no" order="AFTER">
+            SELECT LANGUAGE_SEQ.CURRVAL FROM DUAL
+        </selectKey>
+    </insert>
+
+    <!-- 등록한 이력서 시퀀스 값 받아오기 -->
+    <select id="getLanguageSequence" resultType="int">
+        <![CDATA[
+        SELECT LANGUAGE_SEQ.CURRVAL FROM DUAL
+        ]]>
+    </select>
+
+    <delete id="deleteLanguage" parameterType="int">
+        <![CDATA[
+        DELETE LANGUAGE
+        WHERE RESUME_NO=#{resume_no}
+        ]]>
+    </delete>
+
+    <update id="modifyLanguage" parameterType="java.util.List">
+        <foreach collection="languageDTOList" item="languageDTO" separator=";">
+            UPDATE LANGUAGE
+            SET
+            LANG_NAME = #{languageDTO.lang_name},
+            LANG_LEVEL = #{languageDTO.lang_level}
+            WHERE LANG_NO = #{languageDTO.lang_no}
+        </foreach>
+    </update>
+</mapper>

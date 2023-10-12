@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pickmeup.jobstartup.seeker.applicationSupport.repository.PostingBookmarkRepository">
+    <resultMap id="bookmarkResultMap" type="PostingBookmarkDTO">
+        <id property="jpbookmark_no" column="jpbookmark_no"/>
+        <result property="posting_no" column="posting_no" javaType="int" jdbcType="INTEGER"/>
+        <result property="member_no" column="member_no"/>
+
+        <collection property="jobPostingDTOList" ofType="JobPostingDTO">
+            <id property="posting_no" column="posting_no" javaType="Long" jdbcType="INTEGER"/>
+            <result property="company_no" column="company_no"/>
+            <result property="posting_title" column="posting_title"/>
+            <result property="posting_career" column="posting_career"/>
+            <result property="posting_academy" column="posting_academy"/>
+            <result property="posting_jobCode" column="posting_jobCode"/>
+            <result property="posting_type" column="posting_type"/>
+            <result property="posting_labor" column="posting_labor"/>
+            <result property="posting_preferential" column="posting_preferential"/>
+            <result property="posting_skill" column="posting_skill"/>
+            <result property="posting_salary" column="posting_salary"/>
+            <result property="posting_sdate" column="posting_sdate"/>
+            <result property="posting_edate" column="posting_edate"/>
+            <result property="posting_cnt" column="posting_cnt"/>
+            <result property="isshow" column="isshow"/>
+            <result property="posting_content" column="posting_content"/>
+            <result property="posting_working_day" column="posting_working_day"/>
+            <result property="posting_position" column="posting_position"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectBookmarkList" resultMap="bookmarkResultMap" parameterType="int" >
+        SELECT *
+        FROM JOB_POSTING_BOOKMARK B
+                 LEFT JOIN JOB_POSTING P ON B.POSTING_NO = P.POSTING_NO
+                 LEFT JOIN COMPANY C ON P.COMPANY_NO = C.COMPANY_NO
+        WHERE B.MEMBER_NO = #{member_no}
+    </select>
+</mapper>

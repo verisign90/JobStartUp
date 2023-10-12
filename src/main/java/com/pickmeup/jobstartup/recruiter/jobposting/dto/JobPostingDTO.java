@@ -13,8 +13,8 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 public class JobPostingDTO {
 
-    private Number company_no;
-    private Number posting_no;
+    private Long company_no;
+    private Long posting_no;
     private String posting_title;
     private String posting_career;
     private String posting_academy;
@@ -23,10 +23,10 @@ public class JobPostingDTO {
     private String posting_labor;
     private String posting_preferential;
     private String posting_skill;
-    private Number posting_salary;
+    private String posting_salary;
     private Timestamp posting_sdate;
     private Timestamp posting_edate;
-    private Number posting_cnt;
+    private int posting_cnt;
     private String isshow;
     private String posting_content;
     private String posting_working_day;

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pickmeup.jobstartup.seeker.resume.repository.ResumeRepository">
+    <insert id="insertCareer" parameterType="java.util.List">
+        INSERT INTO CAREER (RESUME_NO, CAREER_DATE, CAREER_COMPANY, BUSINESS_TYPE, CAREER_WORK)
+        VALUES
+        <foreach collection="careerDTOList" item="careerDTO" separator=",">
+            (#{careerDTO.resume_no}, #{careerDTO.career_date}, #{careerDTO.career_company}, #{careerDTO.business_type}, #{careerDTO.career_work})
+        </foreach>
+    </insert>
+
+    <delete id="deleteCareer" parameterType="int">
+        <![CDATA[
+        DELETE CAREER
+        WHERE RESUME_NO=#{resume_no}
+        ]]>
+    </delete>
+
+    <update id="modifyCareer" parameterType="java.util.List">
+        <foreach collection="careerDTOList" item="careerDTO" separator=";">
+            UPDATE CAREER
+            SET
+                CAREER_COMPANY = #{careerDTO.career_company},
+                CAREER_DATE = #{careerDTO.career_date},
+                BUSINESS_TYPE = #{careerDTO.business_type},
+                CAREER_WORK = #{careerDTO.career_work}
+            WHERE CAREER_NO = #{careerDTO.career_no}
+        </foreach>
+    </update>
+</mapper>

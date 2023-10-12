@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pickmeup.jobstartup.seeker.resume.repository.ResumeRepository">
+    <insert id="insertCertificate" parameterType="java.util.List">
+        INSERT INTO CERTIFICATE (RESUME_NO, CER_NAME, CER_ISSUER, CER_DATE)
+        VALUES
+        <foreach collection="certificateDTOList" item="certificateDTO" separator=",">
+            (#{certificateDTO.resume_no}, #{certificateDTO.cer_name}, #{certificateDTO.cer_issuer}, #{certificateDTO.cer_date})
+        </foreach>
+    </insert>
+
+    <delete id="deleteCertificate" parameterType="int">
+        <![CDATA[
+        DELETE CERTIFICATE
+        WHERE RESUME_NO=#{resume_no}
+        ]]>
+    </delete>
+
+    <update id="modifyCertificate" parameterType="java.util.List">
+        <foreach collection="certificateDTOList" item="certificateDTO" separator=";">
+            UPDATE CERTIFICATE
+            SET
+                CER_NAME = #{certificateDTO.cer_name},
+                CER_ISSUER = #{certificateDTO.cer_issuer},
+                CER_DATE = #{certificateDTO.cer_date}
+            WHERE CER_NO = #{certificateDTO.cer_no}
+        </foreach>
+    </update>
+</mapper>
