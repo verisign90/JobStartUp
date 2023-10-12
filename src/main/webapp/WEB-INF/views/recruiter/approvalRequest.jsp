@@ -33,18 +33,18 @@
                    <input type="text" id="sample6_address" placeholder="주소"><br>
                    <input type="text" id="sample6_detailAddress" placeholder="상세주소">
                    <input type="text" id="sample6_extraAddress" placeholder="참고항목">
-                   <input type="hidden" id="company_address_detail" name="company_address_detail">
+                   <input type="hidden" id="company_address_detail" name="company_address_detail" required>
             </div>
 
             <label for="name">회사업종코드:</label>
-                            <select id="business_type_code_up" name="business_type_code_up" onchange="loadBusiness_type_code_up()" >
+                            <select id="business_type_code_up" name="business_type_code_up" onchange="loadBusiness_type_code_up()" required>
                                     <option value="">선택</option>
                                     <c:forEach items="${upperJob}" var="upJob">
                                         <option value="${upJob.detail_code_num}">${upJob.detail_name}</option>
                                     </c:forEach>
                             </select>
                             </select>
-                                   <select id="business_type_code" name="business_type_code">
+                                   <select id="business_type_code" name="business_type_code" required>
                                          <option value="">선택</option>
                                          <c:forEach items="${lowerJob}" var="loJob">
                                             <option value="${loJob.detail_code_num}">${loJob.detail_name}</option>
@@ -52,14 +52,14 @@
             </select><br><br>
 
             <label for="name">회사주소코드:</label>
-            <select id="upperLoc" name="upperLoc" onchange="loadLowerLoc()">
+            <select id="upperLoc" name="upperLoc" onchange="loadLowerLoc()" required>
                         <option value="">선택</option>
                         <c:forEach items="${upperLoc}" var="upLoc">
                             <option value="${upLoc.detail_code_num}">${upLoc.detail_name}</option>
                         </c:forEach>
             </select>
             </select>
-            <select id="company_address_code" name="company_address_code">
+            <select id="company_address_code" name="company_address_code" required>
                         <option value="">선택</option>
                         <c:forEach items="${lowerLoc}" var="loLoc">
                              <option value="${loLoc.detail_code_num}">${loLoc.detail_name}</option>
@@ -67,16 +67,19 @@
             </select><br><br>
 
            <label for="logo">로고 업로드:</label>
-                        <input type="file" id="logo" name="logo" accept="image/*" required><br><br>
+                        <input type="file" id="logo" name="logo" accept="image/*" required>
+                        <small id="logo-error" style="color: red;"></small><br><br>
 
            <label for="document">문서 업로드:</label>
                <input type="file" id="document" name="document" accept=".pdf, .doc, .docx , .pptx , .xlsx" required multiple>
-               <br><br>
+               <small id="document-error" style="color: red;"></small><br><br>
+
 
 
 
             <label for="name">매출액:</label>
-                        <input type="text" id="company_sales" name="company_sales" required><br><br>
+                        <input type="text" id="company_sales" name="company_sales" required><p style="display: inline;">(숫자만 입력)</p>
+                        <small id="sales-error" style="color: red;"></small><br><br>
 
             <!-- <label for="name">로고원본명:</label>
                         <input type="text" id="logo_orgname" name="logo_orgname" required><br><br>
@@ -84,30 +87,11 @@
             <label for="name">로고저장명:</label>
                         <input type="text" id="logo_savname" name="logo_savname" required><br><br>-->
 
-            <!-- 라디오 버튼 -->
-            <!-- <label>성별:</label>
-            <input type="radio" id="male" name="gender" value="male">
-            <label for="male">남성</label>
-            <input type="radio" id="female" name="gender" value="female">
-            <label for="female">여성</label><br><br>-->
 
-            <!-- 체크 박스 -->
-            <!-- <label>취미:</label>
-            <input type="checkbox" id="hobby1" name="hobbies" value="reading">
-            <label for="hobby1">독서</label>
-            <input type="checkbox" id="hobby2" name="hobbies" value="traveling">
-            <label for="hobby2">여행</label>
-            <input type="checkbox" id="hobby3" name="hobbies" value="sports">
-            <label for="hobby3">스포츠</label><br><br>-->
 
-            <!-- 드롭다운 목록 -->
-            <!-- <label for="country">국가:</label>
-            <select id="country" name="country">
-                <option value="usa">미국</option>
-                <option value="canada">캐나다</option>
-                <option value="uk">영국</option>
-                <option value="france">프랑스</option>
-            </select><br><br>-->
+
+
+
 
             <!-- 제출 버튼 -->
             <input type="submit" value="제출">
@@ -208,7 +192,11 @@
         <%-- 폼 제출시 호출되는 함수 --%>
         function onSubmitForm() {
             address();
+
+
             logCompanyAddressDetail();
+
+
        }
 
 
@@ -222,6 +210,60 @@
                phoneError.textContent = "";
            }
         });
+
+        <%-- 로고 업로드 유효성검사--%>
+        var logoInput = document.getElementById("logo");
+        var logoError = document.getElementById("logo-error");
+
+        logoInput.addEventListener("change", function () {
+            var file = logoInput.files[0];
+            if (file) {
+                var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+                if (!allowedExtensions.exec(file.name)) {
+                    logoError.textContent = "이미지 파일 (.jpg, .jpeg, .png, .gif)만 업로드할 수 있습니다.";
+                    logoInput.value = ""; // 파일 선택 해제
+                } else {
+                    logoError.textContent = ""; // 유효성 검사 메시지 지우기
+                }
+            }
+        });
+
+        <%-- 파일 유효성검사 --%>
+        var documentInput = document.getElementById("document");
+        var documentError = document.getElementById("document-error");
+
+        documentInput.addEventListener("change", function () {
+            var files = documentInput.files;
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                var allowedExtensions = /(\.pdf|\.doc|\.docx|\.pptx|\.xlsx)$/i;
+                if (!allowedExtensions.exec(file.name)) {
+                    documentError.textContent = "문서 파일 (.pdf, .doc, .docx, .pptx, .xlsx)만 업로드할 수 있습니다.";
+                    documentInput.value = ""; // 파일 선택 해제
+                    return; // 유효성 검사 실패 시 함수 종료
+                }
+            }
+            documentError.textContent = ""; // 유효성 검사 메시지 지우기
+        });
+
+        <%-- 매출액 숫자 유효성검사 --%>
+        document.querySelector("form").addEventListener("submit", function (event) {
+                var companySalesInput = document.getElementById("company_sales");
+                var value = companySalesInput.value;
+                var isValid = /^\d+$/.test(value);
+
+                var salesError = document.getElementById("sales-error");
+
+                if (!isValid) {
+                    salesError.textContent = "숫자만 입력하세요.";
+                    event.preventDefault(); // 제출 방지
+                } else {
+                    salesError.textContent = ""; // 유효성 검사 메시지 지우기
+                }
+
+                // 다른 필드의 유효성 검사 수행
+                // 필요한 다른 유효성 검사 수행
+            });
 
 </script>
 </body>

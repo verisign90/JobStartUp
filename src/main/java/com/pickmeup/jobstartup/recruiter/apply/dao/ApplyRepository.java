@@ -25,4 +25,8 @@ public interface ApplyRepository {
     public List<JobDTO> getBusiness_type_code(String business_type_code);
 
     public void insertTest(TestDTO testDTO);
+
+    public ApplyDTO getCompanyList();
+
+    public List<FileDTO> getFileList(int company_no);
 }

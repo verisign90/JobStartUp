@@ -2,6 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="apply">
+
+    <select id="getFileList" resultType="com.pickmeup.jobstartup.recruiter.apply.dto.FileDTO" parameterType="int">
+        <![CDATA[
+        SELECT *
+        FROM company_file
+        WHERE company_no = #{company_no}
+        ]]>
+    </select>
+
+
     <select id="getCompanyNo" resultType="com.pickmeup.jobstartup.recruiter.apply.dto.ApplyDTO">
         <![CDATA[
         SELECT *
@@ -9,8 +19,6 @@
         WHERE company_no = (SELECT MAX(company_no) FROM company)
         ]]>
     </select>
-
-
 
 
     <insert id="insertInfo" parameterType="ApplyDTO">
