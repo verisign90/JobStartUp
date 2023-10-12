@@ -23,12 +23,14 @@ public class RecruiterMyPageServiceImpl implements RecruiterMyPageService{
     @Autowired
     private RecruiterMyPageRepository recruiterMyPageRepository;
 
+    //Path
+    private String commonPath = "C:/JobStartUp_fileUpload/recruiterApply/";
+
     //기업 페이지: 회사 정보
     @Override
     public RecruiterMyPageDTO selectRecruiterInfo(int company_no){
         return recruiterMyPageRepository.selectRecruiterInfo(company_no);
     };
-
 
     //기업 페이지: 1) 박람회 현황(Ajax) + pagination
 
@@ -52,33 +54,25 @@ public class RecruiterMyPageServiceImpl implements RecruiterMyPageService{
     @Override
     public int updateComLogo(MultipartFile logoFile, int company_no, String savedSavname){
         if (!logoFile.isEmpty()) {
-            
-            //file 경로는 로고 정보를 넣는 경로 이용하기(수정 예정)
-            
             //1. 삭제: Logo Delete (saved file delete)
-            String DeleteDir = "C:\\JobStartUp_fileUpload\\recruiterApply\\";
-            String DeletefilePath = DeleteDir + File.separator + savedSavname;
+            String DeletefilePath = commonPath + File.separator + savedSavname;
             File fileToDelete = new File(DeletefilePath);
             fileToDelete.delete();
-
-            //2. 업로드: Logo Upload
-            String orgname = logoFile.getOriginalFilename();
-            String uploadDir = "C:\\JobStartUp_fileUpload\\recruiterApply\\";
+            //2. 업로드: Logo Upload (new file uploaded)
+            String logo_orgname = logoFile.getOriginalFilename();
             String uuid = UUID.randomUUID().toString();
-            String savname = uuid + orgname;
-            String uploadfilePath = uploadDir + File.separator + savname;
+            String logo_savname = uuid + logo_orgname;
+            String uploadfilePath = commonPath + File.separator + logo_savname;
             File file = new File(uploadfilePath);
             try {
                 logoFile.transferTo(file);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
             RecruiterFileDTO recruiterFileDTO = new RecruiterFileDTO();
-            recruiterFileDTO.setLogo_orgname(orgname);
-            recruiterFileDTO.setLogo_savname(savname);
+            recruiterFileDTO.setLogo_orgname(logo_orgname);
+            recruiterFileDTO.setLogo_savname(logo_savname);
             recruiterFileDTO.setCompany_no(company_no);
-
             return recruiterMyPageRepository.updateComLogo(recruiterFileDTO);
         } else {
             return 0;
@@ -94,15 +88,15 @@ public class RecruiterMyPageServiceImpl implements RecruiterMyPageService{
     //기업 페이지: calendar 입력
     @Override
     public int insertRecruCalendar(RecruiterCalendarDTO recruiterCalendarDTO){
-
         //schedule_end 특정 위치 값 변경 (+1) : calendar 마지막 날 exclusive 되는 문제 해결
         String orgEndDate = recruiterCalendarDTO.getSchedule_end();
-        int subEndDate = Integer.parseInt(orgEndDate.substring(8)); // 시작 인덱스를 8로 변경
+        // 시작 인덱스를 8로 변경
+        int subEndDate = Integer.parseInt(orgEndDate.substring(8));
         int addEndDate = subEndDate + 1;
         String strSubEndDate = Integer.toString(addEndDate);
-        String editedEndDate = orgEndDate.substring(0, 8) + strSubEndDate; // 시작 인덱스를 0으로 변경
+        // 시작 인덱스를 0으로 변경
+        String editedEndDate = orgEndDate.substring(0, 8) + strSubEndDate;
         recruiterCalendarDTO.setSchedule_end(editedEndDate);
-
         return recruiterMyPageRepository.insertRecruCalendar(recruiterCalendarDTO);
     }
 
