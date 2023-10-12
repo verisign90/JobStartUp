@@ -32,7 +32,7 @@
                 <form action="/recruiter/updateComLogo" method="POST" enctype="multipart/form-data">
                     <div class="profile">
                         <div class="profile-pic">
-                            <img id="preview" src="${pageContext.request.contextPath}/recruiter/printComLogo?company_no=${recruiterFileDTO.company_no}" />
+                            <img src="${pageContext.request.contextPath}/image/mypage/${recruiterFileDTO.logo_savname}" />
                         </div>
                         <div class="profile-edit-button-container">
                             <input type="hidden" class="profile-company-no" name="company_no" value="${recruiterFileDTO.company_no}">

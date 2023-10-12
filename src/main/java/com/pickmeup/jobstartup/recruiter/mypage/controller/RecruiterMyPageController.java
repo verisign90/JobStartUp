@@ -101,7 +101,7 @@ public class RecruiterMyPageController {
         return "";
     }
 
-    //기업 페이지: 파일 - 저장된 로고 출력
+/*    //기업 페이지: 파일 - 저장된 로고 출력
     @RequestMapping("/printComLogo")
     public String process(HttpServletResponse response, int company_no) throws Exception {
 
@@ -109,7 +109,7 @@ public class RecruiterMyPageController {
         String logo_savname = recruiterFileDTO.getLogo_savname();
 
         //File: 경로 설정
-        String fileRepository = "C:\\jobStartUp_fileUpload\\recruiterMyPage";
+        String fileRepository = "C:\\jobStartUp_fileUpload\\recruiterApply";
         String path = fileRepository + "\\" + logo_savname;
         File file = new File(path);
 
@@ -130,7 +130,7 @@ public class RecruiterMyPageController {
         out.close();
 
         return null;
-    }
+    }*/
 
     //기업 페이지: 파일 - 저장된 로고 이름 확인
     @PostMapping("/selectComLogo")
@@ -165,7 +165,7 @@ public class RecruiterMyPageController {
         String logo_orgname = recruiterFileDTO.getLogo_orgname();
         String logo_savname = recruiterFileDTO.getLogo_savname();
 
-        byte[] fileByte = FileUtils.readFileToByteArray(new File("C:\\jobStartUp_fileUpload\\recruiterMyPage\\"+logo_savname));
+        byte[] fileByte = FileUtils.readFileToByteArray(new File("C:\\jobStartUp_fileUpload\\recruiterApply\\"+logo_savname));
         response.setContentType("application/octet-stream");    //파일유형설정
         response.setContentLength(fileByte.length);             //파일길이설정
         response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(logo_orgname,"UTF-8")+"\";"); //데이터형식/성향설정 (attachment: 첨부파일)

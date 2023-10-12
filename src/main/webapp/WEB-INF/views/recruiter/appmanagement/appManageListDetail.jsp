@@ -28,7 +28,7 @@
         <div class="info-main-container">
             <div class="profile">
                 <div class="profile-pic">
-                    <img id="preview" src="${pageContext.request.contextPath}/recruiter/printAppProfile?status_no=${selectInfo.status_no}" />
+                    <img src="${pageContext.request.contextPath}/image/appManage/${selectFile.profile_savname}" />
                 </div>
             </div>
             <div class ="company-info">

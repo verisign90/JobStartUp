@@ -49,11 +49,6 @@ public class AppManageController {
         model.addAttribute("selectResume",selectResume);
         model.addAttribute("selectFile",selectFile);
 
-
-        System.out.println(selectInfo);
-        System.out.println(selectResume);
-        System.out.println(selectFile);
-
         return "/recruiter/appmanagement/appManageListDetail";
     }
 
