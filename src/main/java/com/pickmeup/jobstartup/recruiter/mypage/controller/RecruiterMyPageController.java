@@ -101,7 +101,7 @@ public class RecruiterMyPageController {
         return "";
     }
 
-    //기업 페이지: 파일 - 저장된 로고 출력
+/*    //기업 페이지: 파일 - 저장된 로고 출력
     @RequestMapping("/printComLogo")
     public String process(HttpServletResponse response, int company_no) throws Exception {
 
@@ -130,7 +130,7 @@ public class RecruiterMyPageController {
         out.close();
 
         return null;
-    }
+    }*/
 
     //기업 페이지: 파일 - 저장된 로고 이름 확인
     @PostMapping("/selectComLogo")
