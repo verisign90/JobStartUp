@@ -19,7 +19,6 @@ public interface AppManageRepository {
     //채용관리 지원자 상세 페이지: 2) 지원자 이력 정보 - 파일(사진,이력서)
     AppResumeFileDTO selectAppResumeFileByMember(int resume_no);
 
-
     //채용관리 지원자 상세 페이지: 1차 면접일자 등록
     int updateAppManageFirstEnroll(AppManageDTO appManageDTO);
 

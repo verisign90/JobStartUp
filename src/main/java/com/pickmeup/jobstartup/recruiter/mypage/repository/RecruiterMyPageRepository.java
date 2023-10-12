@@ -1,6 +1,5 @@
 package com.pickmeup.jobstartup.recruiter.mypage.repository;
 
-import com.pickmeup.jobstartup.recruiter.jobposting.dto.JobPostingDTO;
 import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterCalendarDTO;
 import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterFileDTO;
 import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterJobPostingDTO;
