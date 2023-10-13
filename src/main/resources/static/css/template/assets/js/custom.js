@@ -140,7 +140,7 @@ $(function() {
       });
   });
 
-    function onScroll(event) {
+  function onScroll(event) {
         var scrollPos = $(document).scrollTop();
         $('.nav a').each(function() {
             var currLink = $(this);
@@ -157,8 +157,7 @@ $(function() {
                 }
             }
         });
-    }
-
+  }
 
   // Acc
   $(document).on("click", ".naccs .menu div", function() {
@@ -199,7 +198,13 @@ $(function() {
     });
   }
 
-
+//up
+  $('#up').click(function() {
+    $('html, body').animate({
+      scrollTop: 0
+    }, 400);
+    return false;
+  });
 
 
 })(window.jQuery);
