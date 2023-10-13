@@ -16,6 +16,8 @@ public interface JobFairRepository {
 
     JobFairDTO selectJobFairByNo(Long jobFairNo);
 
+    List<EntryDTO> selectEntryDTOList();
+
     List<EntryDTO> selectEntryDTOListByNo(Long JobFairNo);
 
     Long writeJobFair(JobFairDTO jobFairDTO);
@@ -23,4 +25,5 @@ public interface JobFairRepository {
     void save(JobFairFileDTO jobFairFileDTO);
 
     void delete(Long no);
+
 }

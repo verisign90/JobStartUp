@@ -19,6 +19,10 @@ public class JobFairService {
         return jobFairRepository.selectJobFairList();
     }
 
+    public List<EntryDTO> getAllCompany() {
+        return jobFairRepository.selectEntryDTOList();
+    }
+
     public JobFairDTO getJobFairByNo(Long jobFairNo) {
         return jobFairRepository.selectJobFairByNo(jobFairNo);
     }

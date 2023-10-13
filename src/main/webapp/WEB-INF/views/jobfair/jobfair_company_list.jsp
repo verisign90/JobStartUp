@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <title>JobFairList</title>
+    <title>Company List</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/base.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/chart.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/board.css">

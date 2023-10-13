@@ -74,9 +74,16 @@ public class JobFairController {
     }
 
     @GetMapping("/jobfair/delete")
-    public String deleteJobFair(@RequestParam("jobFairNo") Long jobFairNo){
+    public String deleteJobFair(@RequestParam("jobFairNo") Long jobFairNo) {
         jobFairService.delteJobFair(jobFairNo);
 
         return "redirect:/admin/jobfairlist";
+    }
+
+    @GetMapping("/jobfair/companylist")
+    public String jobFairCompanyList(Model model) {
+        List<EntryDTO> companies = jobFairService.getAllCompany();
+
+        return "jobfair/jobfair_company_list";
     }
 }

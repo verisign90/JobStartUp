@@ -64,7 +64,11 @@
                 </div>
             </li>
             <li>
-                참여 업체 목록
+                <div class="aside_item">
+                    <a href="${pageContext.request.contextPath}/admin/jobfair/companylist">
+                        참여 업체 목록
+                    </a>
+                </div>
             </li>
             <li>
                 공고 목록

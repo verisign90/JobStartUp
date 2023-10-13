@@ -26,6 +26,12 @@
           AND JFE.JOBFAIR_NO = #{JOBFAIR_NO}
         ]]>
     </select>
+    <select id="selectEntryDTOList"  resultType="com.pickmeup.jobstartup.jobfair.dto.EntryDTO"  >
+        <![CDATA[
+        SELECT *
+        FROM JOB_FAIR_ENTRY
+        ]]>
+    </select>
 
     <insert id="writeJobFair" parameterType="com.pickmeup.jobstartup.jobfair.dto.JobFairDTO">
     <![CDATA[
