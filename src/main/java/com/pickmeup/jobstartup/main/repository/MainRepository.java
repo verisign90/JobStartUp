@@ -15,4 +15,6 @@ public interface MainRepository {
     public ApplyDTO getCompanyNO(int companyNo);
 
     public List<JobFairDTO> getJobFairList();
+
+
 }

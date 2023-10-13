@@ -24,4 +24,7 @@ public class MainRepositoryImpl implements MainRepository{
     public List<JobFairDTO> getJobFairList(){
         return sqlSession.selectList("main.getJobFairList");
     }
+
+
+
 }
