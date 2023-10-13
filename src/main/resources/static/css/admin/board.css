@@ -47,6 +47,11 @@ article table {
     padding-top: 50px;
 }
 
+.jobfair_content img {
+    max-width: 100%;
+    height: auto;
+}
+
 .jobfair_list {
     font-size: 18px;
     display: flex;
