@@ -95,14 +95,15 @@ public class RecruiterMyPageServiceImpl implements RecruiterMyPageService{
     @Override
     @Transactional
     public int insertRecruCalendar(RecruiterCalendarDTO recruiterCalendarDTO){
-        return recruiterMyPageRepository.insertRecruCalendar(editEndDate(recruiterCalendarDTO));
+        return recruiterMyPageRepository.insertRecruCalendar(insertEditEndDate(recruiterCalendarDTO));
     }
 
     //기업 페이지: calendar 삭제
     @Override
     @Transactional
     public int deleteRecruCalendar(RecruiterCalendarDTO recruiterCalendarDTO) {
-        return recruiterMyPageRepository.insertRecruCalendar(editEndDate(recruiterCalendarDTO));
+        System.out.println("서비스="+recruiterCalendarDTO);
+        return recruiterMyPageRepository.deleteRecruCalendar(deleteEditEndDate(recruiterCalendarDTO));
     }
 
     //기업 페이지: calendar 수정
@@ -111,7 +112,7 @@ public class RecruiterMyPageServiceImpl implements RecruiterMyPageService{
 
 
     //기업 페이지: calendar - calendar 마지막 날 exclusive 되는 문제 해결
-    static RecruiterCalendarDTO editEndDate(RecruiterCalendarDTO recruiterCalendarDTO){
+    protected RecruiterCalendarDTO insertEditEndDate(RecruiterCalendarDTO recruiterCalendarDTO){
         String orgEndDate = recruiterCalendarDTO.getSchedule_end();
         int subEndDate = Integer.parseInt(orgEndDate.substring(8));
         int addEndDate = subEndDate + 1;
@@ -125,5 +126,26 @@ public class RecruiterMyPageServiceImpl implements RecruiterMyPageService{
         }
         return recruiterCalendarDTO;
     }
+
+    //기업 페이지: calendar - calendar 시작일 exclusive 되는 문제 해결
+    protected RecruiterCalendarDTO deleteEditEndDate(RecruiterCalendarDTO recruiterCalendarDTO){
+        String orgEndDate = recruiterCalendarDTO.getSchedule_end();
+        int subEndDate = Integer.parseInt(orgEndDate.substring(8,10));
+        int addEndDate = subEndDate + 1;
+        String strSubEndDate = Integer.toString(addEndDate);
+        if( subEndDate < 10 ) {
+            String editedEndDate = orgEndDate.substring(0, 8) + "0" + strSubEndDate;
+            recruiterCalendarDTO.setSchedule_end(editedEndDate);
+        } else {
+            String editedEndDate = orgEndDate.substring(0, 8) + strSubEndDate;
+            recruiterCalendarDTO.setSchedule_end(editedEndDate);
+        }
+        System.out.println("수정된서비스내용:"+recruiterCalendarDTO);
+        return recruiterCalendarDTO;
+    }
+
+
+
+
 
 }

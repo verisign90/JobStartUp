@@ -57,7 +57,7 @@
     <delete id="deleteRecruCalendar" parameterType="com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterCalendarDTO">
         <![CDATA[
             DELETE company_schedule
-            WHERE company_no = #{company_no} AND schedule_title = #{schedule_title} AND schedule_start = #{schedule_start}
+            WHERE company_no = #{company_no} AND schedule_title = #{schedule_title} AND schedule_end = #{schedule_end}
         ]]>
     </delete>
 

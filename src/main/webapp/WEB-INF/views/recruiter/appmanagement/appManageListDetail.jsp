@@ -12,14 +12,20 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css" rel="stylesheet">
     <!-- 채용자 관리 페이지 (private edited) -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/base.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/recruiter/appmanagement/appManageListDetail.css">
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/recruiter/appmanagement/appManageListDetail.js"></script>
 </head>
 <body>
 
-<div class="main-container">
+<!-- ***** Nav start ***** -->
+<%@ include file="../../layout/layoutNav.jsp" %>
+<div  id="top" data-wow-duration="1s" data-wow-delay="0.5s">
+    <div class="header-text" data-wow-duration="1s" data-wow-delay="1s">
+    </div>
+</div>
+<!-- ***** Nav End ***** -->
 
+<div class="main-container">
     <div class="main-title-container"><h2>채용관리 페이지</h2></div>
     <div class="info-container">
         <div class="button-container">

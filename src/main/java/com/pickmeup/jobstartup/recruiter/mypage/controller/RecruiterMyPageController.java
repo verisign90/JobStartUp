@@ -184,7 +184,7 @@ public class RecruiterMyPageController {
     //기업 페이지: 조회 - 캘린더 일정
     @GetMapping(value = "/getCalendar", params = "method=data", produces = "application/json")
     @ResponseBody // JSON 데이터를 반환
-    public List<RecruiterCalendarDTO> selectPlan() {
+    public List<RecruiterCalendarDTO> selectCalendar() {
         List<RecruiterCalendarDTO> calendarList = recruiterMyPageService.selectRecruCalendar();
         return calendarList; // 실제 데이터를 반환
     }
@@ -203,6 +203,7 @@ public class RecruiterMyPageController {
     @PostMapping(value = "/deleteCalendar", produces = "application/json")
     public String deleteCalendar(@RequestBody RecruiterCalendarDTO recruiterCalendarDTO
                                 ,@RequestParam String method){
+        System.out.println("컨트롤러"+recruiterCalendarDTO);
         recruiterMyPageService.deleteRecruCalendar(recruiterCalendarDTO);
         return "success";
     }

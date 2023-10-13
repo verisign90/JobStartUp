@@ -1,13 +1,3 @@
-// Calendar 일정 추가: 입력 창 Modal 크기 조절 (수정중)
-/*
-function openModal2() {
-    var url = "/recruiter/calendarPopup";
-    var name = "recruiterCalendarPopUp";
-    var option = "width=600, height=600, left=100, top=50, location=no"
-    window.open(url,name,option)
-}
-*/
-
 // 캘린더 입력: 입력창 Modal 열기
 function openModal() {
     var calendarModal = document.querySelector('#calendarModal');
@@ -43,6 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
             center: 'title',
             end: 'prev,next dayGridMonth today',
         },
+
         //calendar CRUD
         customButtons: {
             addEventButton: {
@@ -105,8 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             title: eventData[i].SCHEDULE_TITLE,
                             start: eventData[i].SCHEDULE_START,
                             end: eventData[i].SCHEDULE_END,
-                            memo:  eventData[i].SCHEDULE_MEMO,
-                            allDay: eventData[i].ALL_DAY
+                            memo:  eventData[i].SCHEDULE_MEMO
                         });
                     }
                     successCallback(eventsArray);
@@ -120,21 +110,30 @@ document.addEventListener('DOMContentLoaded', function() {
         // Delete: 캘린더 정보 삭제
         eventClick: function(arg) {
 
-            var SCHEDULE_TITLE = document.getElementById('SCHEDULE_TITLE').value;
-            var SCHEDULE_START = document.getElementById('SCHEDULE_START').value;
-            var SCHEDULE_END = document.getElementById('SCHEDULE_END').value;
-            var COMPANY_NO = document.getElementById('COMPANY_NO').value;
 
-            if (confirm('등록된 일정: ' + titleName + '\r\n일정을 삭제하시겠습니까?')) {
+            var schedule_title = arg.event.title;
+            var schedule_start = arg.event.start;
+            var schedule_end = arg.event.end;
+            var company_no = document.getElementById('COMPANY_NO').value;
+
+            console.log(schedule_title);
+            console.log(schedule_start);
+            console.log(schedule_end);
+            console.log(company_no);
+
+
+
+
+            if (confirm(schedule_title + '\r\n일정을 삭제하시겠습니까?')) {
                 arg.event.remove();
                 $.ajax({
                     type: "POST",
                     url: "/recruiter/deleteCalendar?method=data",
                     data: JSON.stringify({
-                        schedule_title: SCHEDULE_TITLE,
-                        schedule_start: SCHEDULE_START,
-                        schedule_end: SCHEDULE_END,
-                        company_no: COMPANY_NO
+                        schedule_title: schedule_title,
+                        schedule_start: schedule_start,
+                        schedule_end: schedule_end,
+                        company_no: company_no
                     }),
                     contentType: "application/json; charset=UTF-8",
                     dataType: "text",
@@ -146,8 +145,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
         }
-
     });
+
     // calendar 랜더링
     calendar.render();
+
+
 });
