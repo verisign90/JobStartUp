@@ -4,10 +4,6 @@ import com.pickmeup.jobstartup.member.dto.JoinCommonDTO;
 import com.pickmeup.jobstartup.member.entity.Member;
 import com.pickmeup.jobstartup.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import net.nurigo.sdk.message.model.Message;
-import net.nurigo.sdk.message.request.SingleMessageSendingRequest;
-import net.nurigo.sdk.message.response.SingleMessageSentResponse;
-import net.nurigo.sdk.message.service.DefaultMessageService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +16,7 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final ModelMapper modelMapper;
     private final BCryptPasswordEncoder passwordEncoder;
-//    private final DefaultMessageService messageService;
+    //    private final DefaultMessageService messageService;
     private static final Logger logger = LoggerFactory.getLogger(MemberService.class);
 
     //아이디 중복 여부 검사

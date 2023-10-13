@@ -2,8 +2,6 @@ package com.pickmeup.jobstartup.member.controller;
 
 import com.pickmeup.jobstartup.member.dto.JoinCommonDTO;
 import com.pickmeup.jobstartup.member.service.MemberService;
-import com.pickmeup.jobstartup.member.service.MemberServiceImpl;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import net.nurigo.sdk.NurigoApp;
