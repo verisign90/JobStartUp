@@ -16,10 +16,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/recruiter/appmanagement/appManageListDetail.css">
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/recruiter/appmanagement/appManageListDetail.js"></script>
 </head>
-
 <body>
-<%@ include file="/WEB-INF/views/layout/layoutNav.jsp"%>
-<%@ include file="/WEB-INF/views/layout/layoutSide.jsp"%>
 
 <div class="main-container">
 
@@ -139,6 +136,5 @@
     </div>
 </div>
 
-<%@ include file="/WEB-INF/views/layout/layoutFooter.jsp"%>
 </body>
 </html>

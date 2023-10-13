@@ -42,5 +42,6 @@ public interface RecruiterMyPageRepository {
 
     //기업 페이지: calendar 수정
     //기업 페이지: calendar 삭제
+    int deleteRecruCalendar(RecruiterCalendarDTO recruiterCalendarDTO);
 
 }

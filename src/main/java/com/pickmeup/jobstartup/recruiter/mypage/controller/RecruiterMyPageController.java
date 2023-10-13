@@ -199,13 +199,13 @@ public class RecruiterMyPageController {
     }
 
     //기업 페이지: 삭제 - 캘린더 일정
-/*    @ResponseBody
+    @ResponseBody
     @PostMapping(value = "/deleteCalendar", produces = "application/json")
     public String deleteCalendar(@RequestBody RecruiterCalendarDTO recruiterCalendarDTO
                                 ,@RequestParam String method){
         recruiterMyPageService.deleteRecruCalendar(recruiterCalendarDTO);
         return "success";
-    }*/
+    }
 
 
 

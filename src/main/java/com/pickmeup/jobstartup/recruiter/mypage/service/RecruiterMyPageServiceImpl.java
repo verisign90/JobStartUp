@@ -9,6 +9,7 @@ import com.pickmeup.jobstartup.recruiter.mypage.repository.RecruiterMyPageReposi
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -28,6 +29,7 @@ public class RecruiterMyPageServiceImpl implements RecruiterMyPageService{
 
     //기업 페이지: 회사 정보
     @Override
+    @Transactional
     public RecruiterMyPageDTO selectRecruiterInfo(int company_no){
         return recruiterMyPageRepository.selectRecruiterInfo(company_no);
     };
@@ -36,6 +38,7 @@ public class RecruiterMyPageServiceImpl implements RecruiterMyPageService{
 
     //기업 페이지: 2) 공고 관리(Ajax) + pagination
     @Override
+    @Transactional
     public List<RecruiterJobPostingDTO> getJobPostingList(int company_no){
         return recruiterMyPageRepository.getJobPostingList(company_no);
     }
@@ -46,12 +49,14 @@ public class RecruiterMyPageServiceImpl implements RecruiterMyPageService{
 
     //기업 페이지: 파일 - 저장된 로고 이름 확인
     @Override
+    @Transactional
     public RecruiterFileDTO selectComLogoName(int company_no){
         return recruiterMyPageRepository.selectComLogoName(company_no);
     }
 
     //기업 페이지: 파일 - 로고 수정(원본 삭제, 파일 업로드)
     @Override
+    @Transactional
     public int updateComLogo(MultipartFile logoFile, int company_no, String savedSavname){
         if (!logoFile.isEmpty()) {
             //1. 삭제: Logo Delete (saved file delete)
@@ -81,26 +86,44 @@ public class RecruiterMyPageServiceImpl implements RecruiterMyPageService{
 
     //기업 페이지: calendar 조회
     @Override
+    @Transactional
     public List<RecruiterCalendarDTO> selectRecruCalendar(){
         return recruiterMyPageRepository.selectRecruCalendar();
     }
 
     //기업 페이지: calendar 입력
     @Override
+    @Transactional
     public int insertRecruCalendar(RecruiterCalendarDTO recruiterCalendarDTO){
-        //schedule_end 특정 위치 값 변경 (+1) : calendar 마지막 날 exclusive 되는 문제 해결
-        String orgEndDate = recruiterCalendarDTO.getSchedule_end();
-        // 시작 인덱스를 8로 변경
-        int subEndDate = Integer.parseInt(orgEndDate.substring(8));
-        int addEndDate = subEndDate + 1;
-        String strSubEndDate = Integer.toString(addEndDate);
-        // 시작 인덱스를 0으로 변경
-        String editedEndDate = orgEndDate.substring(0, 8) + strSubEndDate;
-        recruiterCalendarDTO.setSchedule_end(editedEndDate);
-        return recruiterMyPageRepository.insertRecruCalendar(recruiterCalendarDTO);
+        return recruiterMyPageRepository.insertRecruCalendar(editEndDate(recruiterCalendarDTO));
     }
 
     //기업 페이지: calendar 삭제
+    @Override
+    @Transactional
+    public int deleteRecruCalendar(RecruiterCalendarDTO recruiterCalendarDTO) {
+        return recruiterMyPageRepository.insertRecruCalendar(editEndDate(recruiterCalendarDTO));
+    }
+
     //기업 페이지: calendar 수정
+
+
+
+
+    //기업 페이지: calendar - calendar 마지막 날 exclusive 되는 문제 해결
+    static RecruiterCalendarDTO editEndDate(RecruiterCalendarDTO recruiterCalendarDTO){
+        String orgEndDate = recruiterCalendarDTO.getSchedule_end();
+        int subEndDate = Integer.parseInt(orgEndDate.substring(8));
+        int addEndDate = subEndDate + 1;
+        String strSubEndDate = Integer.toString(addEndDate);
+        if( subEndDate < 10 ) {
+            String editedEndDate = orgEndDate.substring(0, 8) + "0" + strSubEndDate;
+            recruiterCalendarDTO.setSchedule_end(editedEndDate);
+        } else {
+            String editedEndDate = orgEndDate.substring(0, 8) + strSubEndDate;
+            recruiterCalendarDTO.setSchedule_end(editedEndDate);
+        }
+        return recruiterCalendarDTO;
+    }
 
 }

@@ -43,7 +43,6 @@ document.addEventListener('DOMContentLoaded', function() {
             center: 'title',
             end: 'prev,next dayGridMonth today',
         },
-
         //calendar CRUD
         customButtons: {
             addEventButton: {
@@ -119,17 +118,36 @@ document.addEventListener('DOMContentLoaded', function() {
         },
 
         // Delete: 캘린더 정보 삭제
-/*        eventClick: function(arg) {
-            if (confirm(title+'등록된 일정을 삭제하시겠습니까?')) {
+        eventClick: function(arg) {
+
+            var SCHEDULE_TITLE = document.getElementById('SCHEDULE_TITLE').value;
+            var SCHEDULE_START = document.getElementById('SCHEDULE_START').value;
+            var SCHEDULE_END = document.getElementById('SCHEDULE_END').value;
+            var COMPANY_NO = document.getElementById('COMPANY_NO').value;
+
+            if (confirm('등록된 일정: ' + titleName + '\r\n일정을 삭제하시겠습니까?')) {
                 arg.event.remove();
+                $.ajax({
+                    type: "POST",
+                    url: "/recruiter/deleteCalendar?method=data",
+                    data: JSON.stringify({
+                        schedule_title: SCHEDULE_TITLE,
+                        schedule_start: SCHEDULE_START,
+                        schedule_end: SCHEDULE_END,
+                        company_no: COMPANY_NO
+                    }),
+                    contentType: "application/json; charset=UTF-8",
+                    dataType: "text",
+                    success: function(success) {
+                       /* location.reload();*/
+                    }, error: function() {
+                        /* location.reload();*/
+                    }
+                });
             }
-        }*/
-
-
-
+        }
 
     });
-
     // calendar 랜더링
     calendar.render();
 });
