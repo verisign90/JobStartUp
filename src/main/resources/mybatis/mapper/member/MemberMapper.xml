@@ -25,4 +25,8 @@
         SELECT count(*) FROM member WHERE member_email = #{member_email}
     </select>
 
+    <!-- 스프링 시큐리티. 아이디로 멤버 객체 가져오기 -->
+    <select id="findByUsername" parameterType="String" resultType="com.pickmeup.jobstartup.member.entity.Member">
+        SELECT * FROM member WHERE member_id = #{username}
+    </select>
 </mapper>
