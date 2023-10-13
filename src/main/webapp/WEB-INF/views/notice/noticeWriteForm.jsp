@@ -39,7 +39,7 @@
       </form>
     </section>
   </article>
-  <div id="top">
+  <div id="up">
     <a href="#">TOP</a>
   </div>
   <script>
@@ -144,7 +144,7 @@
         }
       )('att_zone', 'notFile_orgName')
 
-      $('#top').click(function() {
+      $('#up').click(function() {
         $('html, body').animate({
           scrollTop: 0
         }, 400);

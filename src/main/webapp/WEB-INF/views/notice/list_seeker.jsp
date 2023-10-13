@@ -10,11 +10,16 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <div class="page_tits">
-        <h2>Notice List</h2>
-    </div>
+<!-- ***** Nav start ***** -->
+<%@ include file="../layout/layoutNav.jsp" %>
+<div id="top" data-wow-duration="1s" data-wow-delay="0.5s">
+   <div class="header-text" data-wow-duration="1s" data-wow-delay="1s">
+   </div>
+</div>
+<!-- ***** Nav End ***** -->
     <div class="content">
-        <section id="contents">
+        <section id="content">
+          <h2 class="notice">Notice</h2>
             <ul class="webtong_tab_type03">
                 <li><a href="/notice/list">전체</a></li>
                 <li class="on"><a href="/notice/list/seeker">개인회원</a></li>
@@ -38,8 +43,8 @@
             <table class="tb tb_col">
                 <thead>
                     <tr>
-                        <th scope="col">번호</th>
-                        <th scope="col">제목</th>
+                        <th scope="col" class="no">번호</th>
+                        <th scope="col" class="subject">제목</th>
                         <th scope="col">등록일</th>
                     </tr>
                 </thead>
@@ -60,6 +65,9 @@
             </p>
         </section>
     </div>
+    <!-- Footer start -->
+    <%@ include file="../layout/layoutFooter.jsp" %>
+    <!-- Footer end -->
 <script>
     window.onload = () => {
         findAllPost();

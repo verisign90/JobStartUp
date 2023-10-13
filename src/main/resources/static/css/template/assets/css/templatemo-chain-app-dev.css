@@ -1,4 +1,4 @@
-ㅕ/*
+/*
 
 TemplateMo 570 Chain App Dev
 
@@ -41,6 +41,11 @@ figure, header, nav, section, article, aside, footer, figcaption {
   padding: 0;
   border: 0;
   outline: 0;
+}
+
+a, a:link, a:visited, a:active, a:hover {
+  text-decoration-line: none;
+  color: black;
 }
 
 /* clear fix */
@@ -112,6 +117,34 @@ html, body {
 
 a {
   text-decoration: none !important;
+}
+
+/*--------- TOP anchor ---------*/
+#up {
+  font-size: 1rem;
+  line-height: 3.2rem;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  background: #333;
+  box-shadow: 1px 1px 1px 1px #ccc;
+  text-align: center;
+  border-radius: 50%;
+  position: fixed;
+  display: scroll;
+  bottom: 40px;
+  right: 3%;
+  transition: 0.4s;
+}
+
+#up a {
+  text-decoration: none;
+  color:white;
+}
+
+#up:hover {
+  transform: scale(1.1);
+  background: #5D4FFF;
 }
 
 h1, h2, h3, h4, h5, h6 {

@@ -20,9 +20,11 @@ a {text-decoration: none; cursor: pointer;color: #666}
 	transition: all 0.5s
 }
 
-#contents {padding: 2% 2% 6% 2%}
+#content {
+    padding: 8% 10% 6% 10%;
+}
 
-.webtong_tab_type03 { display:table; width:100%; table-layout:fixed; border-left:1px solid #e7e7e7}
+.webtong_tab_type03 { display:table; width:100%; table-layout:fixed; border-left:1px solid #e7e7e7; margin-bottom : 50px;}
 .webtong_tab_type03 li { display:table-cell; height:50px;position:relative}
 .webtong_tab_type03 li:after, .webtong_tab_type03 li:after {content: '';position: absolute;background-color: #444;height: 3px;top: 0;width: 0}
 .webtong_tab_type03 li.on:after, .webtong_tab_type03 li:hover:after {width: 100%}
@@ -34,4 +36,19 @@ a {text-decoration: none; cursor: pointer;color: #666}
 .webtong_tab_type03 li.on a:after, .webtong_tab_type03 li:hover a:after { content:''; display:block; position:absolute; top:0; right:0; bottom:-1px; width:1px; background:#444}
 .webtong_tab_type03 li.on a:before, .webtong_tab_type03 li:hover a:before { content:''; display:block; position:absolute; top:0; left:0; bottom:-1px; width:1px; background:#444}
 
+.notice {
+    margin-bottom : 50px;
+}
 
+.tb {
+    width : 100%;
+}
+
+.subject {
+    width: 80%;
+    text-align: center;
+}
+
+.no {
+    width:10%
+}

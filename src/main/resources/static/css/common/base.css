@@ -74,34 +74,6 @@ li {
   list-style: none;
 }
 
-/*--------- TOP anchor ---------*/
-#top {
-  font-size: 1rem;
-  line-height: 3.2rem;
-  width: 50px;
-  height: 50px;
-  cursor: pointer;
-  background: #333;
-  box-shadow: 1px 1px 1px 1px #ccc;
-  text-align: center;
-  border-radius: 50%;
-  position: fixed;
-  display: scroll;
-  bottom: 40px;
-  right: 3%;
-  transition: 0.4s;
-}
-
-#top a {
-  text-decoration: none;
-  color:white;
-}
-
-#top:hover {
-  transform: scale(1.1);
-  background: #e6002d;
-}
-
 /*--------- common class setting ---------*/
 
 article {
@@ -174,7 +146,7 @@ input[type=checkbox] {
   vertical-align: middle;
 }
 
-a, a:link, a:visited, a:active {
+a, a:link, a:visited, a:active, a:hover {
   text-decoration-line: none;
-  color: white;
+  color: black;
 }

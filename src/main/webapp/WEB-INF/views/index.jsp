@@ -26,18 +26,7 @@
 
 </head>
 <body>
-<!-- ***** Preloader Start ***** -->
-<div id="js-preloader" class="js-preloader">
-  <div class="preloader-inner">
-    <span class="dot"></span>
-    <div class="dots">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-  </div>
-</div>
-<!-- ***** Preloader End ***** -->
+
 
 <!-- ***** Nav start ***** -->
 <%@ include file="layout/layoutNav.jsp" %>
@@ -114,13 +103,5 @@
 <%@ include file="layout/layoutFooter.jsp" %>
 <!-- Footer end -->
 
-<!-- Scripts -->
-<script src="/css/template/vendor/jquery/jquery.min.js"></script>
-<script src="/css/template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="/css/template/assets/js/owl-carousel.js"></script>
-<script src="/css/template/assets/js/animation.js"></script>
-<script src="/css/template/assets/js/imagesloaded.js"></script>
-<script src="/css/template/assets/js/popup.js"></script>
-<script src="/css/template/assets/js/custom.js"></script>
 </body>
 </html>

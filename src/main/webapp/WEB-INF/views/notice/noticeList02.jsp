@@ -6,22 +6,18 @@
 <head>
 <title>Notice List</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
-<!--<link rel="stylesheet" href="/css/common/base.css" type="text/css" />-->
+<link rel="stylesheet" href="/css/common/base.css" type="text/css">
 <link rel="stylesheet" href="/css/notice/list.css" type="text/css" />
 <c:set var="category" value="${param.category}" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-<!-- ***** Nav start ***** -->
-<%@ include file="../layout/layoutNav.jsp" %>
-<div id="top" data-wow-duration="1s" data-wow-delay="0.5s">
-   <div class="header-text" data-wow-duration="1s" data-wow-delay="1s">
-   </div>
-</div>
-<!-- ***** Nav End ***** -->
+ <article class="total">
+    <div class="notice">
+        <h1>Notice</h1>
+    </div>
     <div class="content">
         <section id="content">
-          <h2 class="notice">Notice</h2>
             <ul class="webtong_tab_type03">
                 <li class="on"><a href="/notice/list">전체</a></li>
                 <li><a href="/notice/list/seeker">개인회원</a></li>
@@ -45,8 +41,8 @@
             <table class="tb tb_col">
                 <thead>
                     <tr>
-                        <th scope="col" class="no">번호</th>
-                        <th scope="col" class="subject">제목</th>
+                        <th scope="col">번호</th>
+                        <th scope="col">제목</th>
                         <th scope="col">등록일</th>
                     </tr>
                 </thead>
@@ -67,9 +63,7 @@
             </p>
         </section>
     </div>
-    <!-- Footer start -->
-    <%@ include file="../layout/layoutFooter.jsp" %>
-    <!-- Footer end -->
+ </article>
 <script>
     window.onload = () => {
         findAllPost();
@@ -161,6 +155,7 @@
         }
         location.href = location.pathname+'/'+category+'/'+ '?' + new URLSearchParams(queryParams).toString();
     }
+
 
 </script>
 </body>

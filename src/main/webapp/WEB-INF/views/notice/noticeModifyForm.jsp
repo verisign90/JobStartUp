@@ -40,9 +40,6 @@
       </form>
     </section>
   </article>
-  <div id="top">
-    <a href="#">TOP</a>
-  </div>
 <script>
       (
         imageView = function imageView(att_zone, notFile_orgName){
@@ -195,13 +192,6 @@
             break;
         }
       }
-
-      $('#top').click(function() {
-        $('html, body').animate({
-          scrollTop: 0
-        }, 400);
-        return false;
-      });
   </script>
 </body>
 </html>
