@@ -14,6 +14,14 @@
     <!-- 채용자 관리 페이지 (private edited) -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/recruiter/appmanagement/appManageListDetail.css">
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/recruiter/appmanagement/appManageListDetail.js"></script>
+    <!-- Bootstrap core CSS -->
+    <link href="/css/template/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/template/assets/css/templatemo-chain-app-dev.css">
+    <link rel="stylesheet" href="/css/template/assets/css/animated.css">
+    <link rel="stylesheet" href="/css/template/assets/css/owl.css">
 </head>
 <body>
 
@@ -81,7 +89,7 @@
                     </tr>
                     <tr>
                         <th>링크</th>
-                        <td>${selectResume.resume_url}</td>
+                        <td><a href="${selectResume.resume_url}">${selectResume.resume_url}</a></td>
                     </tr>
                     <tr>
                         <th>서류</th>
@@ -108,7 +116,7 @@
                         <input type="date" name="date" id="date_enroll" required/>
                         <input type="time" name="time" id="time_enroll" required/>
                         <button type="submit" class="first-enroll-button" id="first-enroll-button">등록</button>
-                        <fmt:formatDate value="${selectInfo.interview_date}" pattern="yyyy-MM-dd HH:mm" />
+                        등록된 면접일 : <fmt:formatDate value="${selectInfo.interview_date}" pattern="yyyy-MM-dd HH:mm" />
                     </form>
                     <form action="/recruiter/firstDenial" method="post">
                         <input type="hidden" name="status_no" id="first_denial" value="${selectInfo.status_no}">
@@ -141,6 +149,17 @@
         </div>
     </div>
 </div>
+
+
+<!-- Scripts -->
+<script src="/css/template/vendor/jquery/jquery.min.js"></script>
+<script src="/css/template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/css/template/assets/js/owl-carousel.js"></script>
+<script src="/css/template/assets/js/animation.js"></script>
+<script src="/css/template/assets/js/imagesloaded.js"></script>
+<script src="/css/template/assets/js/popup.js"></script>
+<script src="/css/template/assets/js/custom.js"></script>
+
 
 </body>
 </html>
