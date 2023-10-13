@@ -1,20 +1,21 @@
 <!DOCTYPE html>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html lang="ko" xmlns:c="http://java.sun.com/JSP/Page" xmlns:fmt="http://java.sun.com/JSP/Page" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>기업 마이페이지</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css" rel="stylesheet">
+    <title>기업 마이 페이지</title>
+    <!-- 기업 마이 페이지 (폰트, Jquery, icon)-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-    <!-- 기업 페이지 (일반) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css" rel="stylesheet">
+    <!-- 기업 마이 페이지 (private edited) -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/base.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css//recruiter/mypage/recruiterMyPage.css">
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/recruiter/mypage/recruiterMyPage.js"></script>
-    <!-- 캘린더 추가 -->
+    <!-- 기업 마이 페이지 (캘린더) -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/recruiter/mypage/recruiterCalendar.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/recruiter/mypage/recruiterCalendarEdit.css"/>
     <script src="${pageContext.request.contextPath}/js/recruiter/mypage/recruiterCalendar.js"></script>
@@ -22,6 +23,9 @@
 
 </head>
 <body>
+<%@ include file="/WEB-INF/views/layout/layoutNav.jsp"%>
+<%@ include file="/WEB-INF/views/layout/layoutSide.jsp"%>
+
 <div class="main-container">
 
     <div class="main-title-container"><h2>기업 마이페이지</h2></div>
@@ -52,30 +56,30 @@
                         <button type="button" class="edit-button">회원 탈퇴</button>
                     </div>
                     <table>
-                            <tr>
-                                <th>회사 이름</th>
-                                <td>${recruiterMyPageDTO.company_name}</td>
-                            </tr>
-                            <tr>
-                                <th>회사 연락처</th>
-                                <td>${recruiterMyPageDTO.company_hp}</td>
-                            </tr>
-                            <tr>
-                                <th>회사 대표</th>
-                                <td>${recruiterMyPageDTO.ceo_name}</td>
-                            </tr>
-                            <tr>
-                                <th>회사 형태</th>
-                                <td>${recruiterMyPageDTO.company_type}</td>
-                            </tr>
-                            <tr>
-                                <th>회사 주소</th>
-                                <td>${recruiterMyPageDTO.company_address_detail}</td>
-                            </tr>
-                            <tr>
-                                <th>회사 위치</th>
-                                <td>${recruiterMyPageDTO.company_site}</td>
-                            </tr>
+                        <tr>
+                            <th>회사 이름</th>
+                            <td>${recruiterMyPageDTO.company_name}</td>
+                        </tr>
+                        <tr>
+                            <th>회사 연락처</th>
+                            <td>${recruiterMyPageDTO.company_hp}</td>
+                        </tr>
+                        <tr>
+                            <th>회사 대표</th>
+                            <td>${recruiterMyPageDTO.ceo_name}</td>
+                        </tr>
+                        <tr>
+                            <th>회사 형태</th>
+                            <td>${recruiterMyPageDTO.company_type}</td>
+                        </tr>
+                        <tr>
+                            <th>회사 주소</th>
+                            <td>${recruiterMyPageDTO.company_address_detail}</td>
+                        </tr>
+                        <tr>
+                            <th>회사 위치</th>
+                            <td>${recruiterMyPageDTO.company_site}</td>
+                        </tr>
                     </table>
                 </div>
             </div>
@@ -85,8 +89,8 @@
             <div class="company-schedule">
                 <div id="calendar" class="calendar"></div>
             </div>
-            </div>
         </div>
+    </div>
 
     <div class="status-container">
 
@@ -157,5 +161,6 @@
     </div>
 </div>
 
+<%@ include file="/WEB-INF/views/layout/layoutFooter.jsp"%>
 </body>
 </html>

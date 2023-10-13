@@ -48,7 +48,7 @@ public class RecruiterMyPageServiceImpl implements RecruiterMyPageService{
     @Override
     public RecruiterFileDTO selectComLogoName(int company_no){
         return recruiterMyPageRepository.selectComLogoName(company_no);
-    };
+    }
 
     //기업 페이지: 파일 - 로고 수정(원본 삭제, 파일 업로드)
     @Override
@@ -59,8 +59,8 @@ public class RecruiterMyPageServiceImpl implements RecruiterMyPageService{
             File fileToDelete = new File(DeletefilePath);
             fileToDelete.delete();
             //2. 업로드: Logo Upload (new file uploaded)
-            String logo_orgname = logoFile.getOriginalFilename();
             String uuid = UUID.randomUUID().toString();
+            String logo_orgname = logoFile.getOriginalFilename();
             String logo_savname = uuid + logo_orgname;
             String uploadfilePath = commonPath + File.separator + logo_savname;
             File file = new File(uploadfilePath);
