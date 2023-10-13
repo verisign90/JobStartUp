@@ -1,6 +1,18 @@
-.wrap {
+.resume_wrap {
     width: 1280px;
     margin: 0 auto;
+    margin-top: 100px;
+    padding: 100px;
+}
+
+.resume_title {
+    font-weight: bold;
+    margin-left: 30px;
+}
+
+.writeDiv {
+    margin: 60px 0;
+    text-align: right;
 }
 
 all {
@@ -17,10 +29,12 @@ all {
 }
 
 .resume_item {
+    display: flex;
     margin: 0;
     border: none;
     border-bottom: 1px solid #eaedf4;
     padding: 50px;
+    justify-content: space-between;
 }
 
 .resume_item .tit {
@@ -37,13 +51,38 @@ all {
 
 .resume_list>li {
     margin-bottom: -57px;
-    position: relative;
 }
 
 ul{
     list-style:none;
 }
 
-a {
+button {
+    background-color: white;
+    border-color: #7A41FF;
+    color: #7A41FF;
+    border-radius: 5px;
+    padding: 7px;
+}
 
+button:hover {
+    background-color: #7A41FF;
+    color: white;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+a:link {
+    color: black;
+}
+
+a:visited {
+    color: black;
+}
+
+a:hover {
+    color: black;
 }

@@ -140,20 +140,24 @@ $(function() {
       });
   });
 
-  function onScroll(event){
-      var scrollPos = $(document).scrollTop();
-      $('.nav a').each(function () {
-          var currLink = $(this);
-          var refElement = $(currLink.attr("href"));
-          if (refElement.position().top <= scrollPos && refElement.position().top + refElement.height() > scrollPos) {
-              $('.nav ul li a').removeClass("active");
-              currLink.addClass("active");
-          }
-          else{
-              currLink.removeClass("active");
-          }
-      });
-  }
+    function onScroll(event) {
+        var scrollPos = $(document).scrollTop();
+        $('.nav a').each(function() {
+            var currLink = $(this);
+            var hrefValue = currLink.attr("href");
+
+            // href 값이 #로 시작하는 경우만 처리
+            if (hrefValue && hrefValue.startsWith("#")) {
+                var refElement = $(hrefValue);
+                if (refElement.position().top <= scrollPos && refElement.position().top + refElement.height() > scrollPos) {
+                    $('.nav ul li a').removeClass("active");
+                    currLink.addClass("active");
+                } else {
+                    currLink.removeClass("active");
+                }
+            }
+        });
+    }
 
 
   // Acc

@@ -11,8 +11,13 @@
     <title>Job Start Up</title>
 </head>
 <body>
-<%@ include file="../../layout/layoutNav.jsp"%>
-<%@ include file="../../layout/layoutSide.jsp"%>
+<header>
+    <%@ include file="../../layout/layoutNav.jsp"%>
+    <div  id="top" data-wow-duration="1s" data-wow-delay="0.5s">
+        <div class="header-text" data-wow-duration="1s" data-wow-delay="1s"></div>
+    </div>
+</header>
+<main>
 <section class="py-5">
     <div class="container px-5 my-5">
         <div class="row gx-5 justify-content-center">
@@ -21,13 +26,14 @@
                     <input type="hidden" name="member_no" id="member_no" value="13"/>
                     <!-- 제목 input -->
                     <div class="form-floating mb-3">
-                        <input type="text" name="resume_title" id="resume_title" class="form-control"/>
+                        <input type="text" name="resume_title" id="resume_title" class="form-control" placeholder=""/>
                         <label for="resume_title">제목</label>
                     </div>
                     <!-- 프로필사진 input -->
                     <div class="mb-3">
-                        <label for="profileOrgNameFile" class="form-label">프로필사진</label>
-                        <input type="file" name="profileOrgNameFile" id="profileOrgNameFile" class="form-control"/>
+                        <label for="profileOrgNameFile" class="form-label"></label>
+                        <img id= "profileImage" src="/img/default_profile.jpg" style="width: 140px; max-height: 170px;" class="mb-3">
+                        <input type="file" name="profileOrgNameFile" id="profileOrgNameFile" class="form-control" onchange="displayProfileImage(this)";/>
                         <input type="hidden" name="profile_savname" id="profile_savname" value="test"/>
                     </div>
                     <!-- 원하는 연봉 input -->
@@ -143,6 +149,7 @@
         </div>
     </div>
 </section>
+</main>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 <script>
@@ -162,6 +169,20 @@
             locationContainer.appendChild(newInput);
         });
     });
+</script>
+<script>
+    function displayProfileImage(input) {
+        var imageElement = document.getElementById('profileImage');
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                imageElement.src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            imageElement.src = "/img/default_profile.jpg";
+        }
+    }
 </script>
 
 <%@ include file="../../layout/layoutFooter.jsp"%>
