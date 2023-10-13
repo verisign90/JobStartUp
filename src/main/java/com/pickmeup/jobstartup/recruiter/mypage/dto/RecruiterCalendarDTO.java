@@ -17,7 +17,4 @@ public class RecruiterCalendarDTO {
     private String schedule_start;
     private String schedule_end;
     private boolean allDay;
-    private String textColor;
-    private String backgroundColor;
-    private String borderColor;
 }

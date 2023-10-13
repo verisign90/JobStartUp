@@ -11,27 +11,36 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css" rel="stylesheet">
-    <!-- 기업 마이 페이지 (private edited) -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/base.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css//recruiter/mypage/recruiterMyPage.css">
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/recruiter/mypage/recruiterMyPage.js"></script>
     <!-- 기업 마이 페이지 (캘린더) -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/recruiter/mypage/recruiterCalendar.css"/>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/recruiter/mypage/recruiterCalendarEdit.css"/>
     <script src="${pageContext.request.contextPath}/js/recruiter/mypage/recruiterCalendar.js"></script>
     <script src="${pageContext.request.contextPath}/js/recruiter/mypage/recruiterCalendarEdit.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/recruiter/mypage/recruiterCalendar.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/recruiter/mypage/recruiterCalendarEdit.css"/>
+    <!-- 기업 마이 페이지 (private edited) -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/recruiter/mypage/recruiterMyPage.css">
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/recruiter/mypage/recruiterMyPage.js"></script>
 
 </head>
 <body>
-<%@ include file="/WEB-INF/views/layout/layoutNav.jsp"%>
-<%@ include file="/WEB-INF/views/layout/layoutSide.jsp"%>
+
+<!-- ***** Nav start ***** -->
+<%@ include file="../../layout/layoutNav.jsp" %>
+<div  id="top" data-wow-duration="1s" data-wow-delay="0.5s">
+    <div class="header-text" data-wow-duration="1s" data-wow-delay="1s">
+    </div>
+</div>
+<!-- ***** Nav End ***** -->
 
 <div class="main-container">
-
     <div class="main-title-container"><h2>기업 마이페이지</h2></div>
 
     <div class="info-container">
         <div class="info-main-container">
+
+            <div class="company-schedule">
+                <div id="calendar" class="calendar"></div>
+            </div>
+
             <div class="company">
                 <form action="/recruiter/updateComLogo" method="POST" enctype="multipart/form-data">
                     <div class="profile">
@@ -83,12 +92,11 @@
                     </table>
                 </div>
             </div>
+
             <div class="question-answer">
                 <h2>Q&A</h2>
             </div>
-            <div class="company-schedule">
-                <div id="calendar" class="calendar"></div>
-            </div>
+
         </div>
     </div>
 
@@ -161,6 +169,5 @@
     </div>
 </div>
 
-<%@ include file="/WEB-INF/views/layout/layoutFooter.jsp"%>
 </body>
 </html>

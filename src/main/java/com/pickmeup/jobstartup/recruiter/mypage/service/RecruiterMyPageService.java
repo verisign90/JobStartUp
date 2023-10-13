@@ -34,5 +34,7 @@ public interface RecruiterMyPageService {
     int insertRecruCalendar(RecruiterCalendarDTO recruiterCalendarDTO);
 
     //기업 페이지: calendar 삭제
+    int deleteRecruCalendar(RecruiterCalendarDTO recruiterCalendarDTO);
+
     //기업 페이지: calendar 수정
 }
