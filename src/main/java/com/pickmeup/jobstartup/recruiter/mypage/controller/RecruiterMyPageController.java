@@ -1,7 +1,5 @@
 package com.pickmeup.jobstartup.recruiter.mypage.controller;
 
-import com.pickmeup.jobstartup.recruiter.apply.dto.ApplyDTO;
-import com.pickmeup.jobstartup.recruiter.apply.service.ApplyServiceImpl;
 import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterCalendarDTO;
 import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterFileDTO;
 import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterJobPostingDTO;
@@ -31,10 +29,6 @@ public class RecruiterMyPageController {
 
     @Autowired
     private RecruiterMyPageService recruiterMyPageService;
-
-    //관련 서비스 또는 DTO
-    private ApplyServiceImpl applyService;
-    private ApplyDTO applyDTO;
 
     //Path
     private String filePath = "C:/JobStartUp_fileUpload/recruiterApply/";
@@ -136,8 +130,8 @@ public class RecruiterMyPageController {
     }
 
     //기업 페이지: 조회 - 캘린더 일정
-    @GetMapping(value = "/getCalendar", params = "method=data", produces = "application/json")
     @ResponseBody
+    @GetMapping(value = "/getCalendar", params = "method=data", produces = "application/json")
     public List<RecruiterCalendarDTO> selectPlan() {
         List<RecruiterCalendarDTO> calendarList = recruiterMyPageService.selectRecruCalendar();
         return calendarList;

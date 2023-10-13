@@ -24,8 +24,6 @@ public interface RecruiterMyPageRepository {
     //기업 페이지: 3) 지원자 관리(Ajax) + pagination
 
 
-
-
     //기업 페이지: 정보 수정 리스트 (또는 approval 담당의 jsp 이용)
     //기업 페이지: 정보 수정 (또는 approval 담당의 jsp 이용)
 
