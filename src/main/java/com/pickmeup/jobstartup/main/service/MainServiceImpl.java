@@ -3,15 +3,16 @@ package com.pickmeup.jobstartup.main.service;
 import com.pickmeup.jobstartup.jobfair.dto.JobFairDTO;
 import com.pickmeup.jobstartup.main.repository.MainRepository;
 import com.pickmeup.jobstartup.recruiter.apply.dto.ApplyDTO;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class MainServiceImpl implements MainService {
-    @Autowired
-    private MainRepository mainRepository;
+
+    private final MainRepository mainRepository;
     public List<ApplyDTO> getCompanyList() {
         return mainRepository.getCompanyList();
     }
@@ -23,6 +24,4 @@ public class MainServiceImpl implements MainService {
     public List<JobFairDTO> getJobFairList(){
         return mainRepository.getJobFairList();
     }
-
-
 }

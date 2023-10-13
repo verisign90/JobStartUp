@@ -1,4 +1,4 @@
-/*
+ㅕ/*
 
 TemplateMo 570 Chain App Dev
 
@@ -290,7 +290,7 @@ header
 
 .background-header {
   background-color: #fff !important;
-  height: 80px!important;
+  height: 100px!important;icon
   border-bottom: none !important;
   position: fixed!important;
   top: 0px;
@@ -1018,6 +1018,7 @@ Services Style
   border-radius: 10px;
   border-top-right-radius: 50px;
   transition: all .3s;
+  margin-bottom: 30px;
 }
 
 .service-item .icon {
@@ -1048,38 +1049,20 @@ Services Style
   color: #fff;
 }
 
+/*
 .first-service .icon {
-  background-image: url(../images/service-icon-01.png);
+  background-image: url(../images/lglogo.png);
+  background-size : contain;
 }
 
 .first-service:hover .icon {
-  background-image: url(../images/service-icon-hover-01.png);
+  background-image: url(../images/lglogo.png);
+  background-size : contain;
+  color: white;
+  filter: opacity(0.5) drop-shadow(0 0 0 white);
 }
+*/
 
-.second-service .icon {
-  background-image: url(../images/service-icon-02.png);
-}
-
-.second-service:hover .icon {
-  background-image: url(../images/service-icon-hover-02.png);
-}
-
-
-.third-service .icon {
-  background-image: url(../images/service-icon-03.png);
-}
-
-.third-service:hover .icon {
-  background-image: url(../images/service-icon-hover-03.png);
-}
-
-.fourth-service .icon {
-  background-image: url(../images/service-icon-04.png);
-}
-
-.fourth-service:hover .icon {
-  background-image: url(../images/service-icon-hover-04.png);
-}
 
 .service-item:hover {
   background-image: url(../images/service-bg.jpg);
@@ -1627,8 +1610,9 @@ footer #search button:hover {
 }
 
 .footer-widget .logo img {
-  max-width: 96px;
-  margin-bottom: 30px;
+    max-width: 158px;
+    margin-top: -25px;
+    margin-bottom: 30px;
 }
 
 .footer-widget h4 {

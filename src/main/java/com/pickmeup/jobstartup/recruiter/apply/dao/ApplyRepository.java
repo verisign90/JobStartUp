@@ -1,4 +1,4 @@
-package com.pickmeup.jobstartup.recruiter.apply.repository;
+package com.pickmeup.jobstartup.recruiter.apply.dao;
 
 import com.pickmeup.jobstartup.recruiter.apply.dto.*;
 import org.apache.ibatis.annotations.Mapper;
@@ -29,9 +29,4 @@ public interface ApplyRepository {
     public ApplyDTO getCompanyList();
 
     public List<FileDTO> getFileList(int company_no);
-
-    public ApplyDTO getCompanyInfo(int company_no);
-
-
-
 }

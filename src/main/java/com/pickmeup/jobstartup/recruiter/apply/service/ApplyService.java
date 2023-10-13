@@ -2,9 +2,12 @@ package com.pickmeup.jobstartup.recruiter.apply.service;
 
 
 import com.pickmeup.jobstartup.recruiter.apply.dto.*;
+
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
-
+@Service
 public interface ApplyService {
 
     public List<LocDTO> getUpperLoc();
@@ -27,6 +30,4 @@ public interface ApplyService {
     public ApplyDTO getCompanyList();
 
     public List<FileDTO> getFileList(int company_no);
-
-    public ApplyDTO getCompanyInfo(int company_no);
 }

@@ -1,28 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="main">
+<mapper namespace="com.pickmeup.jobstartup.main.repository.MainRepository">
     <select id="getCompanyList" resultType="com.pickmeup.jobstartup.recruiter.apply.dto.ApplyDTO">
         <![CDATA[
-        SELECT *
-        FROM company
-        FETCH FIRST 8 ROWS ONLY
+            SELECT * FROM company
+            WHERE COMPANY_NO >= 45 and COMPANY_NO <= 66
         ]]>
     </select>
 
     <select id="getCompanyNo" resultType="com.pickmeup.jobstartup.recruiter.apply.dto.ApplyDTO" parameterType="int">
         <![CDATA[
-        SELECT *
-        FROM company
-        where company_no = #{companyNo}
+            SELECT *
+            FROM company
+            where company_no = #{companyNo}
         ]]>
     </select>
 
     <select id="getJobFairList" resultType="com.pickmeup.jobstartup.jobfair.dto.JobFairDTO">
         <![CDATA[
-        SELECT *
-        FROM job_fair
-        FETCH FIRST 8 ROWS ONLY
+            SELECT *
+            FROM job_fair
         ]]>
     </select>
 </mapper>

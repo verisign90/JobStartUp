@@ -1,9 +1,9 @@
 package com.pickmeup.jobstartup.recruiter.apply.service;
 
 
+import com.pickmeup.jobstartup.recruiter.apply.dao.ApplyRepositoryImpl;
 import com.pickmeup.jobstartup.recruiter.apply.dto.*;
 
-import com.pickmeup.jobstartup.recruiter.apply.repository.ApplyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,26 +13,22 @@ import java.util.List;
 public class ApplyServiceImpl implements ApplyService {
 
     @Autowired
-    private ApplyRepository applyRepository;
+    private ApplyRepositoryImpl applyRepository;
 
-    @Override
     public  void insertInfo(ApplyDTO applyDTO) {
         System.out.println("service의 insertInfo까지는 왔다");
         applyRepository.insertInfo(applyDTO);
 
     }
 
-    @Override
     public List<LocDTO> getUpperLoc() {
         return applyRepository.getUpperLoc();
 
     }
-    @Override
     public List<LocDTO> getLowerLoc(String upperLoc) {
         return applyRepository.getLowerLoc(upperLoc);
     }
 
-    @Override
     public void insertFile(List<FileDTO> fileDTOList) {
         for (FileDTO fileDTO : fileDTOList) {
             applyRepository.insertFile(fileDTO);
@@ -40,38 +36,29 @@ public class ApplyServiceImpl implements ApplyService {
 
     }
 
-    @Override
     public ApplyDTO getCompanyNo() {
         System.out.println("서비스에서 부르는company_no는 ~~~~~~~~" + applyRepository.getCompanyNo());
         return applyRepository.getCompanyNo();
     }
 
-    @Override
     public List<JobDTO> getBusiness_type_code_up(){
         return applyRepository.getBusiness_type_code_up();
     }
 
-    @Override
     public List<JobDTO> getBusiness_type_code(String business_type_code_up){
         return applyRepository.getBusiness_type_code(business_type_code_up);
     }
 
-    @Override
     public void insertTest(TestDTO testDTO){
         applyRepository.insertTest(testDTO);
     }
 
-    @Override
     public ApplyDTO getCompanyList(){
         return applyRepository.getCompanyList();
     }
 
-    @Override
     public List<FileDTO> getFileList(int company_no){
         return applyRepository.getFileList(company_no);
     }
-
-    @Override
-    public ApplyDTO getCompanyInfo(int company_no){return applyRepository.getCompanyInfo(company_no);}
 
 }
