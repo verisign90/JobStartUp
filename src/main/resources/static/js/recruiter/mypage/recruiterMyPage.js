@@ -1,16 +1,5 @@
 $(document).ready(function(){
 
-    /* 기업 로고 이미지 출력 */
-    function readURL(obj){
-        if (obj.files && obj.files[0]) {                //파일이 있다면
-            var reader = new FileReader();              //FileReader()객체생성
-            reader.onload = function (e) {
-            $('#preview').attr('src', e.target.result)  //id가 preview인 요소의 src속성값을 설정 =>img src속성값을 파일명으로 적용
-            };
-            reader.readAsDataURL(obj.files[0]);
-        }
-    }
-
     /* 기업 로고 이미지 수정 */
     $("#profile-edit-button").on("click",function(){
 

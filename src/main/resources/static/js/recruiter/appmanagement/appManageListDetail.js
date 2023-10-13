@@ -1,19 +1,5 @@
 $(document).ready(function(){
 
-    /* 채용관리 - 지원자 프로필 출력 */
-    function readURL(obj){
-        var status_no = document.getElementById("#preview").value;
-        console.log(status_no);
-
-        if (obj.files && obj.files[0]) {                //파일이 있다면
-            var reader = new FileReader();              //FileReader()객체생성
-            reader.onload = function (e) {
-            $('#preview').attr('src', e.target.result)  //id가 preview인 요소의 src속성값을 설정 =>img src속성값을 파일명으로 적용
-            };
-            reader.readAsDataURL(obj.files[0]);
-        }
-    }
-
     /* 채용 절차(1차) 승인 및 면접일자 등록 */
     $(".first-enroll-button").on("click",function(){
         let status_no = document.getElementById("first_enroll").value;

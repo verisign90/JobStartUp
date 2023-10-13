@@ -33,15 +33,16 @@
         ]]>
     </update>
 
-    <!--기업 페이지: calendar 조회-->
+    <!--기업 페이지: calendar 조회 (수정 예정: 기업 맞춤)-->
+    <!--WHERE company_no = #{company_no}-->
     <select id="selectRecruCalendar" parameterType="com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterCalendarDTO" resultType="map">
         <![CDATA[
-            SELECT schedule_no, schedule_title, company_no, schedule_memo, schedule_start, schedule_end, textcolor, backgroundcolor, bordercolor
+            SELECT schedule_no, schedule_title, company_no, schedule_memo, schedule_start, schedule_end
             FROM company_schedule
         ]]>
     </select>
 
-    <!--기업 페이지: calendar 입력(수정중)-->
+    <!--기업 페이지: calendar 입력-->
     <insert id="insertRecruCalendar" parameterType="com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterCalendarDTO">
         <![CDATA[
             INSERT INTO company_schedule(schedule_title, schedule_start, schedule_end, schedule_memo, company_no)
@@ -50,7 +51,16 @@
     </insert>
 
     <!--기업 페이지: calendar 수정(수정중)-->
+
+
     <!--기업 페이지: calendar 삭제(수정중)-->
+    <delete id="deleteRecruCalendar" parameterType="com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterCalendarDTO">
+        <![CDATA[
+            DELETE company_schedule
+            WHERE company_no = #{company_no} AND schedule_title = #{schedule_title} AND schedule_end = #{schedule_end}
+        ]]>
+    </delete>
+
 
     <!--기업 페이지: 1) 박람회 현황(Ajax) + pagination-->
 <!--    <select id="getJobFairList" resultType="">
@@ -71,7 +81,5 @@
 <!--    <select id="getAppList" resultType="">
 
     </select>-->
-
-
 
 </mapper>
