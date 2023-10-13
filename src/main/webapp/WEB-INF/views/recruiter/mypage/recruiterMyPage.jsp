@@ -19,7 +19,14 @@
     <!-- 기업 마이 페이지 (private edited) -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/recruiter/mypage/recruiterMyPage.css">
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/recruiter/mypage/recruiterMyPage.js"></script>
+    <!-- Bootstrap core CSS -->
+    <link href="/css/template/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/template/assets/css/templatemo-chain-app-dev.css">
+    <link rel="stylesheet" href="/css/template/assets/css/animated.css">
+    <link rel="stylesheet" href="/css/template/assets/css/owl.css">
 </head>
 <body>
 
@@ -168,6 +175,16 @@
         </form>
     </div>
 </div>
+
+
+<!-- Scripts -->
+<script src="/css/template/vendor/jquery/jquery.min.js"></script>
+<script src="/css/template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/css/template/assets/js/owl-carousel.js"></script>
+<script src="/css/template/assets/js/animation.js"></script>
+<script src="/css/template/assets/js/imagesloaded.js"></script>
+<script src="/css/template/assets/js/popup.js"></script>
+<script src="/css/template/assets/js/custom.js"></script>
 
 </body>
 </html>
