@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html lang="ko" xmlns:c="http://java.sun.com/JSP/Page" xmlns:fmt="http://java.sun.com/JSP/Page" xmlns="http://www.w3.org/1999/html">
 <head>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -375,7 +376,7 @@
     		<div class="form-control">
                 <label for="username">로고 업로드</label>
                 <input type="file" id="logo" name="logo" accept="image/*" required/>
-                <img id="logo-previewㅌ" src="#" alt="로고 미리보기" style="display: none; width: 200px; height: auto;">
+                <img id="logo-preview" src="#" alt="로고 미리보기" style="display: none; width: 200px; height: auto;">
                 <small id="logo-error" style="color: red;"></small><br><br>
             </div>
 

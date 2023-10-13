@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="apply">
+<mapper namespace="com.pickmeup.jobstartup.recruiter.apply.repository.ApplyRepository">
+
+    <select id="getCompanyInfo" resultType="com.pickmeup.jobstartup.recruiter.apply.dto.FileDTO" parameterType="int">
+        <![CDATA[
+        SELECT *
+        FROM company
+        WHERE company_no = #{company_no}
+        ]]>
+    </select>
 
     <select id="getFileList" resultType="com.pickmeup.jobstartup.recruiter.apply.dto.FileDTO" parameterType="int">
         <![CDATA[
@@ -63,7 +71,7 @@
     <select id="getBusiness_type_code_up" resultType="com.pickmeup.jobstartup.recruiter.apply.dto.JobDTO">
         <![CDATA[
         select * from detail_code
-        where group_code = 300 and code_level = 1
+        where group_code = 200 and code_level = 1
         ]]>
     </select>
 

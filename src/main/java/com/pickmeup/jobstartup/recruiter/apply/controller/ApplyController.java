@@ -22,12 +22,13 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
+@RequestMapping("/apply")
 @Controller
 @RequiredArgsConstructor
 public class ApplyController {
 
     @Autowired
-    public ApplyServiceImpl applyService;
+    public ApplyService applyService;
 
 
 
@@ -42,7 +43,7 @@ public class ApplyController {
     @GetMapping("/download")
     public ResponseEntity<byte[]> downloadFile(@RequestParam("fileName") String fileName) throws IOException {
         // 파일을 읽어올 디렉토리 경로
-        String directory = "C:\\JobStartUp_file";  // 실제 디렉토리 경로로 수정
+        String directory = "C:\\jobStartUp_fileUpload\\recruiterApply";  // 실제 디렉토리 경로로 수정
         System.out.println("getMapping/download 에서 fileName 값"+ fileName);
         // 파일을 읽어올 File 객체 생성
         File file = new File(directory, fileName);
@@ -72,6 +73,7 @@ public class ApplyController {
     @GetMapping("/modify/{company_no}")
     public String modify(@PathVariable("company_no") int company_no ,Model model) {
         List<FileDTO> fileDTOList = applyService.getFileList(company_no);
+        ApplyDTO applyDTO = applyService.getCompanyInfo(company_no);
         System.out.println("여기는 modify"+ fileDTOList );
         model.addAttribute("fileDTOList",fileDTOList);
 
@@ -96,7 +98,7 @@ public class ApplyController {
         System.out.println(upperLoc);
         System.out.println(upperJob);
 
-        return "recruiter/approvalRequest2";
+        return "recruiter/apply/approvalRequest2";
     }
 
     //신청서 제출
@@ -167,7 +169,7 @@ public class ApplyController {
         }
         applyService.insertFile(fileDTOList);
         System.out.println("여기는 apply post컨트롤러2");
-        return String.format("redirect:/apply");
+        return String.format("redirect:/apply/apply");
     }
 
     //하위지역 받아오기
