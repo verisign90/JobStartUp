@@ -125,7 +125,9 @@
                         site
                     </div>
                     <div class="jobfair_value">
-                        ${jobFair.JOBFAIR_SITE}
+                        <a href="${jobFair.JOBFAIR_SITE}">
+                            ${jobFair.JOBFAIR_SITE}
+                        </a>
                     </div>
                 </div>
             </div>
@@ -133,7 +135,7 @@
         <div class="jobfair_content">
             ${jobFair.JOBFAIR_CONTENT}
         </div>
-                <div id="registering_jobfair">
+        <div id="registering_jobfair">
             <a href="${pageContext.request.contextPath}/admin/jobfair/delete?jobFairNo=${jobFair.JOBFAIR_NO}"
                class="button-link">
                 삭제하기
