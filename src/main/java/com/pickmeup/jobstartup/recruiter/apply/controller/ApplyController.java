@@ -1,11 +1,7 @@
 package com.pickmeup.jobstartup.recruiter.apply.controller;
 
 import com.pickmeup.jobstartup.recruiter.apply.dto.*;
-
-import com.pickmeup.jobstartup.recruiter.apply.service.ApplyService;
 import com.pickmeup.jobstartup.recruiter.apply.service.ApplyServiceImpl;
-
-import com.zaxxer.hikari.util.FastList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -22,13 +18,12 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
-@RequestMapping("/apply")
 @Controller
 @RequiredArgsConstructor
 public class ApplyController {
 
     @Autowired
-    public ApplyService applyService;
+    public ApplyServiceImpl applyService;
 
 
 
@@ -43,7 +38,7 @@ public class ApplyController {
     @GetMapping("/download")
     public ResponseEntity<byte[]> downloadFile(@RequestParam("fileName") String fileName) throws IOException {
         // 파일을 읽어올 디렉토리 경로
-        String directory = "C:\\jobStartUp_fileUpload\\recruiterApply";  // 실제 디렉토리 경로로 수정
+        String directory = "C:\\JobStartUp_file";  // 실제 디렉토리 경로로 수정
         System.out.println("getMapping/download 에서 fileName 값"+ fileName);
         // 파일을 읽어올 File 객체 생성
         File file = new File(directory, fileName);
@@ -73,7 +68,6 @@ public class ApplyController {
     @GetMapping("/modify/{company_no}")
     public String modify(@PathVariable("company_no") int company_no ,Model model) {
         List<FileDTO> fileDTOList = applyService.getFileList(company_no);
-        ApplyDTO applyDTO = applyService.getCompanyInfo(company_no);
         System.out.println("여기는 modify"+ fileDTOList );
         model.addAttribute("fileDTOList",fileDTOList);
 
@@ -98,7 +92,7 @@ public class ApplyController {
         System.out.println(upperLoc);
         System.out.println(upperJob);
 
-        return "recruiter/apply/approvalRequest2";
+        return "recruiter/approvalRequest2";
     }
 
     //신청서 제출
@@ -111,7 +105,7 @@ public class ApplyController {
         if (!logoFile.isEmpty()) {
             try {
                 String originalFilename = logoFile.getOriginalFilename();
-                String uploadDir = "C:\\JobStartUp_file"; // 파일을 저장할 경로를 지정하세요.
+                String uploadDir = "C:/jobStartUp_fileUpload/company/logo"; // 파일을 저장할 경로를 지정하세요.
                 String filePath = uploadDir + File.separator + originalFilename;
                 File dest = new File(filePath);
                 logoFile.transferTo(dest);
@@ -138,7 +132,7 @@ public class ApplyController {
             if (!file.isEmpty()) {
                 try {
                     String originalFileName = file.getOriginalFilename();
-                    String uploadDir = "C:\\JobStartUp_file"; // 파일을 저장할 경로를 지정하세요.
+                    String uploadDir = "C:/jobStartUp_fileUpload/company/file"; // 파일을 저장할 경로를 지정하세요.
                     String filePath = uploadDir + File.separator + originalFileName;
                     File dest = new File(filePath);
                     file.transferTo(dest);
@@ -169,7 +163,7 @@ public class ApplyController {
         }
         applyService.insertFile(fileDTOList);
         System.out.println("여기는 apply post컨트롤러2");
-        return String.format("redirect:/apply/apply");
+        return String.format("redirect:/apply");
     }
 
     //하위지역 받아오기
