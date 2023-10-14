@@ -7,11 +7,17 @@
         select count(*) from member where member_id = #{member_id}
     </select>
 
-    <!-- 회원가입 -->
-    <insert id="save">
+    <!-- 일반회원가입 -->
+    <insert id="savePerson">
         INSERT INTO member(member_id, member_type, menu_id, member_name, member_pw, member_sex, member_hp, member_email, member_birth, member_loc)
         VALUES(#{member_id}, #{member_type}, #{menu_id}, #{member_name}, #{member_pw}, #{member_sex}, #{member_hp}, #{member_email}, #{member_birth}, #{member_loc})
     </insert>
+
+<!--    &lt;!&ndash; 기업회원가입 &ndash;&gt;-->
+<!--    <insert id="saveCompany">-->
+<!--        INSERT INTO member(member_id, member_type, menu_id, member_name, member_pw, member_sex, member_hp, member_email, member_birth, member_loc, status_yn)-->
+<!--        VALUES(#{member_id}, #{member_type}, #{menu_id}, #{member_name}, #{member_pw}, #{member_sex}, #{member_hp}, #{member_email}, #{member_birth}, #{member_loc}, #{status_yn})-->
+<!--    </insert>-->
 
     <!-- 회원 구분에 따른 메뉴 ID 가져오기 -->
     <select id="selectMenuId" resultType="string">

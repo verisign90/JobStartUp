@@ -5,12 +5,12 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>개인 회원가입</title>
+    <title>기업 회원가입</title>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
-<h2>개인 회원가입</h2>
-<form action="/joinCommon" method="post" onsubmit="return onSubmitForm();">
+<h2>기업 회원가입</h2>
+<form action="/joinCompany" method="post" onsubmit="return onSubmitForm();">
    <div>
        <label for="member_id">아이디</label>
        <input type="text" id="member_id" name="member_id" required oninput="checkDuplicate()" placeholder="4~20자리 / 영문, 숫자, '_' 사용가능">
@@ -422,7 +422,7 @@ $(document).ready(function(){
         }
 
         $.ajax({
-            url: '/member/duplicateEmail',
+            url: '/duplicateEmail',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({ 'member_email': emailInput }),
