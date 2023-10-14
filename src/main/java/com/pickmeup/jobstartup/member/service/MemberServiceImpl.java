@@ -1,23 +1,30 @@
 package com.pickmeup.jobstartup.member.service;
 
 import com.pickmeup.jobstartup.member.dto.JoinCommonDTO;
+import com.pickmeup.jobstartup.member.dto.JoinCompanyDTO;
 import com.pickmeup.jobstartup.member.entity.Member;
 import com.pickmeup.jobstartup.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final ModelMapper modelMapper;
     private final BCryptPasswordEncoder passwordEncoder;
     //    private final DefaultMessageService messageService;
-    private static final Logger logger = LoggerFactory.getLogger(MemberService.class);
+    private final UserSecurityService userSecurityService;
 
     //아이디 중복 여부 검사
     @Override
@@ -26,28 +33,45 @@ public class MemberServiceImpl implements MemberService {
         return count > 0;
     }
 
-    //회원가입
+    //일반회원가입
     @Override
-    public void join(JoinCommonDTO joinCommonDTO) {
-        logger.info("dto: {}", joinCommonDTO);
-
+    public Member join(JoinCommonDTO joinCommonDTO) {
         if (!isValidDate(joinCommonDTO.getMember_birth())) {
             throw new IllegalArgumentException("YYYYMMDD 입력 형식을 확인해 주세요");
         }
 
         Member member = convertDtoToEntity(joinCommonDTO);
-        logger.info("Member entity: {}", member);
 
         String encryptedPassword = passwordEncoder.encode(joinCommonDTO.getMember_pw());
         member.setMember_pw(encryptedPassword);
-        logger.info("Encrypted password: {}", encryptedPassword);
 
         String menuId = getMemberMenuId(joinCommonDTO.getMember_type().getCode());
         member.setMenu_id(menuId);
-        logger.info("menu ID: {}", menuId);
 
-        memberRepository.save(member);
-        logger.info("save: {}", member);
+        memberRepository.savePerson(member);
+        log.info("서비스 Loaded user: {}, with authorities: {}", member.getMember_id(), member.getMember_type());
+        return member;
+    }
+
+    //기업 회원가입
+    @Override
+    public Member join(JoinCompanyDTO joinCompanyDTO) {
+        if (!isValidDate(joinCompanyDTO.getMember_birth())) {
+            throw new IllegalArgumentException("YYYYMMDD 입력 형식을 확인해 주세요");
+        }
+
+        Member member = convertDtoToEntity(joinCompanyDTO);
+
+        String encryptedPassword = passwordEncoder.encode(joinCompanyDTO.getMember_pw());
+        member.setMember_pw(encryptedPassword);
+
+        String menuId = getMemberMenuId(joinCompanyDTO.getMember_type().getCode());
+        member.setMenu_id(menuId);
+
+        memberRepository.savePerson(member);
+//        memberRepository.saveCompany(member);
+        log.info("서비스 Loaded user: {}, with authorities: {}", member.getMember_id(), member.getMember_type());
+        return member;
     }
 
     //회원 구분에 따른 메뉴ID 가져오기
@@ -56,9 +80,18 @@ public class MemberServiceImpl implements MemberService {
         return memberRepository.selectMenuId(memberType);
     }
 
-    //joinCommonDTO를 Member엔티티로 바꾸기
-    private Member convertDtoToEntity(JoinCommonDTO joinCommonDTO) {
-        Member member = modelMapper.map(joinCommonDTO, Member.class);
+//    private Member convertDtoToEntity(JoinCommonDTO joinCommonDTO) {
+//        Member member = modelMapper.map(joinCommonDTO, Member.class);
+//        return member;
+//    }
+//
+//    private Member convertDtoToEntity(JoinCompanyDTO joinCompanyDTO) {
+//        Member member = modelMapper.map(joinCompanyDTO, Member.class);
+//        return member;
+//    }
+
+    private <T> Member convertDtoToEntity(T dto) {
+        Member member = modelMapper.map(dto, Member.class);
         return member;
     }
 
@@ -124,5 +157,13 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public boolean isDuplicateEmail(String emailInput) {
         return memberRepository.countByEmail(emailInput) > 0;
+    }
+
+    @Override
+    public void autoLogin(Member member) {
+        UserDetails userDetails = userSecurityService.loadUserByUsername(member.getMember_id());
+        UsernamePasswordAuthenticationToken authenticationToken =
+                new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
     }
 }

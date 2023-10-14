@@ -16,7 +16,10 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
+    private final LoginSuccessHandler loginSuccessHandler;
+
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -25,19 +28,21 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests((authorizeHttpRequests) -> authorizeHttpRequests
-                        .requestMatchers(new AntPathRequestMatcher("/mainCommon")).authenticated()
-                        .requestMatchers(new AntPathRequestMatcher("/**")).permitAll())
-                .headers((headers) -> headers.addHeaderWriter(new XFrameOptionsHeaderWriter(
-                        XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)))
-                .formLogin((formLogin)->formLogin
-                        .loginPage("/login")
-                        .defaultSuccessUrl("/mainCommon")
-                        .failureUrl("/login?error=true"))
-//            .logout((logout) -> logout
-//                    .logoutRequestMatcher(new AntPathRequestMatcher("/user/plLogout"))
-//                    .logoutSuccessUrl("/main/list").invalidateHttpSession(true)).csrf().disable();
-                .csrf(csrf -> csrf.disable());
+            .authorizeRequests((authorizeHttpRequests) -> authorizeHttpRequests
+                    .requestMatchers(new AntPathRequestMatcher("/mainCommon")).hasAuthority("COMMON")
+                    .requestMatchers(new AntPathRequestMatcher("/mainCompany")).hasAuthority("UNAPPROVED_COMPANY")
+                    .requestMatchers(new AntPathRequestMatcher("/**")).permitAll())
+            .headers((headers) -> headers.addHeaderWriter(new XFrameOptionsHeaderWriter(
+                    XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)))
+            .formLogin((formLogin)->formLogin
+                    .loginPage("/login")
+                    .successHandler(loginSuccessHandler)
+                    .failureUrl("/login?error=true"))
+            .logout((logout) -> logout
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                    .logoutSuccessUrl("/login")
+                    .invalidateHttpSession(true))
+            .csrf(csrf -> csrf.disable());
         return http.build();
     }
 

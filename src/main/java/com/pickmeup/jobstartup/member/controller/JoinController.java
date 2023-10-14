@@ -1,14 +1,19 @@
 package com.pickmeup.jobstartup.member.controller;
 
 import com.pickmeup.jobstartup.member.dto.JoinCommonDTO;
+import com.pickmeup.jobstartup.member.dto.JoinCompanyDTO;
+import com.pickmeup.jobstartup.member.entity.Member;
 import com.pickmeup.jobstartup.member.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import net.nurigo.sdk.NurigoApp;
 import net.nurigo.sdk.message.service.DefaultMessageService;
 import oracle.ucp.proxy.annotation.Post;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,6 +25,7 @@ import java.util.Random;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class JoinController {
     private final MemberService memberService;
 
@@ -33,6 +39,12 @@ public class JoinController {
     @GetMapping("/joinCommon")
     public String joinCommon(Model model) {
         return "member/joinCommon";
+    }
+
+    //기업 회원가입
+    @GetMapping("/joinCompany") 
+    public String joinCompany(Model model){
+        return "member/joinCompany";
     }
 
     @PostMapping("/joinCommon")
@@ -52,16 +64,51 @@ public class JoinController {
         //성별 선택 검사
         if (joinCommonDTO.getMember_sex() == null || joinCommonDTO.getMember_sex().isEmpty()) {
             model.addAttribute("errorMessage", "성별을 선택해 주세요.");
-            return "membr/joinCommon";
+            return "member/joinCommon";
         }
 
         try {
-            memberService.join(joinCommonDTO);
+            Member member = memberService.join(joinCommonDTO);
+            memberService.autoLogin(member);
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            log.info("권한: " + authentication.getAuthorities());
         } catch (IllegalArgumentException e) {
             model.addAttribute("errorMessage", e.getMessage());
             return "member/joinCommon";
         }
         return "redirect:/mainCommon";
+    }
+
+    @PostMapping("/joinCompany")
+    public String joinCompany(@Valid @ModelAttribute JoinCompanyDTO joinCompanyDTO, BindingResult bindingResult, Model model) {
+        //dto 유효성 검사
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("errors", bindingResult.getFieldErrors());
+            return "member/joinCompany";
+        }
+
+        //비밀번호 일치 검사
+        if (!joinCompanyDTO.getMember_pw().equals(joinCompanyDTO.getMember_pw_confirm())) {
+            model.addAttribute("errorMessage", "비밀번호가 일치하지 않습니다.");
+            return "member/joinCompany";
+        }
+
+        //성별 선택 검사
+        if (joinCompanyDTO.getMember_sex() == null || joinCompanyDTO.getMember_sex().isEmpty()) {
+            model.addAttribute("errorMessage", "성별을 선택해 주세요.");
+            return "member/joinCompany";
+        }
+
+        try {
+            Member member = memberService.join(joinCompanyDTO);
+            memberService.autoLogin(member);
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            log.info("권한: " + authentication.getAuthorities());
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "member/joinCompany";
+        }
+        return "redirect:/mainCompany";
     }
 
     //개인회원 아이디 중복 확인
@@ -82,6 +129,12 @@ public class JoinController {
     public String mainCommon() {
         return "member/mainCommon";
     }
+
+    @GetMapping("/mainCompany")
+    public String mainCompany() {
+        return "member/mainCompany";
+    }
+
 
     //4자리 인증번호 받기
 //    @PostMapping("/phoneCheck")
