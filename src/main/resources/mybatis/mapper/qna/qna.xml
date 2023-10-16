@@ -23,4 +23,118 @@
              SELECT MAX(q_no) FROM QUESTION
         ]]>
     </select>
+    <select id="selectQuestionCnt" resultType="int">
+        <![CDATA[
+            SELECT COUNT(Q_NO) FROM QUESTION
+        ]]>
+    </select>
+    <select id="selectQuestionList" parameterType="com.pickmeup.jobstartup.common.paging.Criteria" resultType="com.pickmeup.jobstartup.qna.dto.QuestionDTO">
+        <![CDATA[
+            SELECT Q_NO, Q_REGDATE, Q_MODDATE, MEMBER_NO, COMPANY_NO, Q_TYPE, Q_CATEGORY, Q_CONTENT
+            FROM (SELECT /*+ INDEX_DESC(QUESTION SYS_C007665) */ ROWNUM AS ROW_NUM, Q_NO, Q_REGDATE, Q_MODDATE, MEMBER_NO, COMPANY_NO, Q_TYPE, Q_CATEGORY, Q_CONTENT FROM QUESTION WHERE ROWNUM <=#{currentPageNo}*#{recordsPerPage})
+            WHERE ROW_NUM >#{startPage}
+        ]]>
+    </select>
+    <select id="selectQFileList" parameterType="long" resultType="com.pickmeup.jobstartup.qna.dto.QuestionFileDTO">
+        <![CDATA[
+            SELECT QFILE_NO, Q_NO, QFILE_ORGNAME, QFILE_SAVNAME, QFILE_TYPE FROM QUESTION_FILE
+            WHERE Q_NO = #{qNo}
+        ]]>
+    </select>
+    <insert id="insertAnswer" parameterType="com.pickmeup.jobstartup.qna.dto.AnswerDTO">
+        <![CDATA[
+            INSERT INTO Q_ANSWER (A_CONTENT, MEMBER_NO, Q_NO)
+            VALUES (#{a_content}, #{member_no}, #{q_no})
+        ]]>
+        <selectKey resultType="long" order="AFTER" keyProperty="a_no">
+            <![CDATA[
+                    SELECT MAX(A_NO) FROM Q_ANSWER
+            ]]>
+        </selectKey>
+    </insert>
+    <select id="selectAno" resultType="long">
+        <![CDATA[
+             SELECT MAX(A_NO) FROM Q_ANSWER
+        ]]>
+    </select>
+    <insert id="insertAnswerFile" parameterType="com.pickmeup.jobstartup.qna.dto.AnswerFileDTO">
+        <![CDATA[
+            INSERT INTO ANSWER_FILE (A_NO, AFILE_ORGNAME, AFILE_SAVNAME, AFILE_TYPE)
+            VALUES (#{a_no}, #{aFile_orgName}, #{aFile_savName}, #{aFile_type})
+        ]]>
+    </insert>
+    <select id="selectAnswerByQno" parameterType="long" resultType="com.pickmeup.jobstartup.qna.dto.AnswerDTO">
+        <![CDATA[
+             SELECT A_NO, A_CONTENT, A_REGDATE, A_MODDATE, MEMBER_NO, Q_NO FROM Q_ANSWER
+             WHERE Q_NO = #{qNo}
+        ]]>
+    </select>
+    <select id="selectAnswerFileByAno" parameterType="long" resultType="com.pickmeup.jobstartup.qna.dto.AnswerFileDTO">
+        <![CDATA[
+            SELECT AFILE_NO, A_NO, AFILE_ORGNAME, AFILE_SAVNAME, AFILE_TYPE FROM ANSWER_FILE
+            WHERE A_NO = #{aNo}
+        ]]>
+    </select>
+    <select id="selectQuestionByQno" parameterType="long" resultType="com.pickmeup.jobstartup.qna.dto.QuestionDTO">
+        <![CDATA[
+            SELECT Q_NO, Q_REGDATE, Q_MODDATE, MEMBER_NO, COMPANY_NO, Q_TYPE, Q_CATEGORY, Q_CONTENT FROM QUESTION
+            WHERE Q_NO = #{qNo}
+        ]]>
+    </select>
+    <delete id="deleteFileAll" parameterType="long">
+        <![CDATA[
+            DELETE FROM QUESTION_FILE
+            WHERE Q_NO = #{qNo}
+        ]]>
+    </delete>
+    <update id="updateQuestion" parameterType="com.pickmeup.jobstartup.qna.dto.QuestionDTO">
+        <![CDATA[
+            UPDATE QUESTION
+            SET Q_MODDATE = sysdate, Q_TYPE = #{q_type}, Q_CATEGORY = #{q_category}, Q_CONTENT = #{q_content}
+            WHERE Q_NO = #{q_no}
+        ]]>
+    </update>
+    <select id="selectQuestionFileByFileNo" parameterType="long" resultType="com.pickmeup.jobstartup.qna.dto.QuestionFileDTO">
+        <![CDATA[
+            SELECT QFILE_NO, Q_NO, QFILE_ORGNAME, QFILE_SAVNAME, QFILE_TYPE FROM QUESTION_FILE
+            WHERE QFILE_NO = #{qFileNo}
+        ]]>
+    </select>
+    <delete id="deleteFileByFileNo" parameterType="long">
+        <![CDATA[
+            DELETE FROM QUESTION_FILE
+            WHERE QFILE_NO = #{qFileNo}
+        ]]>
+    </delete>
+    <delete id="deleteAnswerFileAll" parameterType="long">
+        <![CDATA[
+            DELETE FROM ANSWER_FILE
+            WHERE A_NO = #{aNo}
+        ]]>
+    </delete>
+    <delete id="deleteAnswerByNo" parameterType="long">
+        <![CDATA[
+            DELETE FROM Q_ANSWER
+            WHERE A_NO = #{aNo}
+        ]]>
+    </delete>
+    <delete id="deleteQuestionByNo" parameterType="long">
+        <![CDATA[
+            DELETE FROM QUESTION
+            WHERE Q_NO = #{q_no}
+        ]]>
+    </delete>
+    <update id="updateAnswer" parameterType="com.pickmeup.jobstartup.qna.dto.AnswerDTO">
+        <![CDATA[
+            UPDATE Q_ANSWER
+            SET A_CONTENT = #{a_content}, A_MODDATE = sysdate
+            WHERE A_NO = #{a_no}
+        ]]>
+    </update>
+    <select id="selectAnswerFileMyFileNo" parameterType="long" resultType="com.pickmeup.jobstartup.qna.dto.AnswerFileDTO">
+        <![CDATA[
+            SELECT AFILE_NO, A_NO, AFILE_ORGNAME, AFILE_SAVNAME, AFILE_TYPE FROM ANSWER_FILE
+            WHERE AFILE_NO = #{aFile_no}
+        ]]>
+    </select>
 </mapper>
