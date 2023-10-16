@@ -19,6 +19,7 @@ public class QuestionDTO {
     private String q_type;
     private String q_category;
     private List<QuestionFileDTO> questionFileDTOList;
+    private AnswerDTO answerDTO;
 
     @Builder
     public QuestionDTO(String q_content, long member_no, long company_no, String q_type, String q_category) {

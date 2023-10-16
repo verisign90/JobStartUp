@@ -12,7 +12,7 @@ import java.util.List;
 public class PostingBookmarkDTO {
 
     private int jpbookmark_no; //PK.북마크 번호
-    private Number posting_no; //FK.공고글 번호
+    private int posting_no; //FK.공고글 번호
     private int member_no; //FK.회원번호
 
     private List<JobPostingDTO> jobPostingDTOList;
