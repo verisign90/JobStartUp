@@ -5,26 +5,42 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt">
 <head>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/base.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/ckeditor5-2/sample/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/recruiter/jobposting/JPwriteForm.css">
+    <%--<link rel="stylesheet" href="${pageContext.request.contextPath}/css/base.css">--%>
+    <%--<link rel="stylesheet" href="${pageContext.request.contextPath}/ckeditor5-2/sample/styles.css">--%>
+<%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/layout/layout.css">--%>
     <script src="${contextPath}/ckeditor5-2/build/ckeditor.js"></script>
     <%--<script src="https://cdn.ckeditor.com/ckeditor5/39.0.2/classic/ckeditor.js"></script>--%>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/template/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/template/assets/css/templatemo-chain-app-dev.css">
+    <link rel="stylesheet" href="/css/template/assets/css/animated.css">
+    <link rel="stylesheet" href="/css/template/assets/css/owl.css">
     <title>Title</title>
 </head>
 <body>
 <header>
-    <div class="logo">
+    <%--<div class="logo">
         <img src="${pageContext.request.contextPath}/img/logo.png" alt="Logo">
-    </div>
-    <nav>
-        nav
+    </div>--%>
+    <nav class="layout_nav">
+        <%@ include file="../../layout/layoutNav.jsp" %>
     </nav>
 </header>
 <main>
-    <aside>
-        main_sidebar
-    </aside>
-    <article>
+    <article class="all-content">
         <form action="${pageContext.request.contextPath}/recruiter/write" method="post" enctype="multipart/form-data">
             <section>
                 <div>
@@ -197,13 +213,23 @@
                 <button type="submit" name="subBtn" id="subBtn">입력</button>
             </div>
         </form>
+
+        <%--        <input type="file" id="fileInput">--%>
+        <%--        <button onclick="uploadFile()">Upload File</button>--%>
     </article>
 </main>
 <footer>
     footer
 </footer>
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/css/template/vendor/jquery/jquery.min.js"></script>
+<script src="/css/template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/css/template/assets/js/owl-carousel.js"></script>
+<script src="/css/template/assets/js/animation.js"></script>
+<script src="/css/template/assets/js/imagesloaded.js"></script>
+<script src="/css/template/assets/js/popup.js"></script>
+<script src="/css/template/assets/js/custom.js"></script>
+
 <script>
     const watchdog = new CKSource.EditorWatchdog();
 
@@ -240,6 +266,31 @@
         console.error(message);
         console.error(error);
     }
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const sdateElem = document.getElementById('posting_sdate');
+        const edateElem = document.getElementById('posting_edate');
+
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const dd = String(today.getDate()).padStart(2, '0');
+
+        const formattedDate = yyyy + '-' + mm + '-' + dd + 'T' + '00:00:00';
+
+        sdateElem.setAttribute('min', formattedDate);
+        sdateElem.setAttribute('value', formattedDate);
+
+        edateElem.setAttribute('min', formattedDate);
+        edateElem.setAttribute('value', formattedDate);
+
+        sdateElem.addEventListener("change", function () {
+            const sdate = this.value;
+            edateElem.setAttribute('min', sdate);
+            edateElem.setAttribute('value', sdate);
+        });
+    });
 </script>
 <script>
     /*// "근무부서" 입력 필드를 추가하는 함수

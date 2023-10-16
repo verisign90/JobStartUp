@@ -72,6 +72,22 @@ public class JobFairController {
         return "redirect:/admin/jobfairlist";
     }
 
+    @GetMapping("/jobfair/edit")
+    public String editJobFair(@RequestParam("jobFairNo") Long jobFairNo, Model model) {
+        System.out.println(jobFairNo);
+        JobFairDTO jobFair = jobFairService.getJobFairByNo(jobFairNo);
+        System.out.println(jobFair);
+        model.addAttribute("jobFair", jobFair);
+        return "jobfair/jobfair_edit";
+    }
+
+    @PostMapping("/jobfair/update")
+    public String updateJobFair(@ModelAttribute JobFairDTO jobFairDTO) {
+        jobFairService.updateJobFair(jobFairDTO);
+
+        return "redirect:/admin/jobfairdetail/" + jobFairDTO.getJOBFAIR_NO();
+    }
+
     @GetMapping("/jobfair/delete")
     public String deleteJobFair(@RequestParam("jobFairNo") Long jobFairNo) {
         jobFairService.delteJobFair(jobFairNo);
@@ -81,7 +97,21 @@ public class JobFairController {
 
     @GetMapping("/jobfair/companylist")
     public String jobFairCompanyList(Model model) {
-        List<EntryDTO> companies = jobFairService.getAllCompany();
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+
+
+        try {
+            List<EntryDTO> companies = jobFairService.getAllCompany();
+            model.addAttribute("company", companies);
+
+            String companyJson = mapper.writeValueAsString(jobFairService.getAllCompany());
+            model.addAttribute("companyJson", companyJson);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("test: " + model.getAttribute("company"));
+
 
         return "jobfair/jobfair_company_list";
     }

@@ -6,9 +6,13 @@
     <!--채용공고 등록-->
     <insert id="insertJobPostingDTO" parameterType="JobPostingDTO">
         <![CDATA[
-        INSERT INTO JOB_POSTING (COMPANY_NO, POSTING_TITLE, POSTING_CAREER, POSTING_ACADEMY, POSTING_LABOR, POSTING_SALARY, POSTING_SDATE, POSTING_EDATE, POSTING_CONTENT, POSTING_CNT, POSTING_WORKING_DAY, POSTING_SWORK, POSTING_EWORK)
-        VALUES (#{company_no}, #{posting_title}, #{posting_career}, #{posting_academy}, #{posting_labor}, #{posting_salary}, #{posting_sdate}, #{posting_edate}, #{posting_content}, #{posting_cnt}, #{posting_working_day}, #{posting_swork}, #{posting_ework})
-    ]]>
+        INSERT INTO JOB_POSTING (COMPANY_NO, POSTING_TITLE, POSTING_CAREER, POSTING_ACADEMY, POSTING_LABOR,
+                                 POSTING_SALARY, POSTING_SDATE, POSTING_EDATE, POSTING_CONTENT, POSTING_CNT,
+                                 POSTING_WORKING_DAY, POSTING_SWORK, POSTING_EWORK)
+        VALUES (#{company_no}, #{posting_title}, #{posting_career}, #{posting_academy}, #{posting_labor},
+                #{posting_salary}, #{posting_sdate}, #{posting_edate}, #{posting_content}, #{posting_cnt},
+                #{posting_working_day}, #{posting_swork}, #{posting_ework})
+        ]]>
     </insert>
 
     <!--<select id="selectCompany" resultType="com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterMyPageDTO">
@@ -21,29 +25,37 @@
     <!--채용공고 목록조회-->
     <select id="selectJPlist" parameterType="int" resultType="JobPostingDTO">
         <![CDATA[
-        SELECT POSTING_TITLE,POSTING_
-        FROM JOBPOSTING
+        SELECT J.POSTING_NO,
+               J.POSTING_TITLE,
+               J.POSTING_CAREER,
+               J.POSTING_ACADEMY,
+               J.POSTING_LABOR,
+               J.POSTING_SALARY,
+               C.COMPANY_NAME,
+               C.COMPANY_ADDRESS_DETAIL
+        FROM JOB_POSTING J,
+             COMPANY C
+        WHERE J.COMPANY_NO = C.COMPANY_NO
         ORDER BY POSTING_NO DESC
         ]]>
     </select>
 
+
     <!--공고상세조회-->
     <select id="selectJPdetail" parameterType="int" resultType="JobPostingDTO">
     <![CDATA[
-        SELECT POSTING_NO,
-               POSTING_TITLE,
-               POSTING_CAREER,
-               POSTING_ACADEMY,
-               POSTING_LABOR,
-               POSTING_SALARY,
-               POSTING_SWORK,
-               POSTING_EWORK,
-               POSTING_CONTENT,
-               POSTING_WORKING_DAY,
-               POSTING_SDATE,
-               POSTING_EDATE
-        FROM JOBPOSTING
-        WHERE POSTING_NO = #{posting_no}
+        SELECT J.POSTING_TITLE,
+               J.POSTING_CAREER,
+               J.POSTING_ACADEMY,
+               J.POSTING_LABOR,
+               J.POSTING_SALARY,
+               J.POSTING_WORKING_DAY,
+               J.POSTING_CONTENT,
+               C.COMPANY_NAME,
+               C.COMPANY_ADDRESS_DETAIL
+        FROM COMPANY C
+                 INNER JOIN JOB_POSTING J ON C.COMPANY_NO = J.COMPANY_NO
+        WHERE J.POSTING_NO = #{posting_no}
         ]]>
     </select>
 

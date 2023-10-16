@@ -6,74 +6,20 @@
 <html lang="ko">
 <head>
     <title>Dashboard</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/base.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/base.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/chart.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 </head>
 <body>
-<header>
-    <div class="logo">
-        <img src="${pageContext.request.contextPath}/img/logo.png" alt="Logo">
+<%@ include file="../layout/layoutNav.jsp" %>
+<div id="top" data-wow-duration="1s" data-wow-delay="0.5s">
+    <div class="header-text" data-wow-duration="1s" data-wow-delay="1s">
     </div>
-    <nav>
-        <div>
-            menu1
-        </div>
-        <div>
-            menu2
-        </div>
-        <div>
-            menu3
-        </div>
-        <div>
-            menu4
-        </div>
-        <div>
-            menu5
-        </div>
-    </nav>
-    <div id="sign_button">
-        <div class="sign_button_inner">
-            <button>SignIn</button>
-        </div>
-        <div class="sign_button_inner">
-            <button>SignUp</button>
-        </div>
-    </div>
-</header>
+</div>
+<%@ include file="../layout/layoutSideAdmin.jsp" %>
 <main>
-    <aside>
-        <ul>
-            <li>
-                <div class="aside_item">
-                    <a href="${pageContext.request.contextPath}/admin/dashboard">
-                        대쉬보드
-                    </a>
-                </div>
-            </li>
-            <li>
-                공지글 목록
-            </li>
-            <li>
-                <div class="aside_item">
-                    <a href="${pageContext.request.contextPath}/admin/jobfairlist">
-                        박람회 목록
-                    </a>
-                </div>
-            </li>
-            <li>
-                참여 업체 목록
-            </li>
-            <li>
-                공고 목록
-            </li>
-            <li>
-                유료 서비스 관리
-            </li>
-        </ul>
-    </aside>
     <article>
         <div class="chart_bundle">
             <!-- Bar Chart -->
@@ -93,10 +39,15 @@
         </div>
     </article>
 </main>
-<footer>
-    footer
-</footer>
-
+<%@include file="../layout/layoutFooter.jsp" %>
+<script src="/css/template/vendor/jquery/jquery.min.js"></script>
+<script src="/css/template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/css/template/assets/js/owl-carousel.js"></script>
+<script src="/css/template/assets/js/animation.js"></script>
+<script src="/css/template/assets/js/imagesloaded.js"></script>
+<script src="/css/template/assets/js/popup.js"></script>
+<script src="/css/template/assets/js/custom.js"></script>
+<script src="/css/template/assets/js/side.js"></script>
 <script>
     // JSON 형식의 문자열을 JavaScript 객체로 변환
     var dashboardData = JSON.parse('${dashboardDataJson}');

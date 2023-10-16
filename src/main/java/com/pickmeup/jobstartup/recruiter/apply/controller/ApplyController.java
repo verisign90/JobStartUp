@@ -1,7 +1,11 @@
 package com.pickmeup.jobstartup.recruiter.apply.controller;
 
 import com.pickmeup.jobstartup.recruiter.apply.dto.*;
+
+import com.pickmeup.jobstartup.recruiter.apply.service.ApplyService;
 import com.pickmeup.jobstartup.recruiter.apply.service.ApplyServiceImpl;
+
+import com.zaxxer.hikari.util.FastList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -17,13 +21,15 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
+@RequestMapping("/apply")
 @Controller
 @RequiredArgsConstructor
 public class ApplyController {
 
     @Autowired
-    public ApplyServiceImpl applyService;
+    public ApplyService applyService;
 
 
 
@@ -34,11 +40,31 @@ public class ApplyController {
         return String.format("redirect:/test");
     }
 
+    /*@WebServlet("/deleteFile")
+    public class FileDeletionServlet extends HttpServlet {
+        protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            String fileName = request.getParameter("fileName");
+
+            // 파일 삭제를 위해 FileDeleter 클래스 사용
+            boolean success = FileDeleter.deleteFile("파일 경로" + fileName);
+
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+
+            // 파일 삭제 결과를 클라이언트에 반환
+            JsonObject result = new JsonObject();
+            result.addProperty("success", success);
+
+            try (PrintWriter out = response.getWriter()) {
+                out.print(result.toString());
+            }
+        }
+    }*/
 
     @GetMapping("/download")
     public ResponseEntity<byte[]> downloadFile(@RequestParam("fileName") String fileName) throws IOException {
         // 파일을 읽어올 디렉토리 경로
-        String directory = "C:\\JobStartUp_file";  // 실제 디렉토리 경로로 수정
+        String directory = "C:\\jobStartUp_fileUpload\\company\\file";  // 실제 디렉토리 경로로 수정
         System.out.println("getMapping/download 에서 fileName 값"+ fileName);
         // 파일을 읽어올 File 객체 생성
         File file = new File(directory, fileName);
@@ -68,8 +94,11 @@ public class ApplyController {
     @GetMapping("/modify/{company_no}")
     public String modify(@PathVariable("company_no") int company_no ,Model model) {
         List<FileDTO> fileDTOList = applyService.getFileList(company_no);
+        ApplyDTO applyDTO = applyService.getCompanyInfo(company_no);
         System.out.println("여기는 modify"+ fileDTOList );
+        System.out.println("여기는 modify"+ applyDTO );
         model.addAttribute("fileDTOList",fileDTOList);
+        model.addAttribute("applyDTO",applyDTO);
 
 
 
@@ -78,7 +107,7 @@ public class ApplyController {
         System.out.println(upperLoc);
         System.out.println(upperJob);*/
 
-        return "recruiter/modify";
+        return "recruiter/apply/modify";
     }
 
     //신청서 작성양식
@@ -92,7 +121,7 @@ public class ApplyController {
         System.out.println(upperLoc);
         System.out.println(upperJob);
 
-        return "recruiter/approvalRequest2";
+        return "recruiter/apply/approvalRequest2";
     }
 
     //신청서 제출
@@ -104,17 +133,19 @@ public class ApplyController {
         //여기는 로고첨부
         if (!logoFile.isEmpty()) {
             try {
-                String originalFilename = logoFile.getOriginalFilename();
-                String uploadDir = "C:/jobStartUp_fileUpload/company/logo"; // 파일을 저장할 경로를 지정하세요.
-                String filePath = uploadDir + File.separator + originalFilename;
+                String originalFileName = logoFile.getOriginalFilename();
+                String uploadDir = "C:\\jobStartUp_fileUpload\\company\\logo"; // 파일을 저장할 경로를 지정하세요.
+                UUID uuid = UUID.randomUUID();
+                String logo_savname = uuid.toString()+"_"+originalFileName;
+                String filePath = uploadDir + File.separator + logo_savname;
                 File dest = new File(filePath);
                 logoFile.transferTo(dest);
 
                 // 파일 업로드가 성공하면 파일 정보를 applyDTO에 저장하거나 다른 처리를 수행할 수 있습니다.
-                System.out.println("originalFilename : " + originalFilename);
-                applyDTO.setLogo_orgname(originalFilename); // 사진 원본명 저장
+                System.out.println("originalFilename : " + originalFileName);
+                applyDTO.setLogo_orgname(originalFileName); // 사진 원본명 저장
                 System.out.println("applyDTO의 logo_orgnamer은 : " + applyDTO.getLogo_orgname());
-                applyDTO.setLogo_savname(filePath); // 사진 저장명(경로) 저장
+                applyDTO.setLogo_savname(logo_savname); // 사진 저장명(경로) 저장
             } catch (IOException e) {
                 e.printStackTrace();
                 // 파일 업로드 중 오류 처리
@@ -132,15 +163,19 @@ public class ApplyController {
             if (!file.isEmpty()) {
                 try {
                     String originalFileName = file.getOriginalFilename();
-                    String uploadDir = "C:/jobStartUp_fileUpload/company/file"; // 파일을 저장할 경로를 지정하세요.
-                    String filePath = uploadDir + File.separator + originalFileName;
+                    String uploadDir = "C:\\jobStartUp_fileUpload\\company\\file"; // 파일을 저장할 경로를 지정하세요.
+                    UUID uuid = UUID.randomUUID();
+                    String cfile_savname = uuid.toString()+"_"+originalFileName;
+                    String filePath = uploadDir + File.separator + cfile_savname;
                     File dest = new File(filePath);
                     file.transferTo(dest);
 
                     // 파일 업로드가 성공하면 FileDTO에 정보를 저장합니다.
                     FileDTO fileDTO = new FileDTO();
                     fileDTO.setCfile_orgname(originalFileName);
-                    fileDTO.setCfile_savname(filePath);
+                    //cfile_savname에 uuid+원본파일명
+
+                    fileDTO.setCfile_savname(cfile_savname);
                     fileDTOList.add(fileDTO);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -163,7 +198,7 @@ public class ApplyController {
         }
         applyService.insertFile(fileDTOList);
         System.out.println("여기는 apply post컨트롤러2");
-        return String.format("redirect:/apply");
+        return String.format("redirect:/apply/apply");
     }
 
     //하위지역 받아오기
@@ -178,7 +213,7 @@ public class ApplyController {
     @GetMapping("/getBusiness_type_code_up")
     @ResponseBody
     public List<JobDTO> getBusiness_type_code(@RequestParam String business_type_code_up) {
-       // System.out.println(applyService.getLowerLoc(business_type_code_up));
+        // System.out.println(applyService.getLowerLoc(business_type_code_up));
         return applyService.getBusiness_type_code(business_type_code_up);
     }
 
