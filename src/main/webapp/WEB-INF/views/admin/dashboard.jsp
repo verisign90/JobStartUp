@@ -142,6 +142,15 @@
                 borderColor: 'rgba(75, 192, 192, 1)',
                 fill: false
             }]
+        },
+        options: {
+            scales: {
+                y: {
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            }
         }
     })
     console.log(regDateLabels + " + " + regDateData);

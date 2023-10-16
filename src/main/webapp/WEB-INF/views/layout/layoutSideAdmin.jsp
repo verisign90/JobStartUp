@@ -57,8 +57,14 @@
                     </a>
                 </div>
             </li>
+            <li class="side_item">
+                <div>
+                    <a>
+                        참여 업체 승인
+                    </a>
+                </div>
+            </li>
             <li class="side_item">공고 목록</li>
-            <li class="side_item">Menu Item</li>
         </ul>
     </div>
 
