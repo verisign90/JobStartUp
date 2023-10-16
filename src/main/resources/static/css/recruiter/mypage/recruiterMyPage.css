@@ -59,7 +59,7 @@
 }
 
 .company {
-    flex-basis: 35%;
+    flex-basis: 30%;
     position: relative;
     z-index: 1;
     padding: 30px;
@@ -98,7 +98,7 @@
 }
 
 .question-answer {
-    flex-basis: 30%;
+    flex-basis: 40%;
     margin: 10px;
     padding: 5px;
     position: relative;
@@ -113,7 +113,6 @@
     height: 35em;
 }
 
-
 .status-container {
     margin-top: 10px;
     height: auto;
@@ -125,12 +124,10 @@
     border-top-right-radius: 50px;
     transition: all .3s;
     margin-bottom: 30px;
-
 }
 
 .content-label-container {
     display: flex;
-
 }
 
 .content-label {
@@ -156,7 +153,7 @@
     box-shadow: 1px 1px 2px 0 rgba(0,0,0,0.1);
 }
 
-.content{
+.content {
     height: auto;
     border: 1px solid gray;
     margin: 5px;

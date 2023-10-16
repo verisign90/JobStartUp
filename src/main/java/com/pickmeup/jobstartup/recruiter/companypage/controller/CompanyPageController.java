@@ -4,17 +4,19 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RequestMapping("/company")
+@RequestMapping("/recruiter")
 @RequiredArgsConstructor
 @Controller
 public class CompanyPageController {
 
 
-    @RequestMapping("/page")
+    @RequestMapping("/companyPage")
     public String companyPageTest(){
 
-        return "/recruiter/companypage/companyPage";
 
+
+
+        return "/recruiter/companypage/companyPage";
     }
 
 

@@ -33,19 +33,19 @@
     font-size:1em;
 }
 
-/*종일제목*/
+/*종일 제목*/
 .fc-event-title.fc-sticky{
 
 }
-/*more버튼*/
+/*more 버튼*/
 .fc-daygrid-more-link.fc-more-link{
     color: #000;
 }
-/*일정시간*/
+/*일정 시간*/
 .fc-daygrid-event > .fc-event-time{
     color:#000;
 }
-/*시간제목*/
+/*시간 제목*/
 .fc-daygrid-dot-event > .fc-event-title{
     color:#000 !important;
 }
@@ -57,59 +57,68 @@
 .fc-v-event{
 
 }
-/*title 옆에 점*/
+/* title 옆에 점 */
 .fc-daygrid-event-dot{
 
-}
-/*month/week/day*/
+}f
+/* month/week/day */
 .fc-button-active{
     border-color: #ffc107 		!important;
     background-color: #ffc107 	!important;
     color: #000 				!important;
     font-weight: bold 			!important;
 }
-/*노란버튼*/
+/* 노란 버튼 */
 .btn-warning{
     font-weight: bold;
 }
-/*모달 푸터*/
-.modal-footer{
-    display:inline-block;
-}
 
 
-/* 모달 스타일 */
-.modal {
-  display: none; /* 초기에 숨김 */
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.7);
+
+
+
+/* Modal */
+.modal_fade {
+    display: none;
+    position: fixed;
+    z-index: 1200 !important;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.7);
 }
 
 .modal-content {
-  position: relative;
-  width: 700px;
-  height: auto;
-  MARGIN-TOP:30PX;
-  padding: 15px;
-  background: linear-gradient(180deg,#5164da 5%,#FFFFFE 5%);
-  box-shadow: 0 0px 2px 0 rgba( 31, 38, 135, 0.37 );
-  border-radius: 15px;
-  border: 1px rgba( 255, 255, 255, 0.18 );
-  overflow-y: auto;
-  overflow-x: hidden;
+    position: relative;
+    width: 700px;
+    height: auto;
+    margin-top: 30px;
+    padding: 15px;
+    box-shadow: 0 0px 2px 0 rgba( 31, 38, 135, 0.37 );
+    border-radius: 30px;
+    border: 1px rgba( 255, 255, 255, 0.18 );
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.modal-item {
+    position: relative;
+    z-index: 1;
+    padding: 30px;
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+    background-color: #fff;
+    border-radius: 10px;
+    border-top-right-radius: 50px;
+    transition: all .3s;
+    margin-bottom: 30px;
 }
 
 #closeBtn {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  font-size: 20px;
-  font-weight: bold;
-  cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
 }
