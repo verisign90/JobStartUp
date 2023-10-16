@@ -51,9 +51,10 @@
                     <button class="btn" title="클릭하면 입사지원 할수있습니다">입사지원</button>
                     <div>
                         <!-- 수정 버튼 -->
-                        <a href="${cPath}/recruiter/edit/${jobPosting.posting_no}" class="btn btn-primary">수정</a>
+                        <a href="${cPath}/recruiter/modify/${JPdetail.posting_no}" class="btn btn-primary">수정</a>
+                        <%--<button type="button" class="btn btn-primary" name="modify"><a href="/recruiter/modify/${jobPosting.posting_no}">수정하기</a></button>--%>
                         <!-- 삭제 버튼 -->
-                        <a href="${cPath}/recruiter/delete/${jobPosting.posting_no}" class="btn btn-danger">삭제</a>
+                        <a href="${cPath}/recruiter/delete/${JPdetail.posting_no}" class="btn btn-danger">삭제</a>
                     </div>
                 </div>
             </div>
