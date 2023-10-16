@@ -44,7 +44,8 @@
     <!--공고상세조회-->
     <select id="selectJPdetail" parameterType="int" resultType="JobPostingDTO">
     <![CDATA[
-        SELECT J.POSTING_TITLE,
+        SELECT J.POSTING_NO,
+               J.POSTING_TITLE,
                J.POSTING_CAREER,
                J.POSTING_ACADEMY,
                J.POSTING_LABOR,
@@ -59,6 +60,25 @@
         ]]>
     </select>
 
+    <!--게시글수정-->
+    <update id="modify" parameterType="JobPostingDTO">
+        <![CDATA[
+        UPDATE JOB_POSTING J
+            INNER JOIN COMPANY C ON C.COMPANY_NO = J.COMPANY_NO
+        SET J.posting_title = #{posting_title},
+            J.posting_career = #{posting_career},
+            J.posting_academy = #{posting_academy},
+            J.posting_labor = #{posting_labor},
+            J.posting_salary = #{posting_salary},
+            J.posting_working_day = #{posting_working_day},
+            J.posting_content = #{posting_content},
+            C.company_name = #{company_name},
+            C.company_address_detail = #{company_address_detail}
+        WHERE J.posting_no = #{posting_no}
+        ]]>
+    </update>
+
+
     <!--상위주소-->
     <select id="getUpperLoc" resultType="com.pickmeup.jobstartup.recruiter.apply.dto.LocDTO">
         <![CDATA[
@@ -70,8 +90,9 @@
         ORDER BY detail_code_num
         ]]>
     </select>
+
     <!--하위주소-->
-    <select id="getLowerLoc" resultType="com.pickmeup.jobstartup.recruiter.apply.dto.LocDTO" parameterType="String">
+    <select id="getLowerLoc" resultType="com.pickmeup.jobstartup.recruiter.apply.dto.LocDTO">
         <![CDATA[
         SELECT *
         FROM detail_code

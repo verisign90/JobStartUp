@@ -2,7 +2,6 @@ package com.pickmeup.jobstartup.recruiter.jobposting.repository;
 
 import com.pickmeup.jobstartup.recruiter.apply.dto.LocDTO;
 import com.pickmeup.jobstartup.recruiter.jobposting.dto.JobPostingDTO;
-import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterMyPageDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
@@ -18,11 +17,11 @@ public interface JobPostingRepository {
     //목록조회
     public List<JobPostingDTO> selectJPlist();
 
-/*    public RecruiterMyPageDTO selectCompany();*/
-
-
     //공고상세조회
     public JobPostingDTO selectJPdetail (int posting_no);
+
+    // 공지게시글 수정
+    public void modify(JobPostingDTO jobPostingDTO);
 
     //상위지역(서울특별시, 부산광역시 등등, 지역 계층구조 1단계) 목록 가져오기
     public List<LocDTO> getUpperLoc();
