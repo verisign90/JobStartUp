@@ -52,9 +52,7 @@ public class RecruiterMyPageController {
         List<RecruiterJobPostingDTO> recruiterJobPostingDTO = recruiterMyPageService.getJobPostingList(company_no);
         model.addAttribute("recruiterJobPostingDTO",recruiterJobPostingDTO);
         System.out.println(recruiterJobPostingDTO);
-        
-        
-        
+
         return "/recruiter/mypage/recruiterMyPage";
     }
 
@@ -99,37 +97,6 @@ public class RecruiterMyPageController {
     public String editCompanyInfo() {
 
         return "";
-    }
-
-    //기업 페이지: 파일 - 저장된 로고 출력
-    @RequestMapping("/printComLogo")
-    public String process(HttpServletResponse response, int company_no) throws Exception {
-
-        RecruiterFileDTO recruiterFileDTO = recruiterMyPageService.selectComLogoName(company_no);
-        String logo_savname = recruiterFileDTO.getLogo_savname();
-
-        //File: 경로 설정
-        String fileRepository = "C:\\jobStartUp_fileUpload";
-        String path = fileRepository+"\\"+logo_savname;
-        File file = new File(path);
-
-        response.setHeader("Cache-Control", "no-cache");
-        response.addHeader("Content-disposition", "attachment;file=" + logo_savname);
-
-        FileInputStream in = new FileInputStream(file);
-        OutputStream out = response.getOutputStream();
-
-        byte[] buffer = new byte[1024*8];
-        while(true) {
-            int cnt = in.read(buffer);
-            if(cnt==-1) break;
-            out.write(buffer,0,cnt);
-        }
-
-        in.close();
-        out.close();
-
-        return null;
     }
 
     //기업 페이지: 파일 - 저장된 로고 이름 확인
@@ -207,8 +174,5 @@ public class RecruiterMyPageController {
         recruiterMyPageService.deleteRecruCalendar(recruiterCalendarDTO);
         return "success";
     }
-
-
-
 
 }

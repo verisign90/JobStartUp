@@ -94,7 +94,7 @@ public class AppManageServiceImpl implements AppManageService{
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         //mail content
         simpleMailMessage.setSubject("채용이 거절되었습니다");
-        simpleMailMessage.setText("test입니다 어떻게 전송될까요");
+        simpleMailMessage.setText("안녕하세요 채용이 거절되었습니다");
         simpleMailMessage.setFrom("test@test.com");
         simpleMailMessage.setTo(member_email);
         javaMailSender.send(simpleMailMessage);
