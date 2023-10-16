@@ -24,6 +24,8 @@ public interface JobFairRepository {
 
     void save(JobFairFileDTO jobFairFileDTO);
 
+    void updateJobFair(JobFairDTO jobFairDTO);
+
     void delete(Long no);
 
 }
