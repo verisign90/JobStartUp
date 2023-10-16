@@ -108,6 +108,8 @@
             <div class="content">
                 주의사항 안내 문구
             </div>
+
+            <!-- 1차 합격 또는 거절 선택 -->
             <c:if test="${selectInfo.first_pass eq 'N'}">
                 <div class="first-approval">
                     <form action="/recruiter/firstEnroll" method="post">
@@ -115,7 +117,7 @@
                         면접일자
                         <input type="date" name="date" id="date_enroll" required/>
                         <input type="time" name="time" id="time_enroll" required/>
-                        <button type="submit" class="first-enroll-button" id="first-enroll-button">등록</button>
+                        <button type="button" class="first-enroll-button" id="first-enroll-button">등록</button>
                         등록된 면접일 : <fmt:formatDate value="${selectInfo.interview_date}" pattern="yyyy-MM-dd HH:mm" />
                     </form>
                     <form action="/recruiter/firstDenial" method="post">
@@ -125,9 +127,17 @@
                     </form>
                 </div>
             </c:if>
+
+            <!-- 1차 합격 -->
             <c:if test="${selectInfo.first_pass eq 'Y' && selectInfo.final_pass eq 'N'}">
                 <div class="last-approval">
-                    최종 합격 // 면접일자: <fmt:formatDate value="${selectInfo.interview_date}" pattern="yyyy-MM-dd HH:mm" />
+                    1차 합격
+                    // 면접일자: <fmt:formatDate value="${selectInfo.interview_date}" pattern="yyyy-MM-dd HH:mm" />
+                    <form action="/recruiter/mailFirstEnroll" method="post">
+                        <input type="hidden" id="first_enroll_mail_status_no" name="status_no" value="${selectInfo.status_no}">
+                        <input type="hidden" id="first_enroll_mail_member_email" name="member_email" value="${selectInfo.member_email}">
+                        <button type="button" class="first-enroll-mail">메일 안내</button>
+                    </form>
                     <form action="/recruiter/finalEnroll" method="post">
                         <input type="hidden" name="status_no" id="final_enroll" value="${selectInfo.status_no}">
                         <button type="button" class="final-enroll-button">등록</button>
@@ -140,12 +150,38 @@
                     </form>
                 </div>
             </c:if>
+
+            <!-- 1차 채용 거절 -->
+            <c:if test="${selectInfo.first_pass eq 'F' && selectInfo.final_pass eq 'N'}">
+                채용이 거절된 지원자입니다.
+                <form action="/recruiter/mailFirstDenial" method="post">
+                    <input type="hidden" id="first_denial_mail_status_no" name="status_no" value="${selectInfo.status_no}">
+                    <input type="hidden" id="first_denial_mail_member_email" name="member_email" value="${selectInfo.member_email}">
+                    <button type="button" class="first-denial-mail">메일 안내</button>
+                </form>
+            </c:if>
+
+            <!-- 최종 합격 -->
             <c:if test="${selectInfo.final_pass eq 'Y'}">
                 채용이 승인된 지원자입니다.
+                <form action="/recruiter/mailLastEnroll" method="post">
+                    <input type="hidden" id="last_enroll_mail_status_no" name="status_no" value="${selectInfo.status_no}">
+                    <input type="hidden" id="last_enroll_mail_member_email" name="member_email" value="${selectInfo.member_email}">
+                    <button type="button" class="last-enroll-mail">메일 안내</button>
+                </form>
             </c:if>
-            <c:if test="${selectInfo.first_pass eq 'F' || selectInfo.final_pass eq 'F'}">
+
+            <!-- 최종 채용 거절 -->
+            <c:if test="${selectInfo.first_pass eq 'Y' && selectInfo.final_pass eq 'F'}">
                 채용이 거절된 지원자입니다.
+                <form action="/recruiter/mailLastDenial" method="post">
+                    <input type="hidden" id="last_denial_mail_status_no" name="status_no" value="${selectInfo.status_no}">
+                    <input type="hidden" id="last_denial_mail_member_email" name="member_email" value="${selectInfo.member_email}">
+                    <button type="button" class="last-denial-mail">메일 안내</button>
+                </form>
             </c:if>
+
+
         </div>
     </div>
 </div>

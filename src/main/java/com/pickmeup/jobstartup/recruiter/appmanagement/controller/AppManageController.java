@@ -5,6 +5,7 @@ import com.pickmeup.jobstartup.recruiter.appmanagement.dto.AppResumeDTO;
 import com.pickmeup.jobstartup.recruiter.appmanagement.dto.AppResumeFileDTO;
 import com.pickmeup.jobstartup.recruiter.appmanagement.service.AppManageService;
 
+import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
@@ -32,6 +33,9 @@ public class AppManageController {
 
     @Autowired
     private AppManageService appManageService;
+
+    @Resource(name = "AppManageService")
+    private AppManageService mailService;
 
     //Path
     private String filePath = "C:/JobStartUp_fileUpload/resumeFile/";
@@ -99,10 +103,13 @@ public class AppManageController {
         AppManageDTO selectInfo = appManageService.selectAppInfoByMember(status_no);
         int resume_no = Integer.parseInt(selectInfo.getResume_no());
         AppResumeDTO selectResume = appManageService.selectAppResumeByMember(resume_no);
+        AppResumeFileDTO selectFile = appManageService.selectAppResumeFileByMember(resume_no);
 
         //Model And View
         model.addAttribute("selectInfo",selectInfo);
         model.addAttribute("selectResume",selectResume);
+        model.addAttribute("selectFile",selectFile);
+
         return mappingPath+"appManageListDetail";
     }
 
@@ -116,10 +123,12 @@ public class AppManageController {
         AppManageDTO selectInfo = appManageService.selectAppInfoByMember(status_no);
         int resume_no = Integer.parseInt(selectInfo.getResume_no());
         AppResumeDTO selectResume = appManageService.selectAppResumeByMember(resume_no);
+        AppResumeFileDTO selectFile = appManageService.selectAppResumeFileByMember(resume_no);
 
         //Model And View
         model.addAttribute("selectInfo",selectInfo);
         model.addAttribute("selectResume",selectResume);
+        model.addAttribute("selectFile",selectFile);
         return mappingPath+"appManageListDetail";
     }
 
@@ -133,11 +142,13 @@ public class AppManageController {
         AppManageDTO selectInfo = appManageService.selectAppInfoByMember(status_no);
         int resume_no = Integer.parseInt(selectInfo.getResume_no());
         AppResumeDTO selectResume = appManageService.selectAppResumeByMember(resume_no);
+        AppResumeFileDTO selectFile = appManageService.selectAppResumeFileByMember(resume_no);
 
         //Model And View
         model.addAttribute("selectInfo",selectInfo);
         model.addAttribute("selectResume",selectResume);
-        return "/recruiter/appmanagement/appManageListDetail";
+        model.addAttribute("selectFile",selectFile);
+        return mappingPath+"appManageListDetail";
     }
 
     //채용관리 지원자 상세 페이지: 최종 면접일자 반려
@@ -150,16 +161,99 @@ public class AppManageController {
         AppManageDTO selectInfo = appManageService.selectAppInfoByMember(status_no);
         int resume_no = Integer.parseInt(selectInfo.getResume_no());
         AppResumeDTO selectResume = appManageService.selectAppResumeByMember(resume_no);
+        AppResumeFileDTO selectFile = appManageService.selectAppResumeFileByMember(resume_no);
 
         //Model And View
         model.addAttribute("selectInfo",selectInfo);
         model.addAttribute("selectResume",selectResume);
+        model.addAttribute("selectFile",selectFile);
         return mappingPath+"appManageListDetail";
     }
 
-    //채용관리 지원자 상세 페이지: 1차 메일링(안내)
+    //채용 관리 지원자 상세 페이지: 1차 메일링(안내)
+    @PostMapping("/mailFirstEnroll")
+    public String mailFirstEnroll(@NotNull Model model,
+                                @RequestParam int status_no,
+                                @RequestParam String member_email){
+        //Business Logic
+        mailService.sendMailFirstEnroll(member_email);
 
-    //채용관리 지원자 상세 페이지: 최종 메일링(안내)
+        //Business Logic (Common)
+        AppManageDTO selectInfo = appManageService.selectAppInfoByMember(status_no);
+        int resume_no = Integer.parseInt(selectInfo.getResume_no());
+        AppResumeDTO selectResume = appManageService.selectAppResumeByMember(resume_no);
+        AppResumeFileDTO selectFile = appManageService.selectAppResumeFileByMember(resume_no);
+
+        //Model And View
+        model.addAttribute("selectInfo",selectInfo);
+        model.addAttribute("selectResume",selectResume);
+        model.addAttribute("selectFile",selectFile);
+        return mappingPath+"appManageListDetail";
+    }
+
+    //채용 관리 지원자 상세 페이지: 1차 메일링(불합격)
+    @PostMapping("/mailFirstDenial")
+    public String mailFirstDenial(@NotNull Model model,
+                                @RequestParam int status_no,
+                                @RequestParam String member_email){
+        //Business Logic
+        mailService.sendMailFirstDenial(member_email);
+
+        //Business Logic (Common)
+        AppManageDTO selectInfo = appManageService.selectAppInfoByMember(status_no);
+        int resume_no = Integer.parseInt(selectInfo.getResume_no());
+        AppResumeDTO selectResume = appManageService.selectAppResumeByMember(resume_no);
+        AppResumeFileDTO selectFile = appManageService.selectAppResumeFileByMember(resume_no);
+
+        //Model And View
+        model.addAttribute("selectInfo",selectInfo);
+        model.addAttribute("selectResume",selectResume);
+        model.addAttribute("selectFile",selectFile);
+        return mappingPath+"appManageListDetail";
+    }
+
+    //채용 관리 지원자 상세 페이지: 최종 메일링(합격)
+    @PostMapping("/mailLastEnroll")
+    public String mailLastEnroll(@NotNull Model model,
+                               @RequestParam int status_no,
+                               @RequestParam String member_email){
+        //Business Logic
+        mailService.sendMailLastEnroll(member_email);
+
+        //Business Logic (Common)
+        AppManageDTO selectInfo = appManageService.selectAppInfoByMember(status_no);
+        int resume_no = Integer.parseInt(selectInfo.getResume_no());
+        AppResumeDTO selectResume = appManageService.selectAppResumeByMember(resume_no);
+        AppResumeFileDTO selectFile = appManageService.selectAppResumeFileByMember(resume_no);
+
+        //Model And View
+        model.addAttribute("selectInfo",selectInfo);
+        model.addAttribute("selectResume",selectResume);
+        model.addAttribute("selectFile",selectFile);
+        return mappingPath+"appManageListDetail";
+    }
+
+    //채용 관리 지원자 상세 페이지: 최종 메일링(불합격)
+    @PostMapping("/mailLastDenial")
+    public String mailLastDenial(@NotNull Model model,
+                               @RequestParam int status_no,
+                               @RequestParam String member_email){
+        //Business Logic
+        mailService.sendMailLastDenial(member_email);
+
+        //Business Logic (Common)
+        AppManageDTO selectInfo = appManageService.selectAppInfoByMember(status_no);
+        int resume_no = Integer.parseInt(selectInfo.getResume_no());
+        AppResumeDTO selectResume = appManageService.selectAppResumeByMember(resume_no);
+        AppResumeFileDTO selectFile = appManageService.selectAppResumeFileByMember(resume_no);
+
+        //Model And View
+        model.addAttribute("selectInfo",selectInfo);
+        model.addAttribute("selectResume",selectResume);
+        model.addAttribute("selectFile",selectFile);
+        return mappingPath+"appManageListDetail";
+    }
+
 
 
 }
