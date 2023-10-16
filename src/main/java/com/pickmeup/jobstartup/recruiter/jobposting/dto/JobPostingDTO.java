@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 public class JobPostingDTO {
 
     private Long company_no;
+    private String company_name;
+    private String company_address_detail;
     private Long posting_no;
     private String posting_title;
     private String posting_career;
