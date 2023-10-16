@@ -9,10 +9,11 @@ import lombok.ToString;
 @ToString
 public class EntryDTO {
 
-    private int JOBFAIRENTRY_NO;
-    private int COMPANY_NO;
-    private int JOBFAIR_NO;
+    private Long JOBFAIRENTRY_NO;
+    private Long COMPANY_NO;
+    private Long JOBFAIR_NO;
 
     private String COMPANY_NAME;
     private String LOGO_SAVNAME;
+    private String JOBFAIR_TITLE;
 }

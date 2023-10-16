@@ -26,10 +26,14 @@
           AND JFE.JOBFAIR_NO = #{JOBFAIR_NO}
         ]]>
     </select>
-    <select id="selectEntryDTOList"  resultType="com.pickmeup.jobstartup.jobfair.dto.EntryDTO"  >
+    <select id="selectEntryDTOList" resultType="com.pickmeup.jobstartup.jobfair.dto.EntryDTO">
         <![CDATA[
-        SELECT *
-        FROM JOB_FAIR_ENTRY
+        SELECT JFE.JOBFAIRENTRY_NO, JFE.COMPANY_NO, JFE.JOBFAIR_NO, C.COMPANY_NAME, C.LOGO_SAVNAME, JF.JOBFAIR_TITLE
+        FROM JOB_FAIR_ENTRY JFE,
+             COMPANY C,
+             JOB_FAIR JF
+        WHERE JFE.COMPANY_NO = C.COMPANY_NO
+          AND JFE.JOBFAIR_NO = JF.JOBFAIR_NO
         ]]>
     </select>
 
@@ -44,15 +48,30 @@
     </insert>
     <insert id="save" parameterType="com.pickmeup.jobstartup.jobfair.dto.JobFairFileDTO">
     <![CDATA[
-        INSERT INTO JOB_FAIR_FILE (JBFILE_ORGNAME, JBFILE_SAVNAME, JBFILE_TYPE)
+        INSERT INTO JOB_FAIR_LOGO (JBFILE_ORGNAME, JBFILE_SAVNAME, JBFILE_TYPE)
         VALUES (#{JBFILE_ORGNAME}, #{JBFILE_SAVNAME}, #{JBFILE_TYPE})
         ]]>
     </insert>
+
+    <update id="updateJobFair" parameterType="com.pickmeup.jobstartup.jobfair.dto.JobFairDTO">
+        UPDATE JOB_FAIR
+        SET JOBFAIR_TITLE    = #{JOBFAIR_TITLE},
+            JOBFAIR_CONTENT  = #{JOBFAIR_CONTENT},
+            JOBFAIR_SDATE    = #{JOBFAIR_SDATE},
+            JOBFAIR_EDATE    = #{JOBFAIR_EDATE},
+            JOBFAIR_PLACE    = #{JOBFAIR_PLACE},
+            JOBFAIR_TARGET   = #{JOBFAIR_TARGET},
+            JOBFAIR_HOST     = #{JOBFAIR_HOST},
+            JOBFAIR_SITE     = #{JOBFAIR_SITE},
+            JOBFAIR_LOC_CODE = #{JOBFAIR_LOC_CODE}
+        WHERE JOBFAIR_NO = #{JOBFAIR_NO}
+    </update>
+
     <delete id="delete">
         <![CDATA[
-            DELETE
-            FROM JOB_FAIR
-            WHERE JOBFAIR_NO = #{no}
+        DELETE
+        FROM JOB_FAIR
+        WHERE JOBFAIR_NO = #{no}
         ]]>
     </delete>
 </mapper>

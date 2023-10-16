@@ -35,6 +35,10 @@ public class JobFairService {
         jobFairRepository.writeJobFair(jobFairDTO);
     }
 
+    public void updateJobFair(JobFairDTO jobFairDTO) {
+        jobFairRepository.updateJobFair(jobFairDTO);
+    }
+
     public void save(JobFairFileDTO image) {
         jobFairRepository.save(image);
     }
