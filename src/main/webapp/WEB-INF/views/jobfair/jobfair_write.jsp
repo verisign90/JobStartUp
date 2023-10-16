@@ -27,7 +27,14 @@
         <div>
             <form method="post" action="${pageContext.request.contextPath}/admin/jobfair/save"
                   enctype="multipart/form-data">
-
+                <div class="file">
+                    <label for="notFile_orgName">
+                        <div class="btn-upload">로고</div>
+                    </label>
+                    <input type="file" multiple="multiple" name="notFile_orgName" id="notFile_orgName"/>
+                    <div id='att_zone'
+                         data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'></div>
+                </div>
                 <div>
                     <label for="title">제목:</label>
                     <input type="text" id="title" name="JOBFAIR_TITLE">
