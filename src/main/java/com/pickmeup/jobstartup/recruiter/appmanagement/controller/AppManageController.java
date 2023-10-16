@@ -5,7 +5,6 @@ import com.pickmeup.jobstartup.recruiter.appmanagement.dto.AppResumeDTO;
 import com.pickmeup.jobstartup.recruiter.appmanagement.dto.AppResumeFileDTO;
 import com.pickmeup.jobstartup.recruiter.appmanagement.service.AppManageService;
 
-import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
@@ -33,9 +32,11 @@ public class AppManageController {
 
     @Autowired
     private AppManageService appManageService;
+/*
 
     @Resource(name = "AppManageService")
     private AppManageService mailService;
+*/
 
     //Path
     private String filePath = "C:/JobStartUp_fileUpload/resumeFile/";
@@ -169,6 +170,7 @@ public class AppManageController {
         model.addAttribute("selectFile",selectFile);
         return mappingPath+"appManageListDetail";
     }
+/*
 
     //채용 관리 지원자 상세 페이지: 1차 메일링(안내)
     @PostMapping("/mailFirstEnroll")
@@ -253,6 +255,7 @@ public class AppManageController {
         model.addAttribute("selectFile",selectFile);
         return mappingPath+"appManageListDetail";
     }
+*/
 
 
 

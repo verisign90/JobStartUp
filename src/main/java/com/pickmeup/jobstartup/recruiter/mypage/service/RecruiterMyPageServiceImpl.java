@@ -25,7 +25,7 @@ public class RecruiterMyPageServiceImpl implements RecruiterMyPageService{
     private RecruiterMyPageRepository recruiterMyPageRepository;
 
     //Path
-    private String commonPath = "C:/JobStartUp_fileUpload/recruiterApply/";
+    private String commonPath = "C:/JobStartUp_fileUpload/company/logo/";
 
     //기업 페이지: 회사 정보
     @Override

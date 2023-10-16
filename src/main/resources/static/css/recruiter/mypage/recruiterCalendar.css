@@ -1,11 +1,22 @@
 /* <FullCalendar> https://fullcalendar.io/ */
+
 .calendar {
     position: relative;
 }
 
 .company-schedule {
     flex-basis: 30%;
-    margin: 5px;
+    position: relative;
+    z-index: 1;
+    padding: 30px;
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+    background-color: #fff;
+    border-radius: 10px;
+    border-top-right-radius: 50px;
+    transition: all .3s;
+    margin-bottom: 30px;
+    margin: 10px;
+    height: 35em;
 }
 
 /*요일*/

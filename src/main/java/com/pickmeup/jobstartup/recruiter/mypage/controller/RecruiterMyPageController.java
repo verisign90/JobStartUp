@@ -132,7 +132,7 @@ public class RecruiterMyPageController {
         String logo_orgname = recruiterFileDTO.getLogo_orgname();
         String logo_savname = recruiterFileDTO.getLogo_savname();
 
-        byte[] fileByte = FileUtils.readFileToByteArray(new File("C:\\jobStartUp_fileUpload\\"+logo_savname));
+        byte[] fileByte = FileUtils.readFileToByteArray(new File("C:/jobStartUp_fileUpload/company/logo/"+logo_savname));
         response.setContentType("application/octet-stream");    //파일유형설정
         response.setContentLength(fileByte.length);             //파일길이설정
         response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(logo_orgname,"UTF-8")+"\";"); //데이터형식/성향설정 (attachment: 첨부파일)

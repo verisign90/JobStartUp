@@ -1,19 +1,88 @@
 
+.image {
+    width: 70%;
+    display: block;
+    overflow: hidden;
+    margin: auto;
+    border-radius: 1em;
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+}
+
+.edit-button {
+    width: 7em;
+    height: 2.5em;
+    border: none;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    border-radius: 2rem;
+    background: #7A41FF;
+    background: linear-gradient(to left, #7a60ff, #cd9ffa);
+    cursor: pointer;
+}
+
+.first-enroll-mail, .first-denial-mail, .last-enroll-mail, .last-denial-mail {
+    width: 7em;
+    height: 2.5em;
+    border: none;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    border-radius: 2rem;
+    background: #7A41FF;
+    background: linear-gradient(to left, #7a60ff, #cd9ffa);
+}
+
+.first-enroll-button, .final-enroll-button {
+    width: 7em;
+    height: 2.5em;
+    border: none;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    border-radius: 2rem;
+    background: #7A41FF;
+    background: linear-gradient(to left, #7a60ff, #cd9ffa);
+}
+
+.final-denial-button, .first-denial-button {
+    width: 7em;
+    height: 2.5em;
+    border: none;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    border-radius: 2rem;
+    background: #7A41FF;
+    background: linear-gradient(to left, #7a60ff, #cd9ffa);
+}
+
+.main-title-container h4 {
+    font-weight: 700;
+}
+
 .main-title-container {
-    margin-top: 100px;
-        text-align: center;
+    text-align: center;
+    margin-bottom: 10px;
+    padding: 5px;
 }
 
 .main-container {
-  margin-top: 3em;
-  margin-right: 30px;
-  margin-left: 30px;
-  padding: 20px;
+  margin-right: 5%;
+  margin-left: 5%;
+  padding: 5px;
 }
 
 .info-container {
     margin: auto;
-    box-shadow: 0.1px 0.1px
+    z-index: 1;
+    padding: 30px;
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+    background-color: #fff;
+    border-radius: 10px;
+    border-top-right-radius: 50px;
+    transition: all .3s;
+    margin-bottom: 30px;
 }
 
 .button-container {
@@ -22,21 +91,21 @@
 }
 
 .moving-button {
-    width: auto;
-    height: 20px;
+    width: 7em;
+    height: 2.5em;
     border: none;
-    font-size: 10px;
+    font-size: 12px;
     font-weight: bold;
     color: white;
-    border-radius: 7px;
-    background: green;
+    border-radius: 2rem;
+    background: #7A41FF;
+    background: linear-gradient(to left, #7a60ff, #cd9ffa);
     cursor: pointer;
 }
 
 .info-main-container {
     display: flex;
     margin: 5px;
-    border: 1px solid black;
 }
 
 .profile {
@@ -44,22 +113,27 @@
 }
 
 .profile-pic {
-    border: 1px solid black;
     margin: 5px;
 }
 
 .company-info {
     flex-basis: 70%;
     margin: 5px;
-    border: 1px solid blue;
 }
 
 
 .status-container {
   margin-top: 10px;
   height: auto;
-  box-shadow: 0.1px 0.1px;
   padding: 20px;
+  z-index: 1;
+  padding: 30px;
+  box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+  background-color: #fff;
+  border-radius: 10px;
+  border-top-right-radius: 50px;
+  transition: all .3s;
+  margin-bottom: 30px;
 }
 
 .content-label-container {
@@ -67,7 +141,6 @@
 }
 
 .content-label {
-  border: 1px solid black;
   display: block;
   text-align: center;
   line-height: initial;
@@ -82,11 +155,11 @@
 }
 
 .content-container {
-    border: 1px solid black;
+
+
 }
 
 .content{
-    border: 2px solid green;
     margin: 10px;
     height: auto;
 }
@@ -95,17 +168,21 @@
 .approval-container {
   margin-top: 10px;
   height: 250px;
-  box-shadow: 0.1px 0.1px;
-  padding: 20px;
+  z-index: 1;
+  padding: 30px;
+  box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+  background-color: #fff;
+  border-radius: 10px;
+  border-top-right-radius: 50px;
+  transition: all .3s;
+  margin-bottom: 30px;
 }
 
 .first-approval{
-  border: 1px solid black;
   margin: 10px;
 }
 
 .last-approval{
-  border: 1px solid black;
   margin: 10px;
 }
 

@@ -29,7 +29,7 @@ public interface AppManageService {
 
     //채용관리 지원자 상세 페이지: 최종 면접일자 반려
     int updateAppManageLastDenial(int status_no);
-
+/*
     //채용관리 지원자 상세 페이지: 1차 메일링(면접일자 안내)
     public void sendMailFirstEnroll(String member_email);
 
@@ -40,6 +40,6 @@ public interface AppManageService {
     public void sendMailLastEnroll(String member_email);
 
     //채용관리 지원자 상세 페이지: 최종 메일링(최종합격 안내)
-    public void sendMailLastDenial(String member_email);
+    public void sendMailLastDenial(String member_email);*/
 
 }
