@@ -36,4 +36,14 @@
         ORDER BY ageRange
         ]]>
     </select>
+
+    <select id="selectRegDate" resultType="com.pickmeup.jobstartup.admin.dto.RegDateDTO">
+    <![CDATA[
+        SELECT TO_DATE(TO_CHAR(MEMBER_REGDATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') AS REGDATE_ONLY,
+               COUNT(*)                                                     AS COUNT
+        FROM MEMBER
+        GROUP BY TO_DATE(TO_CHAR(MEMBER_REGDATE, 'YYYY-MM-DD'), 'YYYY-MM-DD')
+        ORDER BY REGDATE_ONLY ASC
+        ]]>
+    </select>
 </mapper>

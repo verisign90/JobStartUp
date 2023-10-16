@@ -89,3 +89,7 @@ h2 {
     font-family: sans-serif;
     font-weight: 100;
 }
+
+.side_a, .side_a:visited{
+    color: white;
+}

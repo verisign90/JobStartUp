@@ -52,6 +52,8 @@
     // JSON 형식의 문자열을 JavaScript 객체로 변환
     var dashboardData = JSON.parse('${dashboardDataJson}');
     var ageGroupData = JSON.parse('${ageGroupDataJson}');
+    var regDateDataJSON = JSON.parse('${regDateDataJson}');
+    console.log(regDateDataJSON);
 
     var ctxBar = document.getElementById('barChart').getContext('2d');
     var ctxPi = document.getElementById('piChart').getContext('2d');
@@ -59,6 +61,11 @@
 
     var labels = ageGroupData.map(data => data.ageRange);
     var data = ageGroupData.map(data => data.count);
+    var regDateLabels = regDateDataJSON.map(data => {
+        let date = new Date(data.regdate_ONLY);
+        return (date.getMonth() + 1).toString().padStart(2, '0') + '/' + date.getDate().toString().padStart(2, '0');
+    });
+    var regDateData = regDateDataJSON.map(data => data.count);
 
     // Bar Chart
     new Chart(ctxBar, {
@@ -128,15 +135,18 @@
     new Chart(ctxLine, {
         type: 'line',
         data: {
-            labels: labels,
+            labels: regDateLabels,
             datasets: [{
-                label: '나이 구간별 인원',
-                data: data,
+                label: '회원가입 추이',
+                data: regDateData,
                 borderColor: 'rgba(75, 192, 192, 1)',
                 fill: false
             }]
         }
-    });
+    })
+    console.log(regDateLabels + " + " + regDateData);
+    console.log(ctxLine); // Check the canvas context
+    console.log(Chart.version); // Check the version of Chart.js
 
 </script>
 </body>
