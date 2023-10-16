@@ -65,6 +65,10 @@
     <!--기업 페이지: 1) 박람회 현황(Ajax) + pagination-->
 <!--    <select id="getJobFairList" resultType="">
 
+
+
+
+
     </select>-->
 
     <!--기업 페이지: 2) 공고 관리(Ajax) + pagination-->

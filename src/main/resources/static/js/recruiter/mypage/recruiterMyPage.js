@@ -34,10 +34,55 @@ $(document).ready(function(){
     });
 
     /* 박람회 현황 */
+    $("#job-posting").on("click",function(){
+        console.log('연결?');
+        //company_no
+        let company_no = document.getElementById("list_company_no").value;
+        console.log(company_no);
+        $.ajax({
+            type:"POST",
+            url: "/recruiter/getJobPostingList",
+            data: {company_no : company_no},
+            contentType:false,
+            processData:false,
+            success:
+                function(response){
+                      if (response !== null) {
+                          window.location.href = "/recruiter/myPage?company_no=" + company_no;
+                      } else {
+                          console.log("수정 실패");
+                      }
+                },
+            error:function(request,status,error){
+                console.log("에러입니다");
+            }
+        });
+    });
+
+
+
+
+
+
+
 
     /* 공고 관리 */
 
+
+
+
+
+
+
+
     /* 지원자 관리 */
+
+
+
+
+
+
+
 
 
 });
