@@ -2,15 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.pickmeup.jobstartup.recruiter.apply.repository.ApplyRepository">
-
-    <select id="getCompanyInfo" resultType="com.pickmeup.jobstartup.recruiter.apply.dto.FileDTO" parameterType="int">
+    <!-- company applyDTO가져오기 -->
+    <select id="getCompanyInfo" resultType="com.pickmeup.jobstartup.recruiter.apply.dto.ApplyDTO" parameterType="int">
         <![CDATA[
         SELECT *
         FROM company
         WHERE company_no = #{company_no}
         ]]>
     </select>
-
+    <!-- company fileDTO 가져오기 -->
     <select id="getFileList" resultType="com.pickmeup.jobstartup.recruiter.apply.dto.FileDTO" parameterType="int">
         <![CDATA[
         SELECT *
@@ -19,7 +19,7 @@
         ]]>
     </select>
 
-
+    <!-- 가장최근등록된 company applyDTO 가져오기 -->
     <select id="getCompanyNo" resultType="com.pickmeup.jobstartup.recruiter.apply.dto.ApplyDTO">
         <![CDATA[
         SELECT *
@@ -28,7 +28,7 @@
         ]]>
     </select>
 
-
+    <!-- company 등록  -->
     <insert id="insertInfo" parameterType="ApplyDTO">
 
         <![CDATA[
@@ -37,6 +37,7 @@
         ]]>
     </insert>
 
+    <!-- 상위지역 가져오기 -->
     <select id="getUpperLoc" resultType="com.pickmeup.jobstartup.recruiter.apply.dto.LocDTO">
         <![CDATA[
         SELECT *
@@ -47,7 +48,7 @@
         ]]>
 
     </select>
-
+    <!-- 하위지역 가져오기 -->
     <select id="getLowerLoc" resultType="com.pickmeup.jobstartup.recruiter.apply.dto.LocDTO" parameterType="String">
         <![CDATA[
             SELECT *
@@ -59,7 +60,7 @@
         ]]>
 
     </select>
-
+    <!-- company fileDTO 입력-->
     <insert id="insertFile" parameterType="FileDTO">
 
         <![CDATA[
@@ -67,7 +68,7 @@
         values(#{company_no},#{cfile_orgname},#{cfile_savname})
         ]]>
     </insert>
-
+    <!-- 상위업종 가져오기-->
     <select id="getBusiness_type_code_up" resultType="com.pickmeup.jobstartup.recruiter.apply.dto.JobDTO">
         <![CDATA[
         select * from detail_code
@@ -75,7 +76,7 @@
         ]]>
     </select>
 
-
+    <!-- 하위업종 가져오기 -->
     <select id="getBusiness_type_code" resultType="com.pickmeup.jobstartup.recruiter.apply.dto.JobDTO" parameterType="String">
         <![CDATA[
         select * from detail_code
@@ -84,6 +85,7 @@
 
     </select>
 
+    <!-- 테스트 -->
     <select id="insertTest"  parameterType="TestDTO">
         <![CDATA[
         insert into test(test_id,first_name)
