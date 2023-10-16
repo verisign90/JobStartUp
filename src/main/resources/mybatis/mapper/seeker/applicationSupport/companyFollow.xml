@@ -52,4 +52,23 @@
              LEFT JOIN JOB_POSTING J ON C.COMPANY_NO = J.COMPANY_NO
         WHERE F.MEMBER_NO = #{member_no}
     </select>
+
+    <!-- 기업 팔로우 -->
+    <insert id="insertFollow" parameterType="CompanyFollowDTO">
+        INSERT INTO COMPANY_FOLLOW (COMPANY_NO, MEMBER_NO)
+        VALUES (#{company_no}, #{member_no})
+    </insert>
+
+    <!-- 기업 언팔로우 -->
+    <delete id="deleteFollow" parameterType="CompanyFollowDTO">
+        DELETE COMPANY_FOLLOW
+        WHERE COMPANY_NO = #{company_no} AND MEMBER_NO = #{member_no}
+    </delete>
+
+    <!-- checkFollow -->
+    <select id="checkFollow" parameterType="CompanyFollowDTO" resultType="int">
+        SELECT COUNT(*)
+        FROM COMPANY_FOLLOW
+        WHERE COMPANY_NO = #{company_no} AND MEMBER_NO = #{member_no}
+    </select>
 </mapper>

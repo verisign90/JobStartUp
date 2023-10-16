@@ -8,6 +8,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Member {
+    private int member_no;
     private String member_id;
     private MemberType member_type = MemberType.COMMON;
     private String menu_id;
