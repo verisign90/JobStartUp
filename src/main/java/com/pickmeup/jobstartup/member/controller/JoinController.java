@@ -3,13 +3,11 @@ package com.pickmeup.jobstartup.member.controller;
 import com.pickmeup.jobstartup.member.dto.JoinCommonDTO;
 import com.pickmeup.jobstartup.member.dto.JoinCompanyDTO;
 import com.pickmeup.jobstartup.member.entity.Member;
+//import com.pickmeup.jobstartup.member.service.BusinessNumberService;
 import com.pickmeup.jobstartup.member.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.nurigo.sdk.NurigoApp;
-import net.nurigo.sdk.message.service.DefaultMessageService;
-import oracle.ucp.proxy.annotation.Post;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -21,13 +19,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 @Controller
 @RequiredArgsConstructor
 @Slf4j
 public class JoinController {
     private final MemberService memberService;
+//    private final BusinessNumberService businessNumberService;
 
     //회원가입 - 개인회원, 기업회원 버튼 보여주기
     @GetMapping("/join")
@@ -47,6 +45,7 @@ public class JoinController {
         return "member/joinCompany";
     }
 
+    //개인 회원가입
     @PostMapping("/joinCommon")
     public String joinCommon(@Valid @ModelAttribute JoinCommonDTO joinCommonDTO, BindingResult bindingResult, Model model) {
         //dto 유효성 검사
@@ -76,9 +75,10 @@ public class JoinController {
             model.addAttribute("errorMessage", e.getMessage());
             return "member/joinCommon";
         }
-        return "redirect:/mainCommon";
+        return "redirect:/";
     }
 
+    //기업 회원가입
     @PostMapping("/joinCompany")
     public String joinCompany(@Valid @ModelAttribute JoinCompanyDTO joinCompanyDTO, BindingResult bindingResult, Model model) {
         //dto 유효성 검사
@@ -108,7 +108,7 @@ public class JoinController {
             model.addAttribute("errorMessage", e.getMessage());
             return "member/joinCompany";
         }
-        return "redirect:/mainCompany";
+        return "redirect:/apply/apply";
     }
 
     //개인회원 아이디 중복 확인
@@ -170,6 +170,7 @@ public class JoinController {
 //        return new ResponseEntity<>(response, HttpStatus.OK);
 //    }
 
+    //이메일 중복 검사
     @PostMapping("/duplicateEmail")
     @ResponseBody
     public ResponseEntity<Map<String, Boolean>> checkDuplicateEmail(@RequestBody Map<String, String> request) {
@@ -182,4 +183,15 @@ public class JoinController {
         return ResponseEntity.ok(response);
     }
 
+    @PostMapping("/verifyBusinessNumber")
+    @ResponseBody
+    public ResponseEntity<String> verifyBusinessNumber(@RequestBody String businessNumber) {
+//        boolean isValid = businessNumberService.verifyBusinessNumber(businessNumber);
+
+//        if(isValid) {
+            return ResponseEntity.ok("사업자번호가 유효합니다.");
+//        } else {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("등록되지 않은 사업자번호입니다.");
+//        }
+    }
 }

@@ -40,5 +40,5 @@ public class JoinCompanyDTO {
     private String member_email;
     private String member_loc;
 
-//    private String status_yn;
+    private String status_yn = "N";
 }

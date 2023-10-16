@@ -23,5 +23,6 @@ public interface MemberService {
     //이메일 중복 여부 검사
     boolean isDuplicateEmail(String emailInput);
 
+    //회원 객체를 자동으로 로그인한 상태로 만듦
     void autoLogin(Member member);
 }

@@ -14,7 +14,7 @@ public interface MemberRepository {
     int savePerson(Member member);
 
     //기업회원가입
-//    int saveCompany(Member member);
+    int saveCompany(Member member);
 
     //회원 구분에 따른 메뉴ID 가져오기
     String selectMenuId(String memberType);

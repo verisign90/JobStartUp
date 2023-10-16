@@ -19,9 +19,13 @@ public enum UserRole {
         this.permissions = permissions;
     }
 
+    //권한 문자열을 SimpleGrantedAuthority 객체로 변환
     public Set<SimpleGrantedAuthority> getGrantedAuthorities() {
+        //권한 목록을 stream으로 변환해서 권한 문자열의 Set을 반환
         Set<SimpleGrantedAuthority> permissions = getPermissions().stream()
+                //SimpleGrantedAuthority 생성자를 사용하여 권한 문자열을 SimpleGrantedAuthority 객체로 변환
                 .map(SimpleGrantedAuthority::new)
+                //stream의 결과를 Set으로 모음
                 .collect(Collectors.toSet());
         return permissions;
     }

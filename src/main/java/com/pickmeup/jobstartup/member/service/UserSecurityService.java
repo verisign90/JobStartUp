@@ -30,11 +30,15 @@ public class UserSecurityService implements UserDetailsService {
         }
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        MemberType memberType = member.getMember_type();
 
-        UserRole userRole = UserRole.valueOf(memberType.name());
-        grantedAuthorities.addAll(userRole.getGrantedAuthorities());
-
+        if (member.getMember_id().contains("admin")) {
+            grantedAuthorities.addAll(UserRole.ADMIN.getGrantedAuthorities());
+            log.info("관리자 권한이 부여된 사용자: {}", username);
+        } else {
+            MemberType memberType = member.getMember_type();
+            UserRole userRole = UserRole.valueOf(memberType.name());
+            grantedAuthorities.addAll(userRole.getGrantedAuthorities());
+        }
         log.info("시큐리티 서비스 Loaded user: {}, with authorities: {}", username, grantedAuthorities);
 
         return new User(

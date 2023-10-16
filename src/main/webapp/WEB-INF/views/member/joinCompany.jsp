@@ -91,7 +91,7 @@
        </div> --%>
    </div>
    <div>
-       <label for="member_email">이메일:</label>
+       <label for="member_email">이메일</label>
        <input type="email" id="member_email" name="member_email" required pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$" placeholder="email@jobstartup.com">
        <p id="emailMsg" style="color:red;"></p>
    </div>
@@ -102,6 +102,11 @@
        <input type="text" id="sample6_detailAddress" placeholder="상세주소">
        <input type="text" id="sample6_extraAddress" placeholder="참고항목">
        <input type="hidden" id="member_loc" name="member_loc">
+   </div>
+   <div>
+       <label for="businessNo">사업자등록번호</label>
+       <input type="text" id="businessNo" name="businessNo" maxlength="10">
+       <p id="result"></p>
    </div>
    <div>
        <input type="submit" value="확인">
@@ -438,6 +443,31 @@ $(document).ready(function(){
             }
         });
     });
+});
+
+<%-- 사업자등록번호 진위 확인 --%>
+$(document).ready(function(){
+    $("#businessNo").on('blur keyup', function() {
+        let businessNo = $(this).val();
+        if(businessNo.length == 10) {
+            verifyBusinessNumber(businessNo);
+        }
+    });
+
+    function verifyBusinessNumber(businessNo) {
+        $.ajax({
+            type: "POST",
+            url: "/verifyBusinessNumber",
+            data: businessNo,
+            contentType: "application/json",
+            success: function(response){
+                $("#result").html(response);
+            },
+            error: function(xhr, status, error){
+                $("#result").html(xhr.responseText);
+            }
+        });
+    }
 });
 </script>
 </body>
