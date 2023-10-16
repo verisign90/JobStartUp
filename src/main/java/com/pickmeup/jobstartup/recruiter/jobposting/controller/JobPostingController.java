@@ -1,13 +1,20 @@
 package com.pickmeup.jobstartup.recruiter.jobposting.controller;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
+import com.pickmeup.jobstartup.member.entity.Member;
 import com.pickmeup.jobstartup.recruiter.apply.dto.LocDTO;
 import com.pickmeup.jobstartup.recruiter.jobposting.dto.JobPostingDTO;
 import com.pickmeup.jobstartup.recruiter.jobposting.service.JobPostingService;
+import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterMyPageDTO;
+import com.pickmeup.jobstartup.recruiter.mypage.service.RecruiterMyPageService;
+import com.pickmeup.jobstartup.seeker.applicationSupport.service.PostingBookmarkServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RequestMapping("/recruiter")
@@ -17,6 +24,9 @@ public class JobPostingController {
 
     private final JobPostingService jobPostingService;
 
+    @Autowired
+    private PostingBookmarkServiceImpl postingBookmarkService;
+
     /*공고등록 폼*/
     @GetMapping("/write")
     public String writeForm(Model model) throws Exception {
@@ -24,7 +34,7 @@ public class JobPostingController {
         /*RecruiterMyPageDTO jobPostingWrite= jobPostingService.selectCompany();*/
         model.addAttribute("upperLoc", upperLoc);
         /*model.addAttribute("jobPostingWrite",jobPostingWrite);*/
-        return "recruiter/jobPosting/JPwriteForm";
+        return "/recruiter/jobPosting/JPwriteForm";
     }
 
     /*게시글 등록*/
@@ -49,10 +59,16 @@ public class JobPostingController {
 
     //상세조회
     @GetMapping("/JPdetail/{posting_no}")
-    public String detail(@PathVariable("posting_no") int posting_no, Model model) throws Exception {
+    public String detail(@PathVariable("posting_no") int posting_no, Model model, Principal principal) throws Exception {
         JobPostingDTO JPdetail = jobPostingService.selectJPdetail(posting_no);
+
+        Member member = postingBookmarkService.findMemberByUsername(principal.getName());
+        int memberNo = member.getMember_no();
+
         System.out.println(JPdetail.toString());
         model.addAttribute("JPdetail", JPdetail);
+        model.addAttribute("postingNo", posting_no);
+        model.addAttribute("memberNo", memberNo);
         return "recruiter/jobPosting/JPdetail";
     }
 
@@ -75,7 +91,7 @@ public class JobPostingController {
         return "recruiter/jobPosting/JPwriteForm"; // 현재 페이지를 수정 페이지로 재사용
     }
 
-   /* // 수정 작업 처리
+  /*  // 수정 작업 처리
     @PostMapping("/modify/{postingNo}")
     public String modify(@PathVariable Long postingNo, @ModelAttribute JobPosting jobPosting) {
         // 수정 작업을 처리하는 로직 작성

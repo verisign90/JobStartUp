@@ -4,11 +4,11 @@
 <mapper namespace="com.pickmeup.jobstartup.seeker.resume.repository.ResumeRepository">
     <insert id="insertCertificate" parameterType="java.util.List">
         INSERT INTO CERTIFICATE (RESUME_NO, CER_NAME, CER_ISSUER, CER_DATE)
-        VALUES
-        <foreach collection="certificateDTOList" item="certificateDTO" separator=",">
-            (#{certificateDTO.resume_no}, #{certificateDTO.cer_name}, #{certificateDTO.cer_issuer}, #{certificateDTO.cer_date})
+        <foreach collection="certificateDTOList" item="certificateDTO" separator=" UNION ALL ">
+            SELECT #{certificateDTO.resume_no}, #{certificateDTO.cer_name}, #{certificateDTO.cer_issuer}, #{certificateDTO.cer_date} FROM dual
         </foreach>
     </insert>
+
 
     <delete id="deleteCertificate" parameterType="int">
         <![CDATA[

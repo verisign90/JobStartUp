@@ -53,7 +53,8 @@
                J.POSTING_WORKING_DAY,
                J.POSTING_CONTENT,
                C.COMPANY_NAME,
-               C.COMPANY_ADDRESS_DETAIL
+               C.COMPANY_ADDRESS_DETAIL,
+               C.COMPANY_NO
         FROM COMPANY C
                  INNER JOIN JOB_POSTING J ON C.COMPANY_NO = J.COMPANY_NO
         WHERE J.POSTING_NO = #{posting_no}
