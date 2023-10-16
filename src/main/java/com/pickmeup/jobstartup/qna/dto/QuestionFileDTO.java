@@ -2,10 +2,10 @@ package com.pickmeup.jobstartup.qna.dto;
 
 import lombok.*;
 
-@Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
 public class QuestionFileDTO {
     private long qFile_no;
     private long q_no;
@@ -20,4 +20,5 @@ public class QuestionFileDTO {
         this.qFile_savName = qFile_savName;
         this.qFile_type = qFile_type;
     }
+
 }

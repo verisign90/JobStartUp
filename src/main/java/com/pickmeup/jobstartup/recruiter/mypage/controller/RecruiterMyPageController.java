@@ -69,6 +69,10 @@ public class RecruiterMyPageController {
     @PostMapping("/getJobPostingList")
     public String companyJobPostingList(@RequestParam int company_no, Model model,
                                          List<RecruiterJobPostingDTO> recruiterJobPostingDTO) {
+
+        System.out.println("파라미터:"+company_no);
+        System.out.println("company_no"+company_no);
+
         //Business Logic: call JobPostingList
         recruiterJobPostingDTO = recruiterMyPageService.getJobPostingList(company_no);
         //Model and View

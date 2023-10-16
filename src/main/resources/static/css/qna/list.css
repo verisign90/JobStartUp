@@ -23,6 +23,7 @@
 }
 
 .q {
+  width: 100%;
   padding: 20px 5px;
   display: flex;
   border-bottom: 1px solid #ccc;
@@ -31,16 +32,16 @@
 }
 
 .q .yet, .q .finish {
-  background: #555;
+  background: #f95a5a;
   color:white;
   border-radius: 50px;
   padding: 10px 7px;
   font-size: 0.8rem;
-  margin: 0 10px 0 0;
+  margin: 0 10px 0 10px;
 }
 
 .q .finish {
-  background: #e6002d;
+  background: #5D4FFF;
 }
 
 .q>:nth-child(2) {
@@ -50,10 +51,11 @@
 }
 
 .q>:nth-child(3) {
-  text-align: right;
-  transform: rotate(90deg);
-  font-size: 1.8rem;
-  font-weight: 500;
+    text-align: right;
+    transform: rotate(90deg);
+    font-size: 1rem;
+    font-weight: 400;
+    margin-right: 30px;
 }
 
 .a {
@@ -68,4 +70,106 @@
 .a strong {
   display: block;
   margin-bottom: 15px;
+}
+
+.close .a {
+  height: 0px;
+  transition: height 1s ease-out;
+  transform: scaleY(0);
+  display: block;
+}
+
+.open .a {
+  display: block;
+  transform: scaleY(1);
+  transform-origin: top;
+  transition: transform 0.4s ease;
+  box-sizing: border-box;
+}
+
+.open .q {
+  background-color: #d1d1d1;
+  color: #fff;
+}
+
+.blue {
+    color : #5D4FFF;
+}
+
+.file {
+    display:inline-flex;
+    padding:6px 12px;
+    border: 1px solid #171717;
+    margin : 20px 5px 5px 0;
+    border-radius:4px;
+    align-items:center;
+    font-weight:400;
+    font-size: .8125rem;
+    letter-spacing: -.005em;
+    line-height: 20px;
+    height: 34px;
+}
+
+.answerBtn {
+   float : right;
+}
+
+/*--answerForm--*/
+#aFile_orgName {
+  display: none;
+}
+
+
+.upload {
+  margin-right: 10px;
+  width: 100px;
+  height: 50px;
+  background: #eee;
+  font-size: 1.1rem;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:0.2s;
+}
+
+.upload:hover {
+  background: #777;
+  color: #fff;
+}
+
+input[name=fileUpload] {
+  display: block;
+  width: 120px;
+  height: 50px;
+}
+
+.fileUpload {
+  display: flex;
+  margin: 20px 0;
+}
+
+.fileUpload h5 {
+  font-size: 0.8rem;
+  line-height: 1.3rem;
+}
+
+
+.length {
+  display: block;
+  width: 100%;
+  height: 30px;
+  padding: 2px 5px;
+  border: 1px solid #bbb;
+  margin: -3px 0;
+  border-radius: 0 0 5px 5px;
+  color : #6a6a6a;
+}
+
+button.no-hover:hover {
+  background-color: initial;
+  color: initial;
 }
