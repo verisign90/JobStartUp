@@ -111,4 +111,119 @@ $(document).ready(function(){
 
 
 
+    /* mailing service */
+    /* 메일링 - 1차 합격 */
+    $(".first-enroll-mail").on("click",function(){
+        let status_no = document.getElementById("first_enroll_mail_status_no").value;
+        let member_email = document.getElementById("first_enroll_mail_member_email").value;
+        if(status_no === "" || member_email === ""){
+            document.getElementById("first_enroll_mail_status_no").focus();
+            return;
+        }
+        $.ajax({
+            type:"POST",
+            url: "/recruiter/mailFirstEnroll",
+            data: {status_no: status_no,
+                    member_email: member_email},
+            success:
+                function(response){
+                      if (response !== null) {
+                          window.location.href = "/recruiter/managePage?status_no=" + status_no;
+                          alert("메일을 보냈습니다");
+                      } else {
+                          console.log("수정 실패");
+                      }
+                },
+            error:function(request,status,error){
+                console.log("에러입니다");
+            }
+        });
+    });
+
+    /* 메일링 - 1차 채용 거절 */
+    $(".first-denial-mail").on("click",function(){
+        let status_no = document.getElementById("first_denial_mail_status_no").value;
+        let member_email = document.getElementById("first_denial_mail_member_email").value;
+        if(status_no === "" || member_email === ""){
+            document.getElementById("first_denial_mail_status_no").focus();
+            return;
+        }
+        $.ajax({
+            type:"POST",
+            url: "/recruiter/mailFirstDenial",
+            data: {status_no: status_no,
+                    member_email: member_email},
+            success:
+                function(response){
+                      if (response !== null) {
+                          window.location.href = "/recruiter/managePage?status_no=" + status_no;
+                          alert("메일을 보냈습니다");
+                      } else {
+                          console.log("수정 실패");
+                      }
+                },
+            error:function(request,status,error){
+                console.log("에러입니다");
+            }
+        });
+    });
+
+    /* 메일링 - 최종 채용 */
+    $(".last-enroll-mail").on("click",function(){
+        let status_no = document.getElementById("last_enroll_mail_status_no").value;
+        let member_email = document.getElementById("last_enroll_mail_member_email").value;
+        if(status_no === "" || member_email === ""){
+            document.getElementById("last_enroll_mail_status_no").focus();
+            return;
+        }
+        $.ajax({
+            type:"POST",
+            url: "/recruiter/mailLastEnroll",
+            data: {status_no: status_no,
+                    member_email: member_email},
+            success:
+                function(response){
+                      if (response !== null) {
+                          window.location.href = "/recruiter/managePage?status_no=" + status_no;
+                          alert("메일을 보냈습니다");
+                      } else {
+                          console.log("수정 실패");
+                      }
+                },
+            error:function(request,status,error){
+                console.log("에러입니다");
+            }
+        });
+    });
+
+    /* 메일링 - 최종 채용 거절 */
+    $(".last-enroll-mail").on("click",function(){
+        let status_no = document.getElementById("last_denial_mail_status_no").value;
+        let member_email = document.getElementById("last_denial_mail_member_email").value;
+        if(status_no === "" || member_email === ""){
+            document.getElementById("last_denial_mail_status_no").focus();
+            return;
+        }
+        $.ajax({
+            type:"POST",
+            url: "/recruiter/mailLastDenial",
+            data: {status_no: status_no,
+                    member_email: member_email},
+            success:
+                function(response){
+                      if (response !== null) {
+                          window.location.href = "/recruiter/managePage?status_no=" + status_no;
+                          alert("메일을 보냈습니다");
+                      } else {
+                          console.log("수정 실패");
+                      }
+                },
+            error:function(request,status,error){
+                console.log("에러입니다");
+            }
+        });
+    });
+
+
+
 });
