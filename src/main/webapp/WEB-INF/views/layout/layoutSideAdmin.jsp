@@ -31,28 +31,28 @@
         <ul class="side_menu">
             <li class="side_item">
                 <div>
-                    <a href="${pageContext.request.contextPath}/admin/dashboard">
+                    <a class="side_a" href="${pageContext.request.contextPath}/admin/dashboard">
                         대쉬보드
                     </a>
                 </div>
             </li>
             <li class="side_item">
                 <div class="aside_item">
-                    <a href="${pageContext.request.contextPath}/notice/list">
+                    <a class="side_a" href="${pageContext.request.contextPath}/notice/list">
                         공지 글 목록
                     </a>
                 </div>
             </li>
             <li class="side_item">
                 <div class="aside_item">
-                    <a href="${pageContext.request.contextPath}/admin/jobfairlist">
+                    <a class="side_a" href="${pageContext.request.contextPath}/admin/jobfairlist">
                         박람회 목록
                     </a>
                 </div>
             </li>
             <li class="side_item">
                 <div class="aside_item">
-                    <a href="${pageContext.request.contextPath}/admin/jobfair/companylist">
+                    <a class="side_a" href="${pageContext.request.contextPath}/admin/jobfair/companylist">
                         참여 업체 목록
                     </a>
                 </div>

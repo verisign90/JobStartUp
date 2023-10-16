@@ -27,7 +27,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.2'
     implementation 'org.modelmapper:modelmapper:3.0.0'
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.0'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.14.2'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'net.nurigo:sdk:4.3.0'
     implementation 'org.slf4j:slf4j-api'
