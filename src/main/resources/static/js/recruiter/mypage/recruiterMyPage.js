@@ -37,7 +37,7 @@ $(document).ready(function(){
     $("#job-posting").on("click",function(){
         console.log('연결?');
         //company_no
-        let company_no = document.getElementById("list_company_no").value;
+        var company_no = $("#list_company_no").val();
         console.log(company_no);
         $.ajax({
             type:"POST",
