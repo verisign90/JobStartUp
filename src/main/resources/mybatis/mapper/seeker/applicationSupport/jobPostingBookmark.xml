@@ -29,11 +29,31 @@
         </collection>
     </resultMap>
 
+    <!-- 북마크 리스트 -->
     <select id="selectBookmarkList" resultMap="bookmarkResultMap" parameterType="int" >
         SELECT *
         FROM JOB_POSTING_BOOKMARK B
                  LEFT JOIN JOB_POSTING P ON B.POSTING_NO = P.POSTING_NO
                  LEFT JOIN COMPANY C ON P.COMPANY_NO = C.COMPANY_NO
         WHERE B.MEMBER_NO = #{member_no}
+    </select>
+
+    <!-- 북마크 등록 -->
+    <insert id="insertBookmark" parameterType="PostingBookmarkDTO">
+        INSERT INTO JOB_POSTING_BOOKMARK (POSTING_NO, MEMBER_NO)
+        VALUES (#{posting_no}, #{member_no})
+    </insert>
+
+    <!-- 북마크 삭제 -->
+    <delete id="deleteBookmark" parameterType="PostingBookmarkDTO">
+        DELETE JOB_POSTING_BOOKMARK
+        WHERE POSTING_NO = #{posting_no} AND MEMBER_NO = #{member_no}
+    </delete>
+
+    <!-- 북마크 확인 -->
+    <select id="checkBookmark" parameterType="PostingBookmarkDTO" resultType="int">
+        SELECT COUNT(*)
+        FROM JOB_POSTING_BOOKMARK
+        WHERE POSTING_NO = #{posting_no} AND MEMBER_NO = #{member_no}
     </select>
 </mapper>

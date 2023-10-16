@@ -58,7 +58,8 @@ public class ResumeController {
     @GetMapping ("/resumeWrite")
     public String resumeWriteForm (Principal principal) {
         logger.info("ResumeController-resumeWriteForm() 진입");
-        return "seeker/resume/resumeWriteForm";
+        //return "seeker/resume/resumeWriteForm";
+        return "seeker/resume/resumeTest";
     }
 
     //이력서 작성 처리
@@ -128,8 +129,4 @@ public class ResumeController {
         return String.format("redirect:/seeker/resumeDetail/{resume_no}");
     }
 
-    @RequestMapping ("test")
-    public String test () {
-        return "index";
-    }
 }

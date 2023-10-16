@@ -4,11 +4,11 @@
 <mapper namespace="com.pickmeup.jobstartup.seeker.resume.repository.ResumeRepository">
     <insert id="insertCareer" parameterType="java.util.List">
         INSERT INTO CAREER (RESUME_NO, CAREER_DATE, CAREER_COMPANY, BUSINESS_TYPE, CAREER_WORK)
-        VALUES
-        <foreach collection="careerDTOList" item="careerDTO" separator=",">
-            (#{careerDTO.resume_no}, #{careerDTO.career_date}, #{careerDTO.career_company}, #{careerDTO.business_type}, #{careerDTO.career_work})
+        <foreach collection="careerDTOList" item="careerDTO" separator=" UNION ALL ">
+            SELECT #{careerDTO.resume_no}, #{careerDTO.career_date}, #{careerDTO.career_company}, #{careerDTO.business_type}, #{careerDTO.career_work} FROM dual
         </foreach>
     </insert>
+
 
     <delete id="deleteCareer" parameterType="int">
         <![CDATA[

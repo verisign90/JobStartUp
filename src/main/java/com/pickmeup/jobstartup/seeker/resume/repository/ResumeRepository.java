@@ -57,11 +57,16 @@ public interface ResumeRepository {
 
     /*Language*/
     //입력
+    //입력
+    //public int insertLanguage (@Param("languageDTOList") LanguageDTO languageDTOList);
     public int insertLanguage (@Param("languageDTOList") List<LanguageDTO> languageDTOList);
     //삭제
     public void deleteLanguage (int resume_no);
     //수정
     public void modifyLanguage (@Param("languageDTOList") List<LanguageDTO> languageDTOList);
+
+    //max lang_no
+    int getMaxLangNo();
 
     //Language 시퀀스 받아오기
     public int getLanguageSequence ();

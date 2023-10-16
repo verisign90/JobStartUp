@@ -3,7 +3,6 @@ package com.pickmeup.jobstartup.recruiter.jobposting.service;
 import com.pickmeup.jobstartup.recruiter.apply.dto.LocDTO;
 import com.pickmeup.jobstartup.recruiter.jobposting.dto.JobPostingDTO;
 import com.pickmeup.jobstartup.recruiter.jobposting.repository.JobPostingRepository;
-import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterMyPageDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -27,16 +26,18 @@ public class JobPostingServicelmpl implements JobPostingService{
         return jobPostingRepository.selectJPlist();
     }
 
-/*    @Override
-    public RecruiterMyPageDTO selectCompany() {
-        return jobPostingRepository.selectCompany();
-    }*/
 
     //공고상세조회
     @Override
     public JobPostingDTO selectJPdetail(int posting_no)  {
         JobPostingDTO jobPostingDTO = jobPostingRepository.selectJPdetail(posting_no);
         return jobPostingDTO;
+    }
+
+    //공고수정
+    @Override
+    public void modify(JobPostingDTO jobPostingDTO) throws Exception {
+
     }
 
     //상위 지역 리스트 가져오기

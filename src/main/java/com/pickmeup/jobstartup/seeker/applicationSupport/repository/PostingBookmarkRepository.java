@@ -12,4 +12,13 @@ public interface PostingBookmarkRepository {
 
     //공고 스크랩 리스트
     public List<PostingBookmarkDTO> selectBookmarkList (int member_no);
+
+    //공고 스크랩
+    public int insertBookmark (PostingBookmarkDTO postingBookmarkDTO);
+
+    //스크랩 삭제
+    public void deleteBookmark (PostingBookmarkDTO postingBookmarkDTO);
+
+    //북마크 확인
+    public int checkBookmark (PostingBookmarkDTO postingBookmarkDTO);
 }

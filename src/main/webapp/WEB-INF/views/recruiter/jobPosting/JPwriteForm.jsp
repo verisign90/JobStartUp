@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/recruiter/jobposting/JPwriteForm.css">
     <%--<link rel="stylesheet" href="${pageContext.request.contextPath}/css/base.css">--%>
     <%--<link rel="stylesheet" href="${pageContext.request.contextPath}/ckeditor5-2/sample/styles.css">--%>
-<%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/layout/layout.css">--%>
+    <%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/layout/layout.css">--%>
     <script src="${contextPath}/ckeditor5-2/build/ckeditor.js"></script>
     <%--<script src="https://cdn.ckeditor.com/ckeditor5/39.0.2/classic/ckeditor.js"></script>--%>
 
@@ -49,14 +49,23 @@
 
                 <div>
                     <label for="posting_title" class="">공고 제목</label>
-                    <input type="text" name="posting_title" id="posting_title" class=""/>
+                    <input type="text" name="posting_title" id="posting_title" class=""
+                           value="${jobPostingDTO.posting_title}">
                 </div>
                 <div>
                     <label for="c1" class="">직무·직업</label>
-                    <input type="checkbox" name="posting_career" id="c1" value="신입"/><label for="c1">신입</label>
-                    <input type="checkbox" name="posting_career" id="c2" value="경력"/><label for="c2">경력</label>
-                    <input type="checkbox" name="posting_career" id="c3" value="경력무관"/><label for="c3">경력무관</label>
-                    <input type="checkbox" name="posting_career" id="c4" value="신입 지원 가능"/><label for="c4">신입 지원
+                    <input type="checkbox" name="posting_career" id="c1"
+                           value="신입" ${jobPostingDTO.posting_career == '신입' ? 'checked' : ''}/><label
+                        for="c1">신입</label>
+                    <input type="checkbox" name="posting_career" id="c2"
+                           value="경력" ${jobPostingDTO.posting_career == '경력' ? 'checked' : ''}/><label
+                        for="c2">경력</label>
+                    <input type="checkbox" name="posting_career" id="c3"
+                           value="경력무관" ${jobPostingDTO.posting_career == '경력무관' ? 'checked' : ''}/><label
+                        for="c3">경력무관</label>
+                    <input type="checkbox" name="posting_career" id="c4"
+                           value="신입 지원 가능" ${jobPostingDTO.posting_career == '신입 지원 가능' ? 'checked' : ''}/><label
+                        for="c4">신입 지원
                     가능</label>
                 </div>
                 <%--<div>
@@ -92,18 +101,37 @@
 
                 <div>
                     <label for="w1" class="">근무형태</label>
-                    <input type="checkbox" name="posting_labor" id="w1" value="정규직"/><label for="w1">정규직</label>
-                    <input type="checkbox" name="posting_labor" id="w2" value="계약직"/><label for="w2">계약직</label>
-                    <input type="checkbox" name="posting_labor" id="w3" value="인턴직"/><label for="w3">인턴직</label>
-                    <input type="checkbox" name="posting_labor" id="w4" value="아르바이트"/><label for="w4">아르바이트</label>
-                    <input type="checkbox" name="posting_labor" id="w5" value="파견직"/><label for="w5">파견직</label>
-                    <input type="checkbox" name="posting_labor" id="w6" value="해외취업"/><label for="w6">해외취업</label>
-                    <input type="checkbox" name="posting_labor" id="w7" value="계약직 (정규직 전환가능)"/><label for="w7">계약직 (정규직
+                    <input type="checkbox" name="posting_labor" id="w1"
+                           value="정규직" ${jobPostingDTO.posting_career == '정규직' ? 'checked' : ''}/><label
+                        for="w1">정규직</label>
+                    <input type="checkbox" name="posting_labor" id="w2"
+                           value="계약직" ${jobPostingDTO.posting_career == '계약직' ? 'checked' : ''}/><label
+                        for="w2">계약직</label>
+                    <input type="checkbox" name="posting_labor" id="w3"
+                           value="인턴직" ${jobPostingDTO.posting_career == '인턴직' ? 'checked' : ''}/><label
+                        for="w3">인턴직</label>
+                    <input type="checkbox" name="posting_labor" id="w4"
+                           value="아르바이트" ${jobPostingDTO.posting_career == '아르바이트' ? 'checked' : ''}/><label for="w4">아르바이트</label>
+                    <input type="checkbox" name="posting_labor" id="w5"
+                           value="파견직" ${jobPostingDTO.posting_career == '파견직' ? 'checked' : ''}/><label
+                        for="w5">파견직</label>
+                    <input type="checkbox" name="posting_labor" id="w6"
+                           value="해외취업" ${jobPostingDTO.posting_career == '해외취업' ? 'checked' : ''}/><label
+                        for="w6">해외취업</label>
+                    <input type="checkbox" name="posting_labor" id="w7"
+                           value="계약직 (정규직 전환가능)" ${jobPostingDTO.posting_career == '계약직 (정규직 전환가능)' ? 'checked' : ''}/><label
+                        for="w7">계약직 (정규직
                     전환가능)</label>
-                    <input type="checkbox" name="posting_labor" id="w8" value="인턴직 (정규직 전환가능)"/><label for="w8"> 인턴직
+                    <input type="checkbox" name="posting_labor" id="w8"
+                           value="인턴직 (정규직 전환가능)" ${jobPostingDTO.posting_career == '인턴직 (정규직 전환가능)' ? 'checked' : ''}/><label
+                        for="w8"> 인턴직
                     (정규직 전환가능)</label>
-                    <input type="checkbox" name="posting_labor" id="w9" value="교육생"/><label for="w9">교육생</label>
-                    <input type="checkbox" name="posting_labor" id="w10" value="기간제"/><label for="w10">기간제</label>
+                    <input type="checkbox" name="posting_labor" id="w9"
+                           value="교육생" ${jobPostingDTO.posting_career == '교육생' ? 'checked' : ''}/><label
+                        for="w9">교육생</label>
+                    <input type="checkbox" name="posting_labor" id="w10"
+                           value="기간제" ${jobPostingDTO.posting_career == '기간제' ? 'checked' : ''}/><label
+                        for="w10">기간제</label>
                 </div>
 
             </section>
@@ -189,19 +217,9 @@
                 </div>
             </section>
             <section>
-                <%--<textarea class="editor" name="editor" id="editor"></textarea>--%>
-                <%--<div><input type="text" name="posting_content" id="posting_content"></div>--%>
-                <%--<div class="editor" name="posting_content" id="editor"></div>--%>
                 <textarea class="editor" name="posting_content" id="editor"></textarea>
-                <%--                <p><input type="submit" value="등록"></p>--%>
             </section>
             <section>
-                <%--<div id="editor1" contenteditable="true"></div>
-                <input id="img-selector" type="file" accept="image/*"/>
-                <div>
-                    <label for="ir1" class="form-label">내용</label>
-                    <textarea name="ir1" id="ir1" rows="10" cols="100"></textarea>
-                </div>--%>
                 <div>
                     <label for="imageFileName" class="form-label">이미지</label>
                     <input type="file" name="imageFileName" id="imageFileName" class="form-control-file"
@@ -213,9 +231,6 @@
                 <button type="submit" name="subBtn" id="subBtn">입력</button>
             </div>
         </form>
-
-        <%--        <input type="file" id="fileInput">--%>
-        <%--        <button onclick="uploadFile()">Upload File</button>--%>
     </article>
 </main>
 <footer>
@@ -293,47 +308,7 @@
     });
 </script>
 <script>
-    /*// "근무부서" 입력 필드를 추가하는 함수
-    function addWorkDepartment() {
-        // 새로운 <input> 요소 생성
-        var inputElement = $("<input>").attr("type", "text").attr("name", "workDepartment");
 
-        // 새로운 <label> 요소 생성
-        var labelElement = $("<label>").text("근무부서");
-
-        // <div> 요소에 <input>과 <label> 추가
-        var container = $("#workDepartmentContainer");
-        container.append(labelElement);
-        container.append(inputElement);
-    }
-
-    // "직급직책" 입력 필드를 추가하는 함수
-    function addPosition() {
-        // 새로운 <input> 요소 생성
-        var inputElement = $("<input>").attr("type", "text").attr("name", "position");
-
-        // 새로운 <label> 요소 생성
-        var labelElement = $("<label>").text("직급직책");
-
-        // <div> 요소에 <input>과 <label> 추가
-        var container = $("#positionContainer");
-        container.append(labelElement);
-        container.append(inputElement);
-    }
-
-    // "필수/우대조건" 입력 필드를 추가하는 함수
-    function addRequirements() {
-        // 새로운 <input> 요소 생성
-        var inputElement = $("<input>").attr("type", "text").attr("name", "requirements");
-
-        // 새로운 <label> 요소 생성
-        var labelElement = $("<label>").text("필수/우대조건");
-
-        // <div> 요소에 <input>과 <label> 추가
-        var container = $("#requirementsContainer");
-        container.append(labelElement);
-        container.append(inputElement);
-    }*/
 
     <%-- 상위 지역에 따른 하위 지역 목록 불러오기 --%>
 
