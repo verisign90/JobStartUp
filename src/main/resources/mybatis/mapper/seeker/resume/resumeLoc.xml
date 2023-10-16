@@ -4,9 +4,8 @@
 <mapper namespace="com.pickmeup.jobstartup.seeker.resume.repository.ResumeRepository">
     <insert id="insertResumeLoc" parameterType="java.util.List">
         INSERT INTO RESUME_LOC (RESUME_NO, LOC_DETAIL_CODE_NUM)
-        VALUES
-        <foreach collection="resumeLocDTOList" item="resumeLocDTO" separator=",">
-            (#{resumeLocDTO.resume_no}, #{resumeLocDTO.loc_detail_code_num})
+        <foreach collection="resumeLocDTOList" item="resumeLocDTO" separator=" UNION ALL ">
+            SELECT #{resumeLocDTO.resume_no}, #{resumeLocDTO.loc_detail_code_num} FROM dual
         </foreach>
     </insert>
 

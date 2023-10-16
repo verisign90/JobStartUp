@@ -59,8 +59,8 @@
 
     <select id="selectNoticeList" parameterType="com.pickmeup.jobstartup.common.paging.Criteria" resultType="com.pickmeup.jobstartup.notice.dto.NoticeDTO">
         <![CDATA[
-            SELECT * FROM (SELECT /*+ INDEX_DESC(NOTICE SYS_C007673)*/ ROWNUM AS ROW_NUM, NOT_NO, NOT_TITLE, NOT_CONTENT, NOT_REGDATE, NOT_MODDATE, NOT_CATEGORY FROM NOTICE WHERE ROWNUM <= #{currentPageNo}*#{recordsPerPage})
-            WHERE ROW_NUM > #{startPage}
+            SELECT * FROM (SELECT /*+ INDEX_DESC(NOTICE SYS_C007673)*/ ROWNUM AS ROW_NUM, NOT_NO, NOT_TITLE, NOT_CONTENT, NOT_REGDATE, NOT_MODDATE, NOT_CATEGORY FROM NOTICE WHERE ROWNUM <=#{currentPageNo}*#{recordsPerPage})
+            WHERE ROW_NUM >#{startPage}
         ]]>
             <include refid="category"/>
             <include refid="search" />

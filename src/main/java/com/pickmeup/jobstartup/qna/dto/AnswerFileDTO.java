@@ -11,13 +11,13 @@ public class AnswerFileDTO {
     private long a_no;
     private String aFile_orgName;
     private String aFile_savName;
-    private String aFile_tye;
+    private String aFile_type;
 
     @Builder
-    public AnswerFileDTO(long a_no, String aFile_orgName, String aFile_savName, String aFile_tye) {
+    public AnswerFileDTO(long a_no, String aFile_orgName, String aFile_savName, String aFile_type) {
         this.a_no = a_no;
         this.aFile_orgName = aFile_orgName;
         this.aFile_savName = aFile_savName;
-        this.aFile_tye = aFile_tye;
+        this.aFile_type = aFile_type;
     }
 }
