@@ -1,41 +1,65 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%--
+  Created by IntelliJ IDEA.
+  User: LG
+  Date: 2023-10-16
+  Time: 오후 7:26
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="cPath" value="<%=request.getContextPath() %>"/>
-<html lang="ko" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt">
+<html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
-          rel="stylesheet">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/recruiter/jobposting/JPdetail.css">
-
-
-    <!-- Bootstrap core CSS -->
-    <link href="/css/template/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/template/assets/css/templatemo-chain-app-dev.css">
-    <link rel="stylesheet" href="/css/template/assets/css/animated.css">
-    <link rel="stylesheet" href="/css/template/assets/css/owl.css">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/resume/list.css" type="text/css"/>
     <title>Title</title>
-
 </head>
 <body>
-<header>
-    <%--<div class="logo">
-        <img src="${pageContext.request.contextPath}/img/logo.png" alt="Logo">
-    </div>--%>
-    <!-- ***** Nav start ***** -->
-    <%@ include file="../../layout/layoutNav.jsp" %>
-    <!-- ***** Nav End ***** -->
-</header>
+<!-- 버튼을 클릭하여 모달을 열도록 합니다. -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+    지원하기
+</button>
+
+<form id="applyForm" action="#" method="post">
+    <!-- 모달 창 -->
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- 모달 헤더 -->
+                <div class="modal-header">
+                    <h5 class="modal-title">지원하기</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- 모달 본문 -->
+                <div class="modal-body">
+                    <button><a href="${cPath}/seeker/resumeWrite">이력서 작성</a></button>
+                    <c:forEach items="${resumeList}" var="resume">
+                        <div class="resume_list_wrap">
+                            <ul class="resume_list">
+                                <li class="resume_item">
+                                    <input class="member-no" type="hidden" value="${resume.member_no}">
+                                    <input class="posting-no" type="hidden" value="${postingNo}">
+                                    <span><a href="${cPath}/seeker/resumeDetail/${resume.resume_no}">${resume.resume_title}</a></span>
+                                    <span><input class="modifyBtn" type="checkbox" name="resume_no" id="resume_no" value="${resume.resume_no}"></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </c:forEach>
+                </div>
+                <!-- 모달 하단 -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                    <input type="submit" class="modifyBtn" value="지원하기">
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+
 <main>
     <article class="all-content">
         <section>
@@ -74,49 +98,6 @@
                         </div>
                         <a href="${cPath}/recruiter/delete/${JPdetail.posting_no}" class="btn btn-danger">삭제</a>
                     </div>
-                    <!-- 버튼을 클릭하여 모달을 열도록 합니다. -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                        지원하기
-                    </button>
-
-                    <form id="applyForm" action="#" method="post">
-                        <!-- 모달 창 -->
-                        <div class="modal" id="myModal">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-
-                                    <!-- 모달 헤더 -->
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">지원하기</h5>
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    </div>
-
-                                    <!-- 모달 본문 -->
-                                    <div class="modal-body">
-                                        <button><a href="${cPath}/seeker/resumeWrite">이력서 작성</a></button>
-                                        <c:forEach items="${resumeList}" var="resume">
-                                            <div class="resume_list_wrap">
-                                                <ul class="resume_list">
-                                                    <li class="resume_item">
-                                                        <input class="member-no" type="hidden" value="${resume.member_no}">
-                                                        <input class="posting-no" type="hidden" value="${postingNo}">
-                                                        <span><a href="${cPath}/seeker/resumeDetail/${resume.resume_no}">${resume.resume_title}</a></span>
-                                                        <span><input class="modifyBtn" type="checkbox" name="resume_no" id="resume_no" value="${resume.resume_no}"></span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </c:forEach>
-                                    </div>
-                                    <!-- 모달 하단 -->
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-                                        <input type="submit" class="modifyBtn" value="지원하기">
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </form>
                 </div>
             </div>
         </section>
@@ -170,7 +151,7 @@
     footer
 </footer>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
         $(".bookmark-item").each(function () {
@@ -312,7 +293,7 @@
 <script src="/css/template/assets/js/popup.js"></script>
 <script src="/css/template/assets/js/custom.js"></script>
 
-
+<%--<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>--%>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
 </body>

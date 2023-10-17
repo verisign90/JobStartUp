@@ -1,10 +1,17 @@
 package com.pickmeup.jobstartup.seeker.resume.controller;
 
+import com.pickmeup.jobstartup.member.entity.Member;
+import com.pickmeup.jobstartup.seeker.applicationSupport.dto.PostingBookmarkDTO;
+import com.pickmeup.jobstartup.seeker.applicationSupport.service.PostingBookmarkServiceImpl;
 import com.pickmeup.jobstartup.seeker.resume.dto.ResumeDTO;
 import com.pickmeup.jobstartup.seeker.resume.service.ResumeServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,11 +30,25 @@ public class ResumeController {
     @Autowired
     private ResumeServiceImpl resumeService;
 
+    @Autowired
+    private PostingBookmarkServiceImpl postingBookmarkService;
+
     //이력서 목록
     @RequestMapping("/resumeList")
     public String resumeList (Model model) {
         logger.info("ResumeController-resumeList() 진입");
-        List<ResumeDTO> resumeList = resumeService.selectResumeList();
+
+        int memberNo = 0;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null) {
+            Object principal = authentication.getPrincipal();
+            if (principal instanceof UserDetails) {
+                Member member = postingBookmarkService.findMemberByUsername(((UserDetails) principal).getUsername());
+                memberNo = member.getMember_no();
+            }
+        }
+
+        List<ResumeDTO> resumeList = resumeService.selectResumeList(memberNo);
         logger.info("resumeList: {}", resumeList);
         model.addAttribute("resumeList",resumeList);
         return "seeker/resume/resumeList";
@@ -55,8 +76,9 @@ public class ResumeController {
     }
 
     //이력서 작성폼
+    @PreAuthorize("isAuthenticated()")
     @GetMapping ("/resumeWrite")
-    public String resumeWriteForm (Principal principal) {
+    public String resumeWriteForm () {
         logger.info("ResumeController-resumeWriteForm() 진입");
         //return "seeker/resume/resumeWriteForm";
         return "seeker/resume/resumeTest";
@@ -70,6 +92,10 @@ public class ResumeController {
                                Principal principal) throws IOException {
         logger.info("ResumeController-resumeWrite() 진입");
 
+        Member member = postingBookmarkService.findMemberByUsername(principal.getName());
+        int memberNo = member.getMember_no();
+
+        resumeDTO.setMember_no(memberNo);
         String profileOrgName = profileOrgNameFile.getOriginalFilename();
         String resumeOrgName = resumeOrgNameFile.getOriginalFilename();
 

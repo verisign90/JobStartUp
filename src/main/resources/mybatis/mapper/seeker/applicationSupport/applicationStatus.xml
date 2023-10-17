@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.pickmeup.jobstartup.seeker.applicationSupport.repository.ApplicationStatusRepository">
-    <insert id="insertResumeApply" parameterType="ResumeApplyDTO">
+    <insert id="insertResumeApply" parameterType="map">
         INSERT INTO APPLICATION_STATUS (MEMBER_NO, POSTING_NO, RESUME_NO)
-        VALUES (#{member_no}, #{posting_no}, {resume_no})
+        VALUES (#{member_no}, #{posting_no}, #{resume_no})
     </insert>
 </mapper>
