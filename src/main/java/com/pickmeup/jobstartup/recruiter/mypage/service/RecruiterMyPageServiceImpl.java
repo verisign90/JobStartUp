@@ -1,10 +1,6 @@
 package com.pickmeup.jobstartup.recruiter.mypage.service;
 
-import com.pickmeup.jobstartup.recruiter.jobposting.dto.JobPostingDTO;
-import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterCalendarDTO;
-import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterFileDTO;
-import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterJobPostingDTO;
-import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterMyPageDTO;
+import com.pickmeup.jobstartup.recruiter.mypage.dto.*;
 import com.pickmeup.jobstartup.recruiter.mypage.repository.RecruiterMyPageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,15 +31,34 @@ public class RecruiterMyPageServiceImpl implements RecruiterMyPageService{
     };
 
     //기업 페이지: 1) 박람회 현황(Ajax) + pagination
+    @Override
+    @Transactional
+    public List<RecruiterJobFairDTO> getJobFairList(RecruiterCriteria criteria) {
+        return  recruiterMyPageRepository.getJobFairList(criteria);
+    }
+    @Override
+    @Transactional
+    public int getJobFairCount(RecruiterCriteria criteria) {
+        return recruiterMyPageRepository.getJobFairCount(criteria);
+    }
 
     //기업 페이지: 2) 공고 관리(Ajax) + pagination
     @Override
     @Transactional
-    public List<RecruiterJobPostingDTO> getJobPostingList(int company_no){
-        return recruiterMyPageRepository.getJobPostingList(company_no);
+    public List<RecruiterJobPostingDTO> getJobPostingList(RecruiterCriteria criteria){
+        return  recruiterMyPageRepository.getJobPostingList(criteria);
+    }
+    @Override
+    @Transactional
+    public int getJobPostingCount(RecruiterCriteria criteria) {
+        return recruiterMyPageRepository.getJobPostingCount(criteria);
     }
 
     //기업 페이지: 3) 지원자 관리(Ajax) + pagination
+
+
+
+
     //기업 페이지: 정보 수정 리스트 (또는 approval 담당의 jsp 이용)
     //기업 페이지: 정보 수정 (또는 approval 담당의 jsp 이용)
 
@@ -102,14 +117,8 @@ public class RecruiterMyPageServiceImpl implements RecruiterMyPageService{
     @Override
     @Transactional
     public int deleteRecruCalendar(RecruiterCalendarDTO recruiterCalendarDTO) {
-        System.out.println("서비스="+recruiterCalendarDTO);
         return recruiterMyPageRepository.deleteRecruCalendar(deleteEditEndDate(recruiterCalendarDTO));
     }
-
-    //기업 페이지: calendar 수정
-
-
-
 
     //기업 페이지: calendar - calendar 마지막 날 exclusive 되는 문제 해결
     protected RecruiterCalendarDTO insertEditEndDate(RecruiterCalendarDTO recruiterCalendarDTO){
@@ -140,12 +149,10 @@ public class RecruiterMyPageServiceImpl implements RecruiterMyPageService{
             String editedEndDate = orgEndDate.substring(0, 8) + strSubEndDate;
             recruiterCalendarDTO.setSchedule_end(editedEndDate);
         }
-        System.out.println("수정된서비스내용:"+recruiterCalendarDTO);
         return recruiterCalendarDTO;
     }
 
-
-
+    //기업 페이지: calendar 수정
 
 
 }

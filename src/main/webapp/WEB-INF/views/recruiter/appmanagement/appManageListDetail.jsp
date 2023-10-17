@@ -33,7 +33,7 @@
 
 <main>
     <article>
-        <div class="main-title-container"><h4>채용관리 페이지</h4></div>
+        <div class="main-title-container"><h4>채용 관리 페이지</h4></div>
     <div class="main-container">
 
         <div class="info-container">

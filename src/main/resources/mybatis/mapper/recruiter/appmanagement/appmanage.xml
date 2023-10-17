@@ -37,7 +37,8 @@
     <update id="updateAppManageFirstEnroll" parameterType="com.pickmeup.jobstartup.recruiter.appmanagement.dto.AppManageDTO">
         <![CDATA[
         UPDATE application_status
-        SET first_pass = 'Y', interview_date = #{interview_date}
+        SET first_pass = 'Y',
+            interview_date = #{interview_date}
         WHERE status_no = #{status_no}
         ]]>
     </update>

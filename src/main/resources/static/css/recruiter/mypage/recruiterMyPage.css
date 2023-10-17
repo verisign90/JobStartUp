@@ -158,3 +158,28 @@
     border: 1px solid gray;
     margin: 5px;
 }
+
+
+
+
+/* test 중입니다 */
+.pagination {
+    background-color: white; /* 배경색을 하얀색으로 설정 */
+    padding: 10px; /* 페이지 간격을 위한 padding 추가 */
+}
+
+.pagination ol {
+    list-style: none; /* 목록 항목의 기본 스타일 제거 */
+    display: flex; /* 항목을 가로로 정렬합니다. */
+    justify-content: center; /* 가운데 정렬 */
+}
+
+.pagination li {
+    margin: 0 5px; /* 항목 간의 좌우 여백을 조절합니다. */
+    background-color: white; /* 배경색을 하얀색으로 설정 */
+    color: black; /* 텍스트 색상을 검은색으로 설정 */
+    padding: 5px 10px; /* 내부 여백을 추가하여 텍스트와 경계 사이의 공백을 조절합니다. */
+    cursor: pointer; /* 마우스 커서를 포인터로 변경하여 항목이 클릭 가능하도록 합니다. */
+    border: 1px solid black; /* 테두리 추가 */
+    border-radius: 5px; /* 둥근 모서리를 만듭니다. */
+}

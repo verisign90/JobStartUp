@@ -1,13 +1,12 @@
 package com.pickmeup.jobstartup.recruiter.mypage.repository;
 
-import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterCalendarDTO;
-import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterFileDTO;
-import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterJobPostingDTO;
-import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterMyPageDTO;
+import com.pickmeup.jobstartup.common.paging.Criteria;
+import com.pickmeup.jobstartup.recruiter.mypage.dto.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 @Repository
@@ -17,9 +16,13 @@ public interface RecruiterMyPageRepository {
     RecruiterMyPageDTO selectRecruiterInfo(int company_no);
 
     //기업 페이지: 1) 박람회 현황(Ajax) + pagination
+    List<RecruiterJobFairDTO> getJobFairList(RecruiterCriteria criteria);
+    int getJobFairCount(RecruiterCriteria criteria);
 
     //기업 페이지: 2) 공고 관리(Ajax)+ pagination
-    List<RecruiterJobPostingDTO> getJobPostingList(int company_no);
+    List<RecruiterJobPostingDTO> getJobPostingList(RecruiterCriteria criteria);
+    int getJobPostingCount(RecruiterCriteria criteria);
+
 
     //기업 페이지: 3) 지원자 관리(Ajax) + pagination
 

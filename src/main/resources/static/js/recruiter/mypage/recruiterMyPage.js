@@ -28,23 +28,20 @@ $(document).ready(function(){
                       }
                 },
             error:function(request,status,error){
-                console.log("에러입니다");
+                console.log("에러입니다" + error);
             }
         });
     });
 
-    /* 박람회 현황 */
+    /* 공고 관리 */
     $("#job-posting").on("click",function(){
-        console.log('연결?');
         //company_no
-        var company_no = $("#list_company_no").val();
+        let company_no = $(".list_company_no").val();
         console.log(company_no);
         $.ajax({
             type:"POST",
             url: "/recruiter/getJobPostingList",
             data: {company_no : company_no},
-            contentType:false,
-            processData:false,
             success:
                 function(response){
                       if (response !== null) {
@@ -54,32 +51,10 @@ $(document).ready(function(){
                       }
                 },
             error:function(request,status,error){
-                console.log("에러입니다");
+                console.log("에러입니다" + error);
             }
         });
     });
-
-
-
-
-
-
-
-
-    /* 공고 관리 */
-
-
-
-
-
-
-
-
-    /* 지원자 관리 */
-
-
-
-
 
 
 
