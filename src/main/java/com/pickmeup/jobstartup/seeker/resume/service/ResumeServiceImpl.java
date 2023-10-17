@@ -25,9 +25,9 @@ public class ResumeServiceImpl implements ResumeService{
 
     //이력서 목록조회
     @Override
-    public List<ResumeDTO> selectResumeList () {
+    public List<ResumeDTO> selectResumeList (int member_no) {
         logger.info("ResumeServiceImpl-selectResumeList() 진입");
-        return resumeRepository.selectResumeList();
+        return resumeRepository.selectResumeList(member_no);
     }
 
     //이력서 상세 조회

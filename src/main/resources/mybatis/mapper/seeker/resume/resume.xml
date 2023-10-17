@@ -4,10 +4,11 @@
 <mapper namespace="com.pickmeup.jobstartup.seeker.resume.repository.ResumeRepository">
 
     <!-- 이력서 목록 조회 -->
-    <select id="selectResumeList" resultType="ResumeDTO"><!-- resultType에 있는 ResumeDTO가 mybatis-config.xml에 alias로 명시해준 것 -->
+    <select id="selectResumeList" resultType="ResumeDTO" parameterType="int"><!-- resultType에 있는 ResumeDTO가 mybatis-config.xml에 alias로 명시해준 것 -->
         <![CDATA[
         SELECT *
         FROM RESUME
+        WHERE MEMBER_NO = #{member_no}
         ORDER BY RESUME_NO DESC
         ]]>
     </select>

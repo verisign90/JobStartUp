@@ -12,7 +12,7 @@ import java.util.List;
 public interface ResumeRepository {
 
     //이력서 목록 조회
-    public List<ResumeDTO> selectResumeList ();
+    public List<ResumeDTO> selectResumeList (int member_no);
 
     //이력서 상세조회
     public ResumeDTO selectResumeDetail (int resume_no);

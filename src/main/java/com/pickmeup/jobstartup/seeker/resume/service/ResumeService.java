@@ -11,7 +11,7 @@ import java.util.List;
 public interface ResumeService {
 
     //이력서 목록조회
-    public List<ResumeDTO> selectResumeList ();
+    public List<ResumeDTO> selectResumeList (int member_no);
 
     //이력서 상세조회
     public ResumeDTO selectResumeDetail (int resume_no);
