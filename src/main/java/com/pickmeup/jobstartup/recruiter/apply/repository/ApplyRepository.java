@@ -33,5 +33,9 @@ public interface ApplyRepository {
     public ApplyDTO getCompanyInfo(int company_no);
 
 
+    public void deleteFile(int cfile_no);
 
+    public int existCheck(String originalFilename, int company_no);
+
+    public void updateInfo(ApplyDTO applyDTO);
 }

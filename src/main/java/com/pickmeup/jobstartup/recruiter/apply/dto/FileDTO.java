@@ -10,6 +10,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class FileDTO {
+    private int cfile_no;
     private int company_no;
     private String cfile_orgname;
     private String cfile_savname;

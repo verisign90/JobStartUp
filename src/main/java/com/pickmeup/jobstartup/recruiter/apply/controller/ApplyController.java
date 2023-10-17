@@ -1,14 +1,17 @@
 package com.pickmeup.jobstartup.recruiter.apply.controller;
 
+
 import com.pickmeup.jobstartup.recruiter.apply.dto.*;
 
 import com.pickmeup.jobstartup.recruiter.apply.service.ApplyService;
-import com.pickmeup.jobstartup.recruiter.apply.service.ApplyServiceImpl;
 
-import com.zaxxer.hikari.util.FastList;
+
+
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,12 +21,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@RequestMapping("/apply")
+
+@RequestMapping("/recruiter")
 @Controller
 @RequiredArgsConstructor
 public class ApplyController {
@@ -40,26 +45,35 @@ public class ApplyController {
         return String.format("redirect:/test");
     }
 
-    /*@WebServlet("/deleteFile")
-    public class FileDeletionServlet extends HttpServlet {
-        protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            String fileName = request.getParameter("fileName");
-
-            // 파일 삭제를 위해 FileDeleter 클래스 사용
-            boolean success = FileDeleter.deleteFile("파일 경로" + fileName);
-
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-
-            // 파일 삭제 결과를 클라이언트에 반환
-            JsonObject result = new JsonObject();
-            result.addProperty("success", success);
-
-            try (PrintWriter out = response.getWriter()) {
-                out.print(result.toString());
-            }
-        }
+    /*@PostMapping("/delete")
+    public String updateComLogo(@RequestParam String cfile_savname , @RequestParam int cfile_no) {
+        System.out.println("여기는 post delete");
+        //Business Logic
+        //String savedSavname = selectComLogoName(company_no);
+        //applyService.deleteFile(cfile_savname);
+        String DeletefilePath = "C:\\jobStartUp_fileUpload\\company\\file" + File.separator + cfile_savname;
+        File fileToDelete = new File(DeletefilePath);
+        fileToDelete.delete();
+        applyService.deleteFile(cfile_no);
+        //Model and View
+        return "/recruiter/apply";
     }*/
+
+    @PostMapping("/delete")
+    public ResponseEntity<String> updateComLogo(@RequestParam String cfile_savname, @RequestParam int cfile_no) {
+        // Business Logic (파일 삭제)
+
+        String DeletefilePath = "C:\\jobStartUp_fileUpload\\company\\file" + File.separator + cfile_savname;
+        File fileToDelete = new File(DeletefilePath);
+
+        if (fileToDelete.exists() && fileToDelete.delete()) {
+            applyService.deleteFile(cfile_no);
+            return ResponseEntity.ok("success");
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("파일 삭제에 실패했습니다.");
+        }
+    }
+
 
     @GetMapping("/download")
     public ResponseEntity<byte[]> downloadFile(@RequestParam("fileName") String fileName) throws IOException {
@@ -89,26 +103,109 @@ public class ApplyController {
         }
     }
 
+    @PostMapping("/modify/{company_no}")
+    public String updateInfo(@PathVariable("company_no") int company_no,@ModelAttribute ApplyDTO applyDTO,@RequestParam("document") MultipartFile[] files,@RequestParam("logo") MultipartFile logoFile){
+        //여기는 로고첨부
+
+        System.out.println("PostMapping modify: " );
+        if (!logoFile.isEmpty()) {
+            try {
+                String originalFileName = logoFile.getOriginalFilename();
+                String uploadDir = "C:\\jobStartUp_fileUpload\\company\\logo"; // 파일을 저장할 경로를 지정하세요.
+                UUID uuid = UUID.randomUUID();
+                String logo_savname = uuid.toString()+"_"+originalFileName;
+                String filePath = uploadDir + File.separator + logo_savname;
+                File dest = new File(filePath);
+                logoFile.transferTo(dest);
+
+                // 파일 업로드가 성공하면 파일 정보를 applyDTO에 저장하거나 다른 처리를 수행할 수 있습니다.
+                System.out.println("originalFilename : " + originalFileName);
+                applyDTO.setLogo_orgname(originalFileName); // 사진 원본명 저장
+                System.out.println("applyDTO의 logo_orgnamer은 : " + applyDTO.getLogo_orgname());
+                applyDTO.setLogo_savname(logo_savname); // 사진 저장명(경로) 저장
+            } catch (IOException e) {
+                e.printStackTrace();
+                // 파일 업로드 중 오류 처리
+            }
+        }
+        System.out.println(applyDTO);
+        System.out.println("여까지오나 보자 ㅅㅂ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`");
+        //dto에만 저장했음 db에도 넣어줘야함
+        List<FileDTO> fileDTOList = new ArrayList<>();
+        for (MultipartFile file : files) {
+            int check = applyService.existCheck(file.getOriginalFilename(),company_no);
+            if (!file.isEmpty() && check ==0) {
+                try {
+                    String originalFileName = file.getOriginalFilename();
+                    String uploadDir = "C:\\jobStartUp_fileUpload\\company\\file"; // 파일을 저장할 경로를 지정하세요.
+                    UUID uuid = UUID.randomUUID();
+                    String cfile_savname = uuid.toString()+"_"+originalFileName;
+                    String filePath = uploadDir + File.separator + cfile_savname;
+                    File dest = new File(filePath);
+                    file.transferTo(dest);
+
+                    // 파일 업로드가 성공하면 FileDTO에 정보를 저장합니다.
+                    FileDTO fileDTO = new FileDTO();
+                    fileDTO.setCfile_orgname(originalFileName);
+                    //cfile_savname에 uuid+원본파일명
+
+                    fileDTO.setCfile_savname(cfile_savname);
+                    fileDTOList.add(fileDTO);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    // 파일 업로드 중 오류 처리
+                }
+            }
+        }
+
+        applyService.updateInfo(applyDTO);
+
+
+        for (FileDTO fileDTO : fileDTOList) {
+            System.out.println("test FileDTO" + fileDTO);
+            fileDTO.setCompany_no(company_no);
+        }
+        applyService.insertFile(fileDTOList);
+        return "redirect:/recruiter/apply";
+    }
+
 
     //신청서 요청
     @GetMapping("/modify/{company_no}")
     public String modify(@PathVariable("company_no") int company_no ,Model model) {
         List<FileDTO> fileDTOList = applyService.getFileList(company_no);
         ApplyDTO applyDTO = applyService.getCompanyInfo(company_no);
+        List<LocDTO> upperLoc = applyService.getUpperLoc();
+        List<JobDTO> upperJob = applyService.getBusiness_type_code_up();
         System.out.println("여기는 modify"+ fileDTOList );
         System.out.println("여기는 modify"+ applyDTO );
         model.addAttribute("fileDTOList",fileDTOList);
         model.addAttribute("applyDTO",applyDTO);
+        model.addAttribute("upperLoc", upperLoc);
+        model.addAttribute("upperJob", upperJob);
 
 
 
-       /* model.addAttribute("upperLoc", upperLoc);
+        model.addAttribute("upperLoc", upperLoc);
         model.addAttribute("upperJob", upperJob);
         System.out.println(upperLoc);
-        System.out.println(upperJob);*/
+        System.out.println(upperJob);
 
         return "recruiter/apply/modify";
     }
+
+    //로고선택시 삭제
+    @PostMapping("/deleteLogo")
+    public void modifyRecruiterProfile(
+            @RequestParam("currentLogoName") String currentLogoName) {
+        //1. 삭제: Logo Delete (saved file delete)
+        String DeletefilePath = "C:\\jobStartUp_fileUpload\\company\\logo" + File.separator + currentLogoName;
+        File fileToDelete = new File(DeletefilePath);
+        fileToDelete.delete();
+
+        //return "redirect:/recruiter/apply"; // 적절한 리다이렉트 경로로 변경
+    }
+
 
     //신청서 작성양식
     @GetMapping("/apply")
@@ -160,6 +257,7 @@ public class ApplyController {
         List<FileDTO> fileDTOList = new ArrayList<>();
 
         for (MultipartFile file : files) {
+
             if (!file.isEmpty()) {
                 try {
                     String originalFileName = file.getOriginalFilename();
@@ -198,11 +296,11 @@ public class ApplyController {
         }
         applyService.insertFile(fileDTOList);
         System.out.println("여기는 apply post컨트롤러2");
-        return String.format("redirect:/apply/apply");
+        return String.format("redirect:/recruiter/apply");
     }
 
     //하위지역 받아오기
-    @GetMapping("/getLowerLoc")
+    @GetMapping("/getLowerLoc2")
     @ResponseBody
     public List<LocDTO> getLowerLoc(@RequestParam String upperLoc) {
         System.out.println(applyService.getLowerLoc(upperLoc));

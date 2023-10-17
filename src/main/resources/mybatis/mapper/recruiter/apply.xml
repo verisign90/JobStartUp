@@ -2,6 +2,43 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.pickmeup.jobstartup.recruiter.apply.repository.ApplyRepository">
+
+    <update id="updateInfo" parameterType="ApplyDTO">
+        <![CDATA[
+        update company
+        set company_name = #{company_name},
+        company_hp = #{company_hp},
+        ceo_name = #{ceo_name},
+        company_type = #{company_type},
+        business_type_code = #{business_type_code},
+        company_address_code = #{company_address_code},
+        company_address_detail = #{company_address_detail},
+        company_site = #{company_site},
+        company_est = #{company_est},
+        company_sales = #{company_sales},
+        logo_orgname = #{logo_orgname},
+        logo_savname = #{logo_savname}
+        where company_no = #{company_no}
+        ]]>
+    </update>
+
+    <select id="existCheck" resultType="int">
+        <![CDATA[
+        select count(*)
+        FROM company_file
+        WHERE company_no = #{param2} and cfile_orgname = #{param1}
+        ]]>
+
+    </select>
+
+    <delete id="deleteFile"  parameterType="int">
+        <![CDATA[
+        delete
+        FROM company_file
+        WHERE cfile_no = #{cfile_no}
+        ]]>
+    </delete>
+
     <!-- company applyDTO가져오기 -->
     <select id="getCompanyInfo" resultType="com.pickmeup.jobstartup.recruiter.apply.dto.ApplyDTO" parameterType="int">
         <![CDATA[
@@ -32,8 +69,8 @@
     <insert id="insertInfo" parameterType="ApplyDTO">
 
         <![CDATA[
-        insert into company (member_no,company_name,company_hp,ceo_name,company_type,business_type_code,company_address_code,company_sales,logo_orgname,logo_savname,company_address_detail)
-        values(#{member_no},#{company_name},#{company_hp},#{ceo_name},#{company_type},#{business_type_code},#{company_address_code},#{company_sales},#{logo_orgname},#{logo_savname},#{company_address_detail})
+        insert into company (member_no,company_name,company_hp,ceo_name,company_type,business_type_code,company_address_code,company_sales,logo_orgname,logo_savname,company_address_detail,company_est,company_site)
+        values(#{member_no},#{company_name},#{company_hp},#{ceo_name},#{company_type},#{business_type_code},#{company_address_code},#{company_sales},#{logo_orgname},#{logo_savname},#{company_address_detail},#{company_est},#{company_site})
         ]]>
     </insert>
 
