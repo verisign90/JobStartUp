@@ -353,7 +353,7 @@ public class QnAServiceImpl implements QnAService{
 
             //삭제 될 file 목록 조회
             for(Long aFileNo : delteNoList){
-                AnswerFileDTO deleteFileDTO = qnARepository.selectAnswerFileMyFileNo(aFileNo);
+                AnswerFileDTO deleteFileDTO = qnARepository.selectAnswerFileByFileNo(aFileNo);
                 Path file = Paths.get(uploadAPath+deleteFileDTO.getAFile_savName());
                 Files.deleteIfExists(file);
                 qnARepository.deleteFileByFileNo(aFileNo);
@@ -387,4 +387,33 @@ public class QnAServiceImpl implements QnAService{
             }
         }
     }
+
+    @Transactional
+    @Override
+    public void deleteAnswer(long aNo) throws Exception {
+        List<AnswerFileDTO> answerFileDTOList = qnARepository.selectAnswerFileByAno(aNo);
+        if (answerFileDTOList!=null || answerFileDTOList.isEmpty()) {
+            // 저장된 모든 파일 삭제 - local
+            for(AnswerFileDTO answerFileDTO : answerFileDTOList) {
+                Path file = Paths.get(uploadAPath+answerFileDTO.getAFile_savName());
+                Files.deleteIfExists(file);
+            }
+            // 저장된 모든 파일 삭제 - DB
+            qnARepository.deleteAnswerFileAll(aNo);
+        }
+        qnARepository.deleteAnswerByNo(aNo);
+    }
+
+    @Override
+    public QuestionFileDTO getQuestionFile(long qFile_no) throws Exception {
+        return qnARepository.selectQuestionFileByFileNo(qFile_no);
+    }
+
+    @Override
+    public AnswerFileDTO getAnswerFile(long aFile_no) throws Exception {
+        return qnARepository.selectAnswerFileByFileNo(aFile_no);
+    }
+
+
 }
+

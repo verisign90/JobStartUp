@@ -49,7 +49,7 @@
                   <c:if test="${not empty question.questionFileDTOList}">
                    <span> 첨부파일 :
                      <c:forEach var="questionFile" items="${question.questionFileDTOList}">
-                        <div class="file">${questionFile.QFile_orgName}</div>
+                        <a class="no-hover" href="/qna/qfileDownload/${questionFile.QFile_no}"><div class="file">${questionFile.QFile_orgName}</div></a>
                      </c:forEach>
                    </span>
                   </c:if>
@@ -68,12 +68,12 @@
                       <c:if test="${not empty question.answerDTO.answerFileDTOList}">
                        <span> 첨부파일 :
                          <c:forEach var="answerFile" items="${question.answerDTO.answerFileDTOList}">
-                            <div class="file">${answerFile.AFile_orgName}</div>
+                             <a class="no-hover" href="/qna/afileDownload/${answerFile.AFile_no}"><div class="file">${answerFile.AFile_orgName}</div></a>
                          </c:forEach>
                        </span>
                       </c:if>
                    <span><button type="button" onclick="modifyAnswer(${question.q_no}); answerForm(${question.q_no});">수정</button></span>
-                   <span><button type="button" onclick="deleteAnswer(${question.q_no});">삭제</button></span>
+                   <span><button type="button" onclick="deleteAnswer(${question.answerDTO.a_no});">삭제</button></span>
                </c:otherwise>
                </c:choose>
               </div>
@@ -335,10 +335,10 @@
                 btn.click();
               };
 
-              btn.appendChild(icon);
-              div.appendChild(fileSpan);
-              div.appendChild(btn);
-              return div;
+                btn.appendChild(icon);
+                div.appendChild(fileSpan);
+                div.appendChild(btn);
+                return div;
             }
 
             /* 기존에 저장된 이미지 div 반환 */
@@ -375,11 +375,10 @@
                 btn.click();
               };
 
-              btn.appendChild(icon);
-              div.appendChild(fileSpan);
-              div.appendChild(hiddenInput);
-              div.appendChild(btn);
-              return div;
+                btn.appendChild(icon);
+                div.appendChild(fileSpan);
+                div.appendChild(btn);
+                return div;
             };
 
             fileListArray.forEach(function(item){
@@ -407,8 +406,8 @@
        });
     }
 
-    function deleteAnswer(qNo) {
-        window.location.href = '/qna/deleteAnswer'+qNo;
+    function deleteAnswer(aNo) {
+        window.location.href = '/qna/deleteAnswer/'+aNo;
     }
 </script>
 </html>

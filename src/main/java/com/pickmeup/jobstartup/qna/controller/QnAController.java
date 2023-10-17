@@ -4,14 +4,24 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pickmeup.jobstartup.common.paging.Criteria;
 import com.pickmeup.jobstartup.common.paging.PagingResponse;
 import com.pickmeup.jobstartup.qna.dto.AnswerDTO;
+import com.pickmeup.jobstartup.qna.dto.AnswerFileDTO;
 import com.pickmeup.jobstartup.qna.dto.QuestionDTO;
+import com.pickmeup.jobstartup.qna.dto.QuestionFileDTO;
 import com.pickmeup.jobstartup.qna.service.QnAService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.UriUtils;
 
+import java.net.MalformedURLException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Paths;
 import java.util.Arrays;
 
 @Controller
@@ -102,4 +112,57 @@ public class QnAController {
         }
         return "redirect:/qna/list";
     }
+
+    @GetMapping("/deleteAnswer/{aNo}")
+    public String deleteAnswer(@PathVariable long aNo) throws Exception {
+        qnAService.deleteAnswer(aNo);
+        return "redirect:/qna/list";
+    }
+
+    @GetMapping("/qfileDownload/{qFile_no}")
+    public ResponseEntity<Resource> downloadQFile(@PathVariable("qFile_no") long qFile_no) throws Exception {
+        String uploadQPath = "C:/jobStartUp_fileUpload/qna/question/";
+        QuestionFileDTO questionFileDTO = qnAService.getQuestionFile(qFile_no);
+        String filePath = uploadQPath+questionFileDTO.getQFile_savName();
+        UrlResource resource;
+        try{
+            resource = new UrlResource(Paths.get(filePath).toUri());
+        }catch (MalformedURLException e){
+            e.getStackTrace();
+            throw new RuntimeException("the given URL path is not valid");
+        }
+        //Header
+        String qFile_savName = questionFileDTO.getQFile_savName();
+        String encodedQFile_savName = UriUtils.encode(qFile_savName, StandardCharsets.UTF_8);
+        String contentDisposition = "attachment; filename=\"" + encodedQFile_savName + "\"";
+
+        return ResponseEntity
+                .ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION,contentDisposition)
+                .body(resource);
+    }
+
+
+    @GetMapping("/afileDownload/{aFile_no}")
+    public ResponseEntity<Resource> downloaAFile(@PathVariable("aFile_no") long aFile_no) throws Exception {
+        String uploadAPath = "C:/jobStartUp_fileUpload/qna/answer/";
+        AnswerFileDTO answerFileDTO = qnAService.getAnswerFile(aFile_no);
+        String filePath = uploadAPath+answerFileDTO.getAFile_savName();
+        UrlResource resource;
+        try{
+            resource = new UrlResource(Paths.get(filePath).toUri());
+        }catch (MalformedURLException e){
+            e.getStackTrace();
+            throw new RuntimeException("the given URL path is not valid");
+        }
+        String aFile_savName = answerFileDTO.getAFile_savName();
+        String encodedAFile_savName = UriUtils.encode(aFile_savName, StandardCharsets.UTF_8);
+        String contentDisposition = "attachment; filename=\"" + encodedAFile_savName + "\"";
+
+        return ResponseEntity
+                .ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION,contentDisposition)
+                .body(resource);
+    }
+
 }
