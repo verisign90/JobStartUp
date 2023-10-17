@@ -24,4 +24,7 @@ public interface MemberRepository {
 
     //스프링 시큐리티를 위한 것. 아이디로 멤버 가져오기
     Member findByUsername(String username);
+
+    //사업자등록번호 중복 확인
+    Member findByBusinessNo(String business_no);
 }

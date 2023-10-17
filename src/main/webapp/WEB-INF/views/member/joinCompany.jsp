@@ -105,7 +105,7 @@
    </div>
    <div>
        <label for="businessNo">사업자등록번호</label>
-       <input type="text" id="businessNo" name="businessNo" maxlength="10">
+       <input type="text" id="business_no" name="business_no" maxlength="10" placeholder="사업자등록번호 직접 입력(10자리)">
        <p id="result"></p>
    </div>
    <div>
@@ -445,30 +445,68 @@ $(document).ready(function(){
     });
 });
 
-<%-- 사업자등록번호 진위 확인 --%>
-$(document).ready(function(){
-    $("#businessNo").on('blur keyup', function() {
-        let businessNo = $(this).val();
-        if(businessNo.length == 10) {
-            verifyBusinessNumber(businessNo);
+<%-- 사업자등록번호 상태조회 --%>
+$("#business_no").on("change", function() {
+    var businessNumber = $(this).val();
+
+    $.ajax({
+        url: "/duplicateBusinessNo",
+        type: "POST",
+        data: { business_no: businessNumber },
+        success: function(isDuplicated) {
+            if (isDuplicated) {
+                $("#result").text("이미 사용 중인 사업자번호입니다");
+            } else {
+                var data = {
+                    "b_no": [businessNumber]
+                };
+
+                $.ajax({
+                    url: "http://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=xuAfhMKhUa%2B1jNrdQ1fDVMZ%2F3iAYEDs3pblcc50QZPoB23k4kXlYiJ7N1HqZt49lj0fCgLRj7%2BmNrVWjxYfxRA%3D%3D",
+                    type: "POST",
+                    data: JSON.stringify(data),
+                    dataType: "JSON",
+                    contentType: "application/json",
+                    accept: "application/json",
+                    success: function(result) {
+                       var taxType = result.data[0].tax_type;
+
+                       if (taxType === "국세청에 등록되지 않은 사업자등록번호입니다.") {
+                           $("#result").text(taxType);
+                       } else {
+                           $("#result").text("유효한 사업자등록번호입니다.");
+                       }
+                    },
+                    error: function(result) {
+                        console.log(result.responseText);
+                    }
+                });
+            }
+        },
+        error: function(error) {
+            console.log(error.responseText);
         }
     });
+});
 
-    function verifyBusinessNumber(businessNo) {
-        $.ajax({
-            type: "POST",
-            url: "/verifyBusinessNumber",
-            data: businessNo,
-            contentType: "application/json",
-            success: function(response){
-                $("#result").html(response);
-            },
-            error: function(xhr, status, error){
-                $("#result").html(xhr.responseText);
-            }
-        });
+
+<%-- 사업자등록번호 유효성 검사 --%>
+$("#business_no").on("blur", function() {
+    if ($(this).val() === "") {
+        $("#result").text("사업자등록번호를 입력하세요");
     }
 });
+
+$("#business_no").on("keyup", function() {
+    var inputValue = $(this).val();
+
+    if (isNaN(inputValue)) {
+        $("#result").text("사업자번호는 숫자만 입력하세요");
+    } else if (inputValue.length === 10) {
+        $("#result").text("");
+    }
+});
+
 </script>
 </body>
 </html>

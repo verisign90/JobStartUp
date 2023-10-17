@@ -25,4 +25,7 @@ public interface MemberService {
 
     //회원 객체를 자동으로 로그인한 상태로 만듦
     void autoLogin(Member member);
+
+    //사업자등록번호 중복 확인
+    boolean isDuplicateBusinessNo(String business_no);
 }

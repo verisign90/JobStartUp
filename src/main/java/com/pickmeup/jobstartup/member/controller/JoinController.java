@@ -81,6 +81,7 @@ public class JoinController {
     //기업 회원가입
     @PostMapping("/joinCompany")
     public String joinCompany(@Valid @ModelAttribute JoinCompanyDTO joinCompanyDTO, BindingResult bindingResult, Model model) {
+        log.info("joinCompany 컨트롤러 메소드 호출됨");
         //dto 유효성 검사
         if (bindingResult.hasErrors()) {
             model.addAttribute("errors", bindingResult.getFieldErrors());
@@ -104,7 +105,8 @@ public class JoinController {
             memberService.autoLogin(member);
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             log.info("권한: " + authentication.getAuthorities());
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
+            log.error("에러 알려줘", e);
             model.addAttribute("errorMessage", e.getMessage());
             return "member/joinCompany";
         }
@@ -123,18 +125,6 @@ public class JoinController {
 
         return ResponseEntity.ok(response);
     }
-
-    //개인회원 가입 성공시 보여지는 페이지
-    @GetMapping("/mainCommon")
-    public String mainCommon() {
-        return "member/mainCommon";
-    }
-
-    @GetMapping("/mainCompany")
-    public String mainCompany() {
-        return "member/mainCompany";
-    }
-
 
     //4자리 인증번호 받기
 //    @PostMapping("/phoneCheck")
@@ -183,15 +173,10 @@ public class JoinController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/verifyBusinessNumber")
+    //사업자등록번호 중복 검사
+    @PostMapping("/duplicateBusinessNo")
     @ResponseBody
-    public ResponseEntity<String> verifyBusinessNumber(@RequestBody String businessNumber) {
-//        boolean isValid = businessNumberService.verifyBusinessNumber(businessNumber);
-
-//        if(isValid) {
-            return ResponseEntity.ok("사업자번호가 유효합니다.");
-//        } else {
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("등록되지 않은 사업자번호입니다.");
-//        }
+    public boolean checkDuplicateBusinessNo(@RequestParam String business_no) {
+        return memberService.isDuplicateBusinessNo(business_no);
     }
 }

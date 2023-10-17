@@ -73,6 +73,8 @@ public class MemberServiceImpl implements MemberService {
         String menuId = getMemberMenuId(joinCompanyDTO.getMember_type().getCode());
         member.setMenu_id(menuId);
 
+        member.setBusiness_no(joinCompanyDTO.getBusiness_no());
+
         memberRepository.saveCompany(member);
         log.info("서비스 Loaded user: {}, with authorities: {}", member.getMember_id(), member.getMember_type());
         return member;
@@ -162,5 +164,11 @@ public class MemberServiceImpl implements MemberService {
                 new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
         //생성한 토큰을 현재 SecurityContext에 설정. 해당 사용자를 로그인한 상태로 만듦.
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+    }
+
+    //사업자등록번호 중복 확인
+    @Override
+    public boolean isDuplicateBusinessNo(String business_no) {
+        return memberRepository.findByBusinessNo(business_no) != null;
     }
 }

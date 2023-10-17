@@ -15,8 +15,8 @@
 
     <!-- 기업회원가입 -->
     <insert id="saveCompany">
-        INSERT INTO member(member_id, member_type, menu_id, member_name, member_pw, member_sex, member_hp, member_email, member_birth, member_loc, status_yn)
-        VALUES(#{member_id}, #{member_type}, #{menu_id}, #{member_name}, #{member_pw}, #{member_sex}, #{member_hp}, #{member_email}, #{member_birth}, #{member_loc}, #{status_yn})
+        INSERT INTO member(member_id, member_type, menu_id, member_name, member_pw, member_sex, member_hp, member_email, member_birth, member_loc, status_yn, business_no)
+        VALUES(#{member_id}, #{member_type}, #{menu_id}, #{member_name}, #{member_pw}, #{member_sex}, #{member_hp}, #{member_email}, #{member_birth}, #{member_loc}, #{status_yn}, #{business_no})
     </insert>
 
     <!-- 회원 구분에 따른 메뉴 ID 가져오기 -->
@@ -34,5 +34,10 @@
     <!-- 스프링 시큐리티. 아이디로 멤버 객체 가져오기 -->
     <select id="findByUsername" parameterType="String" resultType="com.pickmeup.jobstartup.member.entity.Member">
         SELECT * FROM member WHERE member_id = #{username}
+    </select>
+
+    <!-- 사업자등록번호 중복 확인 -->
+    <select id="findByBusinessNo" resultType="com.pickmeup.jobstartup.member.entity.Member">
+        SELECT * FROM member WHERE business_no = #{business_no}
     </select>
 </mapper>
