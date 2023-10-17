@@ -11,18 +11,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css" rel="stylesheet">
+    <!-- 기업 마이 페이지 (private edited) -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/base.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/recruiter/mypage/recruiterMyPage.css">
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/recruiter/mypage/recruiterMyPage.js"></script>
     <!-- 기업 마이 페이지 (캘린더) -->
     <script src="${pageContext.request.contextPath}/js/recruiter/mypage/recruiterCalendar.js"></script>
     <script src="${pageContext.request.contextPath}/js/recruiter/mypage/recruiterCalendarEdit.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/recruiter/mypage/recruiterCalendar.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/recruiter/mypage/recruiterCalendarEdit.css"/>
-    <!-- 기업 마이 페이지 (private edited) -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/base.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/recruiter/mypage/recruiterMyPage.css">
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/recruiter/mypage/recruiterMyPage.js"></script>
     <!-- Bootstrap core CSS -->
     <link href="/css/template/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/template/assets/css/templatemo-chain-app-dev.css">
@@ -35,7 +34,6 @@
     <div class="header-text" data-wow-duration="1s" data-wow-delay="1s">
     </div>
 </div>
-<%@ include file="../../layout/layoutSideAdmin.jsp" %>
 
 <main>
     <article>
@@ -43,9 +41,6 @@
     <div class="main-container">
         <div class="info-container">
             <div class="info-main-container">
-                <div class="company-schedule">
-                    <div id="calendar" class="calendar"></div>
-                </div>
                 <div class="company">
                     <form action="/recruiter/updateComLogo" method="POST" enctype="multipart/form-data">
                         <div class="profile">
@@ -99,21 +94,33 @@
                 </div>
                 <div class="question-answer">
                 </div>
+                <div class="company-schedule">
+                    <div id="calendar" class="calendar"></div>
+                </div>
             </div>
         </div>
 
         <div class="status-container">
 
             <div class="content-label-container">
-                <div id="apply-manage" class="content-label">
-                    지원자 관리
-                </div>
-                <div id="job-posting" class="content-label">
-                    공고 관리
-                </div>
-                <div id="job-fair" class="content-label">
-                    박람회 현황
-                </div>
+                <form action="/recruiter/getJobPostingList" method="post">
+                    <input type="hidden" id="list_company_no" name="list_company_no" value="${recruiterFileDTO.company_no}">
+                    <div class="content-label">
+                        <button type="button" id="job-posting">공고 관리</button>
+                    </div>
+                </form>
+<!--                <form action="/recruiter/getAppList" method="post">
+                    <input type="hidden" name="list_company_no" value="${recruiterFileDTO.company_no}">
+                    <div id="apply-manage" class="content-label">
+                        지원자 관리
+                    </div>
+                </form>
+                <form action="/recruiter/getJobFairList" method="post">
+                    <input type="hidden" name="list_company_no" value="${recruiterFileDTO.company_no}">
+                    <div id="job-fair" class="content-label">
+                        박람회 현황
+                    </div>
+                </form>-->
             </div>
 
             <div class="content-container">
@@ -138,39 +145,39 @@
             </div>
         </div>
     </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <form action="/recruiter/insertCalendar" method="post">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">일정을 입력하세요.</h5>
-                        <button type="button" id="closeModal" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="service-item">
-                            <input type="hidden" id="COMPANY_NO" value="${recruiterFileDTO.company_no}">
-                            <label for="SCHEDULE_TITLE" class="col-form-label">일정 내용</label>
-                            <input type="text" class="form-control" id="SCHEDULE_TITLE" name="calendar_content">
-                            <label for="SCHEDULE_START" class="col-form-label">시작 날짜</label>
-                            <input type="date" class="form-control" id="SCHEDULE_START" name="calendar_start_date">
-                            <label for="SCHEDULE_END" class="col-form-label">종료 날짜</label>
-                            <input type="date" class="form-control" id="SCHEDULE_END" name="calendar_end_date">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-warning" id="addCalendar">추가</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
     </article>
 </main>
+
+<!-- Modal -->
+<div class="modal_fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form action="/recruiter/insertCalendar" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">일정을 입력하세요.</h5>
+                    <button type="button" id="closeModal" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-item">
+                        <input type="hidden" id="COMPANY_NO" value="${recruiterFileDTO.company_no}">
+                        <label for="SCHEDULE_TITLE" class="col-form-label">일정 내용</label>
+                        <input type="text" class="form-control" id="SCHEDULE_TITLE" name="calendar_content" placeholder="일정을 입력하세요">
+                        <label for="SCHEDULE_START" class="col-form-label">시작 날짜</label>
+                        <input type="date" class="form-control" id="SCHEDULE_START" name="calendar_start_date" required>
+                        <label for="SCHEDULE_END" class="col-form-label">종료 날짜</label>
+                        <input type="date" class="form-control" id="SCHEDULE_END" name="calendar_end_date" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" id="addCalendar">추가</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 
 <%@include file="../../layout/layoutFooter.jsp" %>
 

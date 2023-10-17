@@ -1,13 +1,13 @@
 // 캘린더 입력: 입력창 Modal 열기
 function openModal() {
     var calendarModal = document.querySelector('#calendarModal');
+    console.log(calendarModal);
     if (calendarModal) {
         calendarModal.style.display = 'block';
     }
 }
 // 캘린더 입력: Modal 닫기
 function closeModal(){
-    var calendarModal = document.querySelector('#calendarModal');
     var calendarModal = document.querySelector('#calendarModal');
     if (calendarModal) {
         calendarModal.style.display = 'none';
@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
         //calendar 설정(customize)
+        height: 500,
         locale: 'ko',
         initialDate: new Date(),
         navLinks: true,
@@ -41,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // 캘린더 '추가' 버튼 클릭 이벤트 발생
                 click: function() {
                     openModal();
-
+                    console.log('모달 열림');
                     // Insert: 캘린더 '추가' 버튼 클릭
                     var clickInsertButton = document.querySelector('#addCalendar');
                     clickInsertButton.addEventListener('click', function() {
@@ -110,19 +111,10 @@ document.addEventListener('DOMContentLoaded', function() {
         // Delete: 캘린더 정보 삭제
         eventClick: function(arg) {
 
-
             var schedule_title = arg.event.title;
             var schedule_start = arg.event.start;
             var schedule_end = arg.event.end;
             var company_no = document.getElementById('COMPANY_NO').value;
-
-            console.log(schedule_title);
-            console.log(schedule_start);
-            console.log(schedule_end);
-            console.log(company_no);
-
-
-
 
             if (confirm(schedule_title + '\r\n일정을 삭제하시겠습니까?')) {
                 arg.event.remove();

@@ -30,7 +30,6 @@
     <div class="header-text" data-wow-duration="1s" data-wow-delay="1s">
     </div>
 </div>
-<%@ include file="../../layout/layoutSideAdmin.jsp" %>
 
 <main>
     <article>
