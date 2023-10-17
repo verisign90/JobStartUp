@@ -7,6 +7,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 @Repository
@@ -20,8 +21,11 @@ public interface JobPostingRepository {
     //공고상세조회
     public JobPostingDTO selectJPdetail (int posting_no);
 
-    // 공지게시글 수정
-    public void modify(JobPostingDTO jobPostingDTO);
+    // 공고게시글 수정
+    public void modify(Map<String, Object> map);
+
+    // 공고 삭제
+    public void delete(int posting_no);
 
     //상위지역(서울특별시, 부산광역시 등등, 지역 계층구조 1단계) 목록 가져오기
     public List<LocDTO> getUpperLoc();

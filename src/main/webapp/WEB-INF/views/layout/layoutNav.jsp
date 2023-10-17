@@ -31,9 +31,9 @@
           <!-- ***** Logo End ***** -->
           <!-- ***** Menu Start ***** -->
           <ul class="nav">
-            <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
+            <li class="scroll-to-section"><a href="${cPath}/" class="active">Home</a></li>
             <li class="scroll-to-section"><a href="${cPath}/admin/jobfairlist">취업박람회</a></li>
-            <li class="scroll-to-section"><a href="${cPath}/recruiter/write">채용공고</a></li>
+            <li class="scroll-to-section"><a href="${cPath}/recruiter/JPlist">채용공고</a></li>
             <li class="scroll-to-section"><a href="${cPath}/seeker/resumeList">개인서비스</a></li>
             <li class="scroll-to-section"><a href="${cPath}/recruiter/myPage?company_no=4">기업서비스</a></li>
             <li class="scroll-to-section"><a href="${cPath}/notice/list">고객센터</a></li>
