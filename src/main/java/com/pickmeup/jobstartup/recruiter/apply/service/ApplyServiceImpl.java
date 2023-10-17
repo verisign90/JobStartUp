@@ -74,5 +74,11 @@ public class ApplyServiceImpl implements ApplyService {
     @Override
     public ApplyDTO getCompanyInfo(int company_no){return applyRepository.getCompanyInfo(company_no);}
 
+    public void deleteFile(int cfile_no){applyRepository.deleteFile(cfile_no);}
+
+    public int existCheck(String originalFilename, int company_no){return applyRepository.existCheck(originalFilename,company_no);}
+
+    public void updateInfo(ApplyDTO applyDTO){applyRepository.updateInfo(applyDTO);}
+
 }
 

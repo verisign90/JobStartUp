@@ -301,7 +301,7 @@
     	<div class="header">
     		<h2>Create Account</h2>
     	</div>
-    	<form id="form" class="form" action="/apply/apply" method="post" enctype="multipart/form-data" onsubmit="return onSubmitForm();">
+    	<form id="form" class="form" action="/recruiter/apply" method="post" enctype="multipart/form-data" onsubmit="return onSubmitForm();">
     		<div class="form-control">
     			<label for="username">회사명:</label>
     			<input type="text" id="company_name" name="company_name" required>
@@ -399,6 +399,18 @@
                 <small id="document-error" style="color: red;"></small><br><br>
             </div>
 
+            <div class="form-control">
+                <label for="establishment_date">회사 설립일:</label>
+                <input type="date" id="company_est" name="company_est" required onblur="validateDate()">
+                <small id="date-error" style="color: red;"></small>
+            </div>
+
+            <div class="form-control">
+                <label for="website">회사 웹사이트:</label>
+                <input type="text" id="company_site" name="company_site"  placeholder="https://www.example.com">
+                <small id="website-error" style="color: red;"></small>
+            </div>
+
     		<div class="form-control">
                 <label for="username">매출액</label>
                 <input type="text" id="company_sales" name="company_sales" required/>
@@ -416,10 +428,38 @@
 
     <script>
 
+    // 설립일 유효성검사
+        function validateDate() {
+            var dateInput = document.getElementById("establishment_date");
+            var errorSpan = document.getElementById("date-error");
+
+            // 정규 표현식을 사용하여 날짜 형식 (YYYY-MM-DD) 검사
+            var datePattern = /^\d{4}-\d{2}-\d{2}$/;
+
+            if (!datePattern.test(dateInput.value)) {
+                errorSpan.textContent = "올바른 날짜 형식 (YYYY-MM-DD)으로 입력하세요.";
+                dateInput.focus();
+                return;
+            }
+
+            var selectedDate = new Date(dateInput.value);
+            var currentYear = new Date().getFullYear();
+            var selectedYear = selectedDate.getFullYear();
+
+            if (selectedYear < 1900 || selectedYear > currentYear) {
+                errorSpan.textContent = "년도는 1900년 이상 현재 년도 이하로 입력하세요.";
+                dateInput.focus();
+                return;
+            }
+
+            errorSpan.textContent = "";
+            // 추가 작업 수행
+        }
+
     function loadLowerLoc() {
                     var upperLocValue = document.getElementById("upperLoc").value;
 
-                    fetch('/apply/getLowerLoc?upperLoc=' + upperLocValue)
+                    fetch('/recruiter/getLowerLoc2?upperLoc=' + upperLocValue)
                         .then(response => response.json())
                         .then(data => {
                             var lowerLocSelect = document.getElementById("company_address_code");
@@ -438,7 +478,7 @@
     function loadBusiness_type_code_up() {
                 var upperLocValue = document.getElementById("business_type_code_up").value;
 
-                fetch('/apply/getBusiness_type_code_up?business_type_code_up=' + upperLocValue)
+                fetch('/recruiter/getBusiness_type_code_up?business_type_code_up=' + upperLocValue)
                     .then(response => response.json())
                     .then(data => {
                         var lowerLocSelect = document.getElementById("business_type_code");
@@ -499,7 +539,7 @@
         var extraAddress = document.getElementById("sample6_extraAddress").value;
 
         document.getElementById("company_address_detail").value =
-            postcode + " " + address + " " + detailAddress + " " + extraAddress;
+            address + " " + detailAddress + " " + extraAddress + " " + postcode  ;
 
     }
     function logCompanyAddressDetail() {

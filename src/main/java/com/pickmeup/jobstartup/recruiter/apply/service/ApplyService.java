@@ -29,4 +29,11 @@ public interface ApplyService {
     public List<FileDTO> getFileList(int company_no);
 
     public ApplyDTO getCompanyInfo(int company_no);
+
+
+    public void deleteFile(int cfileNo);
+
+    public int existCheck(String originalFilename, int companyNo);
+
+    public void updateInfo(ApplyDTO applyDTO);
 }

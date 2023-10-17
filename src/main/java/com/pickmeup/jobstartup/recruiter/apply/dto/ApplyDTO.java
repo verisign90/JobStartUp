@@ -20,6 +20,9 @@ public class ApplyDTO {
     private String logo_orgname;
     private String logo_savname;
     private String company_address_detail;
+    private String company_est;
+    private String application_date;
+    private String company_site;
 
 
     @Builder
