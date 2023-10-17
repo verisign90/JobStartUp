@@ -57,5 +57,5 @@ public interface QnARepository {
 
     public void updateAnswer(AnswerDTO answerDTO) throws DataAccessException;
 
-    public AnswerFileDTO selectAnswerFileMyFileNo(Long aFileNo);
+    public AnswerFileDTO selectAnswerFileByFileNo(Long aFileNo);
 }

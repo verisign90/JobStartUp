@@ -131,7 +131,7 @@
             WHERE A_NO = #{a_no}
         ]]>
     </update>
-    <select id="selectAnswerFileMyFileNo" parameterType="long" resultType="com.pickmeup.jobstartup.qna.dto.AnswerFileDTO">
+    <select id="selectAnswerFileByFileNo" parameterType="long" resultType="com.pickmeup.jobstartup.qna.dto.AnswerFileDTO">
         <![CDATA[
             SELECT AFILE_NO, A_NO, AFILE_ORGNAME, AFILE_SAVNAME, AFILE_TYPE FROM ANSWER_FILE
             WHERE AFILE_NO = #{aFile_no}
