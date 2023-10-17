@@ -20,9 +20,13 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
 
         if (roles.contains("COMMON")) {
-            response.sendRedirect("/mainCommon");
+            response.sendRedirect("/");
+        } else if (roles.contains("COMPANY")) {
+            response.sendRedirect("/recruiter/myPage");
+        } else if (roles.contains("ADMIN")) {
+            response.sendRedirect("/admin/dashboard");
         } else if (roles.contains("UNAPPROVED_COMPANY")) {
-            response.sendRedirect("/mainCompany");
+            response.sendRedirect("/apply/apply");
         } else {
             response.sendRedirect("/login");
         }

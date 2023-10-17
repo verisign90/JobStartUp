@@ -3,6 +3,7 @@ package com.pickmeup.jobstartup.member.service;
 import com.pickmeup.jobstartup.member.dto.JoinCommonDTO;
 import com.pickmeup.jobstartup.member.dto.JoinCompanyDTO;
 import com.pickmeup.jobstartup.member.entity.Member;
+import com.pickmeup.jobstartup.member.entity.MemberType;
 import com.pickmeup.jobstartup.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +41,10 @@ public class MemberServiceImpl implements MemberService {
             throw new IllegalArgumentException("YYYYMMDD 입력 형식을 확인해 주세요");
         }
 
+        if (joinCommonDTO.getMember_id().contains("admin")) {
+            joinCommonDTO.setMember_type(MemberType.ADMIN);
+        }
+
         Member member = convertDtoToEntity(joinCommonDTO);
 
         String encryptedPassword = passwordEncoder.encode(joinCommonDTO.getMember_pw());
@@ -68,8 +73,9 @@ public class MemberServiceImpl implements MemberService {
         String menuId = getMemberMenuId(joinCompanyDTO.getMember_type().getCode());
         member.setMenu_id(menuId);
 
-        memberRepository.savePerson(member);
-//        memberRepository.saveCompany(member);
+        member.setBusiness_no(joinCompanyDTO.getBusiness_no());
+
+        memberRepository.saveCompany(member);
         log.info("서비스 Loaded user: {}, with authorities: {}", member.getMember_id(), member.getMember_type());
         return member;
     }
@@ -79,16 +85,6 @@ public class MemberServiceImpl implements MemberService {
     public String getMemberMenuId(String memberType) {
         return memberRepository.selectMenuId(memberType);
     }
-
-//    private Member convertDtoToEntity(JoinCommonDTO joinCommonDTO) {
-//        Member member = modelMapper.map(joinCommonDTO, Member.class);
-//        return member;
-//    }
-//
-//    private Member convertDtoToEntity(JoinCompanyDTO joinCompanyDTO) {
-//        Member member = modelMapper.map(joinCompanyDTO, Member.class);
-//        return member;
-//    }
 
     private <T> Member convertDtoToEntity(T dto) {
         Member member = modelMapper.map(dto, Member.class);
@@ -159,11 +155,20 @@ public class MemberServiceImpl implements MemberService {
         return memberRepository.countByEmail(emailInput) > 0;
     }
 
+    //회원 객체를 자동으로 로그인한 상태로 만듦
     @Override
     public void autoLogin(Member member) {
         UserDetails userDetails = userSecurityService.loadUserByUsername(member.getMember_id());
+        //UsernamePasswordAuthenticationToken는 인증 객체. UserDetails(사용자 정보)와 사용자의 권한을 기반으로 토큰 생성.
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+        //생성한 토큰을 현재 SecurityContext에 설정. 해당 사용자를 로그인한 상태로 만듦.
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+    }
+
+    //사업자등록번호 중복 확인
+    @Override
+    public boolean isDuplicateBusinessNo(String business_no) {
+        return memberRepository.findByBusinessNo(business_no) != null;
     }
 }

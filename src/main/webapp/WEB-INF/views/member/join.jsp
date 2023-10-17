@@ -12,5 +12,8 @@
 <button onclick="location.href='/joinCommon'">개인회원 가입</button>
 <button onclick="location.href='/joinCompany'">기업회원 가입</button>
 <button onclick="location.href='/login'">로그인</button>
+<form action="<c:url value='/logout'/>" method="post">
+    <input type="submit" value="로그아웃"/>
+</form>
 </body>
 </html>

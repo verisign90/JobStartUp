@@ -32,6 +32,8 @@ dependencies {
     implementation 'net.nurigo:sdk:4.3.0'
     implementation 'org.slf4j:slf4j-api'
     implementation 'ch.qos.logback:logback-classic'
+    implementation 'com.squareup.okhttp3:okhttp:3.12.2'
+    implementation 'org.json:json:20210307'
 
     //mail, chat, message
     implementation 'org.springframework.boot:spring-boot-starter-mail'
