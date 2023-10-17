@@ -28,7 +28,8 @@
     <update id="updateComLogo" parameterType="com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterFileDTO">
         <![CDATA[
             UPDATE company
-            SET logo_orgname = #{logo_orgname}, logo_savname = #{logo_savname}
+            SET logo_orgname = #{logo_orgname},
+                logo_savname = #{logo_savname}
             WHERE company_no = #{company_no}
         ]]>
     </update>
@@ -50,40 +51,74 @@
         ]]>
     </insert>
 
-    <!--기업 페이지: calendar 수정(수정중)-->
-
-
     <!--기업 페이지: calendar 삭제(수정중)-->
     <delete id="deleteRecruCalendar" parameterType="com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterCalendarDTO">
         <![CDATA[
             DELETE company_schedule
-            WHERE company_no = #{company_no} AND schedule_title = #{schedule_title} AND schedule_end = #{schedule_end}
+            WHERE company_no = #{company_no}
+                    AND schedule_title = #{schedule_title}
+                    AND schedule_end = #{schedule_end}
         ]]>
     </delete>
 
+    <!--기업 페이지: calendar 수정(수정중)-->
+
+
+
+
 
     <!--기업 페이지: 1) 박람회 현황(Ajax) + pagination-->
-<!--    <select id="getJobFairList" resultType="">
-
-
-
-
-
-    </select>-->
+    <select id="getJobFairList" resultType="com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterJobFairDTO">
+        <![CDATA[
+            SELECT /*+ INDEX(f SYS_C007645) INDEX_DESC(e SYS_C007729) */
+                    e.jobfairentry_no, e.company_no, e.jobfair_no, e.jobfairentry_status,
+                    f.jobfair_title, f.jobfair_place, f.jobfair_sdate, f.jobfair_edate
+            FROM job_fair f, job_fair_entry e
+            WHERE e.company_no = #{company_no}
+            AND f.jobfair_no = e.jobfair_no
+        ]]>
+    </select>
+    <!--기업 페이지: 1) 박람회 현황(Ajax) + pagination-->
+    <select id="getJobFairCount" parameterType="com.pickmeup.jobstartup.common.paging.Criteria" resultType="int">
+        <![CDATA[
+            SELECT COUNT(DISTINCT(jobfairentry_no))
+            FROM job_fair_entry
+            WHERE company_no = #{company_no}
+        ]]>
+    </select>
 
     <!--기업 페이지: 2) 공고 관리(Ajax) + pagination-->
     <select id="getJobPostingList" resultType="com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterJobPostingDTO">
         <![CDATA[
             SELECT posting_no, posting_title, posting_sdate, posting_edate, isshow
-            FROM JOB_POSTING
-            WHERE company_no = 4
-            ORDER BY posting_no DESC
+            FROM (SELECT /*+ INDEX_DESC(job_posting SYS_C007632) */
+                    rownum r, posting_no, posting_title, posting_sdate, posting_edate, isshow
+                    FROM JOB_POSTING
+                    WHERE rownum <= #{currentPageNo} * #{recordsPerPage}
+                        AND company_no = #{company_no})
+            WHERE r > (#{currentPageNo}-1) * #{recordsPerPage}
+        ]]>
+    </select>
+    <select id="getJobPostingCount" parameterType="com.pickmeup.jobstartup.common.paging.Criteria" resultType="int">
+        <![CDATA[
+            SELECT COUNT(DISTINCT(posting_no))
+            FROM job_posting
+            WHERE company_no = #{company_no}
         ]]>
     </select>
 
     <!--기업 페이지: 3) 지원자 관리(Ajax) + pagination-->
 <!--    <select id="getAppList" resultType="">
+        <![CDATA[
 
+        ]]>
+    </select>-->
+<!--    <select id="getAppListCount" parameterType="com.pickmeup.jobstartup.common.paging.Criteria" resultType="">
+        <![CDATA[
+            SELECT COUNT(DISTINCT(posting_no))
+            FROM job_posting
+            WHERE company_no = #{company_no}
+        ]]>
     </select>-->
 
 </mapper>

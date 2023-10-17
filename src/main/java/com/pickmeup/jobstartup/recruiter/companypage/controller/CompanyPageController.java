@@ -13,9 +13,6 @@ public class CompanyPageController {
     @RequestMapping("/companyPage")
     public String companyPageTest(){
 
-
-
-
         return "/recruiter/companypage/companyPage";
     }
 

@@ -37,7 +37,7 @@
 
 <main>
     <article>
-    <div class="main-title-container"><h4>기업 마이페이지</h4></div>
+    <div class="main-title-container"><h4>기업 마이 페이지</h4></div>
     <div class="main-container">
         <div class="info-container">
             <div class="info-main-container">
@@ -97,6 +97,37 @@
                 <div class="company-schedule">
                     <div id="calendar" class="calendar"></div>
                 </div>
+
+                <!-- Modal -->
+                <div class="modal_fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <form action="/recruiter/insertCalendar" method="post">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">일정을 입력하세요.</h5>
+                                    <button type="button" id="closeModal" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="modal-item">
+                                        <input type="hidden" id="COMPANY_NO" value="${recruiterFileDTO.company_no}">
+                                        <label for="SCHEDULE_TITLE" class="col-form-label">일정 내용</label>
+                                        <input type="text" class="form-control" id="SCHEDULE_TITLE" name="calendar_content" placeholder="일정을 입력하세요">
+                                        <label for="SCHEDULE_START" class="col-form-label">시작 날짜</label>
+                                        <input type="date" class="form-control" id="SCHEDULE_START" name="calendar_start_date" required>
+                                        <label for="SCHEDULE_END" class="col-form-label">종료 날짜</label>
+                                        <input type="date" class="form-control" id="SCHEDULE_END" name="calendar_end_date" required>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-warning" id="addCalendar">추가</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -104,19 +135,19 @@
 
             <div class="content-label-container">
                 <form action="/recruiter/getJobPostingList" method="post">
-                    <input type="hidden" id="list_company_no" name="list_company_no" value="${recruiterFileDTO.company_no}">
+                    <input type="hidden" class="list_company_no" name="company_no" value="${recruiterMyPageDTO.company_no}">
                     <div class="content-label">
                         <button type="button" id="job-posting">공고 관리</button>
                     </div>
                 </form>
 <!--                <form action="/recruiter/getAppList" method="post">
-                    <input type="hidden" name="list_company_no" value="${recruiterFileDTO.company_no}">
+                    <input type="hidden" class="apply_manage_company_no" name="company_no" value="${recruiterMyPageDTO.company_no}">
                     <div id="apply-manage" class="content-label">
                         지원자 관리
                     </div>
                 </form>
                 <form action="/recruiter/getJobFairList" method="post">
-                    <input type="hidden" name="list_company_no" value="${recruiterFileDTO.company_no}">
+                    <input type="hidden" class="job_fair_company_no" name="company_no" value="${recruiterMyPageDTO.company_no}">
                     <div id="job-fair" class="content-label">
                         박람회 현황
                     </div>
@@ -124,9 +155,13 @@
             </div>
 
             <div class="content-container">
-                <c:forEach var="jobPosting" items="${recruiterJobPostingDTO}" varStatus="status">
+                <c:forEach var="jobPosting" items="${jobPostingList}" varStatus="status">
                     <div class="content">
                         <table>
+                            <tr>
+                                <th>공고 제목</th>
+                                <td>${jobPosting.posting_no}</td>
+                            </tr>
                             <tr>
                                 <th>공고 제목</th>
                                 <td>${jobPosting.posting_title}</td>
@@ -142,42 +177,25 @@
                         </table>
                     </div>
                 </c:forEach>
+                <div class="pagination">
+                    <ol>
+                        <c:if test="${jobPostingPaging.prev}">
+                            <li>prev</li>
+                        </c:if>
+                        <c:forEach var ="pageNo" begin="${jobPostingPaging.strPage}" end="${jobPostingPaging.endPage}">
+                            <li><c:out value="${pageNo}"/></li>
+                        </c:forEach>
+                        <c:if test ="${jobPostingPaging.next}">
+                            <li>next</li>
+                        </c:if>
+                    </ol>
+                </div>
             </div>
         </div>
     </div>
     </article>
 </main>
 
-<!-- Modal -->
-<div class="modal_fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <form action="/recruiter/insertCalendar" method="post">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">일정을 입력하세요.</h5>
-                    <button type="button" id="closeModal" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="modal-item">
-                        <input type="hidden" id="COMPANY_NO" value="${recruiterFileDTO.company_no}">
-                        <label for="SCHEDULE_TITLE" class="col-form-label">일정 내용</label>
-                        <input type="text" class="form-control" id="SCHEDULE_TITLE" name="calendar_content" placeholder="일정을 입력하세요">
-                        <label for="SCHEDULE_START" class="col-form-label">시작 날짜</label>
-                        <input type="date" class="form-control" id="SCHEDULE_START" name="calendar_start_date" required>
-                        <label for="SCHEDULE_END" class="col-form-label">종료 날짜</label>
-                        <input type="date" class="form-control" id="SCHEDULE_END" name="calendar_end_date" required>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-warning" id="addCalendar">추가</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
 
 <%@include file="../../layout/layoutFooter.jsp" %>
 
