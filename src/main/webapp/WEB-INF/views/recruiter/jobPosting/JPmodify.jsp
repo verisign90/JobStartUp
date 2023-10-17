@@ -32,34 +32,36 @@
 </head>
 <body>
 <header>
-    <%--<div class="logo">
-        <img src="${pageContext.request.contextPath}/img/logo.png" alt="Logo">
-    </div>--%>
     <nav class="layout_nav">
         <%@ include file="../../layout/layoutNav.jsp" %>
     </nav>
 </header>
 <main>
     <article class="all-content">
-        <form action="${pageContext.request.contextPath}/recruiter/write" method="post" enctype="multipart/form-data">
+        <form action="${pageContext.request.contextPath}/recruiter/modify" method="post" enctype="multipart/form-data">
+            <input type="hidden" id="posting_no" name="posting_no" value="${jobPostingDTO.posting_no}"/>
             <section>
                 <div>
                     <h3>모집분야</h3>
                 </div>
-
                 <div>
                     <label for="posting_title" class="">공고 제목</label>
-                    <input type="text" name="posting_title" id="posting_title" class="">
+                    <input type="text" name="posting_title" id="posting_title" class=""
+                           value="${jobPostingDTO.posting_title}">
                 </div>
                 <div>
                     <label for="c1" class="">직무·직업</label>
-                    <input type="checkbox" name="posting_career" id="c1"/><label
+                    <input type="checkbox" name="posting_career" id="c1"
+                           value="신입" ${jobPostingDTO.posting_career == '신입' ? 'checked' : ''}/><label
                         for="c1">신입</label>
-                    <input type="checkbox" name="posting_career" id="c2"/><label
+                    <input type="checkbox" name="posting_career" id="c2"
+                           value="경력" ${jobPostingDTO.posting_career == '경력' ? 'checked' : ''}/><label
                         for="c2">경력</label>
-                    <input type="checkbox" name="posting_career" id="c3"/><label
+                    <input type="checkbox" name="posting_career" id="c3"
+                           value="경력무관" ${jobPostingDTO.posting_career == '경력무관' ? 'checked' : ''}/><label
                         for="c3">경력무관</label>
-                    <input type="checkbox" name="posting_career" id="c4"/><label
+                    <input type="checkbox" name="posting_career" id="c4"
+                           value="신입 지원 가능" ${jobPostingDTO.posting_career == '신입 지원 가능' ? 'checked' : ''}/><label
                         for="c4">신입 지원
                     가능</label>
                 </div>
@@ -82,26 +84,36 @@
 
                 <div>
                     <label for="w1" class="">근무형태</label>
-                    <input type="checkbox" name="posting_labor" id="w1"/><label
+                    <input type="checkbox" name="posting_labor" id="w1"
+                           value="정규직" ${jobPostingDTO.posting_career == '정규직' ? 'checked' : ''}/><label
                         for="w1">정규직</label>
-                    <input type="checkbox" name="posting_labor" id="w2"/><label
+                    <input type="checkbox" name="posting_labor" id="w2"
+                           value="계약직" ${jobPostingDTO.posting_career == '계약직' ? 'checked' : ''}/><label
                         for="w2">계약직</label>
-                    <input type="checkbox" name="posting_labor" id="w3"/><label
+                    <input type="checkbox" name="posting_labor" id="w3"
+                           value="인턴직" ${jobPostingDTO.posting_career == '인턴직' ? 'checked' : ''}/><label
                         for="w3">인턴직</label>
-                    <input type="checkbox" name="posting_labor" id="w4"/><label for="w4">아르바이트</label>
-                    <input type="checkbox" name="posting_labor" id="w5"/><label
+                    <input type="checkbox" name="posting_labor" id="w4"
+                           value="아르바이트" ${jobPostingDTO.posting_career == '아르바이트' ? 'checked' : ''}/><label for="w4">아르바이트</label>
+                    <input type="checkbox" name="posting_labor" id="w5"
+                           value="파견직" ${jobPostingDTO.posting_career == '파견직' ? 'checked' : ''}/><label
                         for="w5">파견직</label>
-                    <input type="checkbox" name="posting_labor" id="w6"/><label
+                    <input type="checkbox" name="posting_labor" id="w6"
+                           value="해외취업" ${jobPostingDTO.posting_career == '해외취업' ? 'checked' : ''}/><label
                         for="w6">해외취업</label>
-                    <input type="checkbox" name="posting_labor" id="w7"/><label
+                    <input type="checkbox" name="posting_labor" id="w7"
+                           value="계약직 (정규직 전환가능)" ${jobPostingDTO.posting_career == '계약직 (정규직 전환가능)' ? 'checked' : ''}/><label
                         for="w7">계약직 (정규직
                     전환가능)</label>
-                    <input type="checkbox" name="posting_labor" id="w8"/><label
+                    <input type="checkbox" name="posting_labor" id="w8"
+                           value="인턴직 (정규직 전환가능)" ${jobPostingDTO.posting_career == '인턴직 (정규직 전환가능)' ? 'checked' : ''}/><label
                         for="w8"> 인턴직
                     (정규직 전환가능)</label>
-                    <input type="checkbox" name="posting_labor" id="w9"/><label
+                    <input type="checkbox" name="posting_labor" id="w9"
+                           value="교육생" ${jobPostingDTO.posting_career == '교육생' ? 'checked' : ''}/><label
                         for="w9">교육생</label>
-                    <input type="checkbox" name="posting_labor" id="w10"/><label
+                    <input type="checkbox" name="posting_labor" id="w10"
+                           value="기간제" ${jobPostingDTO.posting_career == '기간제' ? 'checked' : ''}/><label
                         for="w10">기간제</label>
                 </div>
             </section>
@@ -190,15 +202,16 @@
                 <textarea class="editor" name="posting_content" id="editor"></textarea>
             </section>
             <section>
-                <div>
+<%--                <div>
                     <label for="imageFileName" class="form-label">이미지</label>
                     <input type="file" name="imageFileName" id="imageFileName" class="form-control-file"
                            onchange="readURL(this);"/>
                     <img src="#" id="preview" style="width:150px;"/>
-                </div>
+                </div>--%>
             </section>
+
             <div>
-                <button type="submit" name="subBtn" id="subBtn">입력</button>
+                <button type="submit" id="subBtn">입력</button>
             </div>
         </form>
     </article>
@@ -299,7 +312,111 @@
             .catch(error => console.error('Error:', error));
     }
 </script>
+<script>
+    /*//수정해야함
+    $(document).ready(function() { // 페이지가 로드되면 실행될 함수
+        var selectedValue = ${posting_academy};
+        selectOptionByValue(selectedValue);
 
+        var selectedValue2 = ${posting_salary};
+        selectOptionByValue(selectedValue2);
+
+        var selectedValue = ${posting_swork};
+        selectOptionByValue(selectedValue);
+
+        var selectedValue = ${posting_ework};
+        selectOptionByValue(selectedValue);
+
+/!*        // 라디오 버튼 선택 및 옵션 선택 값을 변경
+        var checkedValue = ${posting_caree}; // "typeJson"에서 값을 가져옴
+        var checkedValue = ${posting_labor};
+        var checkedValue = ${posting_working_day};
+        var selectedValue = ${posting_academy}; // "categoryJson"에서 값을 가져옴
+        var selectedValue = ${posting_salary};
+        var selectedValue = ${posting_swork};
+        var selectedValue4 = ${posting_ework};
+        selectRadioByValue(checkedValue1); // 값을 기반으로 라디오 버튼 선택
+        selectRadioByValue(checkedValue2); // 값을 기반으로 라디오 버튼 선택
+        selectRadioByValue(checkedValue3); // 값을 기반으로 라디오 버튼 선택
+        selectOptionByValue(selectedValue1); // 값을 기반으로 옵션 선택
+        selectOptionByValue(selectedValue2); // 값을 기반으로 옵션 선택
+        selectOptionByValue(selectedValue3); // 값을 기반으로 옵션 선택
+        selectOptionByValue(selectedValue4; // 값을 기반으로 옵션 선택*!/
+    });
+
+    function selectRadioByValue(checkedValue) { // 주어진 값으로 라디오 버튼 선택
+        var radioElements = document.getElementsByName('posting_career');
+        // "q_type" 이름을 가진 라디오 버튼 요소 가져옴
+        var radioElements = document.getElementsByName('posting_labor');
+        var radioElements = document.getElementsByName('posting_working_day');
+
+        for (var i = 0; i < radioElements.length; i++) {
+            if (radioElements[i].value === checkedValue) {
+                radioElements[i].checked = true; // 선택된 값을 가진 라디오 버튼 선택
+                break;
+            }
+        }
+    }
+
+    function selectOptionByValue(selectedValue) { // 주어진 값으로 옵션 선택
+        var selectElement = document.getElementById('posting_academy'); // "q_category" ID를 가진 셀렉트 요소 가져옴
+        /!*var selectElement = document.getElementById('posting_salary'); // "q_category" ID를 가진 셀렉트 요소 가져옴
+        var selectElement = document.getElementById('posting_swork'); // "q_category" ID를 가진 셀렉트 요소 가져옴
+        var selectElement = document.getElementById('posting_ework'); // "q_category" ID를 가진 셀렉트 요소 가져옴*!/
+/!*        var selectElement2 = document.getElementById('Posting_salary'); // "q_category" ID를 가진 셀렉트 요소 가져옴
+        var selectElement3 = document.getElementById('Posting_swork'); // "q_category" ID를 가진 셀렉트 요소 가져옴
+        var selectElement4 = document.getElementById('Posting_ework'); // "q_category" ID를 가진 셀렉트 요소 가져옴*!/
+
+        for (var i = 0; i < selectElement.options.length; i++) {
+            if (selectElement.options[i].value === selectedValue) {
+                selectElement.selectedIndex = i; // 선택된 값을 가진 옵션 선택
+                break;
+            }
+        }
+    }*/
+
+    $(document).ready(function() {
+        var posting_academy = ${posting_academy}; // 데이터베이스에서 가져온 posting_academy 값
+        var posting_salary = ${posting_salary}; // 데이터베이스에서 가져온 posting_salary 값
+        var posting_swork = ${posting_swork}; // 데이터베이스에서 가져온 posting_swork 값
+        var posting_ework = ${posting_ework}; // 데이터베이스에서 가져온 posting_ework 값
+        var posting_career = ${posting_career}; // 데이터베이스에서 가져온 posting_career 값
+        var posting_labor = ${posting_labor}; // 데이터베이스에서 가져온 posting_labor 값
+        var posting_working_day = ${posting_working_day}; // 데이터베이스에서 가져온 posting_working_day 값
+
+        // 이후, 해당 값을 사용하여 폼 필드를 채우는 함수를 호출할 수 있습니다.
+        selectOptionByValue('posting_academy', posting_academy);
+        selectOptionByValue('posting_salary', posting_salary);
+        selectOptionByValue('posting_swork', posting_swork);
+        selectOptionByValue('posting_ework', posting_ework);
+        selectRadioByValue('posting_career', posting_career);
+        selectRadioByValue('posting_labor', posting_labor);
+        selectRadioByValue('posting_working_day', posting_working_day);
+    });
+
+    function selectRadioByValue(fieldName, checkedValue) {
+        var radioElements = document.getElementsByName(fieldName);
+
+        for (var i = 0; i < radioElements.length; i++) {
+            if (radioElements[i].value === checkedValue) {
+                radioElements[i].checked = true;
+                break;
+            }
+        }
+    }
+
+    function selectOptionByValue(selectId, selectedValue) {
+        var selectElement = document.getElementById(selectId);
+
+        for (var i = 0; i < selectElement.options.length; i++) {
+            if (selectElement.options[i].value === selectedValue) {
+                selectElement.selectedIndex = i;
+                break;
+            }
+        }
+    }
+
+</script>
 
 </body>
 </html>

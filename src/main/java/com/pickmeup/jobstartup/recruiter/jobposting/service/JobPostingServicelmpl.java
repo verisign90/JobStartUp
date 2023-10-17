@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -36,7 +37,15 @@ public class JobPostingServicelmpl implements JobPostingService{
 
     //공고수정
     @Override
-    public void modify(JobPostingDTO jobPostingDTO) throws Exception {
+    public void modify(Map<String, Object> map) throws Exception {
+        System.out.println("여기는서비스입니다"+map);
+        jobPostingRepository.modify(map);
+    }
+
+    //삭제
+    @Override
+    public void delete(int posting_no) throws Exception{
+        jobPostingRepository.delete(posting_no);
 
     }
 
