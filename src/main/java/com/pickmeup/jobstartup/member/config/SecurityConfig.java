@@ -37,9 +37,10 @@ public class SecurityConfig {
         http
                 .authorizeRequests((authorizeHttpRequests) -> authorizeHttpRequests
                         .requestMatchers(new MvcRequestMatcher(introspector, "/admin/dashboard"),
-                                new MvcRequestMatcher(introspector, "/jobfair/**")).hasAuthority("ADMIN")
-                        .requestMatchers(new MvcRequestMatcher(introspector, "/admin/dashboard"),
-                                new MvcRequestMatcher(introspector, "/jobfair/**")).hasAuthority("ADMIN")
+                                new MvcRequestMatcher(introspector, "/jobfair/**"),
+                                new MvcRequestMatcher(introspector, "/seeker/**"),
+                                new MvcRequestMatcher(introspector, "/recruiter/**")).hasAuthority("ADMIN")
+                                    .requestMatchers(new MvcRequestMatcher(introspector, "/jobfair/**")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/apply/**")).hasAuthority("UNAPPROVED_COMPANY")
                         .requestMatchers(new AntPathRequestMatcher("/recruiter/JPlist"),
                                 new AntPathRequestMatcher("/recruiter/JPdetail/**")).permitAll()
@@ -50,7 +51,7 @@ public class SecurityConfig {
                         .accessDeniedHandler(new CustomAccessDeniedHandler()))
                 .headers((headers) -> headers.addHeaderWriter(new XFrameOptionsHeaderWriter(
                         XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)))
-                .formLogin((formLogin)->formLogin
+                .formLogin((formLogin) -> formLogin
                         .loginPage("/login")
                         .successHandler(loginSuccessHandler)
                         .failureUrl("/login?error=true"))
