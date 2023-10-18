@@ -65,9 +65,7 @@
 
 
 
-
-
-    <!--기업 페이지: 1) 박람회 현황(Ajax) + pagination-->
+    <!--기업 페이지: 박람회 현황 + pagination-->
     <select id="getJobFairList" resultType="com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterJobFairDTO">
         <![CDATA[
             SELECT /*+ INDEX(f SYS_C007645) INDEX_DESC(e SYS_C007729) */
@@ -78,7 +76,6 @@
             AND f.jobfair_no = e.jobfair_no
         ]]>
     </select>
-    <!--기업 페이지: 1) 박람회 현황(Ajax) + pagination-->
     <select id="getJobFairCount" parameterType="com.pickmeup.jobstartup.common.paging.Criteria" resultType="int">
         <![CDATA[
             SELECT COUNT(DISTINCT(jobfairentry_no))
@@ -87,7 +84,7 @@
         ]]>
     </select>
 
-    <!--기업 페이지: 2) 공고 관리(Ajax) + pagination-->
+    <!--기업 페이지: 공고 관리 + pagination-->
     <select id="getJobPostingList" resultType="com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterJobPostingDTO">
         <![CDATA[
             SELECT posting_no, posting_title, posting_sdate, posting_edate, isshow
@@ -107,18 +104,31 @@
         ]]>
     </select>
 
-    <!--기업 페이지: 3) 지원자 관리(Ajax) + pagination-->
-<!--    <select id="getAppList" resultType="">
+    <!--기업 페이지: 지원자 관리 + pagination-->
+    <select id="getAppList" resultType="com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterAppManageDTO">
         <![CDATA[
-
+            SELECT status_no, member_no, posting_no, first_pass, final_pass, interview_date, resume_title, resume_no
+            FROM(SELECT /*+ INDEX(a SYS_C007741) INDEX_DESC(r SYS_C007616) */
+                        rownum as w, a.status_no as status_no, a.member_no as member_no, a.posting_no as posting_no,
+                        a.first_pass as first_pass, a.final_pass as final_pass, a.interview_date as interview_date,
+                        r.resume_title as resume_title, r.resume_no as resume_no
+                FROM application_status a INNER JOIN resume r ON a.resume_no = r.resume_no
+                WHERE rownum <= #{currentPageNo} * #{recordsPerPage}
+                        AND a.posting_no IN (
+                            SELECT DISTINCT(posting_no) FROM job_posting WHERE company_no = #{company_no}))
+            WHERE w > (#{currentPageNo}-1) * #{recordsPerPage}
         ]]>
-    </select>-->
-<!--    <select id="getAppListCount" parameterType="com.pickmeup.jobstartup.common.paging.Criteria" resultType="">
+    </select>
+    <select id="getAppListCount" parameterType="com.pickmeup.jobstartup.common.paging.Criteria" resultType="int">
         <![CDATA[
-            SELECT COUNT(DISTINCT(posting_no))
-            FROM job_posting
-            WHERE company_no = #{company_no}
+            SELECT COUNT(r.resume_no)
+            FROM application_status a, resume r
+            WHERE a.resume_no = r.resume_no
+            AND a.posting_no IN (
+                    SELECT DISTINCT(posting_no)
+                    FROM job_posting
+                    WHERE company_no = #{company_no})
         ]]>
-    </select>-->
+    </select>
 
 </mapper>
