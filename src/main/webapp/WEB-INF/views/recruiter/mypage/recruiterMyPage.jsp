@@ -92,12 +92,9 @@
                         </table>
                     </div>
                 </div>
-                <div class="question-answer">
-                </div>
                 <div class="company-schedule">
                     <div id="calendar" class="calendar"></div>
                 </div>
-
                 <!-- Modal -->
                 <div class="modal_fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                      aria-hidden="true">
@@ -128,6 +125,9 @@
                         </form>
                     </div>
                 </div>
+                <div class="question-answer">
+                </div>
+
             </div>
         </div>
 
@@ -135,62 +135,29 @@
 
             <div class="content-label-container">
                 <form action="/recruiter/getJobPostingList" method="post">
-                    <input type="hidden" class="list_company_no" name="company_no" value="${recruiterMyPageDTO.company_no}">
+                    <input type="hidden" class="job_posting_company_no" name="company_no" value="${recruiterMyPageDTO.company_no}">
                     <div class="content-label">
                         <button type="button" id="job-posting">공고 관리</button>
                     </div>
                 </form>
-<!--                <form action="/recruiter/getAppList" method="post">
-                    <input type="hidden" class="apply_manage_company_no" name="company_no" value="${recruiterMyPageDTO.company_no}">
-                    <div id="apply-manage" class="content-label">
-                        지원자 관리
-                    </div>
-                </form>
                 <form action="/recruiter/getJobFairList" method="post">
                     <input type="hidden" class="job_fair_company_no" name="company_no" value="${recruiterMyPageDTO.company_no}">
-                    <div id="job-fair" class="content-label">
-                        박람회 현황
+                    <div class="content-label">
+                        <button type="button" id="job-fair" >박람회 현황</button>
                     </div>
-                </form>-->
+                </form>
+                <form action="/recruiter/getAppList" method="post">
+                    <input type="hidden" class="apply_manage_company_no" name="company_no" value="${recruiterMyPageDTO.company_no}">
+                    <div class="content-label">
+                        <button type="button" id="apply-manage" >지원자 관리</button>
+                    </div>
+                </form>
             </div>
 
-            <div class="content-container">
-                <c:forEach var="jobPosting" items="${jobPostingList}" varStatus="status">
-                    <div class="content">
-                        <table>
-                            <tr>
-                                <th>공고 제목</th>
-                                <td>${jobPosting.posting_no}</td>
-                            </tr>
-                            <tr>
-                                <th>공고 제목</th>
-                                <td>${jobPosting.posting_title}</td>
-                            </tr>
-                            <tr>
-                                <th>공고 시작일</th>
-                                <td><fmt:formatDate value="${jobPosting.posting_sdate}" pattern="yyyy년 MM월 dd일"/></td>
-                            </tr>
-                            <tr>
-                                <th>공고 종료일</th>
-                                <td><fmt:formatDate value="${jobPosting.posting_edate}" pattern="yyyy년 MM월 dd일"/></td>
-                            </tr>
-                        </table>
-                    </div>
-                </c:forEach>
-                <div class="pagination">
-                    <ol>
-                        <c:if test="${jobPostingPaging.prev}">
-                            <li>prev</li>
-                        </c:if>
-                        <c:forEach var ="pageNo" begin="${jobPostingPaging.strPage}" end="${jobPostingPaging.endPage}">
-                            <li><c:out value="${pageNo}"/></li>
-                        </c:forEach>
-                        <c:if test ="${jobPostingPaging.next}">
-                            <li>next</li>
-                        </c:if>
-                    </ol>
-                </div>
+            <div class="content-container" id="content-container">
+                현황을 확인해주세요
             </div>
+
         </div>
     </div>
     </article>

@@ -15,20 +15,17 @@ public interface RecruiterMyPageRepository {
     //기업 페이지: 회사 정보
     RecruiterMyPageDTO selectRecruiterInfo(int company_no);
 
-    //기업 페이지: 1) 박람회 현황(Ajax) + pagination
+    //기업 페이지: 박람회 현황 + pagination
     List<RecruiterJobFairDTO> getJobFairList(RecruiterCriteria criteria);
     int getJobFairCount(RecruiterCriteria criteria);
 
-    //기업 페이지: 2) 공고 관리(Ajax)+ pagination
+    //기업 페이지: 공고 관리+ pagination
     List<RecruiterJobPostingDTO> getJobPostingList(RecruiterCriteria criteria);
     int getJobPostingCount(RecruiterCriteria criteria);
 
-
-    //기업 페이지: 3) 지원자 관리(Ajax) + pagination
-
-    //기업 페이지: 정보 수정 리스트 (또는 approval 담당의 jsp 이용)
-    //기업 페이지: 정보 수정 (또는 approval 담당의 jsp 이용)
-
+    //기업 페이지: 지원자 관리 + pagination
+    List<RecruiterAppManageDTO> getAppList(RecruiterCriteria criteria);
+    int getAppListCount(RecruiterCriteria criteria);
 
     //기업 페이지: 파일 - 저장된 로고 이름 확인
     RecruiterFileDTO selectComLogoName(int company_no);

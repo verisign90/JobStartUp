@@ -35,29 +35,60 @@ $(document).ready(function(){
 
     /* 공고 관리 */
     $("#job-posting").on("click",function(){
-        //company_no
-        let company_no = $(".list_company_no").val();
-        console.log(company_no);
+        let company_no = $(".job_posting_company_no").val();
         $.ajax({
-            type:"POST",
-            url: "/recruiter/getJobPostingList",
-            data: {company_no : company_no},
-            success:
-                function(response){
-                      if (response !== null) {
-                          window.location.href = "/recruiter/myPage?company_no=" + company_no;
-                      } else {
-                          console.log("수정 실패");
-                      }
-                },
-            error:function(request,status,error){
-                console.log("에러입니다" + error);
-            }
+            type:"GET",
+            url: "/recruiter/myPageJobPosting",
+            data: {company_no : company_no}
+        }).done(function(result){
+            var html = jQuery('<div>').html(result);
+            var contents = html.find("div#content_list").html();
+            $("#content-container").html(contents);
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            console.log("에러");
+            console.log(jqXHR);
+            console.log(textStatus);
+            console.log(errorThrown);
         });
     });
 
+    /* 박람회 관리 */
+    $("#job-fair").on("click",function(){
+        let company_no = $(".job_fair_company_no").val();
+        $.ajax({
+            type:"GET",
+            url: "/recruiter/myPageJobFair",
+            data: {company_no : company_no}
+        }).done(function(result){
+            var html = jQuery('<div>').html(result);
+            var contents = html.find("div#content_list").html();
+            $("#content-container").html(contents);
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            console.log("에러");
+            console.log(jqXHR);
+            console.log(textStatus);
+            console.log(errorThrown);
+        });
+    });
 
-
+    /* 박람회 관리 */
+    $("#apply-manage").on("click",function(){
+        let company_no = $(".apply_manage_company_no").val();
+        $.ajax({
+            type:"GET",
+            url: "/recruiter/myPageAppManage",
+            data: {company_no : company_no}
+        }).done(function(result){
+            var html = jQuery('<div>').html(result);
+            var contents = html.find("div#content_list").html();
+            $("#content-container").html(contents);
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            console.log("에러");
+            console.log(jqXHR);
+            console.log(textStatus);
+            console.log(errorThrown);
+        });
+    });
 
 
 });

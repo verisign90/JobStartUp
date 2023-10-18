@@ -23,7 +23,7 @@ public class RecruiterPageDTO {
         this.endPage = (int) (Math.ceil(criteria.getCurrentPageNo() / 10.0)) * 10;
         this.strPage = this.endPage - 9;
 
-        int finalEnd = (int) (Math.ceil((totalCount + 10) * 1.0)/ criteria.getRecordsPerPage());
+        int finalEnd = (int) (Math.ceil((totalCount * 1.0)/ criteria.getRecordsPerPage()) + 1);
         if (finalEnd < this.endPage) {
             this.endPage = finalEnd;
         }
@@ -31,6 +31,5 @@ public class RecruiterPageDTO {
         this.prev = this.strPage > 1;
         this.next = this.endPage < finalEnd;
     }
-
 
 }

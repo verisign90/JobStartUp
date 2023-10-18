@@ -30,7 +30,7 @@ public class RecruiterMyPageServiceImpl implements RecruiterMyPageService{
         return recruiterMyPageRepository.selectRecruiterInfo(company_no);
     };
 
-    //기업 페이지: 1) 박람회 현황(Ajax) + pagination
+    //기업 페이지: 박람회 현황 + pagination
     @Override
     @Transactional
     public List<RecruiterJobFairDTO> getJobFairList(RecruiterCriteria criteria) {
@@ -42,7 +42,7 @@ public class RecruiterMyPageServiceImpl implements RecruiterMyPageService{
         return recruiterMyPageRepository.getJobFairCount(criteria);
     }
 
-    //기업 페이지: 2) 공고 관리(Ajax) + pagination
+    //기업 페이지: 공고 관리 + pagination
     @Override
     @Transactional
     public List<RecruiterJobPostingDTO> getJobPostingList(RecruiterCriteria criteria){
@@ -54,8 +54,17 @@ public class RecruiterMyPageServiceImpl implements RecruiterMyPageService{
         return recruiterMyPageRepository.getJobPostingCount(criteria);
     }
 
-    //기업 페이지: 3) 지원자 관리(Ajax) + pagination
-
+    //기업 페이지: 지원자 관리 + pagination
+    @Override
+    @Transactional
+    public List<RecruiterAppManageDTO> getAppList(RecruiterCriteria criteria){
+        return recruiterMyPageRepository.getAppList(criteria);
+    }
+    @Override
+    @Transactional
+    public int getAppListCount(RecruiterCriteria criteria){
+        return recruiterMyPageRepository.getAppListCount(criteria);
+    }
 
 
 
