@@ -80,6 +80,14 @@
                     </div>
                 </div>
             </div>
+
+
+
+
+            <form id="jobFairForm" action="/recruiter/insertJobFairEntry/${jobFair.JOBFAIR_NO}" method="POST">
+                <button type="submit">신청</button>
+            </form>
+
         </div>
         <div class="jobfair_content">
             ${jobFair.JOBFAIR_CONTENT}
@@ -111,6 +119,7 @@
         <br/>
         <div>
             <ul>
+
                 참여 업체 목록
                 <c:forEach var="entryCompany" items="${entryCompany}">
                     <hr/>

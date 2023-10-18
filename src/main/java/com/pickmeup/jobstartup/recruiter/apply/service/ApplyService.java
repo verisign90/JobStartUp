@@ -1,6 +1,7 @@
 package com.pickmeup.jobstartup.recruiter.apply.service;
 
 
+import com.pickmeup.jobstartup.member.entity.Member;
 import com.pickmeup.jobstartup.recruiter.apply.dto.*;
 import java.util.List;
 
@@ -36,4 +37,10 @@ public interface ApplyService {
     public int existCheck(String originalFilename, int companyNo);
 
     public void updateInfo(ApplyDTO applyDTO);
+
+    public Member getMemberNO(String memberId);
+
+    public ApplyDTO getApplyDTO(int member_no);
+
+    public void insertEntry(long jobfair_no, int company_no);
 }

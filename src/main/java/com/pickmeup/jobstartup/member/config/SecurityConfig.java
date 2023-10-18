@@ -45,6 +45,7 @@ public class SecurityConfig {
                         .requestMatchers(new AntPathRequestMatcher("/recruiter/JPlist"),
                                 new AntPathRequestMatcher("/recruiter/JPdetail/**")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/recruiter/**")).hasAuthority("COMPANY")
+                        .requestMatchers(new AntPathRequestMatcher("/recruiter/**")).hasAuthority("UNAPPROVED_COMPANY")
                         .requestMatchers(new AntPathRequestMatcher("/seeker/**")).hasAuthority("COMMON")
                         .requestMatchers(new AntPathRequestMatcher("/**")).permitAll())
                 .exceptionHandling(authenticationManager -> authenticationManager

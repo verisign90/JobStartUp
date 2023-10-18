@@ -22,6 +22,34 @@
         ]]>
     </update>
 
+    <!-- job_fair_entry에 등록 -->
+    <insert id="insertEntry" parameterType="ApplyDTO">
+
+        <![CDATA[
+        insert into job_fair_entry (jobfair_no,company_no)
+        values(#{param1},#{param2})
+        ]]>
+    </insert>
+
+
+    <select id="getMemberNO" resultType="Member" parameterType="String" >
+        <![CDATA[
+        select *
+        FROM Member
+        WHERE member_id = #{memberId}
+        ]]>
+    </select>
+
+    <!-- 개인아이디로 applyDTO가져오기 -->
+    <select id="getApplyDTO" resultType="com.pickmeup.jobstartup.recruiter.apply.dto.ApplyDTO" parameterType="int">
+        <![CDATA[
+        SELECT *
+        FROM company
+        WHERE member_no = #{member_no}
+        ]]>
+    </select>
+
+    <!-- 파일업로드시 존재여부 확인 -->
     <select id="existCheck" resultType="int">
         <![CDATA[
         select count(*)
