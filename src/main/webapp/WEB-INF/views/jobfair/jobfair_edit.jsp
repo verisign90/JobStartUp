@@ -25,7 +25,7 @@
             박람회 등록하기
         </div>
         <div>
-            <form method="post" action="${pageContext.request.contextPath}/admin/jobfair/update"
+            <form method="post" action="${pageContext.request.contextPath}/jobfair/write/update"
                   enctype="multipart/form-data">
                 <div>
                     <input type="hidden" name="JOBFAIR_NO" value="${jobFair.JOBFAIR_NO}">

@@ -11,9 +11,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class JoinCompanyDTO {
-    @Pattern(regexp="^[a-zA-Z0-9_]+$", message="아이디는 알파벳, 숫자, '_'로 이루어져야 합니다")
-    @NotEmpty(message="아이디를 입력하세요.")
-    @Size(min=4, max=20, message="아이디는 4~20자의 영문, 숫자, '_'로 이루어져야 합니다")
+
+    private Long member_no;
+
+    @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "아이디는 알파벳, 숫자, '_'로 이루어져야 합니다")
+    @NotEmpty(message = "아이디를 입력하세요.")
+    @Size(min = 4, max = 20, message = "아이디는 4~20자의 영문, 숫자, '_'로 이루어져야 합니다")
     private String member_id;
 
     private MemberType member_type = MemberType.UNAPPROVED_COMPANY;
@@ -22,7 +25,7 @@ public class JoinCompanyDTO {
     @Pattern(regexp = "^[가-힣a-zA-Z]*$", message = "이름에는 특수문자와 숫자를 사용할 수 없습니다")
     private String member_name;
 
-    @Pattern(regexp="^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{4,8}$|(?=.*[A-Za-z])(?=.*[\\W_])[A-Za-z\\W_]{4,8}$|(?=.*\\d)(?=.*[\\W_])[\\d\\W_]{4,8}$", message="4~8자리 영문 대소문자, 숫자, 특수문자 중 2가지 조합으로 만들어 주세요.")
+    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{4,8}$|(?=.*[A-Za-z])(?=.*[\\W_])[A-Za-z\\W_]{4,8}$|(?=.*\\d)(?=.*[\\W_])[\\d\\W_]{4,8}$", message = "4~8자리 영문 대소문자, 숫자, 특수문자 중 2가지 조합으로 만들어 주세요.")
     private String member_pw;
     private String member_pw_confirm;
 
@@ -42,7 +45,7 @@ public class JoinCompanyDTO {
 
     private String status_yn = "N";
 
-    @NotEmpty(message="사업자등록번호를 입력하세요")
-    @Pattern(regexp="^\\d{10}$", message="사업자번호는 숫자 10자리만 입력하세요")
+    @NotEmpty(message = "사업자등록번호를 입력하세요")
+    @Pattern(regexp = "^\\d{10}$", message = "사업자번호는 숫자 10자리만 입력하세요")
     private String business_no;
 }
