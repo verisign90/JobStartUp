@@ -13,7 +13,8 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 </head>
 <body>
-<div id="someElement" data-member-no="${sessionScope.memberNo}"></div>
+<div id="memberNo" data-member-no="${sessionScope.memberNo}"></div>
+<div id="companyNo" data-company-no="${sessionScope.companyNo}"></div>
 <%@ include file="../layout/layoutNav.jsp" %>
 <div id="top" data-wow-duration="1s" data-wow-delay="0.5s">
     <div class="header-text" data-wow-duration="1s" data-wow-delay="1s">
@@ -144,10 +145,13 @@
         console.log("entry");
         const data = new URLSearchParams();
         const JFNO = '${jobfair_no}'
-        var memberNo = document.getElementById("someElement").getAttribute("data-member-no");
+        var memberNo = document.getElementById("memberNo").getAttribute("data-member-no");
+        var companyNo = document.getElementById("companyNo").getAttribute("data-company-no");
         const loggedInUserId = '<sec:authentication property="name" />';
         data.append('jobFairNo', JFNO);
         data.append('memberNo', loggedInUserId);
+        console.log("memberNo: " + memberNo)
+        console.log("companyNo: " + companyNo);
         alert("pause");
         fetch('/jobfair/entry', {
             method: 'POST',

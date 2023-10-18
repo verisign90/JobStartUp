@@ -44,11 +44,21 @@ public class UserSecurityService implements UserDetailsService {
         }
         log.info("시큐리티 서비스 Loaded user: {}, with authorities: {}", username, grantedAuthorities);
 
-        return new CustomUserDetails(
-                member.getMember_id(),
-                member.getMember_pw(),
-                grantedAuthorities,
-                member.getMember_no()
-        );
+        Long companyNo = memberRepository.findCompanyNoByMemberNo(member.getMember_no()).getCompany_no();
+        if (companyNo == null) {
+            return new CustomUserDetails(
+                    member.getMember_id(),
+                    member.getMember_pw(),
+                    grantedAuthorities,
+                    member.getMember_no()
+            );
+        } else
+            return new CustomUserDetails(
+                    member.getMember_id(),
+                    member.getMember_pw(),
+                    grantedAuthorities,
+                    member.getMember_no(),
+                    companyNo
+            );
     }
 }

@@ -27,6 +27,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
             response.sendRedirect("/");
         } else if (roles.contains("COMPANY")) {
             session.setAttribute("role", 2);
+            session.setAttribute("companyNo", ((CustomUserDetails) authentication.getPrincipal()).getCompanyNo());
             response.sendRedirect("/recruiter/myPage");
         } else if (roles.contains("ADMIN")) {
             session.setAttribute("role", 3);
@@ -35,10 +36,8 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
             session.setAttribute("role", 4);
             response.sendRedirect("/apply/apply");
         } else {
-            response.sendRedirect("/");
             session.setAttribute("role", 9);
+            response.sendRedirect("/login");
         }
-
-        System.out.println(roles);
     }
 }
