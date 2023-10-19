@@ -1,6 +1,8 @@
 package com.pickmeup.jobstartup.recruiter.apply.controller;
 
 
+import com.pickmeup.jobstartup.member.entity.Member;
+import com.pickmeup.jobstartup.member.entity.MemberType;
 import com.pickmeup.jobstartup.recruiter.apply.dto.*;
 
 import com.pickmeup.jobstartup.recruiter.apply.service.ApplyService;
@@ -14,6 +16,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +30,9 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+import static com.pickmeup.jobstartup.member.entity.MemberType.COMPANY;
+import static com.pickmeup.jobstartup.member.entity.MemberType.UNAPPROVED_COMPANY;
 
 
 @RequestMapping("/recruiter")
@@ -59,7 +66,36 @@ public class ApplyController {
         return "/recruiter/apply";
     }*/
 
-    @PostMapping("/delete")
+
+    //@PostMapping("/insertJobFairEntry/JOBFAIR_NO")
+    @PostMapping("/insertJobFairEntry/{JOBFAIR_NO}")
+    public String insertJobFairEntry(@PathVariable("JOBFAIR_NO") long JOBFAIR_NO) {
+        System.out.println("insertJobFairEntryinsertJobFairEntryinsertJobFairEntryinsertJobFairEntry= " );
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String memberId = authentication.getName();//접속자 아이디 가져오기
+        System.out.println("나의 아이디= " + memberId );//접속자 아이디 확인
+        Member member = applyService.getMemberNO(memberId);//접속자 정보 DTO member 가져오기
+        MemberType memberType = member.getMember_type();//접속자 멤버타입확인
+        //회사 번호 불러와서 job_fair_entry에 insert 단 4번이면
+        ApplyDTO applyDTO = applyService.getApplyDTO(member.getMember_no());//해당계정의 회사정보불러오기
+        int company_no = applyDTO.getCompany_no();//회사번호
+
+        if(applyDTO == null && memberType == UNAPPROVED_COMPANY)
+            return "redirect:/recruiter/apply/{JOBFAIR_NO}";
+        if(applyDTO != null && (memberType == UNAPPROVED_COMPANY || memberType == COMPANY)){
+            applyService.insertEntry(JOBFAIR_NO,company_no);
+            return "redirect:/admin/jobfairlist";
+        }
+
+
+
+        //job_fair_entry 에 값입력
+        //applyService.insertEntry(JOBFAIR_NO,company_no);
+
+        return "redirect:/admin/jobfairlist"; // 적절한 리다이렉트 경로로 변경
+    }
+
+    @PostMapping("/jfdelete")
     public ResponseEntity<String> updateComLogo(@RequestParam String cfile_savname, @RequestParam int cfile_no) {
         // Business Logic (파일 삭제)
 
@@ -103,7 +139,7 @@ public class ApplyController {
         }
     }
 
-    @PostMapping("/modify/{company_no}")
+    @PostMapping("/jfmodify/{company_no}")
     public String updateInfo(@PathVariable("company_no") int company_no,@ModelAttribute ApplyDTO applyDTO,@RequestParam("document") MultipartFile[] files,@RequestParam("logo") MultipartFile logoFile){
         //여기는 로고첨부
 
@@ -166,12 +202,12 @@ public class ApplyController {
             fileDTO.setCompany_no(company_no);
         }
         applyService.insertFile(fileDTOList);
-        return "redirect:/recruiter/apply";
+        return "redirect:/recruiter/jobfairlist";
     }
 
 
     //신청서 요청
-    @GetMapping("/modify/{company_no}")
+    @GetMapping("/jfmodify/{company_no}")
     public String modify(@PathVariable("company_no") int company_no ,Model model) {
         List<FileDTO> fileDTOList = applyService.getFileList(company_no);
         ApplyDTO applyDTO = applyService.getCompanyInfo(company_no);
@@ -208,11 +244,19 @@ public class ApplyController {
 
 
     //신청서 작성양식
-    @GetMapping("/apply")
-    public String selectSample(Model model) {
+    @GetMapping("/apply/{JOBFAIR_NO}")
+    public String selectSample(@PathVariable("JOBFAIR_NO") long JOBFAIR_NO ,Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String memberId = authentication.getName();//접속자 아이디 가져오기
+        System.out.println("나의 아이디= " + memberId );//접속자 아이디 확인
+        Member member = applyService.getMemberNO(memberId);
         List<LocDTO> upperLoc = applyService.getUpperLoc();
         List<JobDTO> upperJob = applyService.getBusiness_type_code_up();
         System.out.println("여기는 apply 컨트롤러");
+
+
+        model.addAttribute("JOBFAIR_NO", JOBFAIR_NO);
+        model.addAttribute("member", member);
         model.addAttribute("upperLoc", upperLoc);
         model.addAttribute("upperJob", upperJob);
         System.out.println(upperLoc);
@@ -222,8 +266,8 @@ public class ApplyController {
     }
 
     //신청서 제출
-    @PostMapping("/apply")
-    public String insertInfo(@ModelAttribute ApplyDTO applyDTO,@RequestParam("document") MultipartFile[] files,@RequestParam("logo") MultipartFile logoFile){
+    @PostMapping("/apply/{JOBFAIR_NO}")
+    public String insertInfo(@PathVariable("JOBFAIR_NO") long JOBFAIR_NO,@ModelAttribute ApplyDTO applyDTO,@RequestParam("document") MultipartFile[] files,@RequestParam("logo") MultipartFile logoFile){
         System.out.println("여기는 apply post컨트롤러1");
         System.out.println("상세주소"+applyDTO.getCompany_address_detail());
 
@@ -294,9 +338,10 @@ public class ApplyController {
             System.out.println("test FileDTO" + fileDTO);
             fileDTO.setCompany_no(company_no);
         }
-        applyService.insertFile(fileDTOList);
+        applyService.insertFile(fileDTOList);//파일 인설트
+        applyService.insertEntry(JOBFAIR_NO,company_no);//잡페어엔트리 인설트
         System.out.println("여기는 apply post컨트롤러2");
-        return String.format("redirect:/recruiter/apply");
+        return String.format("redirect:/recruiter/job");
     }
 
     //하위지역 받아오기

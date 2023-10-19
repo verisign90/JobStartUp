@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -13,6 +14,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 </head>
 <body>
+<div id="someElement" data-member-no="${sessionScope.memberNo}"></div>
 <%@ include file="../layout/layoutNav.jsp" %>
 <div id="top" data-wow-duration="1s" data-wow-delay="0.5s">
     <div class="header-text" data-wow-duration="1s" data-wow-delay="1s">
@@ -78,23 +80,38 @@
                     </div>
                 </div>
             </div>
+
+
+
+
+            <form id="jobFairForm" action="/recruiter/insertJobFairEntry/${jobFair.JOBFAIR_NO}" method="POST">
+                <button type="submit">신청</button>
+            </form>
+
         </div>
         <div class="jobfair_content">
             ${jobFair.JOBFAIR_CONTENT}
         </div>
         <div id="registering_jobfair">
-            <div>
-                <a href="${pageContext.request.contextPath}/admin/jobfair/edit?jobFairNo=${jobFair.JOBFAIR_NO}"
-                   class="button-link">
-                    수정하기
-                </a>
-            </div>
-            <div>
-                <a href="${pageContext.request.contextPath}/admin/jobfair/delete?jobFairNo=${jobFair.JOBFAIR_NO}"
-                   class="button-link">
-                    삭제하기
-                </a>
-            </div>
+            <c:if test="${sessionScope.role == 3}">
+                <div>
+                    <a href="${pageContext.request.contextPath}/jobfair/delete?jobFairNo=${jobFair.JOBFAIR_NO}"
+                       class="button-link">
+                        삭제
+                    </a>
+                </div>
+                <div>
+                    <a href="${pageContext.request.contextPath}/jobfair/write/edit?jobFairNo=${jobFair.JOBFAIR_NO}"
+                       class="button-link">
+                        수정
+                    </a>
+                </div>
+            </c:if>
+            <c:if test="${sessionScope.role == 2}">
+                <div>
+                    <a href="${pageContext.request.contextPath}/entry" onclick="jobFairEntry();">참가 신청</a>
+                </div>
+            </c:if>
         </div>
         <br/>
         <br/>
@@ -102,6 +119,7 @@
         <br/>
         <div>
             <ul>
+
                 참여 업체 목록
                 <c:forEach var="entryCompany" items="${entryCompany}">
                     <hr/>
@@ -122,5 +140,31 @@
 <script src="/css/template/assets/js/popup.js"></script>
 <script src="/css/template/assets/js/custom.js"></script>
 <script src="/css/template/assets/js/side.js"></script>
+<script>
+    function jobFairEntry() {
+        console.log("entry");
+        const data = new URLSearchParams();
+        const JFNO = '${jobfair_no}'
+        var memberNo = document.getElementById("someElement").getAttribute("data-member-no");
+        const loggedInUserId = '<sec:authentication property="name" />';
+        data.append('jobFairNo', JFNO);
+        data.append('memberNo', loggedInUserId);
+        alert("pause");
+        fetch('/jobfair/entry', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: data
+        })
+            .then(response => response.text())
+            .then(text => {
+                console.log(text);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+</script>
 </body>
 </html>

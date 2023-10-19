@@ -301,14 +301,14 @@
     	<div class="header">
     		<h2>Create Account</h2>
     	</div>
-    	<form id="form" class="form" action="/recruiter/apply" method="post" enctype="multipart/form-data" onsubmit="return onSubmitForm();">
+    	<form id="form" class="form" action="/recruiter/apply/{JOBFAIR_NO}" method="post" enctype="multipart/form-data" onsubmit="return onSubmitForm();">
     		<div class="form-control">
     			<label for="username">회사명:</label>
     			<input type="text" id="company_name" name="company_name" required>
     		</div>
             <div class="form-control">
                 <label for="username">회원번호:</label>
-                <input type="text" id="member_no" name="member_no" required />
+                <input type="text" id="member_no" name="member_no" value="${member.member_no}" readonly/>
 
 
     		</div>

@@ -25,15 +25,14 @@
             박람회 등록하기
         </div>
         <div>
-            <form method="post" action="${pageContext.request.contextPath}/admin/jobfair/save"
+            <form method="post" action="${pageContext.request.contextPath}/jobfair/write/save"
                   enctype="multipart/form-data">
                 <div class="file">
                     <label for="notFile_orgName">
-                        <div class="btn-upload">로고</div>
+                        로고
                     </label>
-                    <input type="file" multiple="multiple" name="notFile_orgName" id="notFile_orgName"/>
-                    <div id='att_zone'
-                         data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'></div>
+                    <input type="file" name="notFile_orgName" id="notFile_orgName"
+                           accept="image/*"/>
                 </div>
                 <div>
                     <label for="title">제목:</label>

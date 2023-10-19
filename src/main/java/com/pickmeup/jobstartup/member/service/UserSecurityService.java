@@ -1,9 +1,11 @@
 package com.pickmeup.jobstartup.member.service;
 
+import com.pickmeup.jobstartup.member.config.CustomUserDetails;
 import com.pickmeup.jobstartup.member.config.UserRole;
 import com.pickmeup.jobstartup.member.entity.Member;
 import com.pickmeup.jobstartup.member.entity.MemberType;
 import com.pickmeup.jobstartup.member.repository.MemberRepository;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
@@ -41,10 +43,11 @@ public class UserSecurityService implements UserDetailsService {
         }
         log.info("시큐리티 서비스 Loaded user: {}, with authorities: {}", username, grantedAuthorities);
 
-        return new User(
+        return new CustomUserDetails(
                 member.getMember_id(),
                 member.getMember_pw(),
-                grantedAuthorities
+                grantedAuthorities,
+                member.getMember_no()
         );
     }
 }

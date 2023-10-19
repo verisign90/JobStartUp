@@ -12,6 +12,9 @@ import lombok.ToString;
 @Getter
 @Setter
 public class JoinCommonDTO {
+
+    private Long member_no;
+
     @Pattern(regexp="^[a-zA-Z0-9_]+$", message="아이디는 알파벳, 숫자, '_'로 이루어져야 합니다.")
     @NotEmpty(message="아이디를 입력하세요.")
     @Size(min=4, max=20, message="아이디는 4~20자의 영문, 숫자, '_'로 이루어져야 합니다")

@@ -1,6 +1,7 @@
 package com.pickmeup.jobstartup.recruiter.apply.service;
 
 
+import com.pickmeup.jobstartup.member.entity.Member;
 import com.pickmeup.jobstartup.recruiter.apply.dto.*;
 
 import com.pickmeup.jobstartup.recruiter.apply.repository.ApplyRepository;
@@ -79,6 +80,12 @@ public class ApplyServiceImpl implements ApplyService {
     public int existCheck(String originalFilename, int company_no){return applyRepository.existCheck(originalFilename,company_no);}
 
     public void updateInfo(ApplyDTO applyDTO){applyRepository.updateInfo(applyDTO);}
+
+    public Member getMemberNO(String memberId){return applyRepository.getMemberNO(memberId);}
+
+    public ApplyDTO getApplyDTO(int member_no){return applyRepository.getApplyDTO(member_no);}
+
+    public void insertEntry(long jobfair_no, int company_no){applyRepository.insertEntry(jobfair_no,company_no);}
 
 }
 

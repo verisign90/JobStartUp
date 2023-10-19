@@ -20,7 +20,7 @@
 <%@ include file="../layout/layoutSideAdmin.jsp" %>
 <main>
     <article>
-        <ul style="padding-left: 8px; margin-left: 10px;">
+        <ul style="padding-left: 8px; margin-left: 8px;">
             <li class="jobfair_list">
                 <div class="board_no">
                     No
@@ -37,7 +37,7 @@
                 <li class="jobfair_list">
                     <div class="board_no">${jobFair.JOBFAIR_NO}</div>
                     <div class="board_title">
-                        <a href="${pageContext.request.contextPath}/admin/jobfairdetail/${jobFair.JOBFAIR_NO}">
+                        <a href="${pageContext.request.contextPath}/jobfair/detail/${jobFair.JOBFAIR_NO}">
                             <div>${jobFair.JOBFAIR_TITLE}</div>
                         </a>
                     </div>

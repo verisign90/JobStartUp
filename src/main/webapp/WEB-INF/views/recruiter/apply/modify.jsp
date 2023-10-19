@@ -306,7 +306,7 @@
     	<div class="header">
     		<h2>Create Account</h2>
     	</div>
-    	<form id="form" class="form" action="/recruiter/modify/${applyDTO.company_no}" method="post" enctype="multipart/form-data" onsubmit="return onSubmitForm();">
+    	<form id="form" class="form" action="/recruiter/jfmodify/${applyDTO.company_no}" method="post" enctype="multipart/form-data" onsubmit="return onSubmitForm();">
     		<div class="form-control">
     			<label for="username">회사명:</label>
     			<input type="text" id="company_name" name="company_name" value="${applyDTO.company_name}" required>
@@ -332,9 +332,9 @@
                 <label for="company_type">회사분류</label>
                 <select id="company_type" name="company_type" required>
                     <option value="">선택</option>
-                    <option value="옵션1">대기업</option>
-                    <option value="옵션2">중소기업</option>
-                    <option value="옵션3">소기업</option>
+                    <option value="대기업">대기업</option>
+                    <option value="중소기업">중소기업</option>
+                    <option value="소기업">소기업</option>
                 </select>
             </div>
 
@@ -422,11 +422,14 @@
 
                         <c:choose>
                             <c:when test="${fn:endsWith(file.cfile_orgname, '.pdf')}">
-                                <img src="${cPath}/image/apply/pdf.png" alt="PDF Icon">
+                                <img src="${cPath}/image/icon/pdf.png" alt="PDF Icon">
 
                             </c:when>
                             <c:when test="${fn:endsWith(file.cfile_orgname, '.xlsx')}">
-                                <img src="${cPath}/image/apply/excel.jpg"" alt="Excel Icon">
+                                <img src="${cPath}/image/icon/excel.jpg"" alt="Excel Icon">
+                            </c:when>
+                            <c:when test="${fn:endsWith(file.cfile_orgname, '.pptx')}">
+                                <img src="${cPath}/image/icon/ppt.jpg"" alt="Excel Icon">
                             </c:when>
                             <c:otherwise>
                                 <img src="${pageContext.request.contextPath}/resources/icons/default.png" alt="Default Icon">
