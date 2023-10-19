@@ -20,6 +20,13 @@
     <script src="${pageContext.request.contextPath}/js/recruiter/mypage/recruiterCalendarEdit.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/recruiter/mypage/recruiterCalendar.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/recruiter/mypage/recruiterCalendarEdit.css"/>
+    <!-- Bootstrap core CSS -->
+    <link href="/css/template/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/template/assets/css/templatemo-chain-app-dev.css">
+    <link rel="stylesheet" href="/css/template/assets/css/animated.css">
+    <link rel="stylesheet" href="/css/template/assets/css/owl.css">
 </head>
 <body>
 <%@ include file="../../layout/layoutNav.jsp" %>
@@ -27,7 +34,7 @@
     <div class="header-text" data-wow-duration="1s" data-wow-delay="1s">
     </div>
 </div>
-<%@ include file="../../layout/layoutSideAdmin.jsp" %>
+
 <main>
     <article>
     <div class="main-title-container"><h4>기업 마이 페이지</h4></div>
@@ -118,44 +125,49 @@
                         </form>
                     </div>
                 </div>
-
-                <div class="list-container">
-                    <div class="content-label-container">
-                        <form action="/recruiter/getJobPostingList" method="post">
-                            <input type="hidden" class="job_posting_company_no" name="company_no" value="${recruiterMyPageDTO.company_no}">
-                            <div class="content-label">
-                                <button type="button" id="job-posting">공고 관리</button>
-                            </div>
-                        </form>
-                        <form action="/recruiter/getJobFairList" method="post">
-                            <input type="hidden" class="job_fair_company_no" name="company_no" value="${recruiterMyPageDTO.company_no}">
-                            <div class="content-label">
-                                <button type="button" id="job-fair" >박람회 현황</button>
-                            </div>
-                        </form>
-                        <form action="/recruiter/getAppList" method="post">
-                            <input type="hidden" class="apply_manage_company_no" name="company_no" value="${recruiterMyPageDTO.company_no}">
-                            <div class="content-label">
-                                <button type="button" id="apply-manage" >지원자 관리</button>
-                            </div>
-                        </form>
-                        <form action="" method="">
-                            <input type="hidden" class="qna" name="company_no" value="${recruiterMyPageDTO.company_no}">
-                            <div class="content-label">
-                                <button type="button" id="qna" >QnA</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="content-container" id="content-container">
-                        최근 10개의 게시물만 노출됩니다 // QnA default 값으로 두기
-                    </div>
+                <div class="question-answer">
                 </div>
+
             </div>
+        </div>
+
+        <div class="status-container">
+            <div class="content-label-container">
+                <form action="/recruiter/getJobPostingList" method="post">
+                    <input type="hidden" class="job_posting_company_no" name="company_no" value="${recruiterMyPageDTO.company_no}">
+                    <div class="content-label">
+                        <button type="button" id="job-posting">공고 관리</button>
+                    </div>
+                </form>
+                <form action="/recruiter/getJobFairList" method="post">
+                    <input type="hidden" class="job_fair_company_no" name="company_no" value="${recruiterMyPageDTO.company_no}">
+                    <div class="content-label">
+                        <button type="button" id="job-fair" >박람회 현황</button>
+                    </div>
+                </form>
+                <form action="/recruiter/getAppList" method="post">
+                    <input type="hidden" class="apply_manage_company_no" name="company_no" value="${recruiterMyPageDTO.company_no}">
+                    <div class="content-label">
+                        <button type="button" id="apply-manage" >지원자 관리</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="content-container" id="content-container">
+                현황을 확인해주세요
+            </div>
+
         </div>
     </div>
     </article>
 </main>
+
+
+
+
+
 <%@include file="../../layout/layoutFooter.jsp" %>
+
 <!-- Scripts -->
 <script src="/css/template/vendor/jquery/jquery.min.js"></script>
 <script src="/css/template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -164,6 +176,6 @@
 <script src="/css/template/assets/js/imagesloaded.js"></script>
 <script src="/css/template/assets/js/popup.js"></script>
 <script src="/css/template/assets/js/custom.js"></script>
-<script src="/css/template/assets/js/side.js"></script>
+
 </body>
 </html>

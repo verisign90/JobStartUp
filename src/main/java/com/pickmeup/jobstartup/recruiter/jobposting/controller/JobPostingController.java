@@ -11,6 +11,7 @@ import com.pickmeup.jobstartup.recruiter.mypage.service.RecruiterMyPageService;
 import com.pickmeup.jobstartup.seeker.applicationSupport.service.PostingBookmarkServiceImpl;
 import com.pickmeup.jobstartup.seeker.resume.dto.ResumeDTO;
 import com.pickmeup.jobstartup.seeker.resume.service.ResumeServiceImpl;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -25,7 +26,7 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
-@RequestMapping("/recruiter")
+@RequestMapping("/recruiter/*")
 @RequiredArgsConstructor
 @Controller
 public class JobPostingController {

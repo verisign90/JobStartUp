@@ -1,11 +1,5 @@
 package com.pickmeup.jobstartup.recruiter.mypage.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.pickmeup.jobstartup.common.paging.Criteria;
-import com.pickmeup.jobstartup.common.paging.PagingResponse;
-import com.pickmeup.jobstartup.notice.dto.NoticeDTO;
 import com.pickmeup.jobstartup.recruiter.apply.dto.ApplyDTO;
 import com.pickmeup.jobstartup.recruiter.apply.service.ApplyService;
 import com.pickmeup.jobstartup.recruiter.mypage.dto.*;
@@ -18,14 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.OutputStream;
 import java.net.URLEncoder;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RequestMapping("/recruiter")
@@ -46,58 +35,87 @@ public class RecruiterMyPageController {
         RecruiterFileDTO recruiterFileDTO = recruiterMyPageService.selectComLogoName(company_no);
         recruiterFileDTO.setCompany_no(company_no);
 
-        /*RecruiterCriteria criteria = new RecruiterCriteria();
-        criteria.setCompany_no(company_no);
-        int totalCount = recruiterMyPageService.getJobFairCount(criteria);
-        RecruiterPageDTO recruiterPageDTO = new RecruiterPageDTO(criteria,totalCount);*/
-
         model.addAttribute("recruiterMyPageDTO", recruiterMyPageDTO);
         model.addAttribute("recruiterFileDTO", recruiterFileDTO);
-
-        /*model.addAttribute("jobPostingList",recruiterMyPageService.getJobPostingList(criteria));
-        model.addAttribute("jobPostingPaging",recruiterPageDTO);*/
 
         return "/recruiter/mypage/recruiterMyPage";
     }
 
-    //채용 공고 관리
+    //채용 공고 관리 + pagination
     @GetMapping("/myPageJobPosting")
-    public String getJobPosting(@RequestParam int company_no, Model model) {
+    public String getJobPosting(@ModelAttribute("company_no") int company_no, Model model) {
         RecruiterCriteria criteria = new RecruiterCriteria();
         criteria.setCompany_no(company_no);
-        int totalCount = recruiterMyPageService.getJobFairCount(criteria);
-        RecruiterPageDTO recruiterPageDTO = new RecruiterPageDTO(criteria,totalCount);
+        model.addAttribute("jobPostingList",recruiterMyPageService.getJobPostingList(criteria));
+        return "/recruiter/mypage/myPageContentList";
+    }
+
+    @GetMapping("/myPageJobPostingWithPaging")
+    public String getJobPostingWithPaging(@RequestParam int company_no, Model model,
+                                          RecruiterCriteria criteria) {
+        criteria.setCompany_no(company_no);
+        int totalCount = recruiterMyPageService.getJobPostingCount(criteria);
+
+        int currentPageNo = criteria.getCurrentPageNo();
+        criteria.setCurrentPageNo(currentPageNo);
+
+        RecruiterPagingDTO recruiterPagingDTO = new RecruiterPagingDTO(criteria,totalCount);
+
+        System.out.println("recruiterPagingDTO"+recruiterPagingDTO);
 
         model.addAttribute("jobPostingList",recruiterMyPageService.getJobPostingList(criteria));
-        model.addAttribute("jobPostingPaging",recruiterPageDTO);
-        return "/recruiter/mypage/myPageContentList";
+        model.addAttribute("jobPostingPaging", recruiterPagingDTO);
+        return "/recruiter/mypage/recruiterMyList";
     }
 
     //기업 페이지: 박람회 현황 + pagination
     @GetMapping("/myPageJobFair")
-    public String getJobFair(@RequestParam int company_no, Model model) {
+    public String getJobFair(@ModelAttribute("company_no") int company_no, Model model) {
         RecruiterCriteria criteria = new RecruiterCriteria();
         criteria.setCompany_no(company_no);
-        int totalCount = recruiterMyPageService.getJobFairCount(criteria);
-        RecruiterPageDTO recruiterPageDTO = new RecruiterPageDTO(criteria,totalCount);
-
         model.addAttribute("jobFairList",recruiterMyPageService.getJobFairList(criteria));
-        model.addAttribute("jobFairPaging",recruiterPageDTO);
         return "/recruiter/mypage/myPageContentList";
     }
+
+    @GetMapping("/myPageJobFairWithPaging")
+    public String getJobFairWithPaging(@ModelAttribute("company_no") int company_no, Model model,
+                                       RecruiterCriteria criteria) {
+        criteria.setCompany_no(company_no);
+        int totalCount = recruiterMyPageService.getJobFairCount(criteria);
+
+        model.addAttribute("jobFairList",recruiterMyPageService.getJobFairList(criteria));
+        model.addAttribute("jobFairPaging", new RecruiterPagingDTO(criteria,totalCount));
+        return "/recruiter/mypage/recruiterMyList";
+    }
+
 
     //기업 페이지: 지원자 관리 + pagination
     @GetMapping("/myPageAppManage")
-    public String companyAppList(@RequestParam int company_no, Model model) {
+    public String companyAppList(@ModelAttribute("company_no") int company_no, Model model) {
         RecruiterCriteria criteria = new RecruiterCriteria();
         criteria.setCompany_no(company_no);
-        int totalCount = recruiterMyPageService.getJobFairCount(criteria);
-        RecruiterPageDTO recruiterPageDTO = new RecruiterPageDTO(criteria,totalCount);
-        List<RecruiterAppManageDTO> appList = recruiterMyPageService.getAppList(criteria);
-        model.addAttribute("appList",appList);
-        model.addAttribute("appPaging",recruiterPageDTO);
+        model.addAttribute("appList",recruiterMyPageService.getAppList(criteria));
         return "/recruiter/mypage/myPageContentList";
     }
+
+    @GetMapping("/myPageAppManageWithPaging")
+    public String companyAppListWithPaging(@ModelAttribute("company_no") int company_no, Model model,
+                                           RecruiterCriteria criteria) {
+        criteria.setCompany_no(company_no);
+        int totalCount = recruiterMyPageService.getJobFairCount(criteria);
+        model.addAttribute("appList",recruiterMyPageService.getAppList(criteria));
+        model.addAttribute("appListPaging",new RecruiterPagingDTO(criteria,totalCount));
+        return "/recruiter/mypage/recruiterMyList";
+    }
+
+
+
+
+
+
+
+
+
 
     //기업 페이지: 파일 - 저장된 로고 이름 확인
     @PostMapping("/selectComLogo")
@@ -138,11 +156,14 @@ public class RecruiterMyPageController {
         response.getOutputStream().close();                     //출력스트림을 닫는다
     }
 
+
+
     //기업 페이지: 조회 - 캘린더 일정
     @ResponseBody
-    @GetMapping(value = "/getCalendar", params = "method=data", produces = "application/json")
-    public List<RecruiterCalendarDTO> selectCalendar() {
-        List<RecruiterCalendarDTO> calendarList = recruiterMyPageService.selectRecruCalendar();
+    @PostMapping(value = "/getCalendar", params = "method=data", produces = "application/json")
+    public List<RecruiterCalendarDTO> selectCalendar(@RequestBody RecruiterCalendarDTO recruiterCalendarDTO
+                                                    ,@RequestParam String method) {
+        List<RecruiterCalendarDTO> calendarList = recruiterMyPageService.selectRecruCalendar(recruiterCalendarDTO.getCompany_no());
         return calendarList;
     }
 

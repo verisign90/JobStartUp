@@ -6,6 +6,7 @@ import com.pickmeup.jobstartup.recruiter.appmanagement.dto.AppResumeFileDTO;
 import com.pickmeup.jobstartup.recruiter.appmanagement.service.AppManageService;
 
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import org.apache.commons.io.FileUtils;
@@ -44,8 +45,8 @@ public class AppManageController {
 
 
     //채용관리 지원자 상세 페이지: 1) 지원자 인적 정보, 2) 지원자 이력 정보
-    @GetMapping("/managePage")
-    public String appManagePage(@RequestParam int status_no, Model model){
+    @GetMapping("/managePage/{status_no}")
+    public String appManagePage(Model model, @PathVariable("status_no") int status_no){
         //Business Logic (Common)
         AppManageDTO selectInfo = appManageService.selectAppInfoByMember(status_no);
         int resume_no = Integer.parseInt(selectInfo.getResume_no());

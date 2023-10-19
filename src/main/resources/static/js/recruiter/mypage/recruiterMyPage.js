@@ -52,6 +52,15 @@ $(document).ready(function(){
         });
     });
 
+    /* 공고 관리 + pagination */
+    var paging_jobPosting = $("#paging_jobPosting");
+    $(".paging_btn").on("click", function(e){
+        e.preventDefault();
+        var pageNo = $(this).find("div").attr("id");
+        paging_jobPosting.find("input[name='currentPageNo']").val(pageNo);
+        paging_jobPosting.submit();
+    });
+
     /* 박람회 관리 */
     $("#job-fair").on("click",function(){
         let company_no = $(".job_fair_company_no").val();
@@ -71,7 +80,16 @@ $(document).ready(function(){
         });
     });
 
-    /* 박람회 관리 */
+    /* 박람회 관리 + pagination */
+    var paging_jobFair = $("#paging_jobFair");
+    $(".paging_btn").on("click", function(e){
+        e.preventDefault();
+        var pageNo = $(this).find("div").attr("id");
+        paging_jobFair.find("input[name='currentPageNo']").val(pageNo);
+        paging_jobFair.submit();
+    });
+
+    /* 지원자 관리 */
     $("#apply-manage").on("click",function(){
         let company_no = $(".apply_manage_company_no").val();
         $.ajax({
@@ -89,6 +107,16 @@ $(document).ready(function(){
             console.log(errorThrown);
         });
     });
+
+    /* 지원자 관리 + pagination */
+    var paging_AppManage = $("#paging_AppManage");
+    $(".paging_btn").on("click", function(e){
+        e.preventDefault();
+        var pageNo = $(this).find("div").attr("id");
+        paging_AppManage.find("input[name='currentPageNo']").val(pageNo);
+        paging_AppManage.submit();
+    });
+
 
 
 });

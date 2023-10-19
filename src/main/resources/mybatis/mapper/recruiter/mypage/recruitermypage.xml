@@ -40,6 +40,7 @@
         <![CDATA[
             SELECT schedule_no, schedule_title, company_no, schedule_memo, schedule_start, schedule_end
             FROM company_schedule
+            WHERE company_no = #{company_no}
         ]]>
     </select>
 
@@ -68,12 +69,18 @@
     <!--기업 페이지: 박람회 현황 + pagination-->
     <select id="getJobFairList" resultType="com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterJobFairDTO">
         <![CDATA[
-            SELECT /*+ INDEX(f SYS_C007645) INDEX_DESC(e SYS_C007729) */
-                    e.jobfairentry_no, e.company_no, e.jobfair_no, e.jobfairentry_status,
-                    f.jobfair_title, f.jobfair_place, f.jobfair_sdate, f.jobfair_edate
-            FROM job_fair f, job_fair_entry e
-            WHERE e.company_no = #{company_no}
-            AND f.jobfair_no = e.jobfair_no
+            SELECT jobfairentry_no, company_no, jobfair_no, jobfairentry_status,
+                        jobfair_title, jobfair_place, jobfair_sdate, jobfair_edate
+            FROM (SELECT /*+ INDEX(f SYS_C007645) INDEX_DESC(e SYS_C007729) */
+                        ROWNUM R,
+                        e.jobfairentry_no as jobfairentry_no, e.company_no as company_no,
+                        e.jobfair_no as jobfair_no, e.jobfairentry_status as jobfairentry_status,
+                        f.jobfair_title as jobfair_title, f.jobfair_place as jobfair_place,
+                        f.jobfair_sdate as jobfair_sdate, f.jobfair_edate as jobfair_edate
+                FROM job_fair f, job_fair_entry e
+                WHERE rownum <= #{currentPageNo} * #{recordsPerPage} AND e.company_no = #{company_no}
+                AND f.jobfair_no = e.jobfair_no)
+            WHERE r > (#{currentPageNo}-1) * #{recordsPerPage}
         ]]>
     </select>
     <select id="getJobFairCount" parameterType="com.pickmeup.jobstartup.common.paging.Criteria" resultType="int">

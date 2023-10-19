@@ -14,16 +14,13 @@
 
     <!--채용 공고-->
     <c:if test="${not empty jobPostingList}">
+        <a href="/recruiter/myPageJobPostingWithPaging?company_no=${company_no}">더보기</a>
         <c:forEach var="jobPosting" items="${jobPostingList}" varStatus="status">
             <div class="content">
                 <table>
                     <tr>
-                        <th>공고 번호</th>
-                        <td>${jobPosting.posting_no}</td>
-                    </tr>
-                    <tr>
                         <th>공고 제목</th>
-                        <td>${jobPosting.posting_title}</td>
+                        <td><a href="/recruiter/JPdetail/${jobPosting.posting_no}">${jobPosting.posting_title}</a></td>
                     </tr>
                     <tr>
                         <th>공고 시작일</th>
@@ -36,29 +33,17 @@
                 </table>
             </div>
         </c:forEach>
-        <div class="pagination">
-            <ol>
-                <c:if test="${jobPostingPaging.prev}">
-                    <li>prev</li>
-                </c:if>
-                <c:forEach var ="pageNo" begin="${jobPostingPaging.strPage}" end="${jobPostingPaging.endPage}">
-                    <li><c:out value="${pageNo}"/></li>
-                </c:forEach>
-                <c:if test ="${jobPostingPaging.next}">
-                    <li>next</li>
-                </c:if>
-            </ol>
-        </div>
     </c:if>
 
     <!--박람회-->
     <c:if test="${not empty jobFairList}">
+        <a href="/recruiter/myPageJobFairWithPaging?company_no=${company_no}">더보기</a>
         <c:forEach var="jobFair" items="${jobFairList}" varStatus="status">
             <div class="content">
                 <table>
                     <tr>
                         <th>박람회 제목</th>
-                        <td>${jobFair.jobfair_title}</td>
+                        <td><a href="/admin/jobfairdetail/${jobFair.jobfair_no}">${jobFair.jobfair_title}</a></td>
                     </tr>
                     <tr>
                         <th>박람회 장소</th>
@@ -75,29 +60,17 @@
                 </table>
             </div>
         </c:forEach>
-        <div class="pagination">
-            <ol>
-                <c:if test="${jobFairPaging.prev}">
-                    <li>prev</li>
-                </c:if>
-                <c:forEach var ="pageNo" begin="${jobFairPaging.strPage}" end="${jobFairPaging.endPage}">
-                    <li><c:out value="${pageNo}"/></li>
-                </c:forEach>
-                <c:if test ="${jobFairPaging.next}">
-                    <li>next</li>
-                </c:if>
-            </ol>
-        </div>
     </c:if>
 
     <!--채용관리(지원자)-->
     <c:if test="${not empty appList}">
+        <a href="/recruiter/myPageAppManageWithPaging?company_no=${company_no}">더보기</a>
         <c:forEach var="app" items="${appList}" varStatus="status">
             <div class="content">
                 <table>
                     <tr>
                         <th>이력서 제목</th>
-                        <td>${app.resume_title}</td>
+                        <td><a href="/recruiter/managePage/${app.status_no}">${app.resume_title}</a></td>
                     </tr>
                     <tr>
                         <th>1차 합격 여부</th>
@@ -114,21 +87,9 @@
                 </table>
             </div>
         </c:forEach>
-        <div class="pagination">
-            <ol>
-                <c:if test="${appPaging.prev}">
-                    <li>prev</li>
-                </c:if>
-                <c:forEach var ="pageNo" begin="${appPaging.strPage}" end="${appPaging.endPage}">
-                    <li><c:out value="${pageNo}"/></li>
-                </c:forEach>
-                <c:if test ="${appPaging.next}">
-                    <li>next</li>
-                </c:if>
-            </ol>
-        </div>
     </c:if>
 
 </div>
+
 </body>
 </html>
