@@ -35,32 +35,32 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http, HandlerMappingIntrospector introspector) throws Exception {
         http
-                .authorizeRequests((authorizeHttpRequests) -> authorizeHttpRequests
-                        .requestMatchers(new MvcRequestMatcher(introspector, "/admin/dashboard"),
-                                new MvcRequestMatcher(introspector, "/jobfair/**"),
-                                new MvcRequestMatcher(introspector, "/seeker/**"),
-                                new MvcRequestMatcher(introspector, "/recruiter/**")).hasAuthority("ADMIN")
-                                    .requestMatchers(new MvcRequestMatcher(introspector, "/jobfair/**")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/apply/**")).hasAuthority("UNAPPROVED_COMPANY")
-                        .requestMatchers(new AntPathRequestMatcher("/recruiter/JPlist"),
-                                new AntPathRequestMatcher("/recruiter/JPdetail/**")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/recruiter/**")).hasAuthority("COMPANY")
-                        .requestMatchers(new AntPathRequestMatcher("/recruiter/**")).hasAuthority("UNAPPROVED_COMPANY")
-                        .requestMatchers(new AntPathRequestMatcher("/seeker/**")).hasAuthority("COMMON")
-                        .requestMatchers(new AntPathRequestMatcher("/**")).permitAll())
-                .exceptionHandling(authenticationManager -> authenticationManager
-                        .accessDeniedHandler(new CustomAccessDeniedHandler()))
-                .headers((headers) -> headers.addHeaderWriter(new XFrameOptionsHeaderWriter(
-                        XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)))
-                .formLogin((formLogin) -> formLogin
-                        .loginPage("/login")
-                        .successHandler(loginSuccessHandler)
-                        .failureUrl("/login?error=true"))
-                .logout((logout) -> logout
-                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                        .logoutSuccessUrl("/login")
-                        .invalidateHttpSession(true))
-                .csrf(csrf -> csrf.disable());
+            .authorizeRequests((authorizeHttpRequests) -> authorizeHttpRequests
+                    .requestMatchers(new MvcRequestMatcher(introspector,"/admin/**")).hasAuthority("ADMIN")
+                    .requestMatchers(
+                            new MvcRequestMatcher(introspector,"/jobfair/list"),
+                            new MvcRequestMatcher(introspector,"/jobfair/detail")
+                    ).access("hasAuthority('UNAPPROVED_COMPANY') or hasAuthority('ADMIN')")
+                    .requestMatchers(
+                            new MvcRequestMatcher(introspector,"/recruiter/**"),
+                            new MvcRequestMatcher(introspector,"/seeker/**")
+                    ).access("!hasAuthority('UNAPPROVED_COMPANY') or hasAuthority('ADMIN')")
+                    .requestMatchers(new MvcRequestMatcher(introspector,"/recruiter/**")).access("hasAuthority('COMPANY') and !hasAuthority('COMMON') or hasAuthority('ADMIN')")
+                    .requestMatchers(new MvcRequestMatcher(introspector,"/seeker/**")).access("hasAuthority('COMMON') or hasAuthority('ADMIN')")
+                    .anyRequest().permitAll())
+            .exceptionHandling(authenticationManager -> authenticationManager
+                    .accessDeniedHandler(new CustomAccessDeniedHandler()))
+            .headers((headers) -> headers.addHeaderWriter(new XFrameOptionsHeaderWriter(
+                    XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)))
+            .formLogin((formLogin) -> formLogin
+                    .loginPage("/login")
+                    .successHandler(loginSuccessHandler)
+                    .failureUrl("/login?error=true"))
+            .logout((logout) -> logout
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                    .logoutSuccessUrl("/login")
+                    .invalidateHttpSession(true))
+            .csrf(csrf -> csrf.disable());
         return http.build();
     }
 

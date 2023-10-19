@@ -29,16 +29,14 @@ dependencies {
     implementation 'org.modelmapper:modelmapper:3.0.0'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.14.2'
     implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'org.springframework.security:spring-security-taglibs:6.1.2'
-    implementation 'net.nurigo:sdk:4.3.0'
     implementation 'org.slf4j:slf4j-api'
     implementation 'ch.qos.logback:logback-classic'
-    implementation 'com.squareup.okhttp3:okhttp:3.12.2'
     implementation 'org.json:json:20210307'
 
-    //mail, chat, message
+    //mail, chat, message, coolsms api
     implementation 'org.springframework.boot:spring-boot-starter-mail'
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    implementation 'net.nurigo:sdk:4.3.0'
 
     //oracle cloud
     implementation 'com.oracle.ojdbc:ucp:19.3.0.0'

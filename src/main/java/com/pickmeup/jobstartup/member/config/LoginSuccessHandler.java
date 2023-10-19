@@ -15,7 +15,6 @@ import java.util.Set;
 
 @Component
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
-
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
@@ -36,7 +35,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
             session.setAttribute("role", 4);
             response.sendRedirect("/apply/apply");
         } else {
-            response.sendRedirect("/login");
+            response.sendRedirect("/");
             session.setAttribute("role", 9);
         }
 

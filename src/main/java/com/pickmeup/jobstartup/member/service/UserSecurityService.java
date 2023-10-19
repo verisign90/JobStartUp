@@ -5,6 +5,7 @@ import com.pickmeup.jobstartup.member.config.UserRole;
 import com.pickmeup.jobstartup.member.entity.Member;
 import com.pickmeup.jobstartup.member.entity.MemberType;
 import com.pickmeup.jobstartup.member.repository.MemberRepository;
+import com.pickmeup.jobstartup.recruiter.companypage.repository.CompanyPageRepository;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
