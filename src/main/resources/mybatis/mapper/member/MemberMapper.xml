@@ -21,9 +21,7 @@
 
     <!-- 회원 구분에 따른 메뉴 ID 가져오기 -->
     <select id="selectMenuId" resultType="string">
-        SELECT menu_id
-        FROM menu_authority
-        WHERE member_type = #{member_type}
+        SELECT menu_id FROM menu_authority WHERE member_type = #{member_type}
     </select>
 
     <!-- 이메일 중복 확인 -->
@@ -40,4 +38,35 @@
     <select id="findByBusinessNo" resultType="com.pickmeup.jobstartup.member.entity.Member">
         SELECT * FROM member WHERE business_no = #{business_no}
     </select>
+
+    <!-- 개인회원 아이디 찾기 -->
+    <select id="findPersonId" resultType="string">
+        SELECT member_id FROM member WHERE member_name = #{name} AND member_hp = #{phone}
+    </select>
+
+    <!-- 비밀번호 찾기를 위한 멤버 객체 가져오기 -->
+    <select id="findPersonPassword" resultType="com.pickmeup.jobstartup.member.entity.Member">
+        SELECT * FROM member WHERE member_id = #{memberId} AND member_name = #{memberName} AND member_hp = #{memberPhone}
+    </select>
+
+    <!-- 비밀번호 재설정 -->
+    <update id="updatePassword">
+        UPDATE member SET member_pw = #{newPassword} WHERE member_id = #{memberId}
+    </update>
+
+    <!-- 기업회원 아이디 찾기 -->
+    <select id="findCompanyId" resultType="string">
+        SELECT member_id FROM member WHERE member_name = #{name} AND business_no = #{business_no}
+    </select>
+
+    <!-- 기업회원 비밀번호 찾기를 위한 멤버 객체 가져오기 -->
+    <select id="findCompanyPassword" resultType="com.pickmeup.jobstartup.member.entity.Member">
+        SELECT * FROM member WHERE member_id = #{memberId} AND member_name = #{memberName} AND member_hp = #{memberPhone}
+    </select>
+
+    <!-- 기업회원 비밀번호 재설정 -->
+    <update id="updateCompanyPassword">
+        UPDATE member SET member_pw = #{newPassword} WHERE member_id = #{memberId}
+    </update>
+
 </mapper>

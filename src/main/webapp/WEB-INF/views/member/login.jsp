@@ -25,6 +25,8 @@
     <input type="password" id="password" name="password" required>
 
     <button type="submit">로그인</button>
+
+    <a href="/find">아이디/비밀번호 찾기</a>
 </form>
 </body>
 </html>

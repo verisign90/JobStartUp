@@ -6,12 +6,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>기업 회원가입 성공</title>
+    <title>기업회원 아이디 찾기</title>
 </head>
 <body>
-<h2>기업 회원가입 성공, 로그인시 보여지는 메인페이지</h2>
-<form action="<c:url value='/logout'/>" method="post">
-    <input type="submit" value="로그아웃"/>
+<h2>기업회원 아이디 찾기</h2>
+<form action="/findCompanyId" method="post">
+    <label for="corporateName">이름</label>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <label for="business_no">사업자등록번호</label>
+    <input type="text" id="business_no" name="business_no" required><br><br>
+
+    <input type="submit" value="확인">
 </form>
 </body>
 </html>
