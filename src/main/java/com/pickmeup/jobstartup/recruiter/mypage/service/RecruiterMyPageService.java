@@ -32,7 +32,7 @@ public interface RecruiterMyPageService {
     int updateComLogo(MultipartFile logoFile, int company_no, String savedSavname);
 
     //기업 페이지: calendar 조회
-    List<RecruiterCalendarDTO> selectRecruCalendar();
+    List<RecruiterCalendarDTO> selectRecruCalendar(int company_no);
 
     //기업 페이지: calendar 입력
     int insertRecruCalendar(RecruiterCalendarDTO recruiterCalendarDTO);

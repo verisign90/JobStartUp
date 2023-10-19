@@ -19,7 +19,7 @@ $(document).ready(function(){
             success:
                 function(response){
                       if (response !== null) {
-                          window.location.href = "/recruiter/managePage?status_no=" + status_no;
+                          window.location.href = "/recruiter/managePage/" + status_no;
                       } else {
                           console.log("수정 실패");
                       }
@@ -45,7 +45,7 @@ $(document).ready(function(){
             success:
                 function(response){
                       if (response !== null) {
-                          window.location.href = "/recruiter/managePage?status_no=" + status_no;
+                          window.location.href = "/recruiter/managePage/" + status_no;
                       } else {
                           console.log("수정 실패");
                       }
@@ -71,7 +71,7 @@ $(document).ready(function(){
             success:
                 function(response){
                       if (response !== null) {
-                          window.location.href = "/recruiter/managePage?status_no=" + status_no;
+                          window.location.href = "/recruiter/managePage/" + status_no;
                       } else {
                           console.log("수정 실패");
                       }
@@ -97,7 +97,7 @@ $(document).ready(function(){
             success:
                 function(response){
                       if (response !== null) {
-                          window.location.href = "/recruiter/managePage?status_no=" + status_no;
+                          window.location.href = "/recruiter/managePage/" + status_no;
                       } else {
                           console.log("수정 실패");
                       }

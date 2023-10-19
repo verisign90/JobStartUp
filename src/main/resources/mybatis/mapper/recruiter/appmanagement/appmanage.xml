@@ -21,6 +21,7 @@
                 r.resume_money, r.resume_skill, r.resume_orgname, r.resume_savname, r.resume_url
         FROM application_status a JOIN resume r ON a.resume_no = r.resume_no
         WHERE r.resume_no = #{resume_no}
+        AND ROWNUM = 1
         ]]>
     </select>
 
@@ -69,13 +70,5 @@
         WHERE status_no = #{status_no}
         ]]>
     </update>
-
-    <!--채용관리 지원자 상세 페이지: 1차 메일링(안내)-->
-
-
-
-    <!--채용관리 지원자 상세 페이지: 최종 메일링(안내)-->
-
-
 
 </mapper>

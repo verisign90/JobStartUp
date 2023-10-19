@@ -50,6 +50,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         var SCHEDULE_START = document.getElementById('SCHEDULE_START').value;
                         var SCHEDULE_END = document.getElementById('SCHEDULE_END').value;
                         var COMPANY_NO = document.getElementById('COMPANY_NO').value;
+                        if(SCHEDULE_TITLE === "" || SCHEDULE_START === "" || SCHEDULE_END === ""){
+                            return;
+                        }
+                        if((SCHEDULE_START > SCHEDULE_END)){
+                            return;
+                        }
                         $.ajax({
                             type: "POST",
                             url: "/recruiter/insertCalendar?method=data",
@@ -63,6 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             dataType: "text",
                             success: function(success) {
                                 closeModal();
+                                alert('일정을 등록하였습니다');
                                 location.reload();
                             }, error: function() {
                                 closeModal();
@@ -70,7 +77,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         });
                         closeModal();
                     });
-
                     // 캘린더 모달창 '닫기' 버튼 클릭 이벤트 발생
                     var clickCloseButton = document.querySelector('#closeModal');
                     clickCloseButton.addEventListener('click', function() {
@@ -83,9 +89,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Select: page 로딩 시 캘린더 정보 로딩
         events: function(info, successCallback, failureCallback) {
+             var company_no = document.getElementById('COMPANY_NO').value;
              $.ajax({
-                 type: "GET",
+                 type: "POST",
                  url: "/recruiter/getCalendar?method=data",
+                 data: JSON.stringify({
+                     company_no: company_no
+                 }),
+                 contentType: "application/json; charset=UTF-8",
                  dataType: "text",
                  aysnc: false,
                  success: function(response) {
@@ -115,7 +126,9 @@ document.addEventListener('DOMContentLoaded', function() {
             var schedule_start = arg.event.start;
             var schedule_end = arg.event.end;
             var company_no = document.getElementById('COMPANY_NO').value;
-
+            if(SCHEDULE_TITLE === "" || SCHEDULE_START === "" || SCHEDULE_END === ""){
+                return;
+            }
             if (confirm(schedule_title + '\r\n일정을 삭제하시겠습니까?')) {
                 arg.event.remove();
                 $.ajax({
@@ -130,9 +143,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     contentType: "application/json; charset=UTF-8",
                     dataType: "text",
                     success: function(success) {
-                       /* location.reload();*/
+                       alert('일정을 삭제하였습니다');
                     }, error: function() {
-                        /* location.reload();*/
+                       console.log('삭제가 실패하였습니다');
                     }
                 });
             }
