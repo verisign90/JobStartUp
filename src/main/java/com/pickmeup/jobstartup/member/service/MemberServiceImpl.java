@@ -8,9 +8,12 @@ import com.pickmeup.jobstartup.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -169,4 +172,54 @@ public class MemberServiceImpl implements MemberService {
         return memberRepository.findByBusinessNo(business_no) != null;
     }
 
+    //개인회원 아이디 찾기
+    public String findPersonId(String name, String phone) {
+        String foundId = memberRepository.findPersonId(name, phone);
+        return foundId;
+    }
+
+    //개인회원 비밀번호 찾기
+    @Override
+    public Member findPersonPassword(String memberId, String memberName, String memberPhone) {
+        return memberRepository.findPersonPassword(memberId, memberName, memberPhone);
+    }
+
+    //개인회원 비밀번호 재설정
+    @Override
+    public void updatePassword(String memberId, String newPassword) {
+        log.info("서비스 진입: {}", memberId);
+        String encryptedPassword = passwordEncoder.encode(newPassword);
+        log.info("Password encrypted");
+
+        try {
+            memberRepository.updatePassword(memberId, encryptedPassword);
+        } catch (Exception e) {
+            log.error("memberRepository.updatePassword: {}", memberId, e);
+        }
+        log.info("서비스 끝");
+    }
+
+    //기업회원 아이디 찾기
+    @Override
+    public String findCompanyId(String name, String business_no) {
+        return memberRepository.findCompanyId(name, business_no);
+    }
+
+    //기업회원 비밀번호 찾기
+    @Override
+    public Member findCompanyPassword(String memberId, String memberName, String memberPhone) {
+        return memberRepository.findCompanyPassword(memberId, memberName, memberPhone);
+    }
+
+    //기업회원 비밀번호 재설정
+    @Override
+    public void updateCompanyPassword(String memberId, String newPassword) {
+        String encryptedPassword = passwordEncoder.encode(newPassword);
+
+        try {
+            memberRepository.updateCompanyPassword(memberId, encryptedPassword);
+        } catch (Exception e) {
+            log.error("memberRepository.updatePassword: {}", memberId, e);
+        }
+    }
 }

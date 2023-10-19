@@ -2,6 +2,7 @@ package com.pickmeup.jobstartup.member.repository;
 
 import com.pickmeup.jobstartup.member.entity.Member;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 @Mapper
@@ -27,4 +28,23 @@ public interface MemberRepository {
 
     //사업자등록번호 중복 확인
     Member findByBusinessNo(String business_no);
+
+    //개인회원 아이디 찾기
+    String findPersonId(@Param("name") String name, @Param("phone") String phone);
+
+    //개인회원 비밀번호 찾기
+    Member findPersonPassword(@Param("memberId") String memberId, @Param("memberName") String memberName, @Param("memberPhone") String memberPhone);
+
+    //비밀번호 재설정
+    void updatePassword(@Param("memberId") String memberId, @Param("newPassword") String newPassword);
+
+    //기업회원 아이디 찾기
+    String findCompanyId(@Param("name") String name, @Param("business_no") String business_no);
+
+    //기업회원 비밀번호 찾기
+    Member findCompanyPassword(@Param("memberId") String memberId, @Param("memberName") String memberName, @Param("memberPhone") String memberPhone);
+
+    //기업회원 비밀번호 재설정
+    void updateCompanyPassword(@Param("memberId") String memberId, @Param("newPassword") String newPassword);
+
 }
