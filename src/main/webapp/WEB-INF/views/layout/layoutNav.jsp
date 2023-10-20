@@ -1,23 +1,22 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
-          rel="stylesheet">
-    <!-- Bootstrap core CSS -->
-    <link href="/css/template/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/template/assets/css/templatemo-chain-app-dev.css">
-    <link rel="stylesheet" href="/css/template/assets/css/animated.css">
-    <link rel="stylesheet" href="/css/template/assets/css/owl.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+  <!-- Bootstrap core CSS -->
+  <link href="/css/template/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Additional CSS Files -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/template/assets/css/templatemo-chain-app-dev.css">
+  <link rel="stylesheet" href="/css/template/assets/css/animated.css">
+  <link rel="stylesheet" href="/css/template/assets/css/owl.css">
+  <script src="https://cdn.jsdelivr.net/gh/sockjs/sockjs-client/dist/sockjs.min.js"></script>
 </head>
 <body>
 <!-- ***** Header Area Start ***** -->
@@ -50,9 +49,22 @@
                                 <c:if test="${sessionScope.role == 3}">관리자</c:if>
                             </a>
                         </li>
-                        <li style="min-width: 280px">
+                        <li class="scroll-to-section">
                             <c:choose>
                                 <c:when test="${sessionScope.role != null}">
+                                <div id="someElement" data-member-no="${sessionScope.memberNo}"></div>
+                                <span ><sec:authentication property="name" /> 님</span>
+                        </li>
+                        <li class="scroll-to-section">
+                                <span id="message_img_hover">
+                                    <a id="message" href="${cPath}/message/list">
+                                        <img id="message_img" src="${cPath}/img/message/messageList.png" style="width:25px;"
+                                            onmouseover="this.src='${cPath}/img/message/openMessage.png'"
+                                            onmouseout="this.src='${cPath}/img/message/messageList.png'"/>
+                                    </a>
+                                </span>
+                        </li>
+                        <li style="min-width: 280px">
                                     <div class="gradient-button"><a id="modal_trigger_out"
                                                                     href="${cPath}/logout">
                                         <i class="fa fa-sign-in-alt"></i>로그아웃</a></div>
@@ -79,93 +91,44 @@
     </div>
 </header>
 <!-- ***** Header Area End ***** -->
-
-<div id="modal" class="popupContainer" style="display:none;">
-    <div class="popupHeader">
-        <span class="header_title">Login</span>
-        <span class="modal_close"><i class="fa fa-times"></i></span>
-    </div>
-
-    <section class="popupBody">
-        <!-- Social Login -->
-        <div class="social_login">
-            <div class="">
-                <a href="#" class="social_box fb">
-                    <span class="icon"><i class="fab fa-facebook"></i></span>
-                    <span class="icon_title">Connect with Facebook</span>
-
-                </a>
-
-                <a href="#" class="social_box google">
-                    <span class="icon"><i class="fab fa-google-plus"></i></span>
-                    <span class="icon_title">Connect with Google</span>
-                </a>
-            </div>
-
-            <div class="centeredText">
-                <span>Or use your Email address</span>
-            </div>
-
-            <div class="action_btns">
-                <div class="one_half"><a href="#" id="login_form" class="btn">Login</a></div>
-                <div class="one_half last"><a href="#" id="register_form" class="btn">Sign up</a></div>
-            </div>
-        </div>
-
-        <!-- Username & Password Login form -->
-        <div class="user_login">
-            <form>
-                <label>Email / Username</label>
-                <input type="text"/>
-                <br/>
-
-                <label>Password</label>
-                <input type="password"/>
-                <br/>
-
-                <div class="checkbox">
-                    <input id="remember" type="checkbox"/>
-                    <label for="remember">Remember me on this computer</label>
-                </div>
-
-                <div class="action_btns">
-                    <div class="one_half"><a href="#" class="btn back_btn"><i class="fa fa-angle-double-left"></i> Back</a>
-                    </div>
-                    <div class="one_half last"><a href="#" class="btn btn_red">Login</a></div>
-                </div>
-            </form>
-
-            <a href="#" class="forgot_password">Forgot password?</a>
-        </div>
-
-        <!-- Register Form -->
-        <div class="user_register">
-            <form>
-                <label>Full Name</label>
-                <input type="text"/>
-                <br/>
-
-                <label>Email Address</label>
-                <input type="email"/>
-                <br/>
-
-                <label>Password</label>
-                <input type="password"/>
-                <br/>
-
-                <div class="checkbox">
-                    <input id="send_updates" type="checkbox"/>
-                    <label for="send_updates">Send me occasional email updates</label>
-                </div>
-
-                <div class="action_btns">
-                    <div class="one_half"><a href="#" class="btn back_btn"><i class="fa fa-angle-double-left"></i> Back</a>
-                    </div>
-                    <div class="one_half last"><a href="#" class="btn btn_red">Register</a></div>
-                </div>
-            </form>
-        </div>
-    </section>
 </div>
 </body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+    var memberNo = document.getElementById("someElement").getAttribute("data-member-no");
+    function send_message() {
+        websocket = new SockJS("/message/list");
+        websocket.onopen = function(evt) {
+            onOpen(evt);
+        };
+
+        websocket.onmessage = function(evt) {
+            onMessage(evt);
+        };
+
+        websocket.onerror = function(evt) {
+            onError(evt);
+        };
+    }
+
+    function onOpen(evt){
+       websocket.send(memberNo);
+    }
+
+    function onMessage(evt) {
+         $('#messageCnt').append(evt.data);
+         if(evt.data!='0'){
+            $('#message_img').attr('src', '${cPath}/img/message/newMessage.png');
+            $('#message_img').attr('onmouseout', "this.src='${cPath}/img/message/newMessage.png'");
+         }
+    }
+
+    function onError(evt) {
+    }
+
+    $(document).ready(function(){
+            send_message();
+    });
+
+</script>
 </html>

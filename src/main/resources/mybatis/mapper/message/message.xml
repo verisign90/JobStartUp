@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pickmeup.jobstartup.message.repository.MessageRepository">
+    <select id="countMessageView" parameterType="long" resultType="string">
+        <![CDATA[
+            SELECT COUNT(MES_NO) FROM MESSAGE
+            WHERE MES_RECEIVER = #{memberNo}
+            AND MES_READ = 'N'
+            AND RECEIVER_DEL = 'N'
+        ]]>
+    </select>
+    <select id="countAllMessage" parameterType="long" resultType="string">
+        <![CDATA[
+            SELECT COUNT(MES_NO) FROM MESSAGE
+            WHERE MES_RECEIVER = #{memberNo}
+            AND RECEIVER_DEL = 'N'
+        ]]>
+    </select>
+    <select id="countSentMessageView" parameterType="long" resultType="string">
+        <![CDATA[
+            SELECT COUNT(MES_NO) FROM MESSAGE
+            WHERE MES_SENDER = #{memberNo}
+            AND SENDER_DEL = 'N'
+        ]]>
+    </select>
+    <insert id="insertMessage" parameterType="com.pickmeup.jobstartup.message.dto.MessageDTO">
+        <![CDATA[
+            INSERT INTO MESSAGE (MES_SENDER, MES_CONTENT, MES_RECEIVER, MES_REGDATE)
+            VALUES (#{mes_sender}, #{mes_content}, #{mes_receiver}, SYSDATE)
+        ]]>
+    </insert>
+    <select id="selectMessageList" resultType="com.pickmeup.jobstartup.message.dto.MessageDTO">
+        <![CDATA[
+            SELECT * FROM (
+                SELECT
+                    ROW_NUMBER() OVER (ORDER BY M.MES_NO DESC) AS ROW_NUM,
+                    M.MES_NO,
+                    M.MES_SENDER,
+                    MB.MEMBER_ID,
+                    M.MES_CONTENT,
+                    M.MES_REGDATE,
+                    M.MES_RECEIVER,
+                    M.RECEIVER_DEL,
+                    M.MES_READ
+                FROM MESSAGE M
+                LEFT JOIN MEMBER MB ON M.MES_SENDER = MB.MEMBER_NO
+                WHERE
+                  MES_RECEIVER = #{memberNo} AND RECEIVER_DEL = 'N'
+            )
+            WHERE ROW_NUM > #{criteria.startPage} AND ROW_NUM <=#{criteria.currentPageNo}*#{criteria.recordsPerPage}
+        ]]>
+    </select>
+    <select id="selectSentMessageList" resultType="com.pickmeup.jobstartup.message.dto.MessageDTO">
+        <![CDATA[
+            SELECT * FROM (
+                SELECT
+                    ROW_NUMBER() OVER (ORDER BY M.MES_NO DESC) AS ROW_NUM,
+                    M.MES_NO,
+                    M.MES_SENDER,
+                    MB.MEMBER_ID,
+                    M.MES_CONTENT,
+                    M.MES_REGDATE,
+                    M.MES_RECEIVER,
+                    M.RECEIVER_DEL,
+                    M.SENDER_DEL,
+                    M.MES_READ
+                FROM MESSAGE M
+                LEFT JOIN MEMBER MB ON M.MES_RECEIVER = MB.MEMBER_NO
+                WHERE
+                  M.MES_SENDER = #{memberNo} AND M.SENDER_DEL = 'N'
+            )
+            WHERE ROW_NUM > #{criteria.startPage} AND ROW_NUM <=#{criteria.currentPageNo}*#{criteria.recordsPerPage}
+        ]]>
+    </select>
+    <select id="selectMessageByNo" parameterType="long" resultType="com.pickmeup.jobstartup.message.dto.MessageDTO">
+        <![CDATA[
+            SELECT M.MES_NO, M.MES_SENDER, MB.MEMBER_ID, M.MES_CONTENT, M.MES_REGDATE, M.MES_RECEIVER, M.RECEIVER_DEL, M.MES_READ
+            FROM MESSAGE M
+            LEFT JOIN MEMBER MB ON M.MES_SENDER = MB.MEMBER_NO
+            WHERE M.MES_NO = #{mesNo} AND RECEIVER_DEL = 'N'
+        ]]>
+    </select>
+    <update id="updateRead" parameterType="long">
+        UPDATE MESSAGE
+        SET MES_READ = 'Y'
+        WHERE MES_NO = #{mesNo}
+    </update>
+    <update id="updateDeleteYN" parameterType="long">
+        UPDATE MESSAGE
+        SET RECEIVER_DEL = 'Y'
+        WHERE MES_NO = #{mesNo}
+        AND MES_RECEIVER = #{mesReceiver}
+    </update>
+    <update id="updateSentDeleteYN" parameterType="long">
+        UPDATE MESSAGE
+        SET SENDER_DEL = 'Y'
+        WHERE MES_NO = #{mesNo}
+        AND MES_SENDER = #{mesSender}
+    </update>
+</mapper>
