@@ -31,7 +31,7 @@
 
         <div class="info-container">
             <div class="button-container">
-                <button type="button" onclick="location.href='${pageContext.request.contextPath}/recruiter/myPage'" class="moving-button">기업페이지</button>
+                <button type="button" onclick="location.href='${pageContext.request.contextPath}/recruiter/myPage'" class="moving-button">마이페이지</button>
             </div>
             <div class="info-main-container">
                 <div class="profile">
@@ -102,7 +102,6 @@
                 <div class="approval-denial-content">
                     주의 사항 있다면~~~
                 </div>
-
 
                 <!-- 1차 합격 또는 거절 선택 -->
                 <c:if test="${selectInfo.first_pass eq 'N'}">
