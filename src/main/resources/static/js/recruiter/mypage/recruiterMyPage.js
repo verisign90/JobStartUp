@@ -15,7 +15,7 @@ $(document).ready(function(){
 
         $.ajax({
             type:"POST",
-            url: "/recruiter/updateComLogo",
+            url: "/recruiter/myPage/updateComLogo",
             data: formData,
             contentType:false,
             processData:false,
@@ -38,7 +38,7 @@ $(document).ready(function(){
         let company_no = $(".job_posting_company_no").val();
         $.ajax({
             type:"GET",
-            url: "/recruiter/myPageJobPosting",
+            url: "/recruiter/myPage/jobPosting",
             data: {company_no : company_no}
         }).done(function(result){
             var html = jQuery('<div>').html(result);
@@ -66,7 +66,7 @@ $(document).ready(function(){
         let company_no = $(".job_fair_company_no").val();
         $.ajax({
             type:"GET",
-            url: "/recruiter/myPageJobFair",
+            url: "/recruiter/myPage/jobFair",
             data: {company_no : company_no}
         }).done(function(result){
             var html = jQuery('<div>').html(result);
@@ -94,7 +94,7 @@ $(document).ready(function(){
         let company_no = $(".apply_manage_company_no").val();
         $.ajax({
             type:"GET",
-            url: "/recruiter/myPageAppManage",
+            url: "/recruiter/myPage/appManage",
             data: {company_no : company_no}
         }).done(function(result){
             var html = jQuery('<div>').html(result);
@@ -116,7 +116,5 @@ $(document).ready(function(){
         paging_AppManage.find("input[name='currentPageNo']").val(pageNo);
         paging_AppManage.submit();
     });
-
-
 
 });

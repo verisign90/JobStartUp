@@ -27,14 +27,12 @@
 <main>
     <article>
 
-        <div class="main-title-container"><h4>기업 마이 페이지</h4></div>
         <div class="info-list-container">
             <div class="list-up-container">
 
-
             <!--채용 공고-->
             <c:if test="${not empty jobPostingList}">
-                <div><h6>채용 공고 리스트</h6></div>
+                <div class="main-title-container"><h4>참여한 채용 공고</h4></div>
                 <c:forEach var="jobPosting" items="${jobPostingList}" varStatus="status">
                     <div class="content">
                         <table>
@@ -53,7 +51,7 @@
                         </table>
                     </div>
                 </c:forEach>
-                <form id = "paging_jobPosting" action="/recruiter/myPageJobPostingWithPaging" method="get">
+                <form id = "paging_jobPosting" action="/recruiter/myPage/jobPostingWithPaging" method="get">
                     <input type="hidden" name="currentPageNo" value="${jobPostingPaging.criteria.currentPageNo}">
                     <input type="hidden" name="recordsPerPage" value="${jobPostingPaging.criteria.recordsPerPage}">
                     <input type="hidden" name="company_no" value="${jobPostingPaging.criteria.company_no}">
@@ -82,6 +80,7 @@
 
             <!--박람회-->
             <c:if test="${not empty jobFairList}">
+                <div class="main-title-container"><h4>참여한 박람회</h4></div>
                 <c:forEach var="jobFair" items="${jobFairList}" varStatus="status">
                     <div class="content">
                         <table>
@@ -104,7 +103,7 @@
                         </table>
                     </div>
                 </c:forEach>
-                <form id = "paging_jobFair" action="/recruiter/myPageJobFairWithPaging" method="get">
+                <form id = "paging_jobFair" action="/recruiter/myPage/jobFairWithPaging" method="get">
                     <input type="hidden" name="currentPageNo" value="${jobFairPaging.criteria.currentPageNo}">
                     <input type="hidden" name="recordsPerPage" value="${jobFairPaging.criteria.recordsPerPage}">
                     <input type="hidden" name="company_no" value="${jobFairPaging.criteria.company_no}">
@@ -130,10 +129,9 @@
                 </form>
             </c:if>
 
-
-
             <!--채용관리(지원자)-->
             <c:if test="${not empty appList}">
+                <div class="main-title-container"><h4>지원자 관리</h4></div>
                 <c:forEach var="app" items="${appList}" varStatus="status">
                     <div class="content">
                         <table>
@@ -156,7 +154,7 @@
                         </table>
                     </div>
                 </c:forEach>
-                <form id = "paging_AppManage" action="/recruiter/myPageAppManageWithPaging" method="get">
+                <form id = "paging_AppManage" action="/recruiter/myPage/appManageWithPaging" method="get">
                     <input type="hidden" name="currentPageNo" value="${appListPaging.criteria.currentPageNo}">
                     <input type="hidden" name="recordsPerPage" value="${appListPaging.criteria.recordsPerPage}">
                     <input type="hidden" name="company_no" value="${appListPaging.criteria.company_no}">
@@ -181,8 +179,6 @@
                     </div>
                 </form>
             </c:if>
-
-
 
             </div>
         </div>

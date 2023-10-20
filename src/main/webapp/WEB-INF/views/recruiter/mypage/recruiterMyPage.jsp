@@ -42,20 +42,26 @@
                             </div>
                             <div class="profile-edit-button-container">
                                 <input type="hidden" class="profile-company-no" name="company_no" value="${recruiterFileDTO.company_no}">
-                                <div>
+                                <div class ="profile-edit-button-1">
+                                    <label for="logoFile">
+                                        <div class="btn-upload">🎈수정 파일 선택🎈</div>
+                                    </label>
                                     <input type="file" id="logoFile" name="logoFile" accept="image/*" required>
                                 </div>
-                                <div>
-                                    <button type="button" id="profile-edit-button" class="edit-button">로고수정</button>
-                                    <button type="button" class="edit-button" onclick="location.href='/recruiter/downloadComLogo/${recruiterFileDTO.company_no}'">다운로드</button>
+                                <div class ="profile-edit-button-2">
+                                    <button type="button" id="profile-edit-button" class="edit-button">로고 수정</button>
+                                    <button type="button" class="edit-button" onclick="location.href='/recruiter/myPage/downloadComLogo/${recruiterFileDTO.company_no}'">로고 저장</button>
+                                    <button type="button" class="edit-button">정보 수정</button>
+                                    <button type="button" class="edit-button">회원 탈퇴</button>
                                 </div>
                             </div>
                         </div>
                     </form>
                     <div class ="company-info">
                         <div class="button-container">
-                            <button type="button" class="edit-button">정보 수정</button>
-                            <button type="button" class="edit-button">회원 탈퇴</button>
+
+
+
                         </div>
                         <table>
                             <tr>
@@ -124,30 +130,37 @@
                         <form action="/recruiter/getJobPostingList" method="post">
                             <input type="hidden" class="job_posting_company_no" name="company_no" value="${recruiterMyPageDTO.company_no}">
                             <div class="content-label">
-                                <button type="button" id="job-posting">공고 관리</button>
+                                <button class="list-button" type="button" id="job-posting">공고 관리</button>
                             </div>
                         </form>
                         <form action="/recruiter/getJobFairList" method="post">
                             <input type="hidden" class="job_fair_company_no" name="company_no" value="${recruiterMyPageDTO.company_no}">
                             <div class="content-label">
-                                <button type="button" id="job-fair" >박람회 현황</button>
+                                <button class="list-button" type="button" id="job-fair" >박람회 현황</button>
                             </div>
                         </form>
                         <form action="/recruiter/getAppList" method="post">
                             <input type="hidden" class="apply_manage_company_no" name="company_no" value="${recruiterMyPageDTO.company_no}">
                             <div class="content-label">
-                                <button type="button" id="apply-manage" >지원자 관리</button>
+                                <button class="list-button" type="button" id="apply-manage" >지원자 관리</button>
                             </div>
                         </form>
                         <form action="" method="">
                             <input type="hidden" class="qna" name="company_no" value="${recruiterMyPageDTO.company_no}">
                             <div class="content-label">
-                                <button type="button" id="qna" >QnA</button>
+                                <button class="list-button" type="button" id="qna" >QnA</button>
                             </div>
                         </form>
                     </div>
                     <div class="content-container" id="content-container">
-                        최근 10개의 게시물만 노출됩니다 // QnA default 값으로 두기
+                        <div class="basic-content-container">
+                            <br/><br/><br/>
+                            추가 현황을 확인해주세요!<br/>
+                            참여한 공고 👉 공고 관리<br/>
+                            참여한 박람회 👉 박람회 현황<br/>
+                            신청 받은 지원자 👉 지원자 관리<br/>
+                            신청 받은 QnA 👉 QnA<br/>
+                        </div>
                     </div>
                 </div>
             </div>

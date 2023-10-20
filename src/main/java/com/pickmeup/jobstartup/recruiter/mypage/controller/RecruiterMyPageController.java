@@ -30,7 +30,9 @@ public class RecruiterMyPageController {
 
     //기업 페이지: 회사 정보
     @GetMapping("/myPage")
-    public String companyInfo(@RequestParam int company_no, Model model) {
+    //public String companyInfo(@RequestParam int company_no, Model model) {
+    public String companyInfo(Model model) {
+        int company_no = 4;
         RecruiterMyPageDTO recruiterMyPageDTO = recruiterMyPageService.selectRecruiterInfo(company_no);
         RecruiterFileDTO recruiterFileDTO = recruiterMyPageService.selectComLogoName(company_no);
         recruiterFileDTO.setCompany_no(company_no);
@@ -42,7 +44,7 @@ public class RecruiterMyPageController {
     }
 
     //채용 공고 관리 + pagination
-    @GetMapping("/myPageJobPosting")
+    @GetMapping("/myPage/jobPosting")
     public String getJobPosting(@ModelAttribute("company_no") int company_no, Model model) {
         RecruiterCriteria criteria = new RecruiterCriteria();
         criteria.setCompany_no(company_no);
@@ -50,26 +52,19 @@ public class RecruiterMyPageController {
         return "/recruiter/mypage/myPageContentList";
     }
 
-    @GetMapping("/myPageJobPostingWithPaging")
-    public String getJobPostingWithPaging(@RequestParam int company_no, Model model,
+    @GetMapping("/myPage/jobPostingWithPaging")
+    public String getJobPostingWithPaging(@ModelAttribute("company_no") int company_no, Model model,
                                           RecruiterCriteria criteria) {
         criteria.setCompany_no(company_no);
         int totalCount = recruiterMyPageService.getJobPostingCount(criteria);
 
-        int currentPageNo = criteria.getCurrentPageNo();
-        criteria.setCurrentPageNo(currentPageNo);
-
-        RecruiterPagingDTO recruiterPagingDTO = new RecruiterPagingDTO(criteria,totalCount);
-
-        System.out.println("recruiterPagingDTO"+recruiterPagingDTO);
-
         model.addAttribute("jobPostingList",recruiterMyPageService.getJobPostingList(criteria));
-        model.addAttribute("jobPostingPaging", recruiterPagingDTO);
+        model.addAttribute("jobPostingPaging",new RecruiterPagingDTO(criteria,totalCount));
         return "/recruiter/mypage/recruiterMyList";
     }
 
     //기업 페이지: 박람회 현황 + pagination
-    @GetMapping("/myPageJobFair")
+    @GetMapping("/myPage/jobFair")
     public String getJobFair(@ModelAttribute("company_no") int company_no, Model model) {
         RecruiterCriteria criteria = new RecruiterCriteria();
         criteria.setCompany_no(company_no);
@@ -77,7 +72,7 @@ public class RecruiterMyPageController {
         return "/recruiter/mypage/myPageContentList";
     }
 
-    @GetMapping("/myPageJobFairWithPaging")
+    @GetMapping("/myPage/jobFairWithPaging")
     public String getJobFairWithPaging(@ModelAttribute("company_no") int company_no, Model model,
                                        RecruiterCriteria criteria) {
         criteria.setCompany_no(company_no);
@@ -90,7 +85,7 @@ public class RecruiterMyPageController {
 
 
     //기업 페이지: 지원자 관리 + pagination
-    @GetMapping("/myPageAppManage")
+    @GetMapping("/myPage/appManage")
     public String companyAppList(@ModelAttribute("company_no") int company_no, Model model) {
         RecruiterCriteria criteria = new RecruiterCriteria();
         criteria.setCompany_no(company_no);
@@ -98,7 +93,7 @@ public class RecruiterMyPageController {
         return "/recruiter/mypage/myPageContentList";
     }
 
-    @GetMapping("/myPageAppManageWithPaging")
+    @GetMapping("/myPage/appManageWithPaging")
     public String companyAppListWithPaging(@ModelAttribute("company_no") int company_no, Model model,
                                            RecruiterCriteria criteria) {
         criteria.setCompany_no(company_no);
@@ -118,7 +113,7 @@ public class RecruiterMyPageController {
 
 
     //기업 페이지: 파일 - 저장된 로고 이름 확인
-    @PostMapping("/selectComLogo")
+    @PostMapping("/myPage/selectComLogo")
     public String selectComLogoName(@RequestParam int company_no) {
         //Business Logic
         RecruiterFileDTO recruiterFileDTO = new RecruiterFileDTO();
@@ -128,7 +123,7 @@ public class RecruiterMyPageController {
     }
 
     //기업 페이지: 파일 - 로고 수정(원본 삭제, 파일 업로드)
-    @PostMapping("/updateComLogo")
+    @PostMapping("/myPage/updateComLogo")
     public String updateComLogo(Model model, @RequestParam int company_no,
                                 @RequestParam("logoFile") MultipartFile logoFile) {
 
@@ -140,7 +135,7 @@ public class RecruiterMyPageController {
     }
 
     //기업 페이지: 파일 - 로고 다운로드
-    @RequestMapping("/downloadComLogo/{company_no}")
+    @RequestMapping("/myPage/downloadComLogo/{company_no}")
     public void download(RecruiterFileDTO recruiterFileDTO, @PathVariable int company_no, HttpServletResponse response) throws Exception{
         //Business Logic
         recruiterFileDTO = recruiterMyPageService.selectComLogoName(company_no);
@@ -160,7 +155,7 @@ public class RecruiterMyPageController {
 
     //기업 페이지: 조회 - 캘린더 일정
     @ResponseBody
-    @PostMapping(value = "/getCalendar", params = "method=data", produces = "application/json")
+    @PostMapping(value = "/myPage/getCalendar", params = "method=data", produces = "application/json")
     public List<RecruiterCalendarDTO> selectCalendar(@RequestBody RecruiterCalendarDTO recruiterCalendarDTO
                                                     ,@RequestParam String method) {
         List<RecruiterCalendarDTO> calendarList = recruiterMyPageService.selectRecruCalendar(recruiterCalendarDTO.getCompany_no());
@@ -169,7 +164,7 @@ public class RecruiterMyPageController {
 
     //기업 페이지: 입력 - 캘린더 일정
     @ResponseBody
-    @PostMapping(value = "/insertCalendar", produces = "application/json")
+    @PostMapping(value = "/myPage/insertCalendar", produces = "application/json")
     public String insertCalendar(@RequestBody RecruiterCalendarDTO recruiterCalendarDTO
                                 ,@RequestParam String method){
         recruiterMyPageService.insertRecruCalendar(recruiterCalendarDTO);
@@ -178,7 +173,7 @@ public class RecruiterMyPageController {
 
     //기업 페이지: 삭제 - 캘린더 일정
     @ResponseBody
-    @PostMapping(value = "/deleteCalendar", produces = "application/json")
+    @PostMapping(value = "/myPage/deleteCalendar", produces = "application/json")
     public String deleteCalendar(@RequestBody RecruiterCalendarDTO recruiterCalendarDTO
                                 ,@RequestParam String method){
         recruiterMyPageService.deleteRecruCalendar(recruiterCalendarDTO);
