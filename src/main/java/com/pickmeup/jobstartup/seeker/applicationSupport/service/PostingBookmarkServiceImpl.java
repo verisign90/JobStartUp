@@ -48,4 +48,10 @@ public class PostingBookmarkServiceImpl implements PostingBookmarkService {
     public Member findMemberByUsername (String username) {
         return memberRepository.findByUsername(username);
     }
+
+    //북마크 cnt
+    @Override
+    public int bookmarkCnt (int member_no) {
+        return postingBookmarkRepository.bookmarkCnt(member_no);
+    }
 }

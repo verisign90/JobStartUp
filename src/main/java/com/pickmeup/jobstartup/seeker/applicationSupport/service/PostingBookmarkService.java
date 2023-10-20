@@ -23,4 +23,7 @@ public interface PostingBookmarkService {
 
     //member_no를 받아오는 메서드
     public Member findMemberByUsername (String username);
+
+    //북마크 cnt
+    int bookmarkCnt (int member_no);
 }

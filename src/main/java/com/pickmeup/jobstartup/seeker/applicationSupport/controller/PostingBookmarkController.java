@@ -4,6 +4,7 @@ import com.pickmeup.jobstartup.member.entity.Member;
 import com.pickmeup.jobstartup.member.service.UserSecurityService;
 import com.pickmeup.jobstartup.recruiter.jobposting.dto.JobPostingDTO;
 import com.pickmeup.jobstartup.seeker.applicationSupport.dto.PostingBookmarkDTO;
+import com.pickmeup.jobstartup.seeker.applicationSupport.service.CompanyFollowServiceImpl;
 import com.pickmeup.jobstartup.seeker.applicationSupport.service.PostingBookmarkServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,13 +32,30 @@ public class PostingBookmarkController {
     private PostingBookmarkServiceImpl postingBookmarkService;
 
     @Autowired
-    private UserSecurityService userSecurityService;
+    private CompanyFollowServiceImpl companyFollowService;
 
     //공고 북마크목록
-    @RequestMapping ("/bookmarkList/{member_no}")
-    public String selectBookmarkList (@PathVariable int member_no, Model model) {
-        List<PostingBookmarkDTO> bookmarkListResult = postingBookmarkService.selectBookmarkList(member_no);
+    @RequestMapping ("/bookmarkList")
+    public String selectBookmarkList (Model model) {
+
+        int memberNo = 0;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null) {
+            Object principal = authentication.getPrincipal();
+            if (principal instanceof UserDetails) {
+                Member member = postingBookmarkService.findMemberByUsername(((UserDetails) principal).getUsername());
+                memberNo = member.getMember_no();
+            }
+        }
+
+        List<PostingBookmarkDTO> bookmarkListResult = postingBookmarkService.selectBookmarkList(memberNo);
+        int bookmartCnt = postingBookmarkService.bookmarkCnt(memberNo);
+        int followCnt = companyFollowService.followCnt(memberNo);
+
         model.addAttribute("bookmarkListResult", bookmarkListResult);
+        model.addAttribute("bookmarkCnt", bookmartCnt);
+        model.addAttribute("followCnt", followCnt);
+
         return "seeker/applicationSupport/bookmarkList";
     }
 

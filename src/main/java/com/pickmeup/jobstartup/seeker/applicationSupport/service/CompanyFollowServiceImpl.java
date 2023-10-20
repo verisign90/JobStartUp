@@ -36,4 +36,10 @@ public class CompanyFollowServiceImpl implements CompanyFollowService {
     public boolean checkFollow (CompanyFollowDTO companyFollowDTO) {
         return companyFollowRepository.checkFollow(companyFollowDTO) > 0;
     }
+
+    //팔로우 cnt
+    @Override
+    public int followCnt (int member_no) {
+        return companyFollowRepository.followCnt(member_no);
+    }
 }

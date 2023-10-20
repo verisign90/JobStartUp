@@ -1,5 +1,7 @@
 package com.pickmeup.jobstartup.seeker.resume.repository;
 
+import com.pickmeup.jobstartup.recruiter.apply.dto.JobDTO;
+import com.pickmeup.jobstartup.recruiter.apply.dto.LocDTO;
 import com.pickmeup.jobstartup.seeker.resume.dto.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -80,4 +82,11 @@ public interface ResumeRepository {
     //수정
     public void modifyResumeLoc (@Param("resumeLocDTOList") List<ResumeLocDTO> resumeLocDTOList);
 
+
+    //상위지역(서울특별시, 부산광역시 등등, 지역 계층구조 1단계) 목록 가져오기
+    List<LocDTO> getUpperLoc();
+    //상위지역에 따른 하위지역 목록(강동구, 강서구, 강남구 등등, 지역 계층구조 2단계) 가져오기
+    List<LocDTO> getLowerLoc(String upperLoc);
+    List<JobDTO> getBusiness_type_code_up();
+    List<JobDTO> getBusiness_type_code(String business_type_code);
 }

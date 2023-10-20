@@ -71,4 +71,11 @@
         FROM COMPANY_FOLLOW
         WHERE COMPANY_NO = #{company_no} AND MEMBER_NO = #{member_no}
     </select>
+
+    <!-- 팔로우 갯수 -->
+    <select id="followCnt" parameterType="int" resultType="int">
+        SELECT COUNT(*)
+        FROM COMPANY_FOLLOW
+        WHERE MEMBER_NO = #{member_no}
+    </select>
 </mapper>

@@ -1,9 +1,12 @@
 package com.pickmeup.jobstartup.seeker.applicationSupport.dto;
 
+import com.pickmeup.jobstartup.seeker.resume.dto.ResumeDTO;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class ResumeApplyDTO {
@@ -15,6 +18,10 @@ public class ResumeApplyDTO {
     private String first_pass;
     private String final_pass;
     private Date interview_date;
+
+    private List<ResumeDTO> resumeDTOList;
+
+    public ResumeApplyDTO () {}
 
     @Builder
     public ResumeApplyDTO (ResumeApplyDTO resumeApplyDTO) {

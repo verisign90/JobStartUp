@@ -19,4 +19,7 @@ public interface CompanyFollowService {
 
     //checkFollow
     public boolean checkFollow (CompanyFollowDTO companyFollowDTO);
+
+    //팔로우 cnt
+    int followCnt (int member_no);
 }
