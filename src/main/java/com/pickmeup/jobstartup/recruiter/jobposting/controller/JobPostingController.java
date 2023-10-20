@@ -52,10 +52,10 @@ public class JobPostingController {
     /*게시글 등록*/
     @PostMapping("/JPwrite")
     public ModelAndView JPwrite(JobPostingDTO jobPostingDTO,
-                          @RequestParam("posting_content") String content, ModelAndView modelAndView) throws Exception {
+                                @RequestParam("posting_content") String content, ModelAndView modelAndView) throws Exception {
 
-        System.out.println("getPosting_career"+jobPostingDTO.getPosting_career());
-        System.out.println("getPosting_labor"+jobPostingDTO.getPosting_labor());
+        System.out.println("getPosting_career" + jobPostingDTO.getPosting_career());
+        System.out.println("getPosting_labor" + jobPostingDTO.getPosting_labor());
 
         jobPostingDTO.setCompany_no(0L);
         jobPostingDTO.setPosting_content(content);
@@ -95,7 +95,7 @@ public class JobPostingController {
         model.addAttribute("JPdetail", JPdetail);
         model.addAttribute("postingNo", posting_no);
         model.addAttribute("memberNo", memberNo);
-        model.addAttribute("resumeList",resumeList);
+        model.addAttribute("resumeList", resumeList);
         return "recruiter/jobPosting/JPdetail";
     }
 
@@ -140,7 +140,7 @@ public class JobPostingController {
 
     // 삭제 작업 처리
     @GetMapping("/JPdelete/{posting_no}")
-    public ModelAndView JPdelete(@PathVariable("posting_no") int posting_no,ModelAndView modelAndView) throws Exception {
+    public ModelAndView JPdelete(@PathVariable("posting_no") int posting_no, ModelAndView modelAndView) throws Exception {
         jobPostingService.JPdelete(posting_no);
         modelAndView.setViewName("redirect:/recruiter/JPlist"); // 삭제 후 목록 페이지로
         return modelAndView;

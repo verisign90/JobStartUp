@@ -37,19 +37,28 @@
     <!-- ***** Nav End ***** -->
 </header>
 <main class="all-content">
-
     <ul class="webtong_tab_type03">
         <li class="dropdown">
             <a href="#" class="dropbtn">지역</a>
             <span class="dropdown-content">
-                    <c:forEach items="${upperLoc}" var="upLoc">
-                        <div class="checkbox-wrapper" onclick="toggleCheckbox(this)">
-                            <input type="checkbox" name="upperLoc" id="${upLoc.detail_code_num}" value="${upLoc.detail_code_num}">
-                            <span class="loc-detail-name">${upLoc.detail_name}</span>
-                        </div>
-                    </c:forEach>
+                <c:forEach items="${upperLoc}" var="upLoc">
+                    <div class="checkbox-wrapper" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" name="upperLoc" id="upperLoc"
+                               value="${upLoc.detail_code_num}">
+                        <span class="loc-detail-name">${upLoc.detail_name}</span>
+                    </div>
+                </c:forEach>
+
+                <c:forEach items="${lowerLoc}" var="loLoc">
+                    <div class="" onclick="toggleCheckbox(this)">
+                        <input type="checkbox" name="lowerLoc" id="${loLoc.detail_code_num}"
+                               value="${loLoc.detail_code_num}">
+                        <span class="loc-detail-name">${loLoc.detail_name}</span>
+                    </div>
+                </c:forEach>
             </span>
         </li>
+
         <li><a href="/#">개인회원</a></li>
 
         <li class="searchContainer">
@@ -100,6 +109,13 @@
 <footer>
     <%--<%@ include file="../../layout/layoutFooter.jsp" %>--%>
 </footer>
+<script src="/css/template/vendor/jquery/jquery.min.js"></script>
+<script src="/css/template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/css/template/assets/js/owl-carousel.js"></script>
+<script src="/css/template/assets/js/animation.js"></script>
+<script src="/css/template/assets/js/imagesloaded.js"></script>
+<script src="/css/template/assets/js/popup.js"></script>
+<script src="/css/template/assets/js/custom.js"></script>
 
 <script>
     function toggleCheckbox(element) {
@@ -110,7 +126,7 @@
 <script>
     var dropdown = document.querySelector('.dropdown');
 
-    dropdown.addEventListener('click', function() {
+    dropdown.addEventListener('click', function () {
         this.classList.toggle('active');
 
         var dropdownContent = this.querySelector('.dropdown-content');
@@ -122,7 +138,7 @@
             dropdownContent.style.overflowY = 'auto';
 
             // 이벤트 전파를 막아 클릭 시 드롭다운이 닫히지 않도록 합니다.
-            dropdownContent.addEventListener('click', function(event) {
+            dropdownContent.addEventListener('click', function (event) {
                 event.stopPropagation();
             });
         } else {
@@ -130,7 +146,8 @@
         }
     });
 
-    window.addEventListener('click', function(event) {
+
+    window.addEventListener('click', function (event) {
         if (!event.target.matches('.dropbtn')) {
             var dropdowns = document.querySelectorAll('.dropdown');
 
@@ -154,14 +171,6 @@
         locDetailName.classList.toggle('selected');
     }
 </script>
-
-<script src="/css/template/vendor/jquery/jquery.min.js"></script>
-<script src="/css/template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="/css/template/assets/js/owl-carousel.js"></script>
-<script src="/css/template/assets/js/animation.js"></script>
-<script src="/css/template/assets/js/imagesloaded.js"></script>
-<script src="/css/template/assets/js/popup.js"></script>
-<script src="/css/template/assets/js/custom.js"></script>
 <script>
     $(document).ready(function () {
         $('#searchInput').on('focus', function () {
@@ -178,5 +187,26 @@
         });
     });
 </script>
+<script>
+    function loadLowerLoc() {
+        var upperLocValue = document.getElementById("upperLoc").value;
+
+        fetch('/recruiter/getJPLowerLoc?upperLoc=' + upperLocValue)
+            .then(response => response.json())
+            .then(data => {
+                var lowerLocSelect = document.getElementById("lowerLoc");
+                lowerLocSelect.innerHTML = "";
+
+                data.forEach(loLoc => {
+                    var option = document.createElement("option");
+                    option.value = loLoc.detail_code_num;
+                    option.text = loLoc.detail_name;
+                    lowerLocSelect.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    }
+</script>
+
 </body>
 </html>
