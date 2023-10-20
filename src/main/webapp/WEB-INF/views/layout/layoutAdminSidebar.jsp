@@ -1,3 +1,6 @@
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -22,9 +25,8 @@
 
     <title>Sidebar #1</title>
 </head>
+
 <body>
-
-
 <aside class="sidebar">
     <div class="toggle">
         <a href="#" class="burger js-menu-toggle" data-toggle="collapse" data-target="#main-navbar">
@@ -32,25 +34,50 @@
         </a>
     </div>
     <div class="side-inner">
-        <div class="counter d-flex justify-content-center">
-            <!-- <div class="row justify-content-center"> -->
-            <div class="col">
-                <strong class="number"></strong>
-                <span class="number-label"></span>
+
+        <c:set var="userName" value='<sec:authentication property="name" />'/>
+        <div class="logo-wrap">
+            <div class="logo">
+                <span><sec:authentication property="name" /></span>
             </div>
-            <div class="col">
-                <strong class="number"></strong>
-                <span class="number-label"></span>
-            </div>
-            <div class="col">
-                <strong class="number"></strong>
-                <span class="number-label"></span>
-            </div>
-            <!-- </div> -->
+            <span class="logo-text"><sec:authentication property="name" /></span>
         </div>
 
         <div class="nav-menu">
             <ul>
+                <%--                <li class="accordion">
+                                    <a href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
+                                       aria-controls="collapseOne" class="collapsible">
+                                        <span class="icon-home mr-3"></span>Feed
+                                    </a>
+                                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne">
+                                        <div>
+                                            <ul>
+                                                <li><a href="#">News</a></li>
+                                                <li><a href="#">Sport</a></li>
+                                                <li><a href="#">Health</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="accordion">
+                                    <a href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
+                                       aria-controls="collapseTwo" class="collapsible">
+                                        <span class="icon-search2 mr-3"></span>Explore
+                                    </a>
+
+                                    <div id="collapseTwo" class="collapse" aria-labelledby="headingOne">
+                                        <div>
+                                            <ul>
+                                                <li><a href="#">Interior</a></li>
+                                                <li><a href="#">Food</a></li>
+                                                <li><a href="#">Travel</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                --%>
+
                 <li class="active"><a class="side_a" href="${pageContext.request.contextPath}/admin/dashboard"><span
                         class="icon-pie-chart mr-3"></span>Dashboard</a></li>
                 <li><a class="side_a" href="${pageContext.request.contextPath}/notice/list"><span
@@ -63,6 +90,7 @@
             </ul>
         </div>
     </div>
+
 </aside>
 
 <script src="/js/layout/jquery-3.3.1.min.js"></script>
