@@ -107,12 +107,4 @@ $(document).ready(function(){
             }
         });
     });
-
-    /* 면접일자 (현재 날짜 기준 이전 날짜 접근 제한)*/
-    var today = new Date();
-    var yesterday = new Date(today);
-    yesterday.setDate(today.getDate());
-    var pastDate = yesterday.toISOString().slice(0,10);
-    document.getElementById("date_enroll").min = pastDate;
-
 });

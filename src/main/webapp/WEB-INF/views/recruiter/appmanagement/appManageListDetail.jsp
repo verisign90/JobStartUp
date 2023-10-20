@@ -31,6 +31,7 @@
 
         <div class="info-container">
             <div class="button-container">
+                <div class="profile-label">지원자 프로필</div>
                 <button type="button" onclick="location.href='${pageContext.request.contextPath}/recruiter/myPage'" class="moving-button">마이페이지</button>
             </div>
             <div class="info-main-container">
@@ -39,8 +40,14 @@
                         <img class="image" src="${pageContext.request.contextPath}/image/appManage/${selectFile.profile_savname}" />
                     </div>
                 </div>
-                <div class ="company-info">
-                    <table>
+                <div class ="appManage-info">
+                    <table class = "appManage-profile">
+                        <thead>
+                            <tr>
+                                <th>항목</th>
+                                <th>내용</th>
+                            </tr>
+                        </thead>
                         <tr>
                             <th>지원자 성명</th>
                             <td>${selectInfo.member_name}</td>
@@ -105,6 +112,14 @@
 
                 <!-- 1차 합격 또는 거절 선택 -->
                 <c:if test="${selectInfo.first_pass eq 'N'}">
+                    <script>
+                        /* 면접일자 (현재 날짜 기준 이전 날짜 접근 제한)*/
+                        var today = new Date();
+                        var yesterday = new Date(today);
+                        yesterday.setDate(today.getDate());
+                        var pastDate = yesterday.toISOString().slice(0,10);
+                        document.getElementById("date_enroll").min = pastDate;
+                    </script>
                     <div class="first-approval">
                         <form action="/recruiter/firstEnroll" method="post">
                             <input type="hidden" name="status_no" id="first_enroll" value="${selectInfo.status_no}">

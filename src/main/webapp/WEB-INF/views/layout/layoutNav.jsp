@@ -38,7 +38,7 @@
                         <li class="scroll-to-section"><a href="${cPath}/jobfair/list">취업박람회</a></li>
                         <li class="scroll-to-section"><a href="${cPath}/recruiter/JPlist">채용공고</a></li>
                         <li class="scroll-to-section"><a href="${cPath}/seeker/resumeList">개인서비스</a></li>
-                        <li class="scroll-to-section"><a href="${cPath}/recruiter/myPage?company_no=4">기업서비스</a></li>
+                        <li class="scroll-to-section"><a href="${cPath}/recruiter/myPage">기업서비스</a></li>
                         <li class="scroll-to-section"><a href="${cPath}/notice/list">고객센터</a></li>
                         <li class="scroll-to-section" style="min-width: 100px"><a href="${cPath}/admin/dashboard">
                             <c:if test="${sessionScope.role == 3}">관리자</c:if>

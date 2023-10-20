@@ -79,7 +79,10 @@ public class AppManageController {
     }
 
     //채용관리 지원자 상세 페이지: 1차 면접일자 승인
-    @PostMapping("/firstEnroll")
+
+/*    public String appManageFirstEnroll(@RequestParam String date, @RequestParam String time,
+                                       @RequestParam int status_no, Model model){*/
+    @RequestMapping(value = "/firstEnroll", method = RequestMethod.POST)
     public String appManageFirstEnroll(@RequestParam String date, @RequestParam String time,
                                        @RequestParam int status_no, Model model){
 
@@ -93,6 +96,7 @@ public class AppManageController {
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
+
         //2) appManageDTO: parameter input
         AppManageDTO appManageDTO = new AppManageDTO();
         appManageDTO.setInterview_date(interview_date);
@@ -117,7 +121,8 @@ public class AppManageController {
 
     //채용관리 지원자 상세 페이지: 1차 면접일자 반려
     @PostMapping("/firstDenial")
-    public String appManageFirstDenial(@RequestParam int status_no, @NotNull Model model){
+    public String appManageFirstDenial(@RequestParam int status_no,
+                                       @NotNull Model model){
         //Business Logic
         int firstDenial = appManageService.updateAppManageFirstDenial(status_no);
 
@@ -136,7 +141,8 @@ public class AppManageController {
 
     //채용관리 지원자 상세 페이지: 최종 면접일자 승인
     @PostMapping("/finalEnroll")
-    public String appManageLastEnroll(@RequestParam int status_no, @NotNull Model model){
+    public String appManageLastEnroll(@RequestParam int status_no,
+                                      @NotNull Model model){
         //Business Logic
         int LastEnroll = appManageService.updateAppManageLastEnroll(status_no);
 
@@ -155,7 +161,8 @@ public class AppManageController {
 
     //채용관리 지원자 상세 페이지: 최종 면접일자 반려
     @PostMapping("/finalDenial")
-    public String appManageLastDenial(@RequestParam int status_no, @NotNull Model model){
+    public String appManageLastDenial(@RequestParam int status_no,
+                                      @NotNull Model model){
         //Business Logic
         int LastEnroll = appManageService.updateAppManageLastDenial(status_no);
 

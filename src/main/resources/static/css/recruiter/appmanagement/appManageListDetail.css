@@ -86,7 +86,18 @@
 
 .button-container {
     display: flex;
-    justify-content: flex-end;
+    justify-content: row;
+}
+
+.profile-label {
+  width: 90%;
+  display: block;
+  line-height: initial;
+  border-bottom: none;
+  height: auto;
+  font-weight: bold;
+  font-size: 1.3em;
+  background-color: white;
 }
 
 .moving-button {
@@ -115,10 +126,42 @@
     margin: 5px;
 }
 
-.company-info {
+.appManage-info {
     flex-basis: 70%;
     margin: 5px;
 }
+
+table.appManage-profile {
+  border-collapse: collapse;
+  /*text-align: left;*/
+  line-height: 1.5;
+}
+
+table.appManage-profile thead th {
+  padding: 10px;
+  font-weight: bold;
+  vertical-align: top;
+  color: #369;
+  border-bottom: 3px solid #036;
+}
+
+table.appManage-profile tbody th {
+  width: 150px;
+  padding: 10px;
+  font-weight: bold;
+  vertical-align: top;
+  border-bottom: 1px solid #ccc;
+  background: #f3f6f7;
+}
+
+table.appManage-profile td {
+  width: 350px;
+  padding: 10px;
+  vertical-align: top;
+  border-bottom: 1px solid #ccc;
+}
+
+
 
 .status-container {
   margin-top: 10px;
