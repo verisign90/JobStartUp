@@ -112,7 +112,7 @@ public class JobFairController {
         return "redirect:/admin/jobfairlist";
     }
 
-    @GetMapping("/write/companylist")
+    @GetMapping("/companylist")
     public String jobFairCompanyList(Model model) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());

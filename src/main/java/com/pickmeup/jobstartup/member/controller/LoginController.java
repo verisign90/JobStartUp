@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@RequestMapping("/login")
 public class LoginController {
-    @GetMapping("/login")
+    @GetMapping("/")
     public String loginPage() {
         return "member/login";
     }

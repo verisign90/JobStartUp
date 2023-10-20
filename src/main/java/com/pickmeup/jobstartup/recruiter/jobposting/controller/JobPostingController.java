@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@RequestMapping("/recruiter/*")
+@RequestMapping("/recruiter")
 @RequiredArgsConstructor
 @Controller
 public class JobPostingController {
