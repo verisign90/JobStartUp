@@ -1,7 +1,231 @@
-.all-content{
+
+
+
+.webtong_tab_type03 li:after, .webtong_tab_type03 li:after {
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s
+}
+
+#content {
+    padding: 8% 10% 6% 10%;
+}
+
+.webtong_tab_type03 {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    border-left: 1px solid #e7e7e7;
+    margin-bottom: 50px;
+}
+
+.webtong_tab_type03 li {
+    display: table-cell;
+    height: 50px;
+    position: relative
+}
+
+.webtong_tab_type03 li:after, .webtong_tab_type03 li:after {
+    content: '';
+    position: absolute;
+    background-color: #444;
+    height: 3px;
+    top: 0;
+    width: 0
+}
+
+.webtong_tab_type03 li.on:after, .webtong_tab_type03 li:hover:after {
+    width: 100%;
+    background: linear-gradient(to right, #5478ed, #2ed4fb); /*  그라데이션 색상 코드를 입력. */
+}
+
+.webtong_tab_type03 li a {
+    display: block;
+    position: relative;
+    height: 50px;
+    border-top: 1px solid #e7e7e7;
+    border-bottom: 1px solid #444; /*밑줄*/
+    line-height: 50px;
+    text-align: center;
+}
+
+.webtong_tab_type03 li .searchWrapper {
+    display: block;
+    position: relative;
+    height: 40px;
+    border-top: 1px solid #e7e7e7;
+    line-height: 50px;
+    text-align: center;
+}
+
+.webtong_tab_type03 li a:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 1px;
+    background: #e6e3df
+}
+
+.webtong_tab_type03 li .searchWrapper:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 1px;
+    background: #e6e3df
+}
+
+.webtong_tab_type03 li.on a, .webtong_tab_type03 li:hover a {
+    border-bottom-color: transparent
+}
+
+.webtong_tab_type03 li:hover a {
+    border-bottom-color: transparent
+}
+
+.webtong_tab_type03 li.on a:after, .webtong_tab_type03 li:hover a:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: -1px;
+    width: 1px;
+    background: #444
+}
+
+.webtong_tab_type03 li.on a:before, .webtong_tab_type03 li:hover a:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: -1px;
+    width: 1px;
+    background: #444
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.searchContainer {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    border-top: 0px solid #e7e7e7;
+    border-bottom: 1px solid #444;
+}
+
+.searchWrapper input {
+    border: none; /* 기본 테두리 제거 */
+    padding-left: 10px; /* 텍스트와 검색창 사이의 간격 */
+}
+
+.webtong_tab_type03 .searchWrapper input {
+    width: 99%;
+    height: 100%; /* 높이 맞추기 */
+
+}
+
+.webtong_tab_type03 .searchWrapper input:focus {
+    border: none; /* 기본 테두리 제거 */
+    outline: none; /* 기본 외곽선 제거 */
+    box-shadow: 0 0 15px 2px #3fadf5;
+}
+
+.upperLoc {
+    border: none; /* 기본 테두리 제거 */
+    outline: none; /* 기본 외곽선 제거 */
+}
+
+.webtong_tab_type03 .upperLoc select {
+    width: 100%;
+    height: 130%; /* 높이 맞추기 */
+    border: none; /* 기본 테두리 제거 */
+    outline: none; /* 기본 외곽선 제거 */
+}
+/*-----------------------------------------------------*/
+.all-content {
     padding-top: 130px;
 }
 
-.out-line{
-    border: 1px solid red
+.article-content {
+    padding-top: 200px;
+}
+
+/*----------------------------------------------------*/
+
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu a::after {
+    transform: rotate(-90deg);
+    position: absolute;
+    right: 6px;
+    top: .8em;
+}
+
+.dropdown-submenu .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-left: .1rem;
+    margin-right: .1rem;
+}
+
+.dropdown-content select {
+    outline: none; /* 기본 외곽선 제거 */
+    border: none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 100%;
+    height: 150%;
+    top: .8em;
+}
+
+.dropdown-content select option {
+}
+
+.dropdown .dropbtn.active + .dropdown-content {
+    display: block;
+}
+.dropdown:hover .dropdown-content {
+    display: none; /* 드롭다운 hover 시에는 숨김 */
+}
+
+
+/*---------------------------------------------------*/
+.loc-detail-name {
+    cursor: pointer;
+}
+
+.loc-detail-name.selected {
+    text-shadow: 0 0 7px #3fadf5;
 }

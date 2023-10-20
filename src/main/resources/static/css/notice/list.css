@@ -29,7 +29,7 @@ a {text-decoration: none; cursor: pointer;color: #666}
 .webtong_tab_type03 li:after, .webtong_tab_type03 li:after {content: '';position: absolute;background-color: #444;height: 3px;top: 0;width: 0}
 .webtong_tab_type03 li.on:after, .webtong_tab_type03 li:hover:after {width: 100%}
 
-.webtong_tab_type03 li a { display:block;position:relative;height:50px;border-top:1px solid #e7e7e7;border-bottom:1px solid #444;line-height:50px;text-align:center}
+.webtong_tab_type03 li a { display:block;position:relative;height:50px;border-top:1px solid #e7e7e7;border-bottom:1px solid #444;line-height:50px;text-align:center;}
 .webtong_tab_type03 li a:after { content:''; display:block; position:absolute; top:0; right:0; bottom:0; width:1px; background:#e6e3df}
 .webtong_tab_type03 li.on a, .webtong_tab_type03 li:hover a {border-bottom-color:transparent}
 .webtong_tab_type03 li:hover a {border-bottom-color:transparent}
