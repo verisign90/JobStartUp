@@ -15,14 +15,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/base.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/recruiter/appmanagement/appManageListDetail.css">
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/recruiter/appmanagement/appManageListDetail.js"></script>
-    <!-- Bootstrap core CSS -->
-    <link href="/css/template/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/template/assets/css/templatemo-chain-app-dev.css">
-    <link rel="stylesheet" href="/css/template/assets/css/animated.css">
-    <link rel="stylesheet" href="/css/template/assets/css/owl.css">
 </head>
 <body>
 <%@ include file="../../layout/layoutNav.jsp" %>
@@ -30,6 +22,7 @@
     <div class="header-text" data-wow-duration="1s" data-wow-delay="1s">
     </div>
 </div>
+<%@ include file="../../layout/layoutSideAdmin.jsp" %>
 
 <main>
     <article>
@@ -106,20 +99,36 @@
                 <div class="content-label">승인/반려</div>
             </div>
             <div class="content-container">
-                <div class="content">
-                    주의사항 안내 문구
+                <div class="approval-denial-content">
+                    주의 사항 있다면~~~
                 </div>
+
 
                 <!-- 1차 합격 또는 거절 선택 -->
                 <c:if test="${selectInfo.first_pass eq 'N'}">
                     <div class="first-approval">
                         <form action="/recruiter/firstEnroll" method="post">
                             <input type="hidden" name="status_no" id="first_enroll" value="${selectInfo.status_no}">
-                            면접일자
-                            <input type="date" name="date" id="date_enroll" required/>
-                            <input type="time" name="time" id="time_enroll" required/>
+                            <table>
+                                <thead>
+                                    <h5>면접 일자</h5>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>날짜</th>
+                                        <th>시작 시간</th>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="date" name="date" id="date_enroll" min="YYYY-MM-DD" required/>
+                                        </td>
+                                        <td>
+                                            <input type="time" name="time" id="time_enroll" required/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                             <button type="button" class="first-enroll-button" id="first-enroll-button">등록</button>
-                            등록된 면접일 : <fmt:formatDate value="${selectInfo.interview_date}" pattern="yyyy-MM-dd HH:mm" />
                         </form>
                         <form action="/recruiter/firstDenial" method="post">
                             <input type="hidden" name="status_no" id="first_denial" value="${selectInfo.status_no}">
@@ -180,6 +189,7 @@
 <script src="/css/template/assets/js/imagesloaded.js"></script>
 <script src="/css/template/assets/js/popup.js"></script>
 <script src="/css/template/assets/js/custom.js"></script>
+<script src="/css/template/assets/js/side.js"></script>
 
 
 </body>

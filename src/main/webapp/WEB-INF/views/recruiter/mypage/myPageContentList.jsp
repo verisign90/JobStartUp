@@ -14,7 +14,7 @@
 
     <!--채용 공고-->
     <c:if test="${not empty jobPostingList}">
-        <a href="/recruiter/myPageJobPostingWithPaging?company_no=${company_no}">더보기</a>
+        <a href="/recruiter/myPage/jobPostingWithPaging?company_no=${company_no}">더보기</a>
         <c:forEach var="jobPosting" items="${jobPostingList}" varStatus="status">
             <div class="content">
                 <table>
@@ -37,7 +37,7 @@
 
     <!--박람회-->
     <c:if test="${not empty jobFairList}">
-        <a href="/recruiter/myPageJobFairWithPaging?company_no=${company_no}">더보기</a>
+        <a href="/recruiter/myPage/jobFairWithPaging?company_no=${company_no}">더보기</a>
         <c:forEach var="jobFair" items="${jobFairList}" varStatus="status">
             <div class="content">
                 <table>
@@ -64,7 +64,7 @@
 
     <!--채용관리(지원자)-->
     <c:if test="${not empty appList}">
-        <a href="/recruiter/myPageAppManageWithPaging?company_no=${company_no}">더보기</a>
+        <a href="/recruiter/myPage/appManageWithPaging?company_no=${company_no}">더보기</a>
         <c:forEach var="app" items="${appList}" varStatus="status">
             <div class="content">
                 <table>

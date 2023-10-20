@@ -35,7 +35,7 @@
             <li class="scroll-to-section"><a href="${cPath}/jobfair/list">취업박람회</a></li>
             <li class="scroll-to-section"><a href="${cPath}/recruiter/JPlist">채용공고</a></li>
             <li class="scroll-to-section"><a href="${cPath}/seeker/resumeList">개인서비스</a></li>
-            <li class="scroll-to-section"><a href="${cPath}/recruiter/myPage?company_no=4">기업서비스</a></li>
+            <li class="scroll-to-section"><a href="${cPath}/recruiter/myPage">기업서비스</a></li>
             <li class="scroll-to-section"><a href="${cPath}/notice/list">고객센터</a></li>
             <li class="scroll-to-section"><a href="${cPath}/admin/dashboard">관리자</a></li>
             <li class="scroll-to-section"><a href="${cPath}/apply">기업신청</a></li>
