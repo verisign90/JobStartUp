@@ -72,6 +72,7 @@ public class SecurityConfig {
                     authorizeHttpRequests
                             .requestMatchers(
                                     new MvcRequestMatcher(introspector, "/notice/list"),
+                                    new MvcRequestMatcher(introspector, "/notice/list/**"),
                                     new MvcRequestMatcher(introspector, "/notice/read/**")
                             ).permitAll();
 
