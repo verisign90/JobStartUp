@@ -30,13 +30,19 @@ dependencies {
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.14.2'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.security:spring-security-taglibs:6.1.2'
+    implementation 'net.nurigo:sdk:4.3.0'
     implementation 'org.slf4j:slf4j-api'
     implementation 'ch.qos.logback:logback-classic'
+    implementation 'com.squareup.okhttp3:okhttp:3.12.2'
     implementation 'org.json:json:20210307'
 
     //mail, chat, message, coolsms api
     implementation 'org.springframework.boot:spring-boot-starter-mail'
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    implementation 'org.springframework:spring-messaging'
+    implementation 'org.webjars:stomp-websocket:2.3.4'
+    implementation 'org.webjars:webjars-locator-core'
+    implementation 'org.webjars:sockjs-client:1.5.1'
     implementation 'net.nurigo:sdk:4.3.0'
 
     //oracle cloud

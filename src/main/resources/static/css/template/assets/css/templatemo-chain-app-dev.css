@@ -2095,6 +2095,10 @@ responsive
   }
 }
 
+#message_img_hover {
+
+}
+
 @media (max-width: 767px) {
   .the-clients .naccs .menu div {
     text-align: center;

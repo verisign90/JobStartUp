@@ -1,0 +1,362 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,700,500italic,900,700italic,900italic);
+@import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
+@import url(https://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,600,700);
+* {
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+  font-family: 'Roboto';
+}
+*:focus {
+    outline: 0;
+}
+body, html {
+  margin:0px;
+  height:100%;
+  background-color:#fffff;
+  padding:0px;
+  color:#C6C6C6;
+  font-size:14px;
+  overflow:hidden;
+}
+.navSide {
+  position:fixed;
+  top:0px;
+  left:0px;
+  width:135px;
+  height:100%;
+  background-color:#FFFFFF;
+  text-align:center;
+  padding:10px;
+  margin-top: 100px;
+}
+
+.profile {
+  border-radius:100%;
+  border: 2px solid #ffffff;
+  width:55px;
+  height:55px;
+}
+.stat {
+  width:100%;
+  background-color:#656D78;
+  padding:10px;
+  border-radius:5px;
+  margin-top:10px;
+  color:#CCD1D9;
+}
+button {
+  width:100px;
+  background:none;
+  border:none;
+  padding:20px 0px;
+  color:#808080;
+  cursor:pointer;
+  border-radius:5px;
+}
+button:hover i {
+  color:#4FC1E9;
+}
+button:active {
+  background-color:#4FC1E9;
+  color:#ffffff;
+}
+button:active i {
+  color:#ffffff;
+}
+
+.content_message {
+  width:100%;
+  padding:0px;
+  padding-left:335px;
+}
+.second-nav {
+  height:100vh;
+  width:600px;
+  background-color:#F5F7FA;
+  border-left:1px solid #e0e0e0;
+  border-right:1px solid #e0e0e0;
+  position:fixed;
+  top:0px;
+  left:135px;
+  margin-top: 100px;
+}
+.header {
+  border-bottom:1px solid #e0e0e0;
+  width:100%;
+  padding: 25px;
+  font-size:20px;
+}
+.controls {
+  background-color:#ffffff;
+  width:100%;
+  display:table;
+  height:30px;
+  border-bottom:1px solid #e0e0e0;
+}
+.control {
+  display:table-cell;
+  text-align:center;
+  vertical-align:middle;
+  cursor:pointer;
+  position:relative;
+  height:30px;
+  width:20%;
+}
+.control:hover {
+  color:#4FC1E9;
+}
+.control:hover > .comment {
+  display:block;
+}
+.control:active {
+  background-color:#4FC1E9;
+  color:#ffffff;
+}
+.messages {
+  display:table;
+  width:100%;
+  background-color:#F5F7FA;
+}
+.message {
+  cursor: pointer;
+  pointer-events: auto;
+  display:table-row;
+  height:70px;
+  font-size:14px;
+  vertical-align:middle;
+}
+.cell {
+  display:table-cell;
+  vertical-align:middle;
+  padding:0px 5px;
+  padding-top:5px;
+  width:100%;
+  font-size:14px;
+  border-bottom:1px solid #e0e0e0;
+}
+.checkbox {
+  width:25px;
+  float:left;
+  padding-top:15px;
+}
+.profileImage {
+  width:50px;
+  float:left;
+}
+.profileImage img {
+  border-radius:5px;
+  width:45px;
+}
+.message_metadata {
+  width:550px;
+  padding-left:10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align:left;
+  height:50px;
+}
+.message_metadata p {
+  float:left;
+  padding:0px;
+  margin:0px;
+  width:538px;
+  font-size:13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.from {
+  font-weight:700;
+  color:#2f2e2e;
+}
+.subject {
+  color:#808080;
+}
+.comment {
+  width:100px;
+  height:40px;
+  border-radius:5px;
+  background-color:#ffffff;
+  padding:10px;
+  text-align:center;
+  color:#808080;
+  font-size:14px;
+  position:absolute;
+  bottom:-45px;
+  left:50%;
+  margin-left:-50px;
+  border:1px solid #e0e0e0;
+  display:none;
+  z-index:10;
+}
+.comment:after {
+  content:"";
+	width: 0;
+	height: 0;
+  position:absolute;
+  top:-5px;
+  left:50%;
+  margin-left:-5px;
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-bottom: 5px solid #e0e0e0;
+}
+.comment .fa-times {
+  position:absolute;
+  top:3px;
+  right:5px;
+  cursor:pointer;
+}
+/*Adding custom checkbox icons*/
+.checkbox_label {
+	position: relative;
+	padding-left: 30px;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.checkbox_label:before, .checkbox_label:after {
+	font-family: FontAwesome;
+	font-size: 21px;
+	/*absolutely positioned*/
+	position: absolute; top: 0; left: 0;
+
+}
+.checkbox_label:before {
+	content: '\f096'; /*unchecked*/
+}
+.checkbox_label:after {
+	content: '\f046'; /*checked*/
+	/*checked icon will be hidden by default by using 0 max-width and overflow hidden*/
+	max-width: 0;
+	overflow: hidden;
+	opacity: 0.5;
+	/*CSS3 transitions for animated effect*/
+	transition: all 0.35s;
+  color:#4FC1E9;
+}
+
+/*hiding the original checkboxes*/
+input[type="checkbox"] {
+	display: none;
+}
+/*when the user checks the checkbox the checked icon will animate in*/
+input[type="checkbox"]:checked + .checkbox_label:after {
+	max-width: 25px; /*an arbitratry number more than the icon's width*/
+	opacity: 1; /*for fade in effect*/
+}
+
+.viewer {
+  margin-left : 400px;
+}
+.viewer .header {
+  background-color:#FFFFFF;
+  position:relative;
+  color:#AAB2BD;
+}
+.scroll {
+  height:100vh;
+  overflow-y:scroll;
+  margin-top: 100px;
+}
+#email {
+  padding:0px;
+  padding-left:100px;
+  padding-top:20px;
+}
+#email p {
+  color:#656d78;
+  font-size:14px;
+  margin:0px;
+  padding:0px;
+}
+#email .subject {
+  font-weight:700;
+}
+.viewer .header img {
+  width:60px;
+  position:absolute;
+  top:20px;
+  left:20px;
+}
+.body {
+  padding : 50px 50px 100px 25px;
+  color:#656d78;
+}
+.body h1 {
+  font-weight:300;
+}
+.body img {
+  width:100%;
+  border-radius:10px;
+  max-width:600px;
+  cursor:pointer;
+  transition:all 1s;
+}
+.body img:hover {
+  box-shadow:0px 0px 10px rgba(0,0,0, 1);
+}
+.imagedisplay {
+  position:fixed;
+  top:0px;
+  left:0px;
+  width:100%;
+  height:100%;
+  background:#434A54;
+  display:none;
+  padding:20px;
+  text-align:center;
+  vertical-align:middle;
+}
+.viewimage {
+  width:600px;
+}
+.viewimage img {
+  width:100%;
+}
+#imageclose {
+  padding: 5px 10px;
+  position:absolute;
+  top:0;
+  right:0;
+  background: #f00;
+  cursor:pointer;
+  color: #fff;
+}
+
+.regDate {
+    text-align:end;
+    font-size:.8em;
+}
+
+.formDiv {
+    margin : 25px;
+}
+
+#messageFooter {
+    float : right;
+    margin-right : 25px;
+}
+
+.borderDiv {
+    border-top : 1px solid #e0e0e0;
+    margin-bottom : 50px;
+}
+
+.form_group {
+    font-size: 1em;
+    line-height: 30px;
+    font-weight: 300;
+    color: #afafaf;
+}
+
+#checkMessage {
+  margin-top : 20%;
+}
+
+#messagefonts {
+    font-size: 1.5em;
+    color : #a1a1a1;
+}
