@@ -5,22 +5,15 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.pickmeup.jobstartup.jobfair.dto.EntryDTO;
 import com.pickmeup.jobstartup.jobfair.dto.JobFairDTO;
 import com.pickmeup.jobstartup.jobfair.service.JobFairService;
-import com.pickmeup.jobstartup.member.entity.Member;
-import com.pickmeup.jobstartup.member.entity.MemberType;
 import com.pickmeup.jobstartup.recruiter.apply.dto.ApplyDTO;
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
-
-import static com.pickmeup.jobstartup.member.entity.MemberType.COMPANY;
-import static com.pickmeup.jobstartup.member.entity.MemberType.UNAPPROVED_COMPANY;
 
 @Controller
 @RequiredArgsConstructor
@@ -131,16 +124,30 @@ public class JobFairController {
         return "jobfair/jobfair_company_list";
     }
 
-    @PostMapping("/entry")
-    public void entryJobFair(Long jobFairNo, Long memberNo, Long companyNo) {
-        System.out.println("JFNO: " + jobFairNo + " | memberNo: " + memberNo + " | companyNo: " + companyNo);
-        if (companyNo != null){
-            jobFairService.insertJobFairEntry(jobFairNo, memberNo, companyNo);
-        }else {
-            System.out.println("회사 정보 입력 요망");
+    @GetMapping("/entry/form")
+    public String jobFairForm(@RequestParam(name = "jobFairNo") Long jobFairNo, HttpServletRequest request, Model model) {
+        Long memberNo = null;
+        String memberNoStr = request.getSession().getAttribute("memberNo").toString();
+        if (memberNoStr != null && memberNoStr.matches("\\d+")) {
+            memberNo = Long.valueOf(memberNoStr);
         }
+
+        Long companyNo = null;
+        String companyNoStr = request.getSession().getAttribute("companyNo").toString();
+        if (companyNoStr != null && companyNoStr.matches("\\d+")) {
+            companyNo = Long.valueOf(companyNoStr);
+        }
+
+        if (companyNo != null) {
+            ApplyDTO companyInfo = jobFairService.findCompanyByMemberNo(memberNo);
+            model.addAttribute("companyInfo", companyInfo);
+        }
+
+        return "jobfair/approvalRequest";
     }
 
+    @PostMapping("/entry")
+    public void entryCompany(@ModelAttribute ApplyDTO companyDTO){
 
-
+    }
 }
