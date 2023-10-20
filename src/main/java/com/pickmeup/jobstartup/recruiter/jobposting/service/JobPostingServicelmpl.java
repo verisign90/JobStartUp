@@ -17,7 +17,7 @@ public class JobPostingServicelmpl implements JobPostingService{
 
     //공고작성
     @Override
-    public void write(JobPostingDTO jobPostingDTO) throws Exception {
+    public void insertJobPostingDTO(JobPostingDTO jobPostingDTO) throws Exception {
         jobPostingRepository.insertJobPostingDTO(jobPostingDTO);
     }
 
@@ -37,15 +37,15 @@ public class JobPostingServicelmpl implements JobPostingService{
 
     //공고수정
     @Override
-    public void modify(Map<String, Object> map) throws Exception {
+    public void JPmodify(Map<String, Object> map) throws Exception {
         System.out.println("여기는서비스입니다"+map);
-        jobPostingRepository.modify(map);
+        jobPostingRepository.JPmodify(map);
     }
 
     //삭제
     @Override
-    public void delete(int posting_no) throws Exception{
-        jobPostingRepository.delete(posting_no);
+    public void JPdelete(int posting_no) throws Exception{
+        jobPostingRepository.JPdelete(posting_no);
 
     }
 

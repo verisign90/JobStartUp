@@ -29,9 +29,6 @@
 </head>
 <body>
 <header>
-    <%--<div class="logo">
-        <img src="${pageContext.request.contextPath}/img/logo.png" alt="Logo">
-    </div>--%>
     <!-- ***** Nav start ***** -->
     <%@ include file="../../layout/layoutNav.jsp" %>
     <!-- ***** Nav End ***** -->
@@ -50,17 +47,19 @@
                     <button class="btn" title="클릭하면 입사지원 할수있습니다">입사지원</button>
                     <div>
                         <!-- 수정 버튼 -->
-                        <a href="${cPath}/recruiter/modify/${JPdetail.posting_no}" class="btn btn-primary">수정</a>
-                        <%--<button type="button" class="btn btn-primary" name="modify"><a href="/recruiter/modify/${jobPosting.posting_no}">수정하기</a></button>--%>
+                        <a href="${cPath}/recruiter/JPmodify/${JPdetail.posting_no}" class="btn btn-primary">수정</a>
+
                         <!-- 삭제 버튼 -->
-                        <a href="${cPath}/recruiter/delete/${jobPosting.posting_no}" class="btn btn-danger">삭제</a>
+                        <a href="${cPath}/recruiter/JPdelete/${JPdetail.posting_no}" class="btn btn-danger">삭제</a>
 
                         <%-- 민용님 제 스크랩 버튼 놓고갑니다 --%>
                         <div class="bookmark-item"
                              data-posting-no="${postingNo}"
                              data-member-no="${memberNo}">
-                            <button class="btn btn-light bookmark-button" style="/*background-color: transparent; border: #0d6efd; */padding: 10px;">
-                                <img class="bookmark-image" src="${cPath}/img/empty_star.png" style="width: 20px;" alt=""/> 스크랩
+                            <button class="btn btn-light bookmark-button"
+                                    style="/*background-color: transparent; border: #0d6efd; */padding: 10px;">
+                                <img class="bookmark-image" src="${cPath}/img/empty_star.png" style="width: 20px;"
+                                     alt=""/> 스크랩
                             </button>
                         </div>
 
@@ -69,10 +68,10 @@
                              data-company-no="${JPdetail.company_no}"
                              data-member-no="${memberNo}">
                             <button class="follow-button" style="background-color: transparent; border: none;">
-                                <img class="follow-image" src="${cPath}/img/status_unfollow.png" style="width: 20px;" alt=""/>
+                                <img class="follow-image" src="${cPath}/img/status_unfollow.png" style="width: 20px;"
+                                     alt=""/>
                             </button>
                         </div>
-                        <a href="${cPath}/recruiter/delete/${JPdetail.posting_no}" class="btn btn-danger">삭제</a>
                     </div>
                     <!-- 버튼을 클릭하여 모달을 열도록 합니다. -->
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
@@ -147,7 +146,11 @@
                     </dl>
                     <dl>
                         <dt>근무일시</dt>
-                        <dd>${JPdetail.posting_working_day}</dd>
+                        <dd>
+                            <span>${JPdetail.posting_working_day}</span>
+                            <span>${JPdetail.posting_swork}</span> ~
+                            <span>${JPdetail.posting_ework}</span>
+                        </dd>
                     </dl>
                     <dl>
                         <dt>근무지역</dt>
@@ -167,7 +170,7 @@
     </article>
 </main>
 <footer>
-    footer
+
 </footer>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -214,7 +217,7 @@
         });
     });
 
-    $(".bookmark-button").on("click", function() {
+    $(".bookmark-button").on("click", function () {
         const item = $(this).closest(".bookmark-item");
         const posting_no = item.data("posting-no");
         const member_no = item.data("member-no");
@@ -240,7 +243,7 @@
         });
     });
 
-    $(".follow-button").on("click", function() {
+    $(".follow-button").on("click", function () {
         const item = $(this).closest(".follow-item");
         const member_no = item.data("member-no");
         const company_no = item.data("company-no");

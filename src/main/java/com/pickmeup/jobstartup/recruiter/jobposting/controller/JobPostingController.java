@@ -21,8 +21,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,28 +42,31 @@ public class JobPostingController {
     private ResumeServiceImpl resumeService;
 
     /*공고등록 폼*/
-    @GetMapping("/write")
-    public String writeForm(Model model) throws Exception {
+    @GetMapping("/JPwrite")
+    public String JPwriteForm(Model model) throws Exception {
         List<LocDTO> upperLoc = jobPostingService.getUpperLoc();
-        /*RecruiterMyPageDTO jobPostingWrite= jobPostingService.selectCompany();*/
         model.addAttribute("upperLoc", upperLoc);
-        /*model.addAttribute("jobPostingWrite",jobPostingWrite);*/
         return "/recruiter/jobPosting/JPwriteForm";
     }
 
     /*게시글 등록*/
-    @PostMapping("/write")
-    public String write(JobPostingDTO jobPostingDTO,
-                        @RequestParam("posting_content") String content) throws Exception {
+    @PostMapping("/JPwrite")
+    public ModelAndView JPwrite(JobPostingDTO jobPostingDTO,
+                          @RequestParam("posting_content") String content, ModelAndView modelAndView) throws Exception {
+
+        System.out.println("getPosting_career"+jobPostingDTO.getPosting_career());
+        System.out.println("getPosting_labor"+jobPostingDTO.getPosting_labor());
+
         jobPostingDTO.setCompany_no(0L);
         jobPostingDTO.setPosting_content(content);
-        jobPostingService.write(jobPostingDTO);
-        return "recruiter/jobPosting/JPlist";
+        jobPostingService.insertJobPostingDTO(jobPostingDTO);
+        modelAndView.setViewName("redirect:/recruiter/JPlist");
+        return modelAndView;
     }
 
     //공고리스트
     @GetMapping("/JPlist")
-    public String list(Model model) throws Exception {
+    public String JPlist(Model model) throws Exception {
         List<JobPostingDTO> JPlist = jobPostingService.selectJPlist();
         List<LocDTO> upperLoc = jobPostingService.getUpperLoc();
         model.addAttribute("JPlist", JPlist);
@@ -95,19 +100,20 @@ public class JobPostingController {
     }
 
     // 수정 페이지로 이동
-    @GetMapping("/modify/{posting_no}")
+    @GetMapping("/JPmodify/{posting_no}")
     public String modifyForm(@PathVariable("posting_no") int posting_no, Model model) throws Exception {
         JobPostingDTO jobPostingDTO = jobPostingService.selectJPdetail(posting_no);
         List<LocDTO> upperLoc = jobPostingService.getUpperLoc();
         ObjectMapper mapper = new ObjectMapper();
-        String posting_title = mapper.writeValueAsString(jobPostingDTO.getPosting_title());
         String posting_career = mapper.writeValueAsString(jobPostingDTO.getPosting_career());
         String posting_academy = mapper.writeValueAsString(jobPostingDTO.getPosting_academy());
         String posting_labor = mapper.writeValueAsString(jobPostingDTO.getPosting_labor());
         String posting_salary = mapper.writeValueAsString(jobPostingDTO.getPosting_salary());
         String posting_working_day = mapper.writeValueAsString(jobPostingDTO.getPosting_working_day());
         String posting_swork = mapper.writeValueAsString(jobPostingDTO.getPosting_swork());
+        System.out.println(jobPostingDTO.getPosting_swork());
         String posting_ework = mapper.writeValueAsString(jobPostingDTO.getPosting_ework());
+        System.out.println(jobPostingDTO.getPosting_ework());
         String posting_sdate = mapper.writeValueAsString(jobPostingDTO.getPosting_sdate());
         String posting_edate = mapper.writeValueAsString(jobPostingDTO.getPosting_edate());
         model.addAttribute("jobPostingDTO", jobPostingDTO);
@@ -121,28 +127,27 @@ public class JobPostingController {
         model.addAttribute("PostingSdate", posting_sdate);
         model.addAttribute("PostingEdate", posting_edate);
         model.addAttribute("upperLoc", upperLoc);
-        return "recruiter/jobPosting/JPmodify"; // 현재 페이지를 수정 페이지로 재사용
+        return "recruiter/jobPosting/JPmodify";
     }
 
-
-  // 수정 작업 처리
-    @PostMapping("/modify")
-    public String modify(@RequestParam Map<String, Object> map, Model model) throws Exception {
-        jobPostingService.modify(map);
+    // 수정 작업 처리
+    @PostMapping("/JPmodify")
+    public String JPmodify(@RequestParam Map<String, Object> map) throws Exception {
+        jobPostingService.JPmodify(map);
         // jobPosting을 사용하여 해당 채용 정보를 업데이트
         return "redirect:/recruiter/JPlist"; // 수정 후 목록 페이지로 리다이렉트
     }
 
     // 삭제 작업 처리
-    @GetMapping("/delete/{postingNo}")
-    public String delete(@PathVariable int postingNo) {
-        // 삭제 작업을 처리하는 로직 작성
-        // postingNo를 사용하여 해당 채용 정보를 삭제
-        return "/recruiter/jobPosting/JPlist"; // 삭제 후 목록 페이지로 리다이렉트
+    @GetMapping("/JPdelete/{posting_no}")
+    public ModelAndView JPdelete(@PathVariable("posting_no") int posting_no,ModelAndView modelAndView) throws Exception {
+        jobPostingService.JPdelete(posting_no);
+        modelAndView.setViewName("redirect:/recruiter/JPlist"); // 삭제 후 목록 페이지로
+        return modelAndView;
     }
 
     //상위지역에 따른 하위지역 목록 불러오기
-    @GetMapping("/getLowerLoc")
+    @GetMapping("/getJPLowerLoc")
     @ResponseBody
     public List<LocDTO> getLowerLoc(@RequestParam String upperLoc) {
         System.out.println("upperLoc = " + upperLoc);

@@ -22,10 +22,10 @@ public interface JobPostingRepository {
     public JobPostingDTO selectJPdetail (int posting_no);
 
     // 공고게시글 수정
-    public void modify(Map<String, Object> map);
+    public void JPmodify(Map<String, Object> map);
 
     // 공고 삭제
-    public void delete(int posting_no);
+    public void JPdelete(int posting_no);
 
     //상위지역(서울특별시, 부산광역시 등등, 지역 계층구조 1단계) 목록 가져오기
     public List<LocDTO> getUpperLoc();

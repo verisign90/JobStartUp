@@ -16,8 +16,8 @@
     <%--<link rel="stylesheet" href="${pageContext.request.contextPath}/css/base.css">--%>
     <%--<link rel="stylesheet" href="${pageContext.request.contextPath}/ckeditor5-2/sample/styles.css">--%>
     <%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/layout/layout.css">--%>
-    <script src="${contextPath}/ckeditor5-2/build/ckeditor.js"></script>
-    <%--<script src="https://cdn.ckeditor.com/ckeditor5/39.0.2/classic/ckeditor.js"></script>--%>
+    <%--<script src="${contextPath}/ckeditor5-2/build/ckeditor.js"></script>--%>
+    <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
 
     <!-- Bootstrap core CSS -->
     <link href="/css/template/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -41,7 +41,7 @@
 </header>
 <main>
     <article class="all-content">
-        <form action="${pageContext.request.contextPath}/recruiter/write" method="post" enctype="multipart/form-data">
+        <form action="${pageContext.request.contextPath}/recruiter/JPwrite" method="post" enctype="multipart/form-data">
             <section>
                 <div>
                     <h3>모집분야</h3>
@@ -53,15 +53,10 @@
                 </div>
                 <div>
                     <label for="c1" class="">직무·직업</label>
-                    <input type="checkbox" name="posting_career" id="c1"/><label
-                        for="c1">신입</label>
-                    <input type="checkbox" name="posting_career" id="c2"/><label
-                        for="c2">경력</label>
-                    <input type="checkbox" name="posting_career" id="c3"/><label
-                        for="c3">경력무관</label>
-                    <input type="checkbox" name="posting_career" id="c4"/><label
-                        for="c4">신입 지원
-                    가능</label>
+                    <input type="checkbox" name="posting_career" id="c1" value="신입"/><label for="c1">신입</label>
+                    <input type="checkbox" name="posting_career" id="c2" value="경력"/><label for="c2">경력</label>
+                    <input type="checkbox" name="posting_career" id="c3" value="경력무관"/><label for="c3">경력무관</label>
+                    <input type="checkbox" name="posting_career" id="c4" value="신입 지원 가능"/><label for="c4">신입 지원 가능</label>
                 </div>
                 <div>
                     <h3>지원자격</h3>
@@ -82,27 +77,26 @@
 
                 <div>
                     <label for="w1" class="">근무형태</label>
-                    <input type="checkbox" name="posting_labor" id="w1"/><label
-                        for="w1">정규직</label>
-                    <input type="checkbox" name="posting_labor" id="w2"/><label
-                        for="w2">계약직</label>
-                    <input type="checkbox" name="posting_labor" id="w3"/><label
-                        for="w3">인턴직</label>
-                    <input type="checkbox" name="posting_labor" id="w4"/><label for="w4">아르바이트</label>
-                    <input type="checkbox" name="posting_labor" id="w5"/><label
-                        for="w5">파견직</label>
-                    <input type="checkbox" name="posting_labor" id="w6"/><label
-                        for="w6">해외취업</label>
-                    <input type="checkbox" name="posting_labor" id="w7"/><label
-                        for="w7">계약직 (정규직
-                    전환가능)</label>
-                    <input type="checkbox" name="posting_labor" id="w8"/><label
-                        for="w8"> 인턴직
-                    (정규직 전환가능)</label>
-                    <input type="checkbox" name="posting_labor" id="w9"/><label
-                        for="w9">교육생</label>
-                    <input type="checkbox" name="posting_labor" id="w10"/><label
-                        for="w10">기간제</label>
+                    <label for="w1">정규직</label>
+                    <input type="checkbox" name="posting_labor" id="w1" value="정규직"/>
+                    <label for="w2">계약직</label>
+                    <input type="checkbox" name="posting_labor" id="w2" value="계약직"/>
+                    <label for="w3">인턴직</label>
+                    <input type="checkbox" name="posting_labor" id="w3" value="인턴직"/>
+                    <label for="w4">아르바이트</label>
+                    <input type="checkbox" name="posting_labor" id="w4" value="아르바이트"/>
+                    <label for="w5">파견직</label>
+                    <input type="checkbox" name="posting_labor" id="w5" value="파견직"/>
+                    <label for="w6">해외취업</label>
+                    <input type="checkbox" name="posting_labor" id="w6" value="해외취업"/>
+                    <label for="w7">계약직(정규직 전환가능)</label>
+                    <input type="checkbox" name="posting_labor" id="w7" value="계약직(정규직 전환가능)"/>
+                    <label for="w8">인턴직(정규직 전환가능)</label>
+                    <input type="checkbox" name="posting_labor" id="w8" value="인턴직(정규직 전환가능)"/>
+                    <label for="w9">교육생</label>
+                    <input type="checkbox" name="posting_labor" id="w9" value="교육생"/>
+                    <label for="w10">기간제</label>
+                    <input type="checkbox" name="posting_labor" id="w10" value="기간제"/>
                 </div>
             </section>
             <section>
@@ -216,41 +210,18 @@
 <script src="/css/template/assets/js/custom.js"></script>
 
 <script>
-    const watchdog = new CKSource.EditorWatchdog();
-
-    window.watchdog = watchdog;
-
-    watchdog.setCreator((element, config) => {
-        return CKSource.Editor
-            .create(element, config)
-            .then(editor => {
-                return editor;
-            });
-    });
-
-    watchdog.setDestructor(editor => {
-        return editor.destroy();
-    });
-
-    watchdog.on('error', handleSampleError);
-
-    watchdog
-        .create(document.querySelector('.editor'), {
-            // Editor configuration.
+    ClassicEditor
+        .create(document.querySelector('#editor'), {
+            ckfinder: {
+                uploadUrl: '/upload'
+            }
         })
-        .catch(handleSampleError);
-
-    function handleSampleError(error) {
-        const issueUrl = 'https://github.com/ckeditor/ckeditor5/issues';
-
-        const message = [
-            'Oops, something went wrong!',
-            `Please, report the following error on ${ issueUrl } with the build id "jdvxf7v1zcxg-ysu3jnu712sw" and the error stack trace:`
-        ].join('\n');
-
-        console.error(message);
-        console.error(error);
-    }
+        .then(editor => {
+            console.log('Editor was initialized');
+        })
+        .catch(error => {
+            console.error(error);
+        });
 
 
     document.addEventListener("DOMContentLoaded", function () {
@@ -283,7 +254,7 @@
     function loadLowerLoc() {
         var upperLocValue = document.getElementById("upperLoc").value;
 
-        fetch('/recruiter/getLowerLoc?upperLoc=' + upperLocValue)
+        fetch('/recruiter/getJPLowerLoc?upperLoc=' + upperLocValue)
             .then(response => response.json())
             .then(data => {
                 var lowerLocSelect = document.getElementById("lowerLoc");
@@ -299,7 +270,5 @@
             .catch(error => console.error('Error:', error));
     }
 </script>
-
-
 </body>
 </html>

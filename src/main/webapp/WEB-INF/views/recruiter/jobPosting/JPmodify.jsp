@@ -38,7 +38,7 @@
 </header>
 <main>
     <article class="all-content">
-        <form action="${pageContext.request.contextPath}/recruiter/modify" method="post" enctype="multipart/form-data">
+        <form action="${pageContext.request.contextPath}/recruiter/JPmodify" method="post" enctype="multipart/form-data">
             <input type="hidden" id="posting_no" name="posting_no" value="${jobPostingDTO.posting_no}"/>
             <section>
                 <div>
@@ -296,7 +296,7 @@
     function loadLowerLoc() {
         var upperLocValue = document.getElementById("upperLoc").value;
 
-        fetch('/recruiter/getLowerLoc?upperLoc=' + upperLocValue)
+        fetch('/recruiter/getJPLowerLoc?upperLoc=' + upperLocValue)
             .then(response => response.json())
             .then(data => {
                 var lowerLocSelect = document.getElementById("lowerLoc");
@@ -313,69 +313,7 @@
     }
 </script>
 <script>
-    /*//수정해야함
-    $(document).ready(function() { // 페이지가 로드되면 실행될 함수
-        var selectedValue = ${posting_academy};
-        selectOptionByValue(selectedValue);
-
-        var selectedValue2 = ${posting_salary};
-        selectOptionByValue(selectedValue2);
-
-        var selectedValue = ${posting_swork};
-        selectOptionByValue(selectedValue);
-
-        var selectedValue = ${posting_ework};
-        selectOptionByValue(selectedValue);
-
-/!*        // 라디오 버튼 선택 및 옵션 선택 값을 변경
-        var checkedValue = ${posting_caree}; // "typeJson"에서 값을 가져옴
-        var checkedValue = ${posting_labor};
-        var checkedValue = ${posting_working_day};
-        var selectedValue = ${posting_academy}; // "categoryJson"에서 값을 가져옴
-        var selectedValue = ${posting_salary};
-        var selectedValue = ${posting_swork};
-        var selectedValue4 = ${posting_ework};
-        selectRadioByValue(checkedValue1); // 값을 기반으로 라디오 버튼 선택
-        selectRadioByValue(checkedValue2); // 값을 기반으로 라디오 버튼 선택
-        selectRadioByValue(checkedValue3); // 값을 기반으로 라디오 버튼 선택
-        selectOptionByValue(selectedValue1); // 값을 기반으로 옵션 선택
-        selectOptionByValue(selectedValue2); // 값을 기반으로 옵션 선택
-        selectOptionByValue(selectedValue3); // 값을 기반으로 옵션 선택
-        selectOptionByValue(selectedValue4; // 값을 기반으로 옵션 선택*!/
-    });
-
-    function selectRadioByValue(checkedValue) { // 주어진 값으로 라디오 버튼 선택
-        var radioElements = document.getElementsByName('posting_career');
-        // "q_type" 이름을 가진 라디오 버튼 요소 가져옴
-        var radioElements = document.getElementsByName('posting_labor');
-        var radioElements = document.getElementsByName('posting_working_day');
-
-        for (var i = 0; i < radioElements.length; i++) {
-            if (radioElements[i].value === checkedValue) {
-                radioElements[i].checked = true; // 선택된 값을 가진 라디오 버튼 선택
-                break;
-            }
-        }
-    }
-
-    function selectOptionByValue(selectedValue) { // 주어진 값으로 옵션 선택
-        var selectElement = document.getElementById('posting_academy'); // "q_category" ID를 가진 셀렉트 요소 가져옴
-        /!*var selectElement = document.getElementById('posting_salary'); // "q_category" ID를 가진 셀렉트 요소 가져옴
-        var selectElement = document.getElementById('posting_swork'); // "q_category" ID를 가진 셀렉트 요소 가져옴
-        var selectElement = document.getElementById('posting_ework'); // "q_category" ID를 가진 셀렉트 요소 가져옴*!/
-/!*        var selectElement2 = document.getElementById('Posting_salary'); // "q_category" ID를 가진 셀렉트 요소 가져옴
-        var selectElement3 = document.getElementById('Posting_swork'); // "q_category" ID를 가진 셀렉트 요소 가져옴
-        var selectElement4 = document.getElementById('Posting_ework'); // "q_category" ID를 가진 셀렉트 요소 가져옴*!/
-
-        for (var i = 0; i < selectElement.options.length; i++) {
-            if (selectElement.options[i].value === selectedValue) {
-                selectElement.selectedIndex = i; // 선택된 값을 가진 옵션 선택
-                break;
-            }
-        }
-    }*/
-
-    $(document).ready(function() {
+     $(document).ready(function() {
         var posting_academy = ${posting_academy}; // 데이터베이스에서 가져온 posting_academy 값
         var posting_salary = ${posting_salary}; // 데이터베이스에서 가져온 posting_salary 값
         var posting_swork = ${posting_swork}; // 데이터베이스에서 가져온 posting_swork 값
@@ -415,6 +353,35 @@
             }
         }
     }
+
+   /* $(document).ready(function() {
+        // 서버에서 데이터 가져오기
+        $.ajax({
+            url: "/recruiter/modify/{posting_no}",
+            type: "GET",
+            dataType: "json",
+            success: function(data) {
+                // 데이터를 받았을 때, 폼 필드를 채우는 함수 호출
+                fillFormFields(data);
+            },
+            error: function() {
+                // 에러 처리 로직
+            }
+        });
+    });
+
+    function fillFormFields(data) {
+        // 데이터를 이용하여 폼 필드를 채우는 로직을 구현
+        $("#posting_swork").val(data.posting_swork);
+        $("#posting_ework").val(data.posting_ework);
+        $("#posting_academy").val(data.posting_academy);
+        $("#posting_salary").val(data.posting_salary);
+        $("#posting_career").val(data.posting_career);
+        $("#posting_labor").val(data.posting_labor);
+        $("#posting_working_day").val(data.posting_working_day);
+        // 다른 필드에 대해서도 값 설정
+    }*/
+
 
 </script>
 
