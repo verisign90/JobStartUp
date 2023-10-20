@@ -1,5 +1,3 @@
-
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -103,11 +101,13 @@
                     </a>
                 </div>
             </c:if>
-
+            <c:if test="${sessionScope.role == 2 or sessionScope.role == 4}">
                 <div>
-                    <a href="${pageContext.request.contextPath}/recruiter/insertJobFairEntry/${jobFair.JOBFAIR_NO}">참가 신청</a>
+                    <a href="${pageContext.request.contextPath}/jobfair/entry/form?jobFairNo=${jobFair.JOBFAIR_NO}">
+                        참가 신청
+                    </a>
                 </div>
-
+            </c:if>
         </div>
         <br/>
         <br/>

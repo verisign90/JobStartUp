@@ -89,4 +89,10 @@
     <select id="countJobFair" resultType="int">
         SELECT COUNT(*) FROM JOB_FAIR
     </select>
+
+    <select id="findCompanyByMemberNo" resultType="com.pickmeup.jobstartup.recruiter.apply.dto.ApplyDTO">
+        SELECT COMPANY_NO, MEMBER_NO, COMPANY_NAME, COMPANY_HP, CEO_NAME, COMPANY_TYPE, BUSINESS_TYPE_CODE, COMPANY_ADDRESS_CODE, COMPANY_SALES, LOGO_ORGNAME, LOGO_SAVNAME, COMPANY_ADDRESS_DETAIL, COMPANY_EST, APPLICATION_DATE, COMPANY_SITE
+        FROM COMPANY
+        WHERE MEMBER_NO = #{memberNo}
+    </select>
 </mapper>

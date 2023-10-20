@@ -37,12 +37,19 @@
                         <li class="scroll-to-section"><a href="${cPath}/" class="active">Home</a></li>
                         <li class="scroll-to-section"><a href="${cPath}/jobfair/list">취업박람회</a></li>
                         <li class="scroll-to-section"><a href="${cPath}/recruiter/JPlist">채용공고</a></li>
-                        <li class="scroll-to-section"><a href="${cPath}/seeker/resumeList">개인서비스</a></li>
-                        <li class="scroll-to-section"><a href="${cPath}/recruiter/myPage">기업서비스</a></li>
+                        <c:if test="${sessionScope.role == 1}">
+                            <li class="scroll-to-section"><a href="${cPath}/seeker/resumeList">개인서비스</a></li>
+                        </c:if>
+                        <c:if test="${sessionScope.role == 2}">
+                            <li class="scroll-to-section"><a
+                                    href="${cPath}/recruiter/myPage?company_no=${sessionScope.companyNo}">기업서비스</a></li>
+                        </c:if>
                         <li class="scroll-to-section"><a href="${cPath}/notice/list">고객센터</a></li>
-                        <li class="scroll-to-section" style="min-width: 100px"><a href="${cPath}/admin/dashboard">
-                            <c:if test="${sessionScope.role == 3}">관리자</c:if>
-                        </a></li>
+                        <li class="scroll-to-section" style="min-width: 100px">
+                            <a href="${cPath}/admin/dashboard">
+                                <c:if test="${sessionScope.role == 3}">관리자</c:if>
+                            </a>
+                        </li>
                         <li style="min-width: 280px">
                             <c:choose>
                                 <c:when test="${sessionScope.role != null}">

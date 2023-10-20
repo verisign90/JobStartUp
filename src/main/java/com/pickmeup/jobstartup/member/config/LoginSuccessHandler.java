@@ -21,14 +21,14 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
         HttpSession session = request.getSession();
         session.setAttribute("memberNo", ((CustomUserDetails) authentication.getPrincipal()).getMemberNo());
-
+        Long companyNo = ((CustomUserDetails) authentication.getPrincipal()).getCompanyNo();
         if (roles.contains("COMMON")) {
             session.setAttribute("role", 1);
             response.sendRedirect("/");
         } else if (roles.contains("COMPANY")) {
             session.setAttribute("role", 2);
-            session.setAttribute("companyNo", ((CustomUserDetails) authentication.getPrincipal()).getCompanyNo());
-            response.sendRedirect("/recruiter/myPage");
+            session.setAttribute("companyNo", companyNo);
+            response.sendRedirect("/recruiter/myPage?company_no=" + companyNo);
         } else if (roles.contains("ADMIN")) {
             session.setAttribute("role", 3);
             response.sendRedirect("/admin/dashboard");

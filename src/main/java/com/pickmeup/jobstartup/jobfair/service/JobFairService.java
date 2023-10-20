@@ -4,6 +4,7 @@ import com.pickmeup.jobstartup.jobfair.dto.EntryDTO;
 import com.pickmeup.jobstartup.jobfair.dto.JobFairDTO;
 import com.pickmeup.jobstartup.jobfair.dto.JobFairFileDTO;
 import com.pickmeup.jobstartup.jobfair.repository.JobFairRepository;
+import com.pickmeup.jobstartup.recruiter.apply.dto.ApplyDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,9 +51,13 @@ public class JobFairService {
     }
 
     public void insertJobFairEntry(Long jobFairNo, Long memberNo, Long companyNo){
-        System.out.println("companyNo: " + companyNo);
         jobFairRepository.insertEntryJobFair(jobFairNo, memberNo, companyNo);
     }
+
+    public ApplyDTO findCompanyByMemberNo(Long memberNo){
+        return jobFairRepository.findCompanyByMemberNo(memberNo);
+    }
+
     //page : 현재 페이지, size : 페이지당 게시물 수
     public Map<String, Object> getAllJobFair(int page, int size) {
         int offset = (page - 1) * size;

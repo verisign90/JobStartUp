@@ -5,7 +5,6 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-@Data
 @NoArgsConstructor
 public class ApplyDTO {
     private int company_no;
