@@ -8,7 +8,6 @@ import com.pickmeup.jobstartup.member.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,30 +22,31 @@ import java.util.Map;
 @Controller
 @RequiredArgsConstructor
 @Slf4j
+@RequestMapping("/join")
 public class JoinController {
     private final MemberService memberService;
 //    private final BusinessNumberService businessNumberService;
 
     //회원가입 - 개인회원, 기업회원 버튼 보여주기
-    @GetMapping("/join")
+    @GetMapping("/select")
     public String join() {
         return "member/join";
     }
 
     //개인 회원가입
-    @GetMapping("/joinCommon")
+    @GetMapping("/common")
     public String joinCommon(Model model) {
         return "member/joinCommon";
     }
 
     //기업 회원가입
-    @GetMapping("/joinCompany") 
+    @GetMapping("/company")
     public String joinCompany(Model model){
         return "member/joinCompany";
     }
 
     //개인 회원가입
-    @PostMapping("/joinCommon")
+    @PostMapping("/common")
     public String joinCommon(@Valid @ModelAttribute JoinCommonDTO joinCommonDTO, BindingResult bindingResult, Model model) {
         //dto 유효성 검사
         if (bindingResult.hasErrors()) {
@@ -79,7 +79,7 @@ public class JoinController {
     }
 
     //기업 회원가입
-    @PostMapping("/joinCompany")
+    @PostMapping("/company")
     public String joinCompany(@Valid @ModelAttribute JoinCompanyDTO joinCompanyDTO, BindingResult bindingResult, Model model) {
         log.info("joinCompany 컨트롤러 메소드 호출됨");
         //dto 유효성 검사
