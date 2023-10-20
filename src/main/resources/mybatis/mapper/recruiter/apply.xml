@@ -22,8 +22,18 @@
         ]]>
     </update>
 
+    <!-- EntryDTO가져오기 -->
+    <select id="getEntry" resultType="EntryDTO" parameterType="int" >
+        <![CDATA[
+        select *
+        FROM job_fair_entry
+        WHERE company_no = #{company_no}
+        ]]>
+    </select>
+
+
     <!-- job_fair_entry에 등록 -->
-    <insert id="insertEntry" parameterType="ApplyDTO">
+    <insert id="insertEntry" >
 
         <![CDATA[
         insert into job_fair_entry (jobfair_no,company_no)

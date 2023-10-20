@@ -16,7 +16,7 @@ public enum MemberType {
         return code;
     }
 
-    //DB에서 값을 읽어올 때 "1" -> COMMON으로 변환
+    //DB에서 값을 읽어올 때 "1" -> COOMMN으로 변환
     public static MemberType valueOfCode(String code) {
         for (MemberType type : values()) {
             if (type.getCode().equals(code)) {

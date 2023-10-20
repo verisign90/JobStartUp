@@ -1,5 +1,6 @@
 package com.pickmeup.jobstartup.recruiter.apply.repository;
 
+import com.pickmeup.jobstartup.jobfair.dto.EntryDTO;
 import com.pickmeup.jobstartup.member.entity.Member;
 import com.pickmeup.jobstartup.recruiter.apply.dto.*;
 import org.apache.ibatis.annotations.Mapper;
@@ -45,4 +46,6 @@ public interface ApplyRepository {
     public ApplyDTO getApplyDTO(int member_no);
 
     public void insertEntry(long jobfair_no, int company_no);
+
+    public EntryDTO getEntry(int company_no);
 }

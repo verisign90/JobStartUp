@@ -22,6 +22,7 @@
         <typeAlias alias="JobDTO" type="com.pickmeup.jobstartup.recruiter.apply.dto.JobDTO"/>
         <typeAlias alias="TestDTO" type="com.pickmeup.jobstartup.recruiter.apply.dto.TestDTO"/>
         <typeAlias alias="Member" type="com.pickmeup.jobstartup.member.entity.Member"/>
+        <typeAlias alias="EntryDTO" type="com.pickmeup.jobstartup.jobfair.dto.EntryDTO"/>
     </typeAliases>
 
     <typeHandlers>

@@ -1,6 +1,7 @@
 package com.pickmeup.jobstartup.recruiter.apply.service;
 
 
+import com.pickmeup.jobstartup.jobfair.dto.EntryDTO;
 import com.pickmeup.jobstartup.member.entity.Member;
 import com.pickmeup.jobstartup.recruiter.apply.dto.*;
 
@@ -86,6 +87,8 @@ public class ApplyServiceImpl implements ApplyService {
     public ApplyDTO getApplyDTO(int member_no){return applyRepository.getApplyDTO(member_no);}
 
     public void insertEntry(long jobfair_no, int company_no){applyRepository.insertEntry(jobfair_no,company_no);}
+
+    public EntryDTO getEntry(int company_no){return applyRepository.getEntry(company_no);}
 
 }
 
