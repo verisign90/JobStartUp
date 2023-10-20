@@ -227,5 +227,22 @@
 }
 
 .loc-detail-name.selected {
-    text-shadow: 0 0 7px #3fadf5;
+
+    background-color: #3fadf5; /* 선택된 상태에 배경색 추가 */
+    color: white; /* 선택된 상태에 글자색 변경 */
+    padding: 1px 5px; /* 선택된 상태에 패딩 조정 */
+    border-radius: 4px; /* 선택된 상태에 라운드 처리 */
 }
+
+.loc-detail-name:hover {
+    background-color: #e7e7e7; /* 호버 시 배경색 추가 */
+    border-radius: 4px; /* 호버 시 라운드 처리 */
+}
+/*--------------------------------------------------------*/
+.checkbox-wrapper input[type="checkbox"] {
+    display: none;
+}
+
+
+
+
