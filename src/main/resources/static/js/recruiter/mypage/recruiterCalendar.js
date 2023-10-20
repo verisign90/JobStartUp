@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                         $.ajax({
                             type: "POST",
-                            url: "/recruiter/insertCalendar?method=data",
+                            url: "/recruiter/myPage/insertCalendar?method=data",
                             data: JSON.stringify({
                                 schedule_title: SCHEDULE_TITLE,
                                 schedule_start: SCHEDULE_START,
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
              var company_no = document.getElementById('COMPANY_NO').value;
              $.ajax({
                  type: "POST",
-                 url: "/recruiter/getCalendar?method=data",
+                 url: "/recruiter/myPage/getCalendar?method=data",
                  data: JSON.stringify({
                      company_no: company_no
                  }),
@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 arg.event.remove();
                 $.ajax({
                     type: "POST",
-                    url: "/recruiter/deleteCalendar?method=data",
+                    url: "/recruiter/myPage/deleteCalendar?method=data",
                     data: JSON.stringify({
                         schedule_title: schedule_title,
                         schedule_start: schedule_start,

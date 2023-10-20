@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<html lang="ko" xmlns:c="http://java.sun.com/JSP/Page" xmlns:fmt="http://java.sun.com/JSP/Page" xmlns="http://www.w3.org/1999/html">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<html lang="ko" xmlns:c="http://java.sun.com/JSP/Page" xmlns:fmt="http://java.sun.com/JSP/Page"
+      xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +11,7 @@
 </head>
 <body>
 <h2>비밀번호 재설정</h2>
-<form action="/updateCompanyPassword" method="post">
+<form action="/member/updateCompanyPassword" method="post">
     <label for="newPassword">새 비밀번호:</label>
     <input type="password" id="newPassword" name="newPassword" required><br><br>
 
@@ -23,16 +24,16 @@
 </form>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function() {
-        $("form").on("submit", function(event) {
+    $(document).ready(function () {
+        $("form").on("submit", function (event) {
             event.preventDefault();
 
             var formData = $(this).serialize();
 
-            $.post("/updateCompanyPassword", formData, function(response) {
+            $.post("/member/updateCompanyPassword", formData, function (response) {
                 alert(response);
                 window.location.href = 'http://localhost:8050/';
-            }).fail(function(jqXHR) {
+            }).fail(function (jqXHR) {
                 alert(jqXHR.responseText);
             });
         });

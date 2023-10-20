@@ -12,6 +12,7 @@ public class EntryDTO {
     private Long JOBFAIRENTRY_NO;
     private Long COMPANY_NO;
     private Long JOBFAIR_NO;
+    private String JOBFAIRENTRY_STATUS;
 
     private String COMPANY_NAME;
     private String LOGO_SAVNAME;
