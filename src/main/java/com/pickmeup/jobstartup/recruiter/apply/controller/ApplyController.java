@@ -1,6 +1,7 @@
 package com.pickmeup.jobstartup.recruiter.apply.controller;
 
 
+import com.pickmeup.jobstartup.jobfair.dto.EntryDTO;
 import com.pickmeup.jobstartup.member.entity.Member;
 import com.pickmeup.jobstartup.member.entity.MemberType;
 import com.pickmeup.jobstartup.recruiter.apply.dto.*;
@@ -45,6 +46,32 @@ public class ApplyController {
 
 
 
+    @GetMapping("/companyInfo/{company_no}")
+    public String insertTest(@PathVariable("company_no") int company_no,Model model){
+        System.out.println("여기는 companyInfo ");
+        ApplyDTO applyDTO = applyService.getCompanyInfo(company_no);
+        EntryDTO entryDTO = applyService.getEntry(company_no);
+        List<FileDTO> fileDTOList = applyService.getFileList(company_no);
+        model.addAttribute("applyDTO",applyDTO);
+        model.addAttribute("entryDTO",entryDTO);
+        model.addAttribute("fileDTOList",fileDTOList);
+
+        return "/recruiter/apply/companyInfo";
+    }
+
+    @GetMapping("/pendingApproval/{company_no}")
+    public String pendingApproval(@PathVariable("company_no") int company_no,Model model){
+
+        EntryDTO entryDTO = applyService.getEntry(company_no);
+
+
+        model.addAttribute("entryDTO",entryDTO);
+
+
+        return "/recruiter/apply/pendingApproval";
+    }
+
+
     @PostMapping("/test")
     public String insertTest(@ModelAttribute TestDTO testDTO){
         System.out.println("testDTO 내용"+testDTO);
@@ -68,7 +95,41 @@ public class ApplyController {
 
 
     //@PostMapping("/insertJobFairEntry/JOBFAIR_NO")
+    @GetMapping ("/insertJobFairEntry/{JOBFAIR_NO}")
+    public String insertJobFairEntry(@PathVariable("JOBFAIR_NO") long JOBFAIR_NO) {
+        System.out.println("insertJobFairEntryinsertJobFairEntryinsertJobFairEntryinsertJobFairEntry= " );
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String memberId = authentication.getName();//접속자 아이디 가져오기
+        System.out.println("나의 아이디= " + memberId );//접속자 아이디 확인
+        Member member = applyService.getMemberNO(memberId);//접속자 정보 DTO member 가져오기
+        MemberType memberType = member.getMember_type();//접속자 멤버타입확인
+        //회사 번호 불러와서 job_fair_entry에 insert 단 4번이면
+        System.out.println("멤버번호는"+member.getMember_no());
+        System.out.println("멤버타입은"+memberType.getCode());
 
+
+        ApplyDTO applyDTO = applyService.getApplyDTO(member.getMember_no());//해당계정의 회사정보불러오기
+        System.out.println("회사정보유무"+applyDTO);
+
+
+        if(applyDTO == null && (memberType.getCode() == UNAPPROVED_COMPANY.getCode() || memberType.getCode() == COMPANY.getCode()))  {
+            System.out.println("if문 안쪽");
+            return "redirect:/recruiter/apply/{JOBFAIR_NO}";
+        }
+        else if(applyDTO != null && (memberType.getCode() == UNAPPROVED_COMPANY.getCode()  || memberType.getCode() == COMPANY.getCode())){
+            System.out.println("두번째 if문 안쪽");
+            applyService.insertEntry(JOBFAIR_NO,applyDTO.getCompany_no());
+            return "redirect:/admin/jobfairlist";
+        }else
+            System.out.println("해당사항무");
+
+
+
+        //job_fair_entry 에 값입력
+        //applyService.insertEntry(JOBFAIR_NO,company_no);
+
+        return "redirect:/admin/jobfairlist"; // 적절한 리다이렉트 경로로 변경
+    }
 
     @PostMapping("/jfdelete")
     public ResponseEntity<String> updateComLogo(@RequestParam String cfile_savname, @RequestParam int cfile_no) {

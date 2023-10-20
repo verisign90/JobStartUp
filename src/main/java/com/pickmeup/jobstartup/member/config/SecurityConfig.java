@@ -32,7 +32,7 @@ public class SecurityConfig {
         return new CustomAccessDeniedHandler();
     }
 
-    @Bean
+    /*@Bean
     SecurityFilterChain filterChain(HttpSecurity http, HandlerMappingIntrospector introspector) throws Exception {
         http
             .authorizeRequests((authorizeHttpRequests) -> authorizeHttpRequests
@@ -62,7 +62,7 @@ public class SecurityConfig {
                     .invalidateHttpSession(true))
             .csrf(csrf -> csrf.disable());
         return http.build();
-    }
+    }*/
 
     @Bean
     AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
