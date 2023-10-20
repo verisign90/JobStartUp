@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -21,14 +22,23 @@ public class JobFairController {
     private final JobFairService jobFairService;
 
     @GetMapping("/list")
-    public String jobFairList(Model model) {
+    public String jobFairList(@RequestParam(value = "page", defaultValue = "1") int page,
+                              @RequestParam(value = "size", defaultValue = "3") int size, Model model) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
         System.out.println();
 
         try {
-            List<JobFairDTO> jobFair = jobFairService.getAllJobFair();
+            Map<String, Object> paginationResult = jobFairService.getAllJobFair(page, size);
+            List<JobFairDTO> jobFair = (List<JobFairDTO>) paginationResult.get("jobFairList");
+            int totalPages = (int) paginationResult.get("totalPages");
+
             model.addAttribute("jobFair", jobFair);
+            model.addAttribute("totalPages", totalPages);
+            model.addAttribute("currentPage", page);
+            System.out.println("Job Fair List: " + jobFair);
+            System.out.println("Total Pages: " + totalPages);
+            System.out.println("Current Page: " + page);
 
             String jobFairJson = mapper.writeValueAsString(jobFairService.getAllJobFair());
             model.addAttribute("jobFairJson", jobFairJson);
