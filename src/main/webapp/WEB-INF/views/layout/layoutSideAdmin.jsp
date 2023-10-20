@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="/css/template/assets/css/sidebar.css">
     <link rel="stylesheet" href="/css/template/assets/css/animated.css">
     <link rel="stylesheet" href="/css/template/assets/css/owl.css">
+    <title>대시보드</title>
 </head>
 <body>
 <div id="menu">

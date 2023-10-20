@@ -49,6 +49,10 @@ public class JobFairService {
         jobFairRepository.delete(no);
     }
 
+    public void insertJobFairEntry(Long jobFairNo, Long memberNo, Long companyNo){
+        System.out.println("companyNo: " + companyNo);
+        jobFairRepository.insertEntryJobFair(jobFairNo, memberNo, companyNo);
+    }
     //page : 현재 페이지, size : 페이지당 게시물 수
     public Map<String, Object> getAllJobFair(int page, int size) {
         int offset = (page - 1) * size;

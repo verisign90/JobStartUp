@@ -20,7 +20,9 @@
     <div class="header-text" data-wow-duration="1s" data-wow-delay="1s">
     </div>
 </div>
-<%@ include file="../layout/layoutSideAdmin.jsp" %>
+<c:if test="${sessionScope.role == 3}">
+    <%@ include file="../layout/layoutAdminSidebar.jsp" %>
+</c:if>
 <main>
     <article>
         <div class="jobfair_info">
@@ -80,14 +82,6 @@
                     </div>
                 </div>
             </div>
-
-
-
-
-            <form id="jobFairForm" action="/recruiter/insertJobFairEntry/${jobFair.JOBFAIR_NO}" method="POST">
-                <button type="submit">신청</button>
-            </form>
-
         </div>
         <div class="jobfair_content">
             ${jobFair.JOBFAIR_CONTENT}
@@ -107,7 +101,7 @@
                     </a>
                 </div>
             </c:if>
-            <c:if test="${sessionScope.role == 2}">
+            <c:if test="${sessionScope.role == 2 || sessionScope.role == 4}">
                 <div>
                     <a href="${pageContext.request.contextPath}/entry" onclick="jobFairEntry();">참가 신청</a>
                 </div>
@@ -149,10 +143,9 @@
         var companyNo = document.getElementById("companyNo").getAttribute("data-company-no");
         const loggedInUserId = '<sec:authentication property="name" />';
         data.append('jobFairNo', JFNO);
-        data.append('memberNo', loggedInUserId);
-        console.log("memberNo: " + memberNo)
-        console.log("companyNo: " + companyNo);
-        alert("pause");
+        data.append('memberNo', memberNo);
+        data.append('companyNo', companyNo);
+
         fetch('/jobfair/entry', {
             method: 'POST',
             headers: {

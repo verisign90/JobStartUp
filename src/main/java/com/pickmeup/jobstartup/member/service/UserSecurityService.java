@@ -2,6 +2,7 @@ package com.pickmeup.jobstartup.member.service;
 
 import com.pickmeup.jobstartup.member.config.CustomUserDetails;
 import com.pickmeup.jobstartup.member.config.UserRole;
+import com.pickmeup.jobstartup.member.dto.CompanyDTO;
 import com.pickmeup.jobstartup.member.entity.Member;
 import com.pickmeup.jobstartup.member.entity.MemberType;
 import com.pickmeup.jobstartup.member.repository.MemberRepository;
@@ -44,8 +45,8 @@ public class UserSecurityService implements UserDetailsService {
         }
         log.info("시큐리티 서비스 Loaded user: {}, with authorities: {}", username, grantedAuthorities);
 
-        Long companyNo = memberRepository.findCompanyNoByMemberNo(member.getMember_no()).getCompany_no();
-        if (companyNo == null) {
+        CompanyDTO companyDTO = memberRepository.findCompanyNoByMemberNo(member.getMember_no());
+        if (companyDTO == null) {
             return new CustomUserDetails(
                     member.getMember_id(),
                     member.getMember_pw(),
@@ -58,7 +59,7 @@ public class UserSecurityService implements UserDetailsService {
                     member.getMember_pw(),
                     grantedAuthorities,
                     member.getMember_no(),
-                    companyNo
+                    companyDTO.getCompany_no()
             );
     }
 }

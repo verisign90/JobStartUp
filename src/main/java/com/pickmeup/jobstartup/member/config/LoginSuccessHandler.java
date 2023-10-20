@@ -34,6 +34,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
             response.sendRedirect("/admin/dashboard");
         } else if (roles.contains("UNAPPROVED_COMPANY")) {
             session.setAttribute("role", 4);
+            session.setAttribute("companyNo", ((CustomUserDetails) authentication.getPrincipal()).getCompanyNo());
             response.sendRedirect("/apply/apply");
         } else {
             session.setAttribute("role", 9);

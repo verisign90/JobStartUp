@@ -13,4 +13,15 @@ public class CompanyDTO {
     private Long member_no;
     private String company_name;
 
+/*    private String company_hp;
+    private String ceo_name;
+    private String company_type;
+    private String business_type_code;
+    private String company_address_code;
+    private String company_address;
+    private String company_site;
+    private String listing_status;
+    private String company_sales;
+    private String logo_orgname;*/
+
 }

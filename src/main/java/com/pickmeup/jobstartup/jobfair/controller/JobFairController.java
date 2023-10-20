@@ -5,14 +5,22 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.pickmeup.jobstartup.jobfair.dto.EntryDTO;
 import com.pickmeup.jobstartup.jobfair.dto.JobFairDTO;
 import com.pickmeup.jobstartup.jobfair.service.JobFairService;
+import com.pickmeup.jobstartup.member.entity.Member;
+import com.pickmeup.jobstartup.member.entity.MemberType;
+import com.pickmeup.jobstartup.recruiter.apply.dto.ApplyDTO;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+
+import static com.pickmeup.jobstartup.member.entity.MemberType.COMPANY;
+import static com.pickmeup.jobstartup.member.entity.MemberType.UNAPPROVED_COMPANY;
 
 @Controller
 @RequiredArgsConstructor
@@ -26,7 +34,6 @@ public class JobFairController {
                               @RequestParam(value = "size", defaultValue = "3") int size, Model model) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
-        System.out.println();
 
         try {
             Map<String, Object> paginationResult = jobFairService.getAllJobFair(page, size);
@@ -78,7 +85,6 @@ public class JobFairController {
 
     @PostMapping("/write/save")
     public String write(@ModelAttribute JobFairDTO jobFairDTO) {
-        System.out.println("content: " + jobFairDTO.getJOBFAIR_CONTENT());
         jobFairService.writeJobFair(jobFairDTO);
 
         return "redirect:/admin/jobfairlist";
@@ -126,6 +132,15 @@ public class JobFairController {
     }
 
     @PostMapping("/entry")
-    public void entryJobFair(Long jobFairNo, String memberId) {
+    public void entryJobFair(Long jobFairNo, Long memberNo, Long companyNo) {
+        System.out.println("JFNO: " + jobFairNo + " | memberNo: " + memberNo + " | companyNo: " + companyNo);
+        if (companyNo != null){
+            jobFairService.insertJobFairEntry(jobFairNo, memberNo, companyNo);
+        }else {
+            System.out.println("회사 정보 입력 요망");
+        }
     }
+
+
+
 }
