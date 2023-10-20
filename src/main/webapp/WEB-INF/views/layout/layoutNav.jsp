@@ -47,7 +47,7 @@
                             <c:choose>
                                 <c:when test="${sessionScope.role != null}">
                                     <div class="gradient-button"><a id="modal_trigger_out"
-                                                                    href="${cPath}/">
+                                                                    href="${cPath}/logout">
                                         <i class="fa fa-sign-in-alt"></i>로그아웃</a></div>
                                 </c:when>
                                 <c:otherwise>
