@@ -16,6 +16,7 @@
         </div>
     </div>
 </header>
+<%@ include file="../../layout/layoutSideSeeker.jsp" %>
 <main>
     <div class="resume_wrap">
         <h3 class="resume_title">이력서 관리</h3>
@@ -47,6 +48,8 @@
     </div>
 </main>
     <%@ include file="../../layout/layoutFooter.jsp" %>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="/css/template/assets/js/side.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>

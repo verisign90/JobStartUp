@@ -56,4 +56,11 @@
         FROM JOB_POSTING_BOOKMARK
         WHERE POSTING_NO = #{posting_no} AND MEMBER_NO = #{member_no}
     </select>
+
+    <!-- 북마크 갯수 -->
+    <select id="bookmarkCnt" parameterType="int" resultType="int">
+        SELECT COUNT(*)
+        FROM JOB_POSTING_BOOKMARK
+        WHERE MEMBER_NO = #{member_no}
+    </select>
 </mapper>

@@ -6,4 +6,36 @@
         INSERT INTO APPLICATION_STATUS (MEMBER_NO, POSTING_NO, RESUME_NO)
         VALUES (#{member_no}, #{posting_no}, #{resume_no})
     </insert>
+
+    <!-- 이력서 지원현황 조회 (resultMap) -->
+    <resultMap id="ApplyStatusMap" type="ResumeApplyDTO">
+        <id property="status_no" column="status_no"/>
+        <result property="resume_no" column="resume_no"/>
+        <result property="member_no" column="member_no"/>
+        <result property="posting_no" column="posting_no"/>
+        <result property="first_pass" column="first_pass"/>
+        <result property="final_pass" column="final_pass"/>
+        <result property="interview_date" column="interview_date"/>
+
+
+        <collection property="resumeDTOList" ofType="ResumeDTO">
+            <id property="resume_no" column="resume_no"/>
+            <result property="member_no" column="member_no"/>
+            <result property="resume_title" column="resume_title"/>
+            <result property="profile_orgname" column="profile_orgname"/>
+            <result property="profile_savname" column="profile_savname"/>
+            <result property="resume_money" column="resume_money"/>
+            <result property="resume_skill" column="resume_skill"/>
+            <result property="resume_orgname" column="resume_orgname"/>
+            <result property="resume_savname" column="resume_savname"/>
+            <result property="resume_url" column="resume_url"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectApplyStatus" resultMap="ApplyStatusMap" parameterType="int">
+        SELECT *
+        FROM APPLICATION_STATUS
+        INNER JOIN RESUME ON APPLICATION_STATUS.RESUME_NO = RESUME.RESUME_NO
+        WHERE APPLICATION_STATUS.MEMBER_NO = #{member_no}
+    </select>
 </mapper>

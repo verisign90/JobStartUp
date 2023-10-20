@@ -22,4 +22,7 @@ public interface CompanyFollowRepository {
 
     //checkFollow
     public int checkFollow (CompanyFollowDTO companyFollowDTO);
+
+    //팔로우 cnt
+    int followCnt (int member_no);
 }

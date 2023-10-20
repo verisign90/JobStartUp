@@ -120,4 +120,44 @@
             RESUME_URL = #{resume_url}
             WHERE RESUME_NO = #{resume_no}
     </update>
+
+    <!--상위주소-->
+    <select id="getUpperLoc" resultType="com.pickmeup.jobstartup.recruiter.apply.dto.LocDTO">
+        <![CDATA[
+        SELECT *
+        FROM detail_code
+        WHERE detail_code_num >= 11000
+          AND detail_code_num <= 39000
+          and code_level = 1
+        ORDER BY detail_code_num
+        ]]>
+    </select>
+
+    <!--하위주소-->
+    <select id="getLowerLoc" resultType="com.pickmeup.jobstartup.recruiter.apply.dto.LocDTO">
+        <![CDATA[
+        SELECT *
+        FROM detail_code
+        WHERE detail_code_num >= #{upperLoc} + 1
+          AND detail_code_num < #{upperLoc} + 1000
+          AND code_level = 2
+        ORDER BY detail_code_num
+        ]]>
+    </select>
+
+    <!-- 상위업종 가져오기-->
+    <select id="getBusiness_type_code_up" resultType="com.pickmeup.jobstartup.recruiter.apply.dto.JobDTO">
+        <![CDATA[
+        select * from detail_code
+        where group_code = 200 and code_level = 1
+        ]]>
+    </select>
+
+    <!-- 하위업종 가져오기 -->
+    <select id="getBusiness_type_code" resultType="com.pickmeup.jobstartup.recruiter.apply.dto.JobDTO" parameterType="String">
+    <![CDATA[
+        select * from detail_code
+        where parents_code = #{business_type_code_up}
+        ]]>
+    </select>
 </mapper>

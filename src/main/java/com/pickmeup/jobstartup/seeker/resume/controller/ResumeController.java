@@ -1,9 +1,13 @@
 package com.pickmeup.jobstartup.seeker.resume.controller;
 
 import com.pickmeup.jobstartup.member.entity.Member;
+import com.pickmeup.jobstartup.recruiter.apply.dto.JobDTO;
+import com.pickmeup.jobstartup.recruiter.apply.dto.LocDTO;
+import com.pickmeup.jobstartup.recruiter.apply.service.ApplyService;
 import com.pickmeup.jobstartup.seeker.applicationSupport.dto.PostingBookmarkDTO;
 import com.pickmeup.jobstartup.seeker.applicationSupport.service.PostingBookmarkServiceImpl;
 import com.pickmeup.jobstartup.seeker.resume.dto.ResumeDTO;
+import com.pickmeup.jobstartup.seeker.resume.service.ResumeService;
 import com.pickmeup.jobstartup.seeker.resume.service.ResumeServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -78,10 +82,14 @@ public class ResumeController {
     //이력서 작성폼
     @PreAuthorize("isAuthenticated()")
     @GetMapping ("/resumeWrite")
-    public String resumeWriteForm () {
+    public String resumeWriteForm (Model model) {
         logger.info("ResumeController-resumeWriteForm() 진입");
+        List<LocDTO> upperLoc = resumeService.getUpperLoc();
+        List<JobDTO> upperJob = resumeService.getBusiness_type_code_up();
+        model.addAttribute("upperLoc", upperLoc);
+        model.addAttribute("upperJob", upperJob);
         //return "seeker/resume/resumeWriteForm";
-        return "seeker/resume/resumeTest";
+        return "seeker/resume/resumeWriteForm";
     }
 
     //이력서 작성 처리
@@ -153,6 +161,21 @@ public class ResumeController {
         resumeService.modifyResume (resume_no, modifyResumeDTO, profileOrgNameFile, resumeOrgNameFile);
 
         return String.format("redirect:/seeker/resumeDetail/{resume_no}");
+    }
+
+    //상위지역에 따른 하위지역 목록 불러오기
+    @GetMapping("/getLowerLoc")
+    @ResponseBody
+    public List<LocDTO> getLowerLoc(@RequestParam("upperLoc") String upperLoc) {
+        System.out.println("upperLoc = " + upperLoc);
+        return resumeService.getLowerLoc(upperLoc);
+    }
+
+    //하위 업종코드 받아오기
+    @GetMapping("/getBusiness_type_code_up")
+    @ResponseBody
+    public List<JobDTO> getBusiness_type_code(@RequestParam String business_type_code_up) {
+        return resumeService.getBusiness_type_code(business_type_code_up);
     }
 
 }

@@ -21,4 +21,7 @@ public interface PostingBookmarkRepository {
 
     //북마크 확인
     public int checkBookmark (PostingBookmarkDTO postingBookmarkDTO);
+
+    //북마크 cnt
+    int bookmarkCnt (int member_no);
 }
