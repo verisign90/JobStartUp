@@ -21,7 +21,9 @@
 
     <!-- 회원 구분에 따른 메뉴 ID 가져오기 -->
     <select id="selectMenuId" resultType="string">
-        SELECT menu_id FROM menu_authority WHERE member_type = #{member_type}
+        SELECT menu_id
+        FROM menu_authority
+        WHERE member_type = #{member_type}
     </select>
 
     <!-- 이메일 중복 확인 -->
@@ -37,6 +39,11 @@
     <!-- 사업자등록번호 중복 확인 -->
     <select id="findByBusinessNo" resultType="com.pickmeup.jobstartup.member.entity.Member">
         SELECT * FROM member WHERE business_no = #{business_no}
+    </select>
+
+    <!-- 회사 정보 조회 -->
+    <select id="findCompanyNoByMemberNo" resultType="com.pickmeup.jobstartup.member.dto.CompanyDTO">
+        SELECT * FROM COMPANY WHERE MEMBER_NO = #{member_no}
     </select>
 
     <!-- 개인회원 아이디 찾기 -->

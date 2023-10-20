@@ -32,4 +32,5 @@ public interface JobFairRepository {
     List<JobFairDTO> paginationJobFair(Map<String, Integer> params);
 
     int countJobFair();
+    void insertEntryJobFair(Long jobFairNo, Long memberNo, Long companyNo);
 }

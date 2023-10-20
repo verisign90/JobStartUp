@@ -4,15 +4,19 @@
 <!DOC TYPE html>
 <html lang="ko" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt">
 <head>
-<title>Notice List</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
-<link rel="stylesheet" href="/css/common/base.css" type="text/css">
-<link rel="stylesheet" href="/css/notice/list.css" type="text/css" />
-<c:set var="category" value="${param.category}" />
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Notice List</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+    <link rel="stylesheet" href="/css/common/base.css" type="text/css">
+    <link rel="stylesheet" href="/css/notice/list.css" type="text/css"/>
+    <c:set var="category" value="${param.category}"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
- <article class="total">
+<c:if test="${sessionScope.role == 3}">
+    <%@ include file="../layout/layoutAdminSidebar.jsp" %>
+</c:if>
+<article class="total">
     <div class="notice">
         <h1>Notice</h1>
     </div>
@@ -33,18 +37,19 @@
                             <option value="not_content">내용</option>
                         </select>
                         <input type="text" id="keyword" name="keyword" placeholder="키워드를 입력해 주세요." title="키워드 입력"/>
-                        <button type="button" class="bt_search" onclick="movePage(1, '${category}');"><i class="fas fa-search"></i><span class="skip_info">검색</span></button>
+                        <button type="button" class="bt_search" onclick="movePage(1, '${category}');"><i
+                                class="fas fa-search"></i><span class="skip_info">검색</span></button>
                     </div>
                 </form>
             </div>
             <!--/* 리스트 */-->
             <table class="tb tb_col">
                 <thead>
-                    <tr>
-                        <th scope="col">번호</th>
-                        <th scope="col">제목</th>
-                        <th scope="col">등록일</th>
-                    </tr>
+                <tr>
+                    <th scope="col">번호</th>
+                    <th scope="col">제목</th>
+                    <th scope="col">등록일</th>
+                </tr>
                 </thead>
                 <!--/* 리스트 데이터 렌더링 영역 */-->
                 <tbody id="list">
@@ -63,7 +68,7 @@
             </p>
         </section>
     </div>
- </article>
+</article>
 <script>
     window.onload = () => {
         findAllPost();
@@ -72,19 +77,19 @@
     // 게시글 리스트 조회
     function findAllPost() {
         const list = JSON.parse('${listJson}');
-        if ( !list.length ) {
+        if (!list.length) {
             document.getElementById('list').innerHTML = '<td colspan="6"><div className="no_data_msg">검색된 결과가 없습니다.</div></td>';
             drawPage();
         }
         const pagination = JSON.parse('${noticePageJson}');
-        const criteria =  JSON.parse('${criteriaJson}');
+        const criteria = JSON.parse('${criteriaJson}');
         console.log(pagination);
         console.log(pagination.totalRecordCount);
         console.log(criteria);
         console.log(criteria.currentPageNo);
 
-        let num = ${noticePage.pagination.totalRecordCount} - ((${criteria.currentPageNo} - 1) * ${criteria.recordsPerPage});
-        console.log('num : '+num);
+        let num = ${noticePage.pagination.totalRecordCount} -((${criteria.currentPageNo} -1) * ${criteria.recordsPerPage});
+        console.log('num : ' + num);
         drawList(list, num);
         drawPage(pagination, criteria);
     }
@@ -97,16 +102,16 @@
             dateArray[1] -= 1;
             let date = new Date(...dateArray.slice(0, 6));
             let formatted = date.getFullYear() + '-' +
-                ('0' + (date.getMonth()+1)).slice(-2) + '-' +
+                ('0' + (date.getMonth() + 1)).slice(-2) + '-' +
                 ('0' + date.getDate()).slice(-2) + ' ' +
                 ('0' + date.getHours()).slice(-2) + ':' +
                 ('0' + date.getMinutes()).slice(-2) + ':' +
                 ('0' + date.getSeconds()).slice(-2);
             html += `
                 <tr>
-                    <td>`+row.not_no+`</td>
-                    <td class="tl"><a href="/notice/read/`+row.not_no+`">`+row.not_title+`</a></td>
-                    <td>`+formatted+`</td>
+                    <td>` + row.not_no + `</td>
+                    <td class="tl"><a href="/notice/read/` + row.not_no + `">` + row.not_title + `</a></td>
+                    <td>` + formatted + `</td>
                 </tr>
             `;
         })
@@ -114,7 +119,7 @@
     }
 
     function drawPage(pagination, criteria) {
-        if ( !pagination || !criteria ) {
+        if (!pagination || !criteria) {
             document.querySelector('.paging').innerHTML = '';
             throw new Error('Missing required parameters...');
         }
@@ -122,20 +127,20 @@
         if (pagination.hasPreviousPage) {
             html += `
                 <a href="javascript:void(0);" onclick="movePage(1)" class="page_bt first">첫 페이지</a>
-                <a href="javascript:void(0);" onclick="movePage(`+pagination.firstPage+`-1)" class="page_bt prev">이전 페이지</a>
+                <a href="javascript:void(0);" onclick="movePage(` + pagination.firstPage + `-1)" class="page_bt prev">이전 페이지</a>
             `;
         }
         html += '<p>';
         for (let i = pagination.firstPage; i <= pagination.lastPage; i++) {
             html += (i !== criteria.currentPageNo)
-                ? `<a href="javascript:void(0);" onclick="movePage(`+i+`);">`+i+`</a>`
-                : `<span class="on">`+i+`</span>`
+                ? `<a href="javascript:void(0);" onclick="movePage(` + i + `);">` + i + `</a>`
+                : `<span class="on">` + i + `</span>`
         }
         html += '</p>';
         if (pagination.hasNextPage) {
             html += `
-                <a href="javascript:void(0);" onclick="movePage(`+pagination.lastPage+` + 1);" class="page_bt next">다음 페이지</a>
-                <a href="javascript:void(0);" onclick="movePage(`+pagination.totalPageCount+`);" class="page_bt last">마지막 페이지</a>
+                <a href="javascript:void(0);" onclick="movePage(` + pagination.lastPage + ` + 1);" class="page_bt next">다음 페이지</a>
+                <a href="javascript:void(0);" onclick="movePage(` + pagination.totalPageCount + `);" class="page_bt last">마지막 페이지</a>
             `;
         }
         document.querySelector('.paging').innerHTML = html;
@@ -150,10 +155,10 @@
             currentPageNo: (currentPageNo) ? currentPageNo : 1,
             recordsPerPage: 10,
             pageSize: 10,
-            searchType:$("#.searchType").val(),
+            searchType: $("#.searchType").val(),
             keyword: $("#.keyword").val()
         }
-        location.href = location.pathname+'/'+category+'/'+ '?' + new URLSearchParams(queryParams).toString();
+        location.href = location.pathname + '/' + category + '/' + '?' + new URLSearchParams(queryParams).toString();
     }
 
 

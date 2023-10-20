@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="/css/notice/writeForm.css" type="text/css">
 </head>
 <body>
+<c:if test="${sessionScope.role == 3}">
+    <%@ include file="../layout/layoutAdminSidebar.jsp" %>
+</c:if>
 <article class="board">
     <h1>Notice</h1>
     <section class="contents">

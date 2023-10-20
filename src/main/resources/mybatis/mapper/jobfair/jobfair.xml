@@ -75,6 +75,11 @@
         ]]>
     </delete>
 
+    <insert id="insertEntryJobFair" parameterType="com.pickmeup.jobstartup.jobfair.dto.EntryCompanyDTO">
+        INSERT INTO JOB_FAIR_ENTRY(COMPANY_NO, JOBFAIR_NO)
+        VALUES (#{companyNo}, #{jobFairNo})
+    </insert>
+
     <select id="paginationJobFair" parameterType="map" resultType="com.pickmeup.jobstartup.jobfair.dto.JobFairDTO">
         select * from job_fair
         order by jobfair_no asc

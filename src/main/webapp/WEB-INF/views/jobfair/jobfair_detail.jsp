@@ -13,13 +13,16 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 </head>
 <body>
-<div id="someElement" data-member-no="${sessionScope.memberNo}"></div>
+<div id="memberNo" data-member-no="${sessionScope.memberNo}"></div>
+<div id="companyNo" data-company-no="${sessionScope.companyNo}"></div>
 <%@ include file="../layout/layoutNav.jsp" %>
 <div id="top" data-wow-duration="1s" data-wow-delay="0.5s">
     <div class="header-text" data-wow-duration="1s" data-wow-delay="1s">
     </div>
 </div>
-<%@ include file="../layout/layoutSideAdmin.jsp" %>
+<c:if test="${sessionScope.role == 3}">
+    <%@ include file="../layout/layoutAdminSidebar.jsp" %>
+</c:if>
 <main>
     <article>
         <div class="jobfair_info">
@@ -79,14 +82,6 @@
                     </div>
                 </div>
             </div>
-
-
-
-
-            <form id="jobFairForm" action="/recruiter/insertJobFairEntry/${jobFair.JOBFAIR_NO}" method="POST">
-                <button type="submit">신청</button>
-            </form>
-
         </div>
         <div class="jobfair_content">
             ${jobFair.JOBFAIR_CONTENT}
@@ -106,7 +101,7 @@
                     </a>
                 </div>
             </c:if>
-            <c:if test="${sessionScope.role == 2}">
+            <c:if test="${sessionScope.role == 2 || sessionScope.role == 4}">
                 <div>
                     <a href="${pageContext.request.contextPath}/entry" onclick="jobFairEntry();">참가 신청</a>
                 </div>
@@ -144,11 +139,13 @@
         console.log("entry");
         const data = new URLSearchParams();
         const JFNO = '${jobfair_no}'
-        var memberNo = document.getElementById("someElement").getAttribute("data-member-no");
+        var memberNo = document.getElementById("memberNo").getAttribute("data-member-no");
+        var companyNo = document.getElementById("companyNo").getAttribute("data-company-no");
         const loggedInUserId = '<sec:authentication property="name" />';
         data.append('jobFairNo', JFNO);
-        data.append('memberNo', loggedInUserId);
-        alert("pause");
+        data.append('memberNo', memberNo);
+        data.append('companyNo', companyNo);
+
         fetch('/jobfair/entry', {
             method: 'POST',
             headers: {

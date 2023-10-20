@@ -68,32 +68,7 @@ public class ApplyController {
 
 
     //@PostMapping("/insertJobFairEntry/JOBFAIR_NO")
-    @PostMapping("/insertJobFairEntry/{JOBFAIR_NO}")
-    public String insertJobFairEntry(@PathVariable("JOBFAIR_NO") long JOBFAIR_NO) {
-        System.out.println("insertJobFairEntryinsertJobFairEntryinsertJobFairEntryinsertJobFairEntry= " );
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String memberId = authentication.getName();//접속자 아이디 가져오기
-        System.out.println("나의 아이디= " + memberId );//접속자 아이디 확인
-        Member member = applyService.getMemberNO(memberId);//접속자 정보 DTO member 가져오기
-        MemberType memberType = member.getMember_type();//접속자 멤버타입확인
-        //회사 번호 불러와서 job_fair_entry에 insert 단 4번이면
-        ApplyDTO applyDTO = applyService.getApplyDTO(member.getMember_no());//해당계정의 회사정보불러오기
-        int company_no = applyDTO.getCompany_no();//회사번호
 
-        if(applyDTO == null && memberType == UNAPPROVED_COMPANY)
-            return "redirect:/recruiter/apply/{JOBFAIR_NO}";
-        if(applyDTO != null && (memberType == UNAPPROVED_COMPANY || memberType == COMPANY)){
-            applyService.insertEntry(JOBFAIR_NO,company_no);
-            return "redirect:/admin/jobfairlist";
-        }
-
-
-
-        //job_fair_entry 에 값입력
-        //applyService.insertEntry(JOBFAIR_NO,company_no);
-
-        return "redirect:/admin/jobfairlist"; // 적절한 리다이렉트 경로로 변경
-    }
 
     @PostMapping("/jfdelete")
     public ResponseEntity<String> updateComLogo(@RequestParam String cfile_savname, @RequestParam int cfile_no) {

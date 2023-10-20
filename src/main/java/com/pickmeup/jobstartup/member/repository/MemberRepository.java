@@ -1,5 +1,7 @@
 package com.pickmeup.jobstartup.member.repository;
 
+import com.pickmeup.jobstartup.member.dto.CompanyDTO;
+import com.pickmeup.jobstartup.member.dto.JoinCompanyDTO;
 import com.pickmeup.jobstartup.member.entity.Member;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -28,6 +30,8 @@ public interface MemberRepository {
 
     //사업자등록번호 중복 확인
     Member findByBusinessNo(String business_no);
+
+    CompanyDTO findCompanyNoByMemberNo(int memberNo);
 
     //개인회원 아이디 찾기
     String findPersonId(@Param("name") String name, @Param("phone") String phone);
