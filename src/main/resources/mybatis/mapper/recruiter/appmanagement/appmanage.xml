@@ -54,11 +54,11 @@
     </update>
 
     <!--채용관리 지원자 상세 페이지: 1차 수정 (등록 또는 반려 -> Default)-->
-    <update id="updateAppManageFirstDefault" parameterType="int">
+<!--    <update id="updateAppManageFirstDefault" parameterType="int">
         <![CDATA[
 
         ]]>
-    </update>
+    </update>-->
 
     <!--채용관리 지원자 상세 페이지: 최종 승인-->
     <update id="updateAppManageLastEnroll" parameterType="int">
