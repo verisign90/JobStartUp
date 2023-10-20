@@ -13,45 +13,43 @@
           rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/recruiter/jobposting/JPdetail.css">
 
-
     <!-- Bootstrap core CSS -->
     <link href="/css/template/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
           integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/template/assets/css/templatemo-chain-app-dev.css">
     <link rel="stylesheet" href="/css/template/assets/css/animated.css">
     <link rel="stylesheet" href="/css/template/assets/css/owl.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/base.css">
 
-    <title>Title</title>
+    <title>공고 상세(기업 소개) 페이지</title>
 
 </head>
 <body>
-<header>
-    <!-- ***** Nav start ***** -->
-    <%@ include file="../../layout/layoutNav.jsp" %>
-    <!-- ***** Nav End ***** -->
-</header>
+<%@ include file="../../layout/layoutNav.jsp" %>
+<div  id="top" data-wow-duration="1s" data-wow-delay="0.5s">
+    <div class="header-text" data-wow-duration="1s" data-wow-delay="1s">
+    </div>
+</div>
 <main>
     <article class="all-content">
         <section>
-            <div>
-                <a href="#" title="" class="companyName" target="_blank"
-                   onclick="window.open(this.href, ''); return false;">기업이름</a>
-            </div>
-            <div>
-                <div>
-                    <a href="#" title="회사이름" class="company-name" target="_blank">${JPdetail.company_name}</a>
-                    <h1>${JPdetail.posting_title}</h1>
-                    <button class="btn" title="클릭하면 입사지원 할수있습니다">입사지원</button>
+
+            <div class = "main-first-container">
+                <div class = "first-first-container">
                     <div>
-                        <!-- 수정 버튼 -->
-                        <a href="${cPath}/recruiter/JPmodify/${JPdetail.posting_no}" class="btn btn-primary">수정</a>
+                        <a href="#" title="" class="companyName" target="_blank"
+                           onclick="window.open(this.href, ''); return false;">기업이름</a>
+                        <a href="#" title="회사이름" class="company-name" target="_blank">${JPdetail.company_name}</a>
+                    </div>
+                    <div>
+                        <h1>${JPdetail.posting_title}</h1>
+                    </div>
+                </div>
+                <div class = "first-second-container">
 
-                        <!-- 삭제 버튼 -->
-                        <a href="${cPath}/recruiter/JPdelete/${JPdetail.posting_no}" class="btn btn-danger">삭제</a>
-
+                    <div class = "second-first-items">
                         <%-- 민용님 제 스크랩 버튼 놓고갑니다 --%>
                         <div class="bookmark-item"
                              data-posting-no="${postingNo}"
@@ -62,7 +60,8 @@
                                      alt=""/> 스크랩
                             </button>
                         </div>
-
+                    </div>
+                    <div class = "second-second-items">
                         <%-- 기업팔로우 버튼 --%>
                         <div class="follow-item"
                              data-company-no="${JPdetail.company_no}"
@@ -73,105 +72,131 @@
                             </button>
                         </div>
                     </div>
-                    <!-- 버튼을 클릭하여 모달을 열도록 합니다. -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                        지원하기
-                    </button>
+                    <div class = "second-third-items">
+                        <%-- 기업팔로우 버튼 --%>
+                        <div><button>쪽지</button></div>
+                    </div>
+                    <div class = "second-fourth-items">
+                        <!-- 버튼을 클릭하여 모달을 열도록 합니다. -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                            지원하기
+                        </button>
+                        <form id="applyForm" action="#" method="post">
+                            <!-- 모달 창 -->
+                            <div class="modal" id="myModal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <!-- 모달 헤더 -->
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">지원하기</h5>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <!-- 모달 본문 -->
+                                        <div class="modal-body">
+                                            <button><a href="${cPath}/seeker/resumeWrite">이력서 작성</a></button>
+                                            <c:forEach items="${resumeList}" var="resume">
+                                                <div class="resume_list_wrap">
+                                                    <ul class="resume_list">
+                                                        <li class="resume_item">
+                                                            <input class="member-no" type="hidden" value="${resume.member_no}">
+                                                            <input class="posting-no" type="hidden" value="${postingNo}">
+                                                            <span><a href="${cPath}/seeker/resumeDetail/${resume.resume_no}">${resume.resume_title}</a></span>
+                                                            <span><input class="modifyBtn" type="checkbox" name="resume_no" id="resume_no" value="${resume.resume_no}"></span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </c:forEach>
+                                        </div>
+                                        <!-- 모달 하단 -->
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                                            <input type="submit" class="modifyBtn" value="지원하기">
+                                        </div>
 
-                    <form id="applyForm" action="#" method="post">
-                        <!-- 모달 창 -->
-                        <div class="modal" id="myModal">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-
-                                    <!-- 모달 헤더 -->
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">지원하기</h5>
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     </div>
-
-                                    <!-- 모달 본문 -->
-                                    <div class="modal-body">
-                                        <button><a href="${cPath}/seeker/resumeWrite">이력서 작성</a></button>
-                                        <c:forEach items="${resumeList}" var="resume">
-                                            <div class="resume_list_wrap">
-                                                <ul class="resume_list">
-                                                    <li class="resume_item">
-                                                        <input class="member-no" type="hidden" value="${resume.member_no}">
-                                                        <input class="posting-no" type="hidden" value="${postingNo}">
-                                                        <span><a href="${cPath}/seeker/resumeDetail/${resume.resume_no}">${resume.resume_title}</a></span>
-                                                        <span><input class="modifyBtn" type="checkbox" name="resume_no" id="resume_no" value="${resume.resume_no}"></span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </c:forEach>
-                                    </div>
-                                    <!-- 모달 하단 -->
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-                                        <input type="submit" class="modifyBtn" value="지원하기">
-                                    </div>
-
                                 </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
+
         </section>
+
+
+
+
+
         <section>
-            <div>
+            <div class = "main-second-container">
                 <div>
-                    <dl>
-                        <dt>경력</dt>
-                        <dd>${JPdetail.posting_career}</dd>
-                    </dl>
-                    <dl>
-                        <dt>학력</dt>
-                        <dd>${JPdetail.posting_academy}</dd>
-                    </dl>
-                    <dl>
-                        <dt>근무형태</dt>
-                        <dd>${JPdetail.posting_labor}</dd>
-                    </dl>
+                    <div>
+                        <table>
+                            <tr>
+                                <th>경력</th>
+                                <td>${JPdetail.posting_career}</td>
+                            </tr>
+                            <tr>
+                                <th>학력</th>
+                                <td>${JPdetail.posting_academy}</td>
+                            </tr>
+                            <tr>
+                                <th>근무 형태</th>
+                                <td>${JPdetail.posting_labor}</td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
         </section>
+
         <section>
-            <div>
+            <div class = "main-third-container">
                 <div>
-                    <dl>
-                        <dt>급여</dt>
-                        <dd>${JPdetail.posting_salary}</dd>
-                    </dl>
-                    <dl>
-                        <dt>근무일시</dt>
-                        <dd>
-                            <span>${JPdetail.posting_working_day}</span>
-                            <span>${JPdetail.posting_swork}</span> ~
-                            <span>${JPdetail.posting_ework}</span>
-                        </dd>
-                    </dl>
-                    <dl>
-                        <dt>근무지역</dt>
-                        <%--<dd>${fn:substring(JPdetail.company_address_detail, 0, 6)}</dd>--%>
-                    </dl>
+                    <table>
+                        <tr>
+                            <th>급여</th>
+                            <td>${JPdetail.posting_salary}</td>
+                        </tr>
+                        <tr>
+                            <th>근무 일시</th>
+                            <td>
+                                <span>${JPdetail.posting_working_day}</span>
+                                <span>${JPdetail.posting_swork}</span> ~
+                                <span>${JPdetail.posting_ework}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>근무지역</th>
+                            <td><%--${fn:substring(JPdetail.company_address_detail, 0, 6)}--%></td>
+                        </tr>
+                    </table>
                 </div>
             </div>
+            </div>
         </section>
+
+
         <section>
-            <div>
+            <div class = "main-fourth-container">
                 <div>
-                    ${JPdetail.posting_content}
+                    회사 컨텐츠가 들어갈 예정입니다 ${JPdetail.posting_content}
                 </div>
             </div>
         </section>
+
+        <section>
+            <div class = "main-fifth-container">
+                <!-- 수정 버튼 -->
+                <a href="${cPath}/recruiter/JPmodify/${JPdetail.posting_no}" class="btn btn-primary">수정</a>
+                <!-- 삭제 버튼 -->
+                <a href="${cPath}/recruiter/JPdelete/${JPdetail.posting_no}" class="btn btn-danger">삭제</a>
+            </div>
+        </section>
+
 
     </article>
 </main>
-<footer>
-
-</footer>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script>
@@ -314,7 +339,6 @@
 <script src="/css/template/assets/js/imagesloaded.js"></script>
 <script src="/css/template/assets/js/popup.js"></script>
 <script src="/css/template/assets/js/custom.js"></script>
-
 
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>

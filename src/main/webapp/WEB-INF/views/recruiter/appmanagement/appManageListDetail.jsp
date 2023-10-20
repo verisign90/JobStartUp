@@ -156,12 +156,12 @@
                 </c:if>
 
                 <!-- 1차 채용 거절 -->
-                <c:if test="${selectInfo.first_pass eq 'F' && selectInfo.final_pass eq 'N'}">
+                <c:if test="${selectInfo.first_pass eq 'F'}">
                     채용이 거절된 지원자입니다.
                 </c:if>
 
                 <!-- 최종 합격 -->
-                <c:if test="${selectInfo.final_pass eq 'Y'}">
+                <c:if test="${selectInfo.first_pass eq 'Y' && selectInfo.final_pass eq 'Y'}">
                     채용이 승인된 지원자입니다.
                 </c:if>
 
