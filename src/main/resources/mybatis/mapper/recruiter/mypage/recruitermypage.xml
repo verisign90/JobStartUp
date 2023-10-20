@@ -7,11 +7,11 @@
     <!--기업 페이지: 회사 정보-->
     <select id="selectRecruiterInfo" resultType="com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterMyPageDTO">
         <![CDATA[
-        SELECT company_no, member_no, company_name, company_hp, ceo_name, company_type,
-                business_type_code, company_address_detail, company_site, listing_status,
-                company_est, company_sales
-        FROM company
-        WHERE company_no = #{company_no}
+            SELECT company_no, member_no, company_name, company_hp, ceo_name, company_type,
+                    business_type_code, company_address_detail, company_site, listing_status,
+                    company_est, company_sales
+            FROM company
+            WHERE company_no = #{company_no}
         ]]>
     </select>
 
