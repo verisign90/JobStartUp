@@ -29,9 +29,7 @@ public class RecruiterMyPageController {
 
     //기업 페이지: 회사 정보
     @GetMapping("/myPage")
-    //public String companyInfo(@RequestParam int company_no, Model model) {
-    public String companyInfo(Model model) {
-        int company_no = 4;
+    public String companyInfo(@RequestParam int company_no, Model model) {
         RecruiterMyPageDTO recruiterMyPageDTO = recruiterMyPageService.selectRecruiterInfo(company_no);
         RecruiterFileDTO recruiterFileDTO = recruiterMyPageService.selectComLogoName(company_no);
         recruiterFileDTO.setCompany_no(company_no);
