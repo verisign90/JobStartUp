@@ -30,12 +30,14 @@
                         <c:when test="${empty question.answerDTO}">
                             <section class="three open">
                                 <div class="q">
-                                    <span class="yet">답변대기</span>
+                                    <span class="yet">답변대기</span></div>
+                            </section>
                         </c:when>
                         <c:otherwise>
                             <section class="three close">
                                 <div class="q">
-                                    <span class="finish">답변완료</span>
+                                    <span class="finish">답변완료</span></div>
+                            </section>
                         </c:otherwise>
                     </c:choose>
                     <c:choose>
