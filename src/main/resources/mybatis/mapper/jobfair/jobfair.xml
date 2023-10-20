@@ -74,4 +74,14 @@
         WHERE JOBFAIR_NO = #{no}
         ]]>
     </delete>
+
+    <select id="paginationJobFair" parameterType="map" resultType="com.pickmeup.jobstartup.jobfair.dto.JobFairDTO">
+        select * from job_fair
+        order by jobfair_no asc
+        offset #{offset} rows fetch next #{size} rows only
+    </select>
+
+    <select id="countJobFair" resultType="int">
+        SELECT COUNT(*) FROM JOB_FAIR
+    </select>
 </mapper>

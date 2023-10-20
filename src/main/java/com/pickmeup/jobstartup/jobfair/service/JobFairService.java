@@ -7,7 +7,9 @@ import com.pickmeup.jobstartup.jobfair.repository.JobFairRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class JobFairService {
@@ -47,4 +49,21 @@ public class JobFairService {
         jobFairRepository.delete(no);
     }
 
+    //page : 현재 페이지, size : 페이지당 게시물 수
+    public Map<String, Object> getAllJobFair(int page, int size) {
+        int offset = (page - 1) * size;
+
+        Map<String, Integer> paramMap = new HashMap<>();
+        paramMap.put("offset", offset);
+        paramMap.put("size", size);
+
+        List<JobFairDTO> jobFairList = jobFairRepository.paginationJobFair(paramMap);
+        int totalCount = jobFairRepository.countJobFair();
+        int totalPages = (int) Math.ceil((double) totalCount / size);
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("jobFairList", jobFairList);
+        result.put("totalPages", totalPages);
+        return result;
+    }
 }
