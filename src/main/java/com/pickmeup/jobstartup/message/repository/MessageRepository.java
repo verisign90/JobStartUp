@@ -27,6 +27,9 @@ public interface MessageRepository {
     //메세지 내용 확인
     public MessageDTO selectMessageByNo(long mesNo) throws DataAccessException;
 
+    //발신 메세지 내용 확인
+    public MessageDTO selectSentMessageByNo(long mesNo) throws DataAccessException;
+
     //메세지 읽음 표시
     public void updateRead(long mesNo) throws DataAccessException;
 

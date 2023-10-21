@@ -73,6 +73,18 @@ public class MessageServiceImpl implements MessageService{
         return messageDTO;
     }
 
+    @Override
+    public MessageDTO readSentMessage(long mesNo) throws Exception {
+        //메세지 확인
+        MessageDTO messageDTO = messageRepository.selectSentMessageByNo(mesNo);
+        //수신 확인
+        if(messageDTO.getMes_read().equals("N")) {
+            messageRepository.updateRead(mesNo);
+            messageDTO.setMes_read("Y");
+        }
+        return messageDTO;
+    }
+
     @Transactional
     @Override
     public void deleteMessage(Long mesReceiver, List<String> selectedValues) throws Exception {

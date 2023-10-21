@@ -81,6 +81,14 @@
             WHERE M.MES_NO = #{mesNo} AND RECEIVER_DEL = 'N'
         ]]>
     </select>
+    <select id="selectSentMessageByNo" parameterType="long" resultType="com.pickmeup.jobstartup.message.dto.MessageDTO">
+        <![CDATA[
+            SELECT M.MES_NO, M.MES_SENDER, MB.MEMBER_ID, M.MES_CONTENT, M.MES_REGDATE, M.MES_RECEIVER, M.RECEIVER_DEL, M.MES_READ
+            FROM MESSAGE M
+            LEFT JOIN MEMBER MB ON M.MES_SENDER = MB.MEMBER_NO
+            WHERE M.MES_NO = #{mesNo} AND SENDER_DEL = 'N'
+        ]]>
+    </select>
     <update id="updateRead" parameterType="long">
         UPDATE MESSAGE
         SET MES_READ = 'Y'

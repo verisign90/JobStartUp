@@ -69,6 +69,16 @@ public class MessageController {
         return ResponseEntity.ok().body(messageJson);
     }
 
+    @PostMapping("/sentRead")
+    public ResponseEntity<String> readSentMessage(Model model, @RequestBody Map<String, Object> requestData) throws Exception {
+        long mes_no = Long.parseLong(requestData.get("mes_no").toString());
+        MessageDTO messageDTO = messageService.readSentMessage(mes_no);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        String messageJson= mapper.writeValueAsString(messageDTO);
+        return ResponseEntity.ok().body(messageJson);
+    }
+
     @PostMapping("/receiver/delete")
     @ResponseBody
     public String deleteMessage(HttpSession session, @RequestBody List<String> selectedValues, Model model) throws Exception {

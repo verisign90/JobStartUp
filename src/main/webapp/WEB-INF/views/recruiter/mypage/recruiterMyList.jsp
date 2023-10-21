@@ -209,6 +209,57 @@
                 </form>
             </c:if>
 
+            <!--QnA-->
+            <c:if test="${not empty appList}">
+                <div class="main-title-container"><h4>지원자 관리</h4></div>
+                <c:forEach var="app" items="${appList}" varStatus="status">
+                    <div class="content">
+                        <table>
+                            <tr>
+                                <th>이력서 제목//제목에서 table 눌렀을 때 이동하게끔</th>
+                                <td><a href="/recruiter/managePage/${app.status_no}">${app.resume_title}</a></td>
+                            </tr>
+                            <tr>
+                                <th>1차 합격 여부</th>
+                                <td>${app.first_pass}</td>
+                            </tr>
+                            <tr>
+                                <th>면접일자</th>
+                                <td><fmt:formatDate value="${app.interview_date}" pattern="yyyy년 MM월 dd일"/></td>
+                            </tr>
+                            <tr>
+                                <th>최종 합격 여부</th>
+                                <td>${app.final_pass}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </c:forEach>
+                <form id = "paging_AppManage" action="/recruiter/myPage/appManageWithPaging" method="get">
+                    <input type="hidden" name="currentPageNo" value="${appListPaging.criteria.currentPageNo}">
+                    <input type="hidden" name="recordsPerPage" value="${appListPaging.criteria.recordsPerPage}">
+                    <input type="hidden" name="company_no" value="${appListPaging.criteria.company_no}">
+                    <div class="pagination">
+                        <ol>
+                            <c:if test="${appListPaging.prev}">
+                                <li class="paging_btn prev">
+                                    <div id="${appListPaging.strPage -1}">prev</div>
+                                </li>
+                            </c:if>
+                            <c:forEach var ="app_pageNo" begin="${appListPaging.strPage}" end="${appListPaging.endPage}">
+                                <li class="paging_btn ${appListPaging.criteria.currentPageNo}">
+                                    <div id="${app_pageNo}">${app_pageNo}</div>
+                                </li>
+                            </c:forEach>
+                            <c:if test ="${appListPaging.next}">
+                                <li class="paging_btn next">
+                                    <div id="${appListPaging.endPage +1}">next</div>
+                                </li>
+                            </c:if>
+                        </ol>
+                    </div>
+                </form>
+            </c:if>
+
             </div>
         </div>
     </article>
