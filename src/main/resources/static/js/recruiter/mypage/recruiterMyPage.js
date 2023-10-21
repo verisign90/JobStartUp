@@ -1,5 +1,6 @@
 $(document).ready(function(){
 
+    /** recruiterMyPage.jsp **/
     /* 기업 로고 이미지 수정 */
     $("#profile-edit-button").on("click",function(){
         var company_no = $(".profile-company-no").val();
@@ -28,6 +29,8 @@ $(document).ready(function(){
         });
     });
 
+    /** recruiterMyPage.jsp + recruiterMyList.jsp + recruiterMyPageContentList.jsp **/
+
     /* 공고 관리 */
     $("#job-posting").on("click",function(){
         let company_no = $(".job_posting_company_no").val();
@@ -54,6 +57,9 @@ $(document).ready(function(){
         var pageNo = $(this).find("div").attr("id");
         paging_jobPosting.find("input[name='currentPageNo']").val(pageNo);
         paging_jobPosting.submit();
+        /* pagination active color(add) */
+        $(".paging_btn").removeClass("active");
+        $(this).addClass("active");
     });
 
     /* 박람회 관리 */
@@ -82,6 +88,9 @@ $(document).ready(function(){
         var pageNo = $(this).find("div").attr("id");
         paging_jobFair.find("input[name='currentPageNo']").val(pageNo);
         paging_jobFair.submit();
+        /* pagination active color(add) */
+        $(".paging_btn").removeClass("active");
+        $(this).addClass("active");
     });
 
     /* 지원자 관리 */
@@ -110,6 +119,9 @@ $(document).ready(function(){
         var pageNo = $(this).find("div").attr("id");
         paging_AppManage.find("input[name='currentPageNo']").val(pageNo);
         paging_AppManage.submit();
+        /* pagination active color(add) */
+        $(".paging_btn").removeClass("active");
+        $(this).addClass("active");
     });
 
 });

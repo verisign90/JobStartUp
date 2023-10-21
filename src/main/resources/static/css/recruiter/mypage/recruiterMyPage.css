@@ -1,49 +1,21 @@
-.image {
-    width: 70%;
-    display: block;
-    overflow: hidden;
-    margin: auto;
-    border-radius: 1em;
-    box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
-}
-
+/** recruiterMyPage.jsp **/
+/* company profile */
 .main-title-container h4 {
     font-weight: 700;
 }
-
 .main-title-container {
     text-align: center;
     margin-bottom: 10px;
     padding: 5px;
 }
-
 .main-container {
     margin-right: 5%;
     margin-left: 5%;
     padding: 5px;
 }
-
 .info-container {
     margin: auto;
 }
-
-.button-container {
-    /*border: 1px solid black;*/
-}
-
-.edit-button {
-    margin: auto;
-    width: auto;
-    height: 2.4em;
-    border: none;
-    font-size: 0.85em;
-    font-weight: bold;
-    color: white;
-    border-radius: 0.3em;
-    background: #323232;
-    cursor: pointer;
-}
-
 .info-main-container {
     display: flex;
     margin: 5px;
@@ -56,32 +28,6 @@
     transition: all .3s;
     margin-bottom: 30px;
 }
-
-.info-list-container {
-    width: 90%;
-    height: auto;
-    display: block;
-    margin: auto;
-    z-index: 1;
-    padding: 30px;
-    box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
-    background-color: #fff;
-    border-radius: 10px;
-    border-top-right-radius: 50px;
-    transition: all .3s;
-    margin-bottom: 30px;
-}
-
-.list-button {
-    font-size: 0.85em;
-    width: auto;
-    height: 2.4em;
-    border-radius: 0.3em;
-    background: #323232;
-    color: white;
-    cursor: pointer;
-}
-
 .company {
     flex-basis: 30%;
     position: relative;
@@ -96,43 +42,92 @@
     margin: 10px;
     height: 35em;
 }
-
 .profile {
     flex-basis: 30%;
 }
-
 .profile-pic{
     margin: 8px;
 }
-
-#preview {
-    margin: auto;
+.image {
+    width: 70%;
     display: block;
-    border-radius: 10%;
+    overflow: hidden;
+    margin: auto;
+    border-radius: 1em;
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
 }
-
-.profile-edit-button {
-  cursor: pointer;
-}
-
 .profile-edit-button-1 {
   display: flex;
   justify-content: center;
   margin: 0.5em;
 }
-
+#logoFile {
+  display: none;
+}
+.btn-upload {
+  margin: 0.2em;
+  width: 150px;
+  height: 30px;
+  background: #fff;
+  border: 1px solid rgb(77,77,77);
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:hover {
+    background: rgb(77,77,77);
+    color: #fff;
+  }
+  box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+}
 .profile-edit-button-2 {
     margin: auto;
     display: flex;
     justify-content: center;
 }
-
+.edit-button {
+    margin: auto;
+    width: auto;
+    height: 2.4em;
+    border: none;
+    font-size: 0.85em;
+    font-weight: bold;
+    color: white;
+    border-radius: 0.3em;
+    background: #323232;
+    cursor: pointer;
+}
 .company-info {
     flex-basis: 30%;
     margin: 5px;
-    /*border: 1px solid blue;*/
+}
+table.company-info-lists {
+  border-collapse: collapse;
+  line-height: 1.5;
+  width: 100%;
+  margin: 0.2em;
+}
+table.company-info-lists tbody th {
+  width: 35%;
+  font-weight: bold;
+  color: #369;
+  vertical-align: top;
+  padding: 0.2em;
+  font-size: medium;
+}
+table.company-info-lists tbody td {
+  width: 65%;
+  vertical-align: top;
+  padding: 0.2em;
+  font-size: medium;
+}
+.button-container {
+    /*border: 1px solid black;*/
 }
 
+/** recruiterMyPage.jsp + recruiterMyList.jsp + recruiterMyPageContentList.jsp **/
+/* related info list */
 .list-container {
     flex-basis: 40%;
     margin: 10px;
@@ -148,66 +143,10 @@
     margin-bottom: 30px;
     height: 35em;
 }
-
-.list-up-container {
-    flex-basis: 100%;
-    margin: auto;
-    padding: 5px;
-    position: relative;
-    z-index: 1;
-    padding: 30px;
-    background-color: #fff;
-    transition: all .3s;
-    margin-bottom: 30px;
-    height: auto;
-}
-
-.status-container {
-    margin-top: 10px;
-    height: auto;
-    z-index: 1;
-    padding: 30px;
-    box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
-    background-color: #fff;
-    border-radius: 10px;
-    border-top-right-radius: 50px;
-    transition: all .3s;
-    margin-bottom: 30px;
-}
-
-.btn-upload {
-  margin: 0.2em;
-  width: 150px;
-  height: 30px;
-  background: #fff;
-  border: 1px solid rgb(77,77,77);
-  /*border-radius: 10px;*/
-  font-weight: 500;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  &:hover {
-    background: rgb(77,77,77);
-    color: #fff;
-  }
-  box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
-}
-
-.basic-content-container {
-    margin: auto;
-}
-
-#logoFile {
-  display: none;
-}
-
 .content-label-container {
     display: flex;
 }
-
 .content-label {
-   /* border: 1px solid black;*/
     border-top-left-radius: 15%;
     border-top-right-radius: 15%;
     display: block;
@@ -222,23 +161,64 @@
     cursor: pointer;
     margin-right: 5px;
 }
-
+.list-button {
+    font-size: 0.85em;
+    width: auto;
+    height: 2.4em;
+    border-radius: 0.3em;
+    background: #323232;
+    color: white;
+    cursor: pointer;
+}
 .content-container {
     height: 30em;
     overflow-y: scroll;
 }
+.basic-content-container {
+    margin: auto;
+}
 
-.content {
+/** recruiterMyPage.jsp + recruiterMyList.jsp **/
+.info-list-container {
+    width: 90%;
     height: auto;
-    margin: 5px;
-    height: auto;
+    display: block;
+    margin: auto;
     z-index: 1;
-    padding: 20px;
+    padding: 30px;
     box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
     background-color: #fff;
     border-radius: 10px;
+    border-top-right-radius: 50px;
+    transition: all .3s;
+    margin-bottom: 30px;
 }
-
+.list-up-container {
+    flex-basis: 100%;
+    margin: auto;
+    padding: 5px;
+    position: relative;
+    z-index: 1;
+    padding: 30px;
+    background-color: #fff;
+    transition: all .3s;
+    margin-bottom: 30px;
+    height: auto;
+}
+.list-content {
+    height: auto;
+    margin: 10px;
+    z-index: 1;
+    padding: 20px;
+    box-shadow: 0px 0px 3px rgba(0,0,0,0.1);
+    background-color: #fff;
+    border-radius: 10px;
+    &:hover {
+      background: linear-gradient(to left, #2792d9, #6478FF);
+      /*background: linear-gradient(to left, #2792d9, #5da7d9);*/
+      color: #fff;
+    }
+}
 .pagination {
     padding-left: 0;
     list-style: none;
@@ -246,22 +226,109 @@
     display: flex;
     justify-content: center;
 }
-
 .pagination ol {
     float: left;
     text-align: center;
     display: flex;
     justify-content: center;
 }
-
 .pagination li {
     margin: 0 5px;
-    background-color: #020715;
-    color: white;
+    color: #020715;
     padding: 5px 10px;
     cursor: pointer;
-    box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+    text-decoration: none;
+    border: 1px solid #dee2e6;
     border-radius: 10px;
     font-size: 1.2em;
+    display: block;
+    &:hover {
+      background: rgb(77,77,77);
+      color: #fff;
+    }
 }
+.pagination li.active {
+    background: rgb(77,77,77);
+    color: #fff;
+}
+
+
+/** recruiterMyPageContentList.jsp **/
+.content-hidden {
+    height: auto;
+    margin: 10px;
+    z-index: 1;
+    padding: 20px;
+    box-shadow: 0px 0px 3px rgba(0,0,0,0.1);
+    background-color: #fff;
+    border-radius: 10px;
+    &:hover {
+      background: linear-gradient(to left, #2792d9, #6478FF);
+      /*background: linear-gradient(to left, #2792d9, #5da7d9);*/
+      color: #fff;
+    }
+}
+.show-list {
+    text-align: center;
+    display: block;
+}
+table.company_table {
+  border-collapse: collapse;
+  line-height: 1.5;
+  width: 100%;
+}
+table.company_table thead th {
+  font-weight: bold;
+  vertical-align: top;
+  color: #369;
+  border-bottom: 1px solid #036;
+  padding: 0.1em;
+}
+table.company_table tbody th {
+  width: 35%;
+  font-weight: bold;
+  vertical-align: top;
+  padding: 0.1em;
+  /*border-bottom: 1px solid #ccc;*/
+}
+table.company_table tbody td {
+  width: 65%;
+  vertical-align: top;
+  padding: 0.1em;
+  /*border-bottom: 1px solid #ccc;*/
+}
+
+
+/** recruiterMyList.jsp **/
+table.company_lists {
+  border-collapse: collapse;
+  line-height: 1.5;
+  width: 100%;
+}
+table.company_lists thead th {
+  font-weight: bold;
+  vertical-align: top;
+  color: #369;
+  border-bottom: 1px solid #036;
+  padding: 0.5em;
+  font-size: x-large;
+}
+table.company_lists tbody th {
+  width: 35%;
+  font-weight: bold;
+  vertical-align: top;
+  padding: 0.5em;
+  font-size: medium;
+  /*border-bottom: 1px solid #ccc;*/
+}
+table.company_lists tbody td {
+  width: 65%;
+  vertical-align: top;
+  padding: 0.5em;
+  font-size: medium;
+  /*border-bottom: 1px solid #ccc;*/
+}
+
+
+
 

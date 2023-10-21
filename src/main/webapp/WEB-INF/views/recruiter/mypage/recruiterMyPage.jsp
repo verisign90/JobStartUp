@@ -59,40 +59,37 @@
                     </form>
                     <div class ="company-info">
                         <div class="button-container">
-
                         </div>
-                        <table>
-                            <tr>
-                                <th>회사 이름</th>
-                                <td>${recruiterMyPageDTO.company_name}</td>
-                            </tr>
-                            <tr>
-                                <th>회사 연락처</th>
-                                <td>${recruiterMyPageDTO.company_hp}</td>
-                            </tr>
-                            <tr>
-                                <th>회사 대표</th>
-                                <td>${recruiterMyPageDTO.ceo_name}</td>
-                            </tr>
-                            <tr>
-                                <th>회사 형태</th>
-                                <td>${recruiterMyPageDTO.company_type}</td>
-                            </tr>
-                            <tr>
-                                <th>회사 주소</th>
-                                <td>${recruiterMyPageDTO.company_address_detail}</td>
-                            </tr>
-                            <tr>
-                                <th>회사 위치</th>
-                                <td>${recruiterMyPageDTO.company_site}</td>
-                            </tr>
+                        <table class="company-info-lists">
+                            <tbody>
+                                <tr>
+                                    <th>기업명</th>
+                                    <td>${recruiterMyPageDTO.company_name}</td>
+                                </tr>
+                                <tr>
+                                    <th>연락처</th>
+                                    <td>${recruiterMyPageDTO.company_hp}</td>
+                                </tr>
+                                <tr>
+                                    <th>대표</th>
+                                    <td>${recruiterMyPageDTO.ceo_name}</td>
+                                </tr>
+                                <tr>
+                                    <th>주소</th>
+                                    <td>${recruiterMyPageDTO.company_address_detail}</td>
+                                </tr>
+                                <tr>
+                                    <th>위치</th>
+                                    <td>${recruiterMyPageDTO.company_site}</td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>
                 <div class="company-schedule">
                     <div id="calendar" class="calendar"></div>
                 </div>
-                <!-- Modal -->
+                <!-- Modal Start -->
                 <div class="modal_fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                      aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -122,7 +119,7 @@
                         </form>
                     </div>
                 </div>
-
+                <!-- Modal End -->
                 <div class="list-container">
                     <div class="content-label-container">
                         <form action="/recruiter/getJobPostingList" method="post">

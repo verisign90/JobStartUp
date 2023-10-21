@@ -17,12 +17,11 @@ function closeModal(){
 function clickInsert(){
     var clickButton = document.querySelector('#addCalendar');
 }
-
 // 캘린더 api: https://fullcalendar.io/
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
-        //calendar 설정(customize)
+        //calendar 설정(edited)
         height: 500,
         locale: 'ko',
         initialDate: new Date(),
@@ -34,7 +33,6 @@ document.addEventListener('DOMContentLoaded', function() {
             center: 'title',
             end: 'prev,next dayGridMonth today',
         },
-
         //calendar CRUD
         customButtons: {
             addEventButton: {
@@ -46,6 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Insert: 캘린더 '추가' 버튼 클릭
                     var clickInsertButton = document.querySelector('#addCalendar');
                     clickInsertButton.addEventListener('click', function() {
+                        //전송할 데이터
                         var SCHEDULE_TITLE = document.getElementById('SCHEDULE_TITLE').value;
                         var SCHEDULE_START = document.getElementById('SCHEDULE_START').value;
                         var SCHEDULE_END = document.getElementById('SCHEDULE_END').value;
@@ -65,8 +64,9 @@ document.addEventListener('DOMContentLoaded', function() {
                                 schedule_end: SCHEDULE_END,
                                 company_no: COMPANY_NO
                             }),
-                            contentType: "application/json; charset=UTF-8",
+                            contentType: "application/json;charset=UTF-8",
                             dataType: "text",
+                            async : false,
                             success: function(success) {
                                 closeModal();
                                 alert('일정을 등록하였습니다');
@@ -86,7 +86,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             },
         },
-
         // Select: page 로딩 시 캘린더 정보 로딩
         events: function(info, successCallback, failureCallback) {
              var company_no = document.getElementById('COMPANY_NO').value;
@@ -96,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
                  data: JSON.stringify({
                      company_no: company_no
                  }),
-                 contentType: "application/json; charset=UTF-8",
+                 contentType: "application/json;charset=UTF-8",
                  dataType: "text",
                  aysnc: false,
                  success: function(response) {
@@ -118,10 +117,9 @@ document.addEventListener('DOMContentLoaded', function() {
                  }
              });
         },
-
         // Delete: 캘린더 정보 삭제
         eventClick: function(arg) {
-
+            //전송할 데이터
             var schedule_title = arg.event.title;
             var schedule_start = arg.event.start;
             var schedule_end = arg.event.end;
@@ -140,8 +138,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         schedule_end: schedule_end,
                         company_no: company_no
                     }),
-                    contentType: "application/json; charset=UTF-8",
+                    contentType: "application/json;charset=UTF-8",
                     dataType: "text",
+                    aysnc: false,
                     success: function(success) {
                        alert('일정을 삭제하였습니다');
                     }, error: function() {
@@ -151,9 +150,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
-
     // calendar 랜더링
     calendar.render();
-
-
 });
