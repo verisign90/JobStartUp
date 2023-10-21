@@ -73,7 +73,8 @@
     <article class="article-content">
         <section>
             <div>
-                <h2>채용정보</h2>
+                <h2 class="recruitment">채용정보</h2>
+                <hr/>
             </div>
 
 
@@ -99,30 +100,10 @@
                             </span>
                             </div>
                         </div>
-                    </a>
-                </c:forEach>
+                    </a>                </c:forEach>
             </div>
         </section>
-        <section>
-            <div class="pagination">
-                <c:if test="${currentPage > 1}">
-                    <a class="page-link" href="${pageContext.request.contextPath}/recruiter/JPlist?page=${currentPage - 1}">이전</a>
-                </c:if>
-                <c:forEach begin="1" end="${totalPages}" var="pageNum">
-                    <c:choose>
-                        <c:when test="${pageNum == currentPage}">
-                            <span class="current page-link">${pageNum}</span>
-                        </c:when>
-                        <c:otherwise>
-                            <a class="page-link" href="${pageContext.request.contextPath}/recruiter/JPlist?page=${pageNum}">${pageNum}</a>
-                        </c:otherwise>
-                    </c:choose>
-                </c:forEach>
-                <c:if test="${currentPage < totalPages}">
-                    <a class="page-link" href="${pageContext.request.contextPath}/recruiter/JPlist?page=${currentPage + 1}">다음</a>
-                </c:if>
-            </div>
-        </section>
+
 
     </article>
 </main>
