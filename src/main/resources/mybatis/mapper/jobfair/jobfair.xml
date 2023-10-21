@@ -24,6 +24,8 @@
              COMPANY C
         WHERE JFE.COMPANY_NO = C.COMPANY_NO
           AND JFE.JOBFAIR_NO = #{JOBFAIR_NO}
+          AND JFE.JOBFAIRENTRY_STATUS = 'Y'
+        ORDER BY JFE.JOBFAIRENTRY_NO ASC
         ]]>
     </select>
     <select id="selectEntryDTOList" resultType="com.pickmeup.jobstartup.jobfair.dto.EntryDTO">

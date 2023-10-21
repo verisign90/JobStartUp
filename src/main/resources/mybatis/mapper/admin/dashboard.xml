@@ -46,4 +46,26 @@
         ORDER BY REGDATE_ONLY ASC
         ]]>
     </select>
+
+    <select id="countMember" resultType="int">
+        SELECT COUNT(*)
+        FROM MEMBER
+    </select>
+
+    <select id="todayMember" resultType="int">
+        SELECT COUNT(*)
+        FROM MEMBER
+        WHERE TRUNC(MEMBER_REGDATE) = TRUNC(SYSDATE)
+    </select>
+
+    <select id="countJobFair" resultType="int">
+        SELECT COUNT(*)
+        FROM JOB_FAIR
+        WHERE TRUNC(JOBFAIR_SDATE) >= TRUNC(SYSDATE)
+    </select>
+
+    <select id="countPosting" resultType="int">
+        SELECT count(*)
+        FROM JOB_POSTING
+    </select>
 </mapper>

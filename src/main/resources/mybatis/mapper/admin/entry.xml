@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pickmeup.jobstartup.admin.repository.EntryRepository">
+    <select id="selectEntryCompanyList" resultType="com.pickmeup.jobstartup.jobfair.dto.EntryCompanyDTO">
+        SELECT JOBFAIRENTRY_NO, JOBFAIR_NO, COMPANY_NO
+        FROM JOB_FAIR_ENTRY
+        WHERE JOBFAIRENTRY_STATUS = 'N'
+        ORDER BY JOBFAIRENTRY_NO ASC
+    </select>
+
+    <select id="paginationEntryCompany" parameterType="map" resultType="com.pickmeup.jobstartup.jobfair.dto.EntryCompanyDTO">
+        SELECT JOBFAIRENTRY_NO, JOBFAIR_NO, COMPANY_NO
+        FROM JOB_FAIR_ENTRY
+        WHERE JOBFAIRENTRY_STATUS = 'N'
+        ORDER BY JOBFAIRENTRY_NO ASC
+        OFFSET #{offset} ROWS FETCH NEXT #{size} ROWS ONLY
+    </select>
+
+    <select id="countEntryCompany" resultType="int">
+        SELECT COUNT(*) FROM JOB_FAIR_ENTRY
+    </select>
+
+    <insert id="applyEntryCompany" parameterType="com.pickmeup.jobstartup.jobfair.dto.EntryCompanyDTO">
+        UPDATE JOB_FAIR_ENTRY
+        SET JOBFAIRENTRY_STATUS='Y'
+        WHERE JOBFAIRENTRY_NO=#{jobFairEntryNo}
+    </insert>
+</mapper>

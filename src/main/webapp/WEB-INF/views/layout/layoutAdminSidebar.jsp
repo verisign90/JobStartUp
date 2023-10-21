@@ -57,7 +57,7 @@
                         class="icon-format_list_bulleted mr-3"></span>JobFair</a></li>
                 <li><a class="side_a" href="${pageContext.request.contextPath}/jobfair/companylist"><span
                         class="icon-business_center mr-3"></span>Entry</a></li>
-                <li><a href="#"><span class="icon-check mr-3"></span>Apply</a></li>
+                <li><a href="${pageContext.request.contextPath}/admin/entry/list"><span class="icon-check mr-3"></span>Apply</a></li>
             </ul>
         </div>
     </div>

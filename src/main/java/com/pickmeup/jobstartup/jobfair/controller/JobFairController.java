@@ -24,7 +24,7 @@ public class JobFairController {
 
     @GetMapping("/list")
     public String jobFairList(@RequestParam(value = "page", defaultValue = "1") int page,
-                              @RequestParam(value = "size", defaultValue = "3") int size, Model model) {
+                              @RequestParam(value = "size", defaultValue = "10") int size, Model model) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
 
@@ -36,9 +36,6 @@ public class JobFairController {
             model.addAttribute("jobFair", jobFair);
             model.addAttribute("totalPages", totalPages);
             model.addAttribute("currentPage", page);
-            System.out.println("Job Fair List: " + jobFair);
-            System.out.println("Total Pages: " + totalPages);
-            System.out.println("Current Page: " + page);
 
             String jobFairJson = mapper.writeValueAsString(jobFairService.getAllJobFair());
             model.addAttribute("jobFairJson", jobFairJson);

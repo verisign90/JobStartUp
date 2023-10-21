@@ -116,7 +116,6 @@
         <br/>
         <div>
             <ul>
-
                 참여 업체 목록
                 <c:forEach var="entryCompany" items="${entryCompany}">
                     <hr/>
