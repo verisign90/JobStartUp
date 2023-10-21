@@ -4,6 +4,13 @@
 
 </div>
 
+<div align="center">
+
+프로젝트 진행: 2023.09.18~2023.10.25.
+
+</div>
+
+
 <br/>
 
 <div align="center">
