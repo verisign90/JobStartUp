@@ -43,12 +43,13 @@
             <span class="dropdown-content">
                 <c:forEach items="${upperLoc}" var="upLoc">
                     <div class="checkbox-wrapper" onclick="toggleCheckbox(this)">
-                        <input type="checkbox" name="upperLoc" id="upperLoc"
+                        <input type="checkbox" name="upperLoc" id="${upLoc.detail_code_num}"
                                value="${upLoc.detail_code_num}">
                         <span class="loc-detail-name">${upLoc.detail_name}</span>
                     </div>
                 </c:forEach>
-
+            </span>
+            <span class="dropdown-low-content">
                 <c:forEach items="${lowerLoc}" var="loLoc">
                     <div class="" onclick="toggleCheckbox(this)">
                         <input type="checkbox" name="lowerLoc" id="${loLoc.detail_code_num}"
@@ -77,31 +78,50 @@
 
 
             <%--<c:forEach var="JPlist" items="${JPlist}">--%>
-            <c:forEach var="jobPosting" items="${JPlist}">
-                <input type="hidden" id="posting_swork" name="posting_swork">
-                <input type="hidden" id="posting_ework" name="posting_ework">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-5">
-                            <div class="service-item first-service">
-                                <h4><a href="${cPath}/recruiter/JPdetail/${jobPosting.posting_no}" target="_blank"
-                                       title="${jobPosting.posting_title}">${jobPosting.posting_title}</a></h4>
-                                <div>
-                                    <%--<span>${JPlist.company_address_detail}</span>--%>
-                                    <span>${fn:substring(jobPosting.company_address_detail, 0, 6)}</span>
-                                    <span>${jobPosting.posting_career}</span>
-                                    <span>${jobPosting.posting_academy}</span>
-                                    <span>${jobPosting.posting_labor}</span>
-                                    <span>${jobPosting.posting_salary}</span>
-                                    <span>
-                                        <strong><a>${jobPosting.company_name}</a></strong>
-                                    </span>
-                                </div>
+            <div class="info-container">
+                <c:forEach var="jobPosting" items="${jobPostingList}">
+                    <input type="hidden" id="posting_swork" name="posting_swork" ${jobPosting.posting_swork}>
+                    <input type="hidden" id="posting_ework" name="posting_ework" ${jobPosting.posting_ework}>
+                    <input type="hidden" id="posting_no" name="posting_no" ${jobPosting.posting_no}>
+
+                    <a href="${cPath}/recruiter/JPdetail/${jobPosting.posting_no}" target="_blank">
+                        <div class="info-items service-item first-service col-4">
+                            <h3 class="posting_title">${jobPosting.posting_title}</h3>
+                            <div>
+                                <%--<span>${JPlist.company_address_detail}</span>--%>
+                                <span class="company_address">${fn:substring(jobPosting.company_address_detail, 0, 6)}</span>
+                                <span class="posting_career">${jobPosting.posting_career}</span>
+                                <span class="posting_academy">${jobPosting.posting_academy}</span>
+                                <span class="posting_labor">${jobPosting.posting_labor}</span>
+                                <span class="posting_salary">${jobPosting.posting_salary}</span>
+                                <span>
+                                <strong class="company_name"><a>${jobPosting.company_name}</a></strong>
+                            </span>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </c:forEach>
+                    </a>
+                </c:forEach>
+            </div>
+        </section>
+        <section>
+            <div class="pagination">
+                <c:if test="${currentPage > 1}">
+                    <a class="page-link" href="${pageContext.request.contextPath}/recruiter/JPlist?page=${currentPage - 1}">이전</a>
+                </c:if>
+                <c:forEach begin="1" end="${totalPages}" var="pageNum">
+                    <c:choose>
+                        <c:when test="${pageNum == currentPage}">
+                            <span class="current page-link">${pageNum}</span>
+                        </c:when>
+                        <c:otherwise>
+                            <a class="page-link" href="${pageContext.request.contextPath}/recruiter/JPlist?page=${pageNum}">${pageNum}</a>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+                <c:if test="${currentPage < totalPages}">
+                    <a class="page-link" href="${pageContext.request.contextPath}/recruiter/JPlist?page=${currentPage + 1}">다음</a>
+                </c:if>
+            </div>
         </section>
 
     </article>
@@ -117,12 +137,7 @@
 <script src="/css/template/assets/js/popup.js"></script>
 <script src="/css/template/assets/js/custom.js"></script>
 
-<script>
-    function toggleCheckbox(element) {
-        var checkbox = element.querySelector('input[type="checkbox"]');
-        checkbox.checked = !checkbox.checked;
-    }
-</script>
+
 <script>
     var dropdown = document.querySelector('.dropdown');
 
@@ -188,24 +203,37 @@
     });
 </script>
 <script>
-    function loadLowerLoc() {
-        var upperLocValue = document.getElementById("upperLoc").value;
+    $(document).on('click', 'input[name="upperLoc"]', function () {
+        let upperLoc = $(this).val();
+        let isChecked = $(this).is(':checked');
 
-        fetch('/recruiter/getJPLowerLoc?upperLoc=' + upperLocValue)
-            .then(response => response.json())
-            .then(data => {
-                var lowerLocSelect = document.getElementById("lowerLoc");
-                lowerLocSelect.innerHTML = "";
+        if (isChecked) { // 체크박스가 선택된 경우만 AJAX 요청
+            $.ajax({
+                url: '/recruiter/getJPLowerLoc', // 실제 서버 URL로 변경 필요
+                type: 'GET',
+                data: {upperLoc: upperLoc},
+                dataType: 'json',
+                success: function (response) {
+                    let lowerLocContainer = $(".dropdown-low-content");
+                    lowerLocContainer.empty(); // 기존 하위 지역 목록을 제거
 
-                data.forEach(loLoc => {
-                    var option = document.createElement("option");
-                    option.value = loLoc.detail_code_num;
-                    option.text = loLoc.detail_name;
-                    lowerLocSelect.appendChild(option);
-                });
-            })
-            .catch(error => console.error('Error:', error));
-    }
+                    $.each(response, function (index, loLoc) {
+                        let lowerLocHtml = `
+                        <div class="" onclick="toggleCheckbox(this)">
+                            <input type="checkbox" name="lowerLoc" id="${loLoc.detail_code_num}" value="${loLoc.detail_code_num}">
+                            <span class="loc-detail-name">${loLoc.detail_name}</span>
+                        </div>
+                    `;
+
+                        lowerLocContainer.append(lowerLocHtml);
+                    });
+                }
+            });
+        } else {
+            // 체크박스가 해제된 경우 하위 지역 목록 제거
+            $(".dropdown-low-content").empty();
+        }
+    });
 </script>
 
 </body>
