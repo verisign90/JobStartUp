@@ -107,6 +107,7 @@ public class SecurityConfig {
                     // "/recruiter/" 관련 경로
                     authorizeHttpRequests
                             .requestMatchers(
+                                    new MvcRequestMatcher(introspector, "/recruiter"),
                                     new MvcRequestMatcher(introspector, "/recruiter/**")
                             ).access("hasAuthority('COMPANY') or hasAuthority('ADMIN')");
 

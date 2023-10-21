@@ -112,7 +112,6 @@ public class JobPostingController {
         return "recruiter/jobPosting/JPlist";
     }
 
-
     //상세조회
         @GetMapping("/JPdetail/{posting_no}")
         public String detail ( @PathVariable("posting_no") int posting_no, Model model) throws Exception {
@@ -186,11 +185,35 @@ public class JobPostingController {
             return modelAndView;
         }
 
-        //상위지역에 따른 하위지역 목록 불러오기
-        @GetMapping("/getJPLowerLoc")
-        @ResponseBody
-        public List<LocDTO> getLowerLoc (@RequestParam String upperLoc){
-            System.out.println("upperLoc = " + upperLoc);
-            return jobPostingService.getLowerLoc(upperLoc);
-        }
+    //상위지역에 따른 하위지역 목록 불러오기
+    @GetMapping("/getJPLowerLoc")
+    @ResponseBody
+    public List<LocDTO> getLowerLoc(@RequestParam String upperLoc) {
+        System.out.println("upperLoc = " + upperLoc);
+        return jobPostingService.getLowerLoc(upperLoc);
     }
+
+    @GetMapping("/getLowerLoc3")
+    @ResponseBody
+    public String getLowerLoc3(@RequestParam("upperLocValues") String upperLocValues) {
+        // 상위 지역 값을 기반으로 하위 지역 데이터를 조회하고 반환합니다.
+        if (upperLocValues != null) {
+            System.out.println("여기는 getLowerLoc3 에서 upperLocValues 값은 " + upperLocValues);
+        }
+
+        // List<LocDTO> lowerLocData = jobPostingService.getLowerLocData(upperLocValues);
+
+        // JSON으로 변환
+        ObjectMapper objectMapper = new ObjectMapper();
+        // String jsonResponse = objectMapper.writeValueAsString(lowerLocData);
+
+        // 클라이언트에 JSON 응답 반환
+        // return jsonResponse;
+
+        return ""; // 예제 코드에서는 JSON 데이터를 생성하지 않고 빈 문자열 반환
+    }
+
+
+
+
+}

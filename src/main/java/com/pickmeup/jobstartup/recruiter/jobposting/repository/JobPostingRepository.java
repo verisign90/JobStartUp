@@ -4,6 +4,7 @@ import com.pickmeup.jobstartup.recruiter.apply.dto.LocDTO;
 import com.pickmeup.jobstartup.recruiter.jobposting.dto.JobPostingDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -36,4 +37,6 @@ public interface JobPostingRepository {
 
     int countPosting();
 
+    //public List<LocDTO> getLowerLocData(List<String> upperLocValues);
+    public List<LocDTO> getLowerLocData(@Param("upperLocValues") List<String> upperLocValues);
 }
