@@ -97,11 +97,15 @@ public class JobPostingController {
 
         List<JobPostingDTO> jobPostingList = (List<JobPostingDTO>) paginationResult.get("jobPostingList");
         int totalPages = (int) paginationResult.get("totalPages");
+        int startPage = (int) paginationResult.get("startPage");
+        int endPage = (int) paginationResult.get("endPage");
 
         // 모델에 페이지네이션 결과 추가
         model.addAttribute("jobPostingList", jobPostingList);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("currentPage", page);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
 
         // 기존 코드
         model.addAttribute("upperLoc", upperLoc);

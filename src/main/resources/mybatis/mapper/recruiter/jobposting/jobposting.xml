@@ -31,7 +31,7 @@
         FROM JOB_POSTING J,
              COMPANY C
         WHERE J.COMPANY_NO = C.COMPANY_NO
-          AND TRUNC(J.POSTING_SDATE) <= TRUNC(SYSDATE) AND TRUNC(SYSDATE) <= TRUNC(J.POSTING_EDATE)
+          /*AND TRUNC(J.POSTING_SDATE) <= TRUNC(SYSDATE) AND TRUNC(SYSDATE) <= TRUNC(J.POSTING_EDATE)*/
         ORDER BY POSTING_NO DESC
         offset #{offset} rows fetch next #{size} rows only
         ]]>
