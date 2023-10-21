@@ -17,7 +17,7 @@
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
           integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/template/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/css/template/assets/css/seekerSidebar.css">
     <link rel="stylesheet" href="/css/template/assets/css/animated.css">
     <link rel="stylesheet" href="/css/template/assets/css/owl.css">
 </head>
@@ -71,6 +71,21 @@
                     <a class="side_a" href="${cPath}/seeker/interviewStatus">
                         면접현황
                     </a>
+                </div>
+            </li>
+            <li class="side_item">
+                <div class="aside_item">
+                    <a class="side_a" href="#">
+                        회원정보 관리
+                    </a>
+                    <ul>
+                        <li>
+                            <a class="side_a" href="${cPath}/seeker/modMemberInfo">개인정보 수정</a>
+                        </li>
+                        <li>
+                            <a class="side_a" href="${cPath}/seeker/modMemberPW">비밀번호 변경</a>
+                        </li>
+                    </ul>
                 </div>
             </li>
         </ul>

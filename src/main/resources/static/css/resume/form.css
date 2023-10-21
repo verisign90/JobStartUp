@@ -24,7 +24,7 @@ select {
 
 .form-control:focus {
     box-shadow: none;
-    border-color: #0a53be;
+    /*border-color: #0a53be;*/
 }
 
 .custom-padding {
