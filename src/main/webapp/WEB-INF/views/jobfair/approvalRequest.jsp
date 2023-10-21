@@ -48,29 +48,29 @@
     </div>
     <form id="form" class="form" action="/jobfair/entry" method="post" enctype="multipart/form-data"
           onsubmit="return onSubmitForm();">
-        <div class="form-control">
+        <div class="form-control1">
             <label for="company_name">회사명:</label>
             <input type="text" id="company_name" name="company_name" value="${companyInfo.company_name}" required>
         </div>
-        <div class="form-control">
+        <div class="form-control1">
             <label for="member_no">회원번호:</label>
             <input type="text" id="member_no" name="member_no" value="${companyInfo.member_no}" readonly/>
 
 
         </div>
-        <div class="form-control">
+        <div class="form-control1">
             <label for="company_hp">회사전화번호</label>
             <input type="text" id="company_hp" name="company_hp" pattern="\d{2,3}-\d{3,4}-\d{4}"
                    value="${companyInfo.company_hp}">
             <small id="phone-error" style="color: red;"></small>
         </div>
 
-        <div class="form-control">
+        <div class="form-control1">
             <label for="ceo_name">대표자명</label>
             <input type="text" id="ceo_name" name="ceo_name" value="${companyInfo.ceo_name}" required/>
 
         </div>
-        <div class="form-control">
+        <div class="form-control1">
             <label for="company_type">회사분류</label>
             <select id="company_type" name="company_type" required>
                 <option value="">선택</option>
@@ -82,7 +82,7 @@
 
 
         <div>
-            <div class="form-control">
+            <div class="form-control1">
                 <label for="sample6_postcode">회사주소</label>
                 <input type="text" id="sample6_postcode" placeholder="우편번호"
                        value="${companyInfo.company_address_detail.substring(0, 5)}"><br>
@@ -95,7 +95,7 @@
                        value="${companyInfo.company_address_detail}" required>
             </div>
 
-            <div class="form-control">
+            <div class="form-control1">
                 <label for="business_type_code_up">회사업종코드:</label>
                 <select id="business_type_code_up" name="business_type_code_up" onchange="loadBusiness_type_code_up()"
                         required>
@@ -115,7 +115,7 @@
                 </select><br><br>
             </div>
 
-            <div class="form-control">
+            <div class="form-control1">
                 <label for="upperLoc">회사주소코드:</label>
                 <select id="upperLoc" name="upperLoc" onchange="loadLowerLoc()" required>
                     <option value="">선택</option>
@@ -131,14 +131,14 @@
                     </c:forEach>
                 </select><br><br>
             </div>
-            <div class="form-control">
+            <div class="form-control1">
                 <label for="logo">로고 업로드</label>
                 <input type="file" id="logo" name="logo" accept="image/*" required/>
                 <img id="logo-preview" src="#" alt="로고 미리보기" style="display: none; width: 200px; height: auto;">
                 <small id="logo-error" style="color: red;"></small><br><br>
             </div>
 
-            <div class="form-control">
+            <div class="form-control1">
                 <label for="document">파일 업로드</label>
                 <input type="file" id="document" name="document" accept=".pdf, .doc, .docx , .pptx , .xlsx" required
                        multiple/>
@@ -146,19 +146,19 @@
                 <small id="document-error" style="color: red;"></small><br><br>
             </div>
 
-            <div class="form-control">
+            <div class="form-control1">
                 <label for="company_est">회사 설립일:</label>
                 <input type="date" id="company_est" name="company_est" required onblur="validateDate()" value="${companyInfo.company_est}">
                 <small id="date-error" style="color: red;"></small>
             </div>
 
-            <div class="form-control">
+            <div class="form-control1">
                 <label for="company_site">회사 웹사이트:</label>
                 <input type="text" id="company_site" name="company_site" placeholder="https://www.example.com">
                 <small id="website-error" style="color: red;"></small>
             </div>
 
-            <div class="form-control">
+            <div class="form-control1">
                 <label for="company_sales">매출액</label>
                 <input type="text" id="company_sales" name="company_sales" required/>
                 <small id="sales-error" style="color: red;"></small><br><br>

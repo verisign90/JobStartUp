@@ -113,4 +113,18 @@
     </select>
 
 
+    <select id="getLowerLocData" resultType="com.pickmeup.jobstartup.recruiter.apply.dto.LocDTO" parameterType="List">
+        <![CDATA[
+    SELECT *
+    FROM detail_code
+    WHERE
+    <foreach collection="list" item="upperLoc" open="(" separator=" OR " close=")">
+      detail_code_num >= #{upperLoc} + 1 AND detail_code_num < #{upperLoc} + 1000
+    </foreach>
+    AND code_level = 2
+    ORDER BY detail_code_num
+  ]]>
+    </select>
+
+
 </mapper>

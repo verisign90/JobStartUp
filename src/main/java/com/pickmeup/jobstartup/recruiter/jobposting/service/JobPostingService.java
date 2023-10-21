@@ -16,10 +16,10 @@ public interface JobPostingService {
     public List<JobPostingDTO> selectJPlist() throws Exception;
 
     //채용공고 상세조회
-    public JobPostingDTO selectJPdetail(int posting_no) throws Exception;
+    public JobPostingDTO selectJPdetail (int posting_no) throws Exception;
 
     //채용공고 수정
-    public void JPmodify(Map<String, Object> map) throws Exception;
+    public void JPmodify (Map<String, Object> map) throws Exception;
 
     //공고 삭제
     public void JPdelete(int posting_no) throws Exception;
