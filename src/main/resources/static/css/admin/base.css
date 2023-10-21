@@ -37,7 +37,6 @@ main {
     flex: 1;
     min-height: calc(100vh - 320px);
     margin-top: 125px;
-    margin-left: 75px;
     margin-right: 25px;
 }
 
