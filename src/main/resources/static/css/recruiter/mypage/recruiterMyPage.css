@@ -83,7 +83,7 @@
 }
 
 .company {
-    flex-basis: 25%;
+    flex-basis: 30%;
     position: relative;
     z-index: 1;
     padding: 30px;
@@ -134,7 +134,7 @@
 }
 
 .list-container {
-    flex-basis: 35%;
+    flex-basis: 40%;
     margin: 10px;
     padding: 5px;
     position: relative;
@@ -176,10 +176,11 @@
 }
 
 .btn-upload {
+  margin: 0.2em;
   width: 150px;
   height: 30px;
   background: #fff;
-  /*border: 1px solid rgb(77,77,77);*/
+  border: 1px solid rgb(77,77,77);
   /*border-radius: 10px;*/
   font-weight: 500;
   cursor: pointer;
@@ -190,6 +191,7 @@
     background: rgb(77,77,77);
     color: #fff;
   }
+  box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
 }
 
 .basic-content-container {
@@ -262,3 +264,4 @@
     border-radius: 10px;
     font-size: 1.2em;
 }
+

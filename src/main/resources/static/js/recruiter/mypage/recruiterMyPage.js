@@ -2,14 +2,12 @@ $(document).ready(function(){
 
     /* 기업 로고 이미지 수정 */
     $("#profile-edit-button").on("click",function(){
-
         var company_no = $(".profile-company-no").val();
-        var fileInput = $("#logoFile")[0]; // 파일 입력 필드 가져오기
+        var fileInput = $(".logoFile")[0]; // 파일 입력 필드 가져오기
         var logoFile = fileInput.files[0]; // 선택된 파일 가져오기
         var formData = new FormData(); //폼 태그로 추가
         formData.append("company_no",company_no);
         formData.append("logoFile",logoFile);
-
         $.ajax({
             type:"POST",
             url: "/recruiter/myPage/updateComLogo",

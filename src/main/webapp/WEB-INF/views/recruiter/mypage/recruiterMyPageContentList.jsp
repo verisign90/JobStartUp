@@ -43,7 +43,7 @@
                 <table>
                     <tr>
                         <th>박람회 제목</th>
-                        <td><a href="/admin/jobfairdetail/${jobFair.jobfair_no}">${jobFair.jobfair_title}</a></td>
+                        <td><a href="/jobfair/detail/${jobFair.jobfair_no}">${jobFair.jobfair_title}</a></td>
                     </tr>
                     <tr>
                         <th>박람회 장소</th>
