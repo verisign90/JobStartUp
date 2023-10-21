@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pickmeup.jobstartup.seeker.mypage.repository.SeekerMemberRepository">
+
+    <!-- 정보 수정 -->
+    <update id="updateMemberinfo" parameterType="com.pickmeup.jobstartup.member.entity.Member">
+        UPDATE  MEMBER
+        SET
+            MEMBER_BIRTH = #{member_birth} ,
+            MEMBER_SEX = #{member_sex} ,
+            MEMBER_HP = #{member_hp},
+            MEMBER_EMAIL = #{member_email},
+            MEMBER_LOC = #{member_loc}
+        WHERE MEMBER_NO = #{member_no}
+    </update>
+
+</mapper>

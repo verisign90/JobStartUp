@@ -5,7 +5,7 @@
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/resume/list.css" type="text/css"/>
+    <link rel="stylesheet" href="/css/resume/mypageHome.css" type="text/css"/>
     <title>Job Start Up</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -19,7 +19,17 @@
 </header>
 <%@ include file="../../layout/layoutSideSeeker.jsp" %>
 <main>
-
+    <div class="wrap">
+        <div><h1 class="fw-bolder">${member.member_name}님</h1></div>
+        <div class="d-flex justify-content-start">
+            <div class="box-item mx-3" style="background-color: #b3c6ff;">
+                아직 이력서가 없으신가요?
+            </div>
+            <div class="box-item mx-3" style="background-color: #d9b3ff;">
+                즉시 지원하고 취뽀하자 !
+            </div>
+        </div>
+    </div>
 </main>
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="/css/template/assets/js/side.js"></script>

@@ -28,7 +28,7 @@
                         <c:forEach items="${resumeDetail.languageDTOList}" var="language">
                         <c:forEach items="${resumeDetail.languageCertificateDTOList}" var="languageCertificate">
                             <!-- 제목 input -->
-                            <div <%--class="title-container"--%>>
+                            <div class="title-container">
                                 <div class="form-floating mb-3">
                                     <div class="title-container">${resumeDetail.resume_title}<div>
                                 </div>
@@ -38,6 +38,22 @@
                                 <div class="mb-3">
                                     <label for="profileOrgNameFile" class="form-label"></label>
                                     <div class="row">
+                                        <div class="col-md-2">
+                                            <!-- 이미지와 파일 입력 필드 -->
+                                            <div class="row" style="position: relative;">
+                                                <div class="col-md-12">
+                                                    <div style="position: relative;">
+                                                        <img id="profileImage" src="/image/resume/${resumeDetail.profile_savname}" style="width: 140px; max-height: 170px;" class="mb-3" onclick="document.getElementById('profileOrgNameFile').click();" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <input type="file" name="profileOrgNameFile" id="profileOrgNameFile" class="form-control" accept="image/*" onchange="displayProfileImage(this)" style="display: none;" />
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span id="imageWarningText" style="color: red;"></span>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="col-md-10">
                                             <div class="row">
                                                 <div class="row">
@@ -74,7 +90,7 @@
                                                     <div class="col-md-4">
                                                         <!-- 휴대폰번호 -->
                                                         <div class="form-floating mb-3">
-                                                            <input type="text" name="phone" id="phone" class="form-control" />
+                                                            <input type="text" name="phone" id="phone" class="form-control" style="--bs-focus-ring-color: rgba(var(--bs-success-rgb), .25)"/>
                                                             <label for="phone" class="form-label">휴대폰번호</label>
                                                         </div>
                                                     </div>
@@ -86,22 +102,6 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <!-- 이미지와 파일 입력 필드 -->
-                                            <div class="row" style="position: relative;">
-                                                <div class="col-md-12">
-                                                    <div style="position: relative;">
-                                                        <img id="profileImage" src="/image/resume/${resumeDetail.profile_savname}" style="width: 140px; max-height: 170px;" class="mb-3" onclick="document.getElementById('profileOrgNameFile').click();" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <input type="file" name="profileOrgNameFile" id="profileOrgNameFile" class="form-control" accept="image/*" onchange="displayProfileImage(this)" style="display: none;" />
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <span id="imageWarningText" style="color: red;"></span>
                                                 </div>
                                             </div>
                                         </div>

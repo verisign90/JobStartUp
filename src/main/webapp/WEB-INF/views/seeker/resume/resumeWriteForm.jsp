@@ -35,7 +35,24 @@
                             <div class="mb-3">
                                 <label for="profileOrgNameFile" class="form-label"></label>
                                 <div class="row">
-                                    <div class="col-md-10">
+                                    <div class="col-md-2">
+                                        <!-- 이미지와 파일 입력 필드 -->
+                                        <div class="row" style="position: relative;">
+                                            <div class="col-md-12">
+                                                <div style="position: relative;">
+                                                    <img id="profileImage" src="/img/default_profile.jpg" style="width: 137px; height: 176px;" class="mb-3" onclick="document.getElementById('profileOrgNameFile').click();" />
+                                                    <span id="imageChangeText" style="position: absolute; top: 10px; left: 10px;">사진 변경</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <input type="file" name="profileOrgNameFile" id="profileOrgNameFile" class="form-control" accept="image/*" onchange="displayProfileImage(this)" style="display: none;" />
+                                            </div>
+                                            <div class="col-md-12">
+                                                <span id="imageWarningText" style="color: red;"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10" style="padding: 10px;">
                                         <div class="row">
                                             <div class="row">
                                                 <div class="col-md-4">
@@ -78,11 +95,11 @@
                                                 <div class="col-md-4">
                                                     <div class="mb-3" style="position: relative;">
                                                         <div class="mb-3 grid text-center form-floating" id="addressDiv">
-                                                            <input type="text" name="petAddress" id="sample6_address" th:field="*{petAddress}" class="form-control float-start">
+                                                            <input type="text" name="petAddress" id="sample6_address" class="form-control float-start">
                                                             <label for="sample6_address">주소</label>
                                                         </div>
                                                         <div class="mb-1 grid text-center form-floating" id="detailAddressDiv">
-                                                            <input type="hidden" name="petAddress" id="sample6_detailAddress" th:field="*{petAddress}" class="form-control float-start">
+                                                            <input type="hidden" name="petAddress" id="sample6_detailAddress" class="form-control float-start">
                                                             <input type="hidden" id="daumPostcodeButton" class="btn btn-light" onclick="sample6_execDaumPostcode()" />
                                                             <img src="${cPath}/img/glasses.png" alt="" style="width: 20px; cursor: pointer; position: absolute; top: -55px; right: 15px;" onclick="document.getElementById('daumPostcodeButton').click();" />
                                                         </div>
@@ -90,23 +107,6 @@
                                                         <input type="hidden" name="petAddressEct" id="sample6_extraAddress" placeholder="참고항목">
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <!-- 이미지와 파일 입력 필드 -->
-                                        <div class="row" style="position: relative;">
-                                            <div class="col-md-12">
-                                                <div style="position: relative;">
-                                                    <img id="profileImage" src="/img/default_profile.jpg" style="width: 140px; max-height: 170px;" class="mb-3" onclick="document.getElementById('profileOrgNameFile').click();" />
-                                                    <span id="imageChangeText" style="position: absolute; top: 10px; left: 10px;">사진 변경</span>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <input type="file" name="profileOrgNameFile" id="profileOrgNameFile" class="form-control" accept="image/*" onchange="displayProfileImage(this)" style="display: none;" />
-                                            </div>
-                                            <div class="col-md-12">
-                                                <span id="imageWarningText" style="color: red;"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -183,9 +183,6 @@
 
 
 
-                            </div>
-                            <div class="col-md-12 d-flex justify-content-end">
-                                <button class="btn btn-outline-secondary addFieldButton" data-section="location" data-basename="resumeLocDTOList" type="button">+ 추가</button>
                             </div>
                         </div>
                         <!-- 업무능력 input -->

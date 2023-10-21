@@ -17,36 +17,45 @@
     </div>
 </header>
 <%@ include file="../../layout/layoutSideSeeker.jsp" %>
-<main>
-    <div class="resume_wrap">
-        <h3 class="resume_title">이력서 관리</h3>
-        <div class="writeDiv">
-            <a href="${cPath }/seeker/resumeWrite"><button class="writeBtn" type="button">이력서 작성하기</button></a>
-        </div>
-        <c:if test="${empty resumeList }">
-            <div class="resume_list_wrap">
-                <ul class="resume_list">
-                    <li class="resume_item">
-                        지금 이력서를 작성해보세요 !
-                    </li>
-                </ul>
+    <main>
+        <div class="resume_wrap">
+            <h3 class="resume_title">이력서 관리</h3>
+            <div class="writeDiv">
+                <a href="${cPath}/seeker/resumeWrite"><button class="writeBtn" type="button">이력서 작성하기</button></a>
             </div>
-        </c:if>
-
-        <c:if test="${not empty resumeList }">
-            <c:forEach items="${resumeList}" var="resume">
+            <c:if test="${empty resumeList}">
                 <div class="resume_list_wrap">
                     <ul class="resume_list">
                         <li class="resume_item">
-                            <span><a href="${cPath}/seeker/resumeDetail/${resume.resume_no}">${resume.resume_title}</a></span>
-                            <span><a href="${cPath }/seeker/resumeModify/${resume.resume_no}"><button class="modifyBtn" type="button">수정</button></a></span>
+                            지금 이력서를 작성해보세요!
                         </li>
                     </ul>
                 </div>
-            </c:forEach>
-        </c:if>
-    </div>
-</main>
+            </c:if>
+            <c:if test="${not empty resumeList}">
+                <c:forEach items="${resumeList}" var="resume">
+                    <c:forEach items="${resume.resumeLocDTOList}" var="loc">
+                        <div class="resume_list_wrap">
+                            <ul class="resume_list">
+                                <li class="resume_item">
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <div><a href="${cPath}/seeker/resumeDetail/${resume.resume_no}">${resume.resume_title}</a></div>
+                                            <div>희망연봉 ${resume.resume_money}</div>
+                                            <div>${loc.loc_detail_code_num}</div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <span><a href="${cPath}/seeker/resumeModify/${resume.resume_no}"><button class="modifyBtn" type="button">수정</button></a></span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </c:forEach>
+                </c:forEach>
+            </c:if>
+        </div>
+    </main>
     <%@ include file="../../layout/layoutFooter.jsp" %>
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="/css/template/assets/js/side.js"></script>
