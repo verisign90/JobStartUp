@@ -20,6 +20,11 @@ import java.util.*;
 @RequiredArgsConstructor
 @Controller
 public class RecruiterMyPageController {
+
+    //(주의!!!!!!!!!!!) Session 정보는 로그인 된 이후에 적용 예정, 중간중간 예외처리 및 유효성 검사 넣기
+    //(주의!!!!!!!!!!!) 공통 코드 >> 하나의 메서드로 묶기
+    //(주의!!!!!!!!!!!) 로직 구현은  >>> Service 영역으로 옮기기
+
     @Autowired
     private RecruiterMyPageService recruiterMyPageService;
 

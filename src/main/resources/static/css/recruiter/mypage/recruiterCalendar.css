@@ -1,9 +1,9 @@
 /* <FullCalendar> https://fullcalendar.io/ */
 
+/* calendar(edited) */
 .calendar {
     position: relative;
 }
-
 .company-schedule {
     flex-basis: 30%;
     position: relative;
@@ -18,8 +18,7 @@
     margin: 10px;
     height: 35em;
 }
-
-/*요일*/
+/* calendar(edited): icon(edited) */
 .fc-col-header-cell-cushion {
     color: #000;
 }
@@ -27,53 +26,31 @@
     text-decoration: none;
     color:#000;
 }
-/*일자*/
 .fc-daygrid-day-number{
     color: #000;
     font-size:1em;
 }
-
-/*종일 제목*/
 .fc-event-title.fc-sticky{
 
 }
-/*more 버튼*/
 .fc-daygrid-more-link.fc-more-link{
     color: #000;
 }
-/*일정 시간*/
 .fc-daygrid-event > .fc-event-time{
     color:#000;
 }
-/*시간 제목*/
 .fc-daygrid-dot-event > .fc-event-title{
     color:#000 !important;
 }
-/*가로 줄 - 월달력 종일 or 복수일자*/
-.fc-h-event{
-
-}
-/*세로 줄 - 주달력, 일달력*/
-.fc-v-event{
-
-}
-/* title 옆에 점 */
-.fc-daygrid-event-dot{
-
-}f
-/* month/week/day */
 .fc-button-active{
-    border-color: #ffc107 		!important;
-    background-color: #ffc107 	!important;
-    color: #000 				!important;
+    /*border-color: #ffc107 		!important;*/
+    /*background-color: #ffc107 	!important;*/
+    /*color: #000 				!important;*/
     font-weight: bold 			!important;
 }
-/* 노란 버튼 */
 .btn-warning{
     font-weight: bold;
 }
-
-
 /* Modal */
 .modal_fade {
     display: none;
@@ -83,9 +60,7 @@
     width: 100%;
     height: 100%;
     overflow: auto;
-    /*background-color: rgba(0,0,0,0.7);*/
 }
-
 .modal-content {
     position: relative;
     width: 700px;
@@ -98,7 +73,6 @@
     overflow-y: auto;
     overflow-x: hidden;
 }
-
 .modal-item {
     position: relative;
     z-index: 1;
@@ -110,7 +84,6 @@
     transition: all .3s;
     margin-bottom: 30px;
 }
-
 #closeBtn {
     position: absolute;
     right: 10px;

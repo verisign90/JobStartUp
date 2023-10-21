@@ -246,7 +246,7 @@ table.first-approval-date td {
 /* 1차 합격 */
 .last-select-container {
     display: grid;
-    grid-template-columns: 8fr 1fr 1fr;
+    grid-template-columns: 7fr 1fr 1fr 1fr;
 }
 .last-approval-button .last-denial-button {
     text-align: center;
