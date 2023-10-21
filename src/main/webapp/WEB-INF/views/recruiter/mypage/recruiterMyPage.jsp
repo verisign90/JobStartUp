@@ -27,7 +27,7 @@
     <div class="header-text" data-wow-duration="1s" data-wow-delay="1s">
     </div>
 </div>
-<%@ include file="../../layout/layoutSideAdmin.jsp" %>
+<%@ include file="../../layout/layoutSideRecruiter.jsp" %>
 <main>
     <article>
     <div class="main-title-container"><h4>기업 마이 페이지</h4></div>
@@ -41,12 +41,12 @@
                                 <img class="image" src="${pageContext.request.contextPath}/image/mypage/${recruiterFileDTO.logo_savname}" />
                             </div>
                             <div class="profile-edit-button-container">
-                                <input type="hidden" class="profile-company-no" name="company_no" value="${recruiterFileDTO.company_no}">
+                                <input type="hidden" class="profile-company-no" name="company_no" value="${recruiterMyPageDTO.company_no}">
                                 <div class ="profile-edit-button-1">
                                     <label for="logoFile">
-                                        <div class="btn-upload">🎈수정 파일 선택🎈</div>
+                                        <div class="btn-upload">수정 파일 선택</div>
                                     </label>
-                                    <input type="file" id="logoFile" name="logoFile" accept="image/*" required>
+                                    <input type="file" class = "logoFile" id="logoFile" name="logoFile" accept="image/*" required>
                                 </div>
                                 <div class ="profile-edit-button-2">
                                     <button type="button" id="profile-edit-button" class="edit-button">로고 수정</button>
@@ -59,8 +59,6 @@
                     </form>
                     <div class ="company-info">
                         <div class="button-container">
-
-
 
                         </div>
                         <table>

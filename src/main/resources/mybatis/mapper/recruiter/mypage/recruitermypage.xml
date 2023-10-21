@@ -18,7 +18,7 @@
     <!--기업 페이지: 파일 - 저장된 로고 이름 확인 -->
     <select id="selectComLogoName" parameterType="int" resultType="com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterFileDTO">
         <![CDATA[
-            SELECT logo_orgname, logo_savname
+            SELECT company_no, logo_orgname, logo_savname
             FROM company
             WHERE company_no = #{company_no}
         ]]>

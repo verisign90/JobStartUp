@@ -73,14 +73,12 @@ public class RecruiterMyPageServiceImpl implements RecruiterMyPageService{
 
     //기업 페이지: 파일 - 저장된 로고 이름 확인
     @Override
-    @Transactional
     public RecruiterFileDTO selectComLogoName(int company_no){
         return recruiterMyPageRepository.selectComLogoName(company_no);
     }
 
     //기업 페이지: 파일 - 로고 수정(원본 삭제, 파일 업로드)
     @Override
-    @Transactional
     public int updateComLogo(MultipartFile logoFile, int company_no, String savedSavname){
         if (!logoFile.isEmpty()) {
             //1. 삭제: Logo Delete (saved file delete)
@@ -102,7 +100,8 @@ public class RecruiterMyPageServiceImpl implements RecruiterMyPageService{
             recruiterFileDTO.setLogo_orgname(logo_orgname);
             recruiterFileDTO.setLogo_savname(logo_savname);
             recruiterFileDTO.setCompany_no(company_no);
-            return recruiterMyPageRepository.updateComLogo(recruiterFileDTO);
+            int sss = recruiterMyPageRepository.updateComLogo(recruiterFileDTO);
+            return sss;
         } else {
             return 0;
         }

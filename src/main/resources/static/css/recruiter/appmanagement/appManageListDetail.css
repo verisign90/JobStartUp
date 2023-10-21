@@ -1,77 +1,22 @@
-.image {
-    width: 70%;
-    display: block;
-    overflow: hidden;
-    margin: auto;
-    border-radius: 1em;
-    box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
-}
-
-.edit-button {
-    width: 7em;
-    height: 2.5em;
-    border: none;
-    font-size: 12px;
-    font-weight: bold;
-    color: white;
-    border-radius: 2rem;
-    background: #7A41FF;
-    background: linear-gradient(to left, #7a60ff, #cd9ffa);
-    cursor: pointer;
-}
-
-.first-enroll-mail, .first-denial-mail, .last-enroll-mail, .last-denial-mail {
-    width: 7em;
-    height: 2.5em;
-    border: none;
-    font-size: 12px;
-    font-weight: bold;
-    color: white;
-    border-radius: 2rem;
-    background: #7A41FF;
-    background: linear-gradient(to left, #7a60ff, #cd9ffa);
-}
-
-.first-enroll-button, .final-enroll-button {
-    width: 7em;
-    height: 2.5em;
-    border: none;
-    font-size: 12px;
-    font-weight: bold;
-    color: white;
-    border-radius: 2rem;
-    background: #7A41FF;
-    background: linear-gradient(to left, #7a60ff, #cd9ffa);
-}
-
-.final-denial-button, .first-denial-button {
-    width: 7em;
-    height: 2.5em;
-    border: none;
-    font-size: 12px;
-    font-weight: bold;
-    color: white;
-    border-radius: 2rem;
-    background: #7A41FF;
-    background: linear-gradient(to left, #7a60ff, #cd9ffa);
-}
-
-.main-title-container h4 {
-    font-weight: 700;
-}
-
+/* 제목 */
 .main-title-container {
     text-align: center;
     margin-bottom: 10px;
     padding: 5px;
 }
+.main-title-container h4 {
+    font-weight: 700;
+}
 
+/* main */
 .main-container {
   margin-right: 5%;
   margin-left: 5%;
   padding: 5px;
 }
 
+
+/* 인적 사항 */
 .info-container {
     margin: auto;
     z-index: 1;
@@ -83,12 +28,10 @@
     transition: all .3s;
     margin-bottom: 30px;
 }
-
 .button-container {
     display: flex;
     justify-content: row;
 }
-
 .profile-label {
   width: 90%;
   display: block;
@@ -99,44 +42,47 @@
   font-size: 1.3em;
   background-color: white;
 }
-
 .moving-button {
-    width: 7em;
-    height: 2.5em;
+    width: 8em;
+    height: 3em;
     border: none;
-    font-size: 12px;
+    font-size: 0.9em;
     font-weight: bold;
     color: white;
     border-radius: 2rem;
-    background: #7A41FF;
-    background: linear-gradient(to left, #7a60ff, #cd9ffa);
+    background: linear-gradient(to left,  #0AC9FF, #6478FF);
     cursor: pointer;
 }
-
 .info-main-container {
     display: flex;
     margin: 5px;
 }
-
 .profile {
     flex-basis: 30%;
 }
-
 .profile-pic {
     margin: 5px;
 }
-
+.image {
+    width: 70%;
+    display: block;
+    overflow: hidden;
+    margin: auto;
+    border-radius: 1em;
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+}
 .appManage-info {
     flex-basis: 70%;
     margin: 5px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
 }
-
 table.appManage-profile {
   border-collapse: collapse;
-  /*text-align: left;*/
   line-height: 1.5;
+  width: 90%;
 }
-
 table.appManage-profile thead th {
   padding: 10px;
   font-weight: bold;
@@ -144,25 +90,22 @@ table.appManage-profile thead th {
   color: #369;
   border-bottom: 3px solid #036;
 }
-
 table.appManage-profile tbody th {
-  width: 150px;
+  width: 35%;
   padding: 10px;
   font-weight: bold;
   vertical-align: top;
   border-bottom: 1px solid #ccc;
-  background: #f3f6f7;
 }
-
-table.appManage-profile td {
-  width: 350px;
+table.appManage-profile tbody td {
+  width: 65%;
   padding: 10px;
   vertical-align: top;
   border-bottom: 1px solid #ccc;
 }
 
 
-
+/* 지원 내용 */
 .status-container {
   margin-top: 10px;
   height: auto;
@@ -176,11 +119,9 @@ table.appManage-profile td {
   transition: all .3s;
   margin-bottom: 30px;
 }
-
 .content-label-container {
-  display: flex;  
+  display: flex;
 }
-
 .content-label {
     display: block;
     text-align: center;
@@ -192,23 +133,57 @@ table.appManage-profile td {
     font-size: 1.3em;
     background-color: white;
 }
-
 .content-container {
-
+   margin: 1em;
 }
-
 .content{
     margin: 10px;
     height: auto;
 }
-
-.approval-denial-content{
-    margin: 10px;
-    height: auto;
-    text-align: center;
-    color : red;
+table.appManage-content {
+  border-collapse: collapse;
+  line-height: 1.5;
+  width: 100%;
+}
+table.appManage-content thead th {
+  padding: 10px;
+  font-weight: bold;
+  vertical-align: top;
+  color: #369;
+  border-bottom: 3px solid #036;
+}
+table.appManage-content tbody th {
+  width: 35%;
+  padding: 10px;
+  font-weight: bold;
+  vertical-align: top;
+  border-bottom: 1px solid #ccc;
+}
+table.appManage-content tbody td {
+  width: 65%;
+  padding: 10px;
+  vertical-align: top;
+  border-bottom: 1px solid #ccc;
+}
+.download-button {
+  width: 150px;
+  height: 30px;
+  background: #fff;
+  border: 1px solid rgb(77,77,77);
+  font-weight: 400;
+  font-size: 1em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:hover {
+    background: rgb(77,77,77);
+    color: #fff;
+  }
 }
 
+
+/* 승인/반려 */
 .approval-container {
   margin-top: 10px;
   height: auto;
@@ -221,11 +196,113 @@ table.appManage-profile td {
   transition: all .3s;
   margin-bottom: 30px;
 }
-
-.first-approval{
-  margin: 10px;
+/* 1차 합격 또는 거절 선택 */
+.first-select-container {
+    display: grid;
+    grid-template-columns: 9fr 1fr;
 }
-
+.first-approval{
+  display: grid;
+  grid-template-columns: 8fr 1fr;
+}
+.first-sub-approval{
+    place-self: start;
+}
+table.first-approval-date {
+  border-collapse: collapse;
+  line-height: 1.5;
+  width: 100%;
+}
+table.first-approval-date thead th {
+  padding: 10px;
+  font-weight: bold;
+  vertical-align: top;
+  color: #369;
+  border-bottom: 3px solid #036;
+}
+table.first-approval-date tbody th {
+  width: 30%;
+  padding: 10px;
+  font-weight: bold;
+  vertical-align: top;
+  border-bottom: 1px solid #ccc;
+}
+table.first-approval-date td {
+  width: 50%;
+  padding: 10px;
+  vertical-align: top;
+  border-bottom: 1px solid #ccc;
+}
+.first-sub-approval-2{
+    place-self: center;
+}
+.first-sub-approval-3{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+/* 1차 합격 */
+.last-select-container {
+    display: grid;
+    grid-template-columns: 8fr 1fr 1fr;
+}
+.last-approval-button .last-denial-button {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
 .last-approval{
   margin: 10px;
+}
+/* 1차 합격 이후 */
+.mention-container {
+    margin: 1em;
+}
+/* 1차, 최종 공통 버튼 및 메일 */
+.first-enroll-button, .final-enroll-button {
+      width: 4em;
+      height: 3em;
+      background: #fff;
+      border: 1px solid rgb(77,77,77);
+      font-weight: 400;
+      font-size: 1em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      &:hover {
+        background: rgb(77,77,77);
+        color: #fff;
+      }
+}
+.final-denial-button, .first-denial-button {
+      width: 4em;
+      height: 3em;
+      background: #fff;
+      border: 1px solid rgb(77,77,77);
+      font-weight: 400;
+      font-size: 1em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      &:hover {
+        background: rgb(77,77,77);
+        color: #fff;
+      }
+}
+.first-enroll-mail, .first-denial-mail, .last-enroll-mail, .last-denial-mail {
+    width: 7em;
+    height: 2.5em;
+    border: none;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    border-radius: 2rem;
+    background: #7A41FF;
+    background: linear-gradient(to left, #7a60ff, #cd9ffa);
 }

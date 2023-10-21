@@ -23,7 +23,7 @@
     <div class="header-text" data-wow-duration="1s" data-wow-delay="1s">
     </div>
 </div>
-<%@ include file="../../layout/layoutSideAdmin.jsp" %>
+<%@ include file="../../layout/layoutSideRecruiter.jsp" %>
 <main>
     <article>
 
@@ -86,7 +86,7 @@
                         <table>
                             <tr>
                                 <th>박람회 제목//제목에서 table 눌렀을 때 이동하게끔</th>
-                                <td><a href="/admin/jobfairdetail/${jobFair.jobfair_no}">${jobFair.jobfair_title}</a></td>
+                                <td><a href="/jobfair/detail/${jobFair.jobfair_no}">${jobFair.jobfair_title}</a></td>
                             </tr>
                             <tr>
                                 <th>박람회 장소</th>

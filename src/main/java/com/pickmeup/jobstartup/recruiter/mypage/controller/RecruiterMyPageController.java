@@ -29,7 +29,7 @@ public class RecruiterMyPageController {
 
     //기업 페이지: 회사 정보
     @GetMapping("/myPage")
-    public String companyInfo(@RequestParam int company_no, Model model) {
+    public String companyInfo(@ModelAttribute("company_no") int company_no, Model model) {
         RecruiterMyPageDTO recruiterMyPageDTO = recruiterMyPageService.selectRecruiterInfo(company_no);
         RecruiterFileDTO recruiterFileDTO = recruiterMyPageService.selectComLogoName(company_no);
         recruiterFileDTO.setCompany_no(company_no);
@@ -43,14 +43,13 @@ public class RecruiterMyPageController {
     //기업 페이지: 파일 - 저장된 로고 이름 확인
     @PostMapping("/myPage/selectComLogo")
     public String selectComLogoName(@RequestParam int company_no) {
-        RecruiterFileDTO recruiterFileDTO = new RecruiterFileDTO();
-        recruiterFileDTO = recruiterMyPageService.selectComLogoName(company_no);
+        RecruiterFileDTO recruiterFileDTO  = recruiterMyPageService.selectComLogoName(company_no);
         return recruiterFileDTO.getLogo_savname();
     }
 
     //기업 페이지: 파일 - 로고 수정(원본 삭제, 파일 업로드)
     @PostMapping("/myPage/updateComLogo")
-    public String updateComLogo(Model model, @RequestParam int company_no,
+    public String updateComLogo(Model model, @ModelAttribute("company_no") int company_no,
                                 @RequestParam("logoFile") MultipartFile logoFile) {
         String savedSavname = selectComLogoName(company_no);
         recruiterMyPageService.updateComLogo(logoFile, company_no, savedSavname);
