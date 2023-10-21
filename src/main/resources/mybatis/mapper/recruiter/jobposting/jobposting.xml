@@ -16,7 +16,7 @@
     </insert>
 
     <!--채용공고 목록조회-->
-    <select id="selectJPlist" parameterType="int" resultType="JobPostingDTO">
+    <select id="paginationPosting" parameterType="int" resultType="JobPostingDTO">
         <![CDATA[
         SELECT J.POSTING_NO,
                J.POSTING_TITLE,
@@ -24,13 +24,16 @@
                J.POSTING_ACADEMY,
                J.POSTING_LABOR,
                J.POSTING_SALARY,
+               j.POSTING_SWORK,
+               j.POSTING_EWORK,
                C.COMPANY_NAME,
                C.COMPANY_ADDRESS_DETAIL
         FROM JOB_POSTING J,
              COMPANY C
         WHERE J.COMPANY_NO = C.COMPANY_NO
-        AND TRUNC(J.POSTING_SDATE) <= TRUNC(SYSDATE) AND TRUNC(SYSDATE) <= TRUNC(J.POSTING_EDATE)
+          AND TRUNC(J.POSTING_SDATE) <= TRUNC(SYSDATE) AND TRUNC(SYSDATE) <= TRUNC(J.POSTING_EDATE)
         ORDER BY POSTING_NO DESC
+        offset #{offset} rows fetch next #{size} rows only
         ]]>
     </select>
 
@@ -103,6 +106,10 @@
           AND code_level = 2
         ORDER BY detail_code_num
         ]]>
+    </select>
+
+    <select id="countPosting" resultType="int">
+        SELECT COUNT(*) FROM JOB_POSTING
     </select>
 
 

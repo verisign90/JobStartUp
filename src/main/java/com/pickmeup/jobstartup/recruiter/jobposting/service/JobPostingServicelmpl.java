@@ -6,6 +6,7 @@ import com.pickmeup.jobstartup.recruiter.jobposting.repository.JobPostingReposit
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,7 +25,7 @@ public class JobPostingServicelmpl implements JobPostingService{
     //채용공고 목록조회
     @Override
     public List<JobPostingDTO> selectJPlist(){
-        return jobPostingRepository.selectJPlist();
+        return jobPostingRepository.paginationPosting();
     }
 
 
@@ -63,4 +64,51 @@ public class JobPostingServicelmpl implements JobPostingService{
         List<LocDTO> lowerLoc = jobPostingRepository.getLowerLoc(upperLoc);
         return lowerLoc;
     }
+
+   /* //page : 현재 페이지, size : 페이지당 게시물 수
+    @Override
+    public Map<String, Object> paginationPosting(int page, int size) {
+        int offset = (page - 1) * size;
+
+        Map<String, Integer> paramMap = new HashMap<>();
+        paramMap.put("offset", offset);
+        paramMap.put("size", size);
+
+        List<JobPostingDTO> jobPostingList = jobPostingRepository.paginationPosting(paramMap);
+        int totalCount = jobPostingRepository.countPosting();
+        int totalPages = (int) Math.ceil((double) totalCount / size);
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("jobPostingList", jobPostingList);
+        result.put("totalPages", totalPages);
+        return result;
+    }*/
+
+    @Override
+    public Map<String, Object> paginationPosting(int page, int size) {
+        int offset = (page - 1) * size;
+
+        Map<String, Integer> paramMap = new HashMap<>();
+        paramMap.put("offset", offset);
+        paramMap.put("size", size);
+
+        List<JobPostingDTO> jobPostingList = jobPostingRepository.paginationPosting(paramMap);
+        int totalCount = jobPostingRepository.countPosting();
+        int totalPages = (int) Math.ceil((double) totalCount / size);
+
+        // 페이지네이션 번호를 5개씩 가져오도록 수정
+        int startPage = Math.max(1, page - 2); // 현재 페이지 기준으로 앞에 2페이지까지 표시
+        int endPage = Math.min(startPage + 4, totalPages); // 시작 페이지부터 최대 5페이지까지 표시
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("jobPostingList", jobPostingList);
+
+        // 수정된 startPage와 endPage 정보도 함께 반환
+        result.put("startPage", startPage);
+        result.put("endPage", endPage);
+
+        result.put("totalPages", totalPages);
+        return result;
+    }
+
 }

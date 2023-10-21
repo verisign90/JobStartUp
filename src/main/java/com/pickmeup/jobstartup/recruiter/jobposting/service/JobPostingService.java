@@ -16,10 +16,10 @@ public interface JobPostingService {
     public List<JobPostingDTO> selectJPlist() throws Exception;
 
     //채용공고 상세조회
-    public JobPostingDTO selectJPdetail (int posting_no) throws Exception;
+    public JobPostingDTO selectJPdetail(int posting_no) throws Exception;
 
     //채용공고 수정
-    public void JPmodify (Map<String, Object> map) throws Exception;
+    public void JPmodify(Map<String, Object> map) throws Exception;
 
     //공고 삭제
     public void JPdelete(int posting_no) throws Exception;
@@ -29,4 +29,7 @@ public interface JobPostingService {
 
     //상위지역에 따른 하위지역 목록 가져오기
     List<LocDTO> getLowerLoc(String upperLoc);
+
+    //page : 현재 페이지, size : 페이지당 게시물 수
+    Map<String, Object> paginationPosting(int page, int size);
 }
