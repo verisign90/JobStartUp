@@ -360,3 +360,77 @@ input[type="checkbox"]:checked + .checkbox_label:after {
     font-size: 1.5em;
     color : #a1a1a1;
 }
+
+
+.logo-wrap {
+    display: block;
+    position: relative;
+    width: 100%;
+    float: left;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 10px;
+}
+
+.logo-wrap .logo {
+    width: 50px;
+    float: left;
+    height: 50px;
+    background: #007bff;
+    border-radius: 50%;
+    position: relative;
+    transition: .3s margin ease;
+    margin: 0 auto 40px 10px;
+}
+
+.logo-wrap .logo {
+    margin: 0 auto 40px 22px;
+}
+
+.logo-wrap .logo span {
+    position: absolute;
+    color: #fff;
+    font-size: 1.5rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.logo-wrap .logo-text {
+    position: absolute;
+    top: 60px;
+    font-size: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: .3s all ease;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.logo-wrap .logo-text {
+    opacity: 1;
+    visibility: visible;
+}
+
+.navSide button a:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0px;
+    background-color: #4b8ef1;
+    opacity: 0;
+    visibility: hidden;
+    transition: .3s opacity ease, .3s visibility ease, .3s width ease;
+}
+
+.userName {
+    color : #5577ee;
+    font-weight: bold;
+}
+
+#messageCnt {
+    color : #41a7f4;
+    font-weight: bold;
+}

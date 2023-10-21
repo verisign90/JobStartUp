@@ -33,8 +33,15 @@
 <!-- sidebar -->
   <div class="navSide">
     <button>
-      <img src="https://scontent-b-iad.xx.fbcdn.net/hphotos-xfp1/v/t1.0-9/10931338_435110123308351_1856289883041266513_n.jpg?oh=37431eec598b8af1efddf38d5d283dbd&oe=556EC2EB" class="profile"/><br/>
-      <sec:authentication property="name" />
+      <c:set var="userName">
+          <sec:authentication property="name"/>
+      </c:set>
+      <div class="logo-wrap">
+          <div class="logo">
+              <span>${fn:substring(userName, 0, 1)}</span>
+          </div>
+          <div class="logo-text">${userName}</div>
+      </div>
     </button>
     <a href="/message/list">
     <button>
@@ -59,7 +66,7 @@
                     <div class="header">
                         <div class="title">
                            <h7>Message Box</h7>
-                           <p>${sessionScope.memberNo} / <sec:authentication property="name" /> 님에게 <span id="messageCnt"></span> 통의 쪽지가 도착했습니다.</p>
+                           <p><span class="userName"><sec:authentication property="name" /></span> 님에게 <span id="messageCnt"></span> 통의 쪽지가 도착했습니다.</p>
                         </div>
                     </div>
                     <div class="controls">

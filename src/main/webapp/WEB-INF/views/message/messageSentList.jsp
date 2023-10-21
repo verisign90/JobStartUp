@@ -33,7 +33,15 @@
 <!-- sidebar -->
   <div class="navSide">
     <button>
-      <sec:authentication property="name" /> 님
+      <c:set var="userName">
+          <sec:authentication property="name"/>
+      </c:set>
+      <div class="logo-wrap">
+          <div class="logo">
+              <span>${fn:substring(userName, 0, 1)}</span>
+          </div>
+          <div class="logo-text">${userName}</div>
+      </div>
     </button>
     <a href="/message/list">
     <button>
@@ -158,7 +166,7 @@
         const mesNoElement = $(this).find('.mes-no');
         const mes_no = mesNoElement.data('mes-no');
         $.ajax({
-            url: '/message/read',
+            url: '/message/sentRead',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({ mes_no: mes_no }),

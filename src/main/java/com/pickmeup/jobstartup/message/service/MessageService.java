@@ -15,6 +15,9 @@ public interface MessageService {
 
     //메세지 수신여부 확인
     public MessageDTO readMessage(long mesNo) throws Exception;
+
+    //발신 메세지 상세페이지
+    public MessageDTO readSentMessage(long mesNo) throws Exception;
     
     //수신자 메세지 삭제
     public void deleteMessage(Long mesReceiver, List<String> selectedValues) throws Exception;

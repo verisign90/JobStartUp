@@ -7,7 +7,6 @@
     <title>Notice List</title>
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
-    <link rel="stylesheet" href="/css/common/base.css" type="text/css">
     <link rel="stylesheet" href="/css/notice/list.css" type="text/css"/>
     <c:set var="category" value="${param.category}"/>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -17,45 +16,58 @@
     <%@ include file="../layout/layoutAdminSidebar.jsp" %>
 </c:if>
 <article class="total">
-    <div class="notice">
-        <h1>Notice</h1>
-    </div>
+<section class="notice">
+  <div class="page-title">
+        <div class="container">
+            <h3>공지사항</h3>
+        </div>
+  </div>
     <div class="content">
-        <section id="content">
+       <div class="category_bar">
             <ul class="webtong_tab_type03">
                 <li class="on"><a href="/notice/list">전체</a></li>
                 <li><a href="/notice/list/seeker">개인회원</a></li>
                 <li><a href="/notice/list/company">기업회원</a></li>
             </ul>
+       </div>
             <!--/* 검색 */-->
-            <div class="search_box">
-                <form id="searchForm">
-                    <div class="sch_group fl">
-                        <select id="searchType" name="searchType" title="검색 유형 선택">
-                            <option value="">전체 검색</option>
-                            <option value="not_title">제목</option>
-                            <option value="not_content">내용</option>
-                        </select>
-                        <input type="text" id="keyword" name="keyword" placeholder="키워드를 입력해 주세요." title="키워드 입력"/>
-                        <button type="button" class="bt_search" onclick="movePage(1, '${category}');"><i
-                                class="fas fa-search"></i><span class="skip_info">검색</span></button>
+            <div id="board-search">
+                <div class="container">
+                    <div class="search-window">
+                        <form id="searchForm">
+                            <div class="search-wrap">
+                              <div class="selcetType">
+                                <select id="searchType" name="searchType" title="검색 유형 선택">
+                                    <option value="">전체 검색</option>
+                                    <option value="not_title">제목</option>
+                                    <option value="not_content">내용</option>
+                                </select>
+                                <label for="keyword" class="blind">공지사항 검색</label>
+                                    <input type="text" id="keyword" name="keyword" placeholder="키워드를 입력해 주세요." title="키워드 입력"/>
+                                <button type="button" class="bt_search" onclick="movePage(1, '${category}');"><i
+                                        class="fas fa-search"></i><span class="skip_info">검색</span></button>
+                               </div>
+                            </div>
+                        </form>
                     </div>
-                </form>
+                </div>
             </div>
             <!--/* 리스트 */-->
-            <table class="tb tb_col">
-                <thead>
-                <tr>
-                    <th scope="col">번호</th>
-                    <th scope="col">제목</th>
-                    <th scope="col">등록일</th>
-                </tr>
-                </thead>
-                <!--/* 리스트 데이터 렌더링 영역 */-->
-                <tbody id="list">
+            <div id="board-list">
+                <div class="container">
+                    <table class="board-table">
+                      <thead>
+                        <tr>
+                            <th scope="col" class="th-num">번호</th>
+                            <th scope="col" class="th-title">제목</th>
+                            <th scope="col" class="th-date">등록일</th>
+                        </tr>
+                      </thead>
+                        <!--/* 리스트 데이터 렌더링 영역 */-->
+                      <tbody id="list">
 
-                </tbody>
-            </table>
+                      </tbody>
+                    </table>
 
             <!--/* 페이지네이션 렌더링 영역 */-->
             <div class="paging">
@@ -66,8 +78,8 @@
             <p class="btn_set tr">
                 <a href="/notice/write" class="btns btn_st3 btn_mid">글쓰기</a>
             </p>
-        </section>
     </div>
+</section>
 </article>
 <script>
     window.onload = () => {
@@ -109,9 +121,9 @@
                 ('0' + date.getSeconds()).slice(-2);
             html += `
                 <tr>
-                    <td>` + row.not_no + `</td>
-                    <td class="tl"><a href="/notice/read/` + row.not_no + `">` + row.not_title + `</a></td>
-                    <td>` + formatted + `</td>
+                    <td class="th-num">` + row.not_no + `</td>
+                    <td class="th-title"><a href="/notice/read/` + row.not_no + `">` + row.not_title + `</a></td>
+                    <td class="th-date">` + formatted + `</td>
                 </tr>
             `;
         })

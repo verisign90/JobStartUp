@@ -65,7 +65,7 @@ public class NoticeController {
             case "all" -> {
             }
         }
-        return "/notice/noticeList";
+        return "/notice/noticeList02";
     }
 
     //상세 페이지
