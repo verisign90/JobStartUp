@@ -26,8 +26,8 @@ document.addEventListener('DOMContentLoaded', function() {
         locale: 'ko',
         initialDate: new Date(),
         navLinks: true,
-        selectable: true,
-        selectMirror: true,
+        /*selectable: true,
+        selectMirror: true,*/
         headerToolbar: {
             start: 'addEventButton',
             center: 'title',

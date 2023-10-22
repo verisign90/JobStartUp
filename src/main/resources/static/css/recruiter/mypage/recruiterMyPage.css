@@ -40,7 +40,7 @@
     transition: all .3s;
     margin-bottom: 30px;
     margin: 10px;
-    height: 35em;
+    height: 40em;
 }
 .profile {
     flex-basis: 30%;
@@ -141,7 +141,7 @@ table.company-info-lists tbody td {
     border-top-right-radius: 50px;
     transition: all .3s;
     margin-bottom: 30px;
-    height: 35em;
+    height: 40em;
 }
 .content-label-container {
     display: flex;
@@ -171,7 +171,7 @@ table.company-info-lists tbody td {
     cursor: pointer;
 }
 .content-container {
-    height: 30em;
+    height: 35em;
     overflow-y: scroll;
 }
 .basic-content-container {
