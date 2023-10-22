@@ -140,8 +140,8 @@
                                 <button class="list-button" type="button" id="apply-manage" >지원자 관리</button>
                             </div>
                         </form>
-                        <form action="" method="">
-                            <input type="hidden" class="qna" name="company_no" value="${recruiterMyPageDTO.company_no}">
+                        <form>
+                            <input type="hidden" class="company_no" name="company_no" value="${recruiterMyPageDTO.company_no}">
                             <div class="content-label">
                                 <button class="list-button" type="button" id="qna" >QnA</button>
                             </div>

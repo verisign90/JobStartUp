@@ -31,28 +31,27 @@
   display: none;
 }
 
-.btn {
+.btnDiv {
   display: flex;
   justify-content: space-between;
 }
 
-.btn button {
+.btnDiv button {
   width: 48.5%;
   border: 0;
   margin-top: 30px;
   transition: 0.5s;
 }
 
-.btn button[name=list] {
-  background: #ddd;
+.btnDiv button[name=list] {
+  background: #41a7f4;
 }
 
-.btn button[name=sign] {
-  background: #666;
-  color: white;
+.btnDiv button[name=sign] {
+  background: #41a7f4;
 }
 
-.btn button[name=list]:hover, .btn button[name=sign]:hover, .secret button:hover {
+.btnDiv button[name=list]:hover, .btnDiv button[name=sign]:hover, {
   background: #111;
   color: white;
 }
@@ -70,4 +69,16 @@
 	content : attr(data-placeholder);
 	color : #bbb;
 	font-size:.9em;
+}
+
+#board {
+    padding: 8% 15% 6% 15%;
+}
+
+.title {
+    margin-bottom : 50px;
+}
+
+.writeTitle {
+    text-align : center;
 }

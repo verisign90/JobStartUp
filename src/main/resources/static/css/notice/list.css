@@ -20,8 +20,8 @@ a {text-decoration: none; cursor: pointer;color: #666}
 	transition: all 0.5s
 }
 
-#content {
-    padding: 8% 10% 6% 10%;
+.notice_content {
+   padding: 8% 15% 6% 15%;
 }
 
 .webtong_tab_type03 { display:table; width:100%; table-layout:fixed; border-left:1px solid #e7e7e7; margin-bottom : 50px;}
@@ -58,16 +58,23 @@ section.notice {
   padding: 15px 0;
   background-color: #f9f7f9;
 }
+
+.search-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
 #board-search .search-window .search-wrap {
   position: relative;
   padding-right: 124px;
   margin: 0 auto;
   width: 80%;
-  max-width: 564px;
+  max-width: 650px;
 }
 #board-search .search-window .search-wrap input {
   height: 40px;
-  width: 100%;
+  width: 340px;
   font-size: 14px;
   padding: 7px 14px;
   border: 1px solid #ccc;
@@ -77,18 +84,19 @@ section.notice {
   outline: 0;
   border-width: 1px;
 }
-#board-search .search-window .search-wrap .btn {
+#board-search .search-window .search-wrap .bt_search {
   position: absolute;
   right: 0;
   top: 0;
   bottom: 0;
-  width: 108px;
+  width: 100px;
+  height: 40px;
   padding: 0;
   font-size: 16px;
 }
 
 .board-table {
-  font-size: 13px;
+  font-size: 14px;
   width: 100%;
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
@@ -114,16 +122,16 @@ section.notice {
 }
 
 .board-table .th-date {
-  width: 200px;
+  width: 220px;
+  text-align: center;
 }
 
 .board-table th, .board-table td {
-  padding: 14px 0;
+  padding: 15px 35px;
 }
 
 .board-table tbody td {
   border-top: 1px solid #e7e7e7;
-  text-align: center;
 }
 
 .board-table tbody th {
@@ -161,23 +169,23 @@ section.notice {
   transition: all 0.3s;
 }
 
-.btn-dark {
+.bt_search {
   background: #555;
   color: #fff;
 }
 
-.btn-dark:hover, .btn-dark:focus {
+.bt_search:hover, .bt_search:focus {
   background: #373737;
   border-color: #373737;
   color: #fff;
 }
 
-.btn-dark {
+.bt_search {
   background: #555;
   color: #fff;
 }
 
-.btn-dark:hover, .btn-dark:focus {
+.bt_search:hover, .bt_search:focus {
   background: #373737;
   border-color: #373737;
   color: #fff;
@@ -211,10 +219,120 @@ section.notice {
 }
 
 .category_bar {
-  width: 1100px;
+  width: 1040px;
   margin: 0 auto;
 }
 
-.selcetType {
-    display: inline-block;
+.selectType {
+   display: inline-block !important;
+   vertical-align: top;
+}
+
+/*select*/
+
+.select {
+  -o-appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+#selectBox {
+  display: inline-block;
+  position: relative;
+  width: 150px;
+  height: 35px;
+  border-radius: 4px;
+  border: 2px solid #555555;
+}
+#selectBox .select {
+  display: inline-block;
+  width: inherit;
+  height: inherit;
+  background: transparent;
+  border: 0 none;
+  outline: 0 none;
+  padding: 0 5px;
+  position: relative;
+  z-index: 3;
+}
+#selectBox .select option {
+  background-color: #cccccc;
+  color: #fff;
+  padding: 3px 0;
+  font-size: 16px;
+}
+#selectBox .icoArrow {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  width: 35px;
+  height: inherit;
+  border-left: 2px solid #555555;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#selectBox .icoArrow img {
+  width: 50%;
+  transition: .3s;
+}
+
+#selectBox .select:focus + .icoArrow img {
+  transform: rotate(180deg);
+}
+
+/*pagenation*/
+
+.paging {
+  text-align : center;
+  margin-top: 25px;
+}
+
+.paging p {
+    float : center;
+}
+
+.paging a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+.paging a.active {
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 5px;
+}
+
+.paging a:hover:not(.active) {
+  background-color: #ddd;
+  border-radius: 5px;
+}
+
+.btnDiv {
+    text-align: right;
+}
+
+.btnP {
+    float: right;
+    margin-right : 25px;
+}
+
+.subBtn {
+    width: 60px;
+    height: 44px;
+    background: #eee;
+    font-size: .9rem;
+    border: 0;
+    border-radius: 5px;
+    font-weight: 400;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
 }

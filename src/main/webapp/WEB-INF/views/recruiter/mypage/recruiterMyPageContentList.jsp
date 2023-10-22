@@ -124,6 +124,43 @@
             <a href="/recruiter/myPage/appManageWithPaging?company_no=${company_no}"><p>더보기</p></a>
         </div>
     </c:if>
+    <!--QnA-->
+    <c:if test="${not empty questionPage.list}">
+        <c:forEach var="question" items="${questionPage.list}" varStatus="status">
+            <div class="content-hidden">
+                <table class="company_table">
+                    <thead>
+                        <tr>
+                         <c:choose>
+                         <c:when test="${empty question.answerDTO}">
+                            <th>답변대기</th>
+                         </c:when>
+                         <c:otherwise>
+                            <th>답변완료</th>
+                         </c:otherwise>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th></th>
+                            <td>
+                             <c:choose>
+                             <c:when test="${fn:length(question.q_content) > 30}">
+                                <td><c:out value="${fn:substring(question.q_content,0,29)}"/>...</td>
+                             </c:when>
+                             <c:otherwise>
+                             <td><c:out value="${question.q_content}"/></td>
+                             </c:otherwise>
+                             </c:choose>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </c:forEach>
+        <div class="show-list">
+            <a href=""><p>더보기</p></a>
+        </div>
+    </c:if>
 </div>
 </body>
 </html>

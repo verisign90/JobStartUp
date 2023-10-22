@@ -13,13 +13,22 @@
     <link rel="stylesheet" href="/css/notice/writeForm.css" type="text/css">
 </head>
 <body>
+<!-- ***** Nav start ***** -->
+<%@ include file="../layout/layoutNav.jsp" %>
+<div id="top" data-wow-duration="1s" data-wow-delay="0.5s">
+    <div class="header-text" data-wow-duration="1s" data-wow-delay="1s">
+    </div>
+</div>
+<!-- ***** Nav End ***** -->
 <c:if test="${sessionScope.role == 3}">
     <%@ include file="../layout/layoutAdminSidebar.jsp" %>
 </c:if>
-<article class="board">
-    <h1>Notice</h1>
+<article id="board">
+   <div class="title">
+    <h3>공지사항</h3>
+   </div>
     <section class="contents">
-        <h4>글 작성하기</h4>
+        <h5 class="writeTitle">글 작성하기</h5>
         <div class="inner">
             <form action="/notice/write" enctype="multipart/form-data" method="post" name="writeFrom" id="writeFrom"
                   class="txt">
@@ -29,6 +38,14 @@
                     <option value="company">기업회원</option>
                 </select>
                 <input type="text" name="not_title" id="not_title" placeholder="제목을 입력하세요.">
+                <c:forEach var="error" items="${errors}">
+                    <c:if test="${error.field == 'not_title'}">
+                        <p style="color: red; font-size:6px;">${error.defaultMessage}</p>
+                    </c:if>
+                    <c:if test="${error.field == 'not_content'}">
+                        <p style="color: red; font-size:6px;">${error.defaultMessage}</p>
+                    </c:if>
+                </c:forEach>
                 <textarea name="not_content" id="not_content" placeholder="내용을 입력하세요."></textarea>
                 <div class="file">
                     <label for="notFile_orgName">
@@ -38,17 +55,26 @@
                     <div id='att_zone'
                          data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'></div>
                 </div>
-                <div class="btn">
-                    <button type="button" name="list"><a href="/notice/list">목록가기</a></button>
+                <div class="btnDiv">
+                    <button type="button" name="list" onclick="goList();">목록가기</button>
                     <button type="submit" type="button" name="sign">등록하기</button>
                 </div>
             </form>
         </div>
     </section>
 </article>
-<div id="up">
-    <a href="#">TOP</a>
-</div>
+<!-- Footer start -->
+<%@ include file="../layout/layoutFooter.jsp" %>
+<!-- Footer end -->
+<%@include file="../layout/layoutFooter.jsp" %>
+<script src="/css/template/vendor/jquery/jquery.min.js"></script>
+<script src="/css/template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/css/template/assets/js/owl-carousel.js"></script>
+<script src="/css/template/assets/js/animation.js"></script>
+<script src="/css/template/assets/js/imagesloaded.js"></script>
+<script src="/css/template/assets/js/popup.js"></script>
+<script src="/css/template/assets/js/custom.js"></script>
+<script src="/css/template/assets/js/side.js"></script>
 <script>
     ( /* att_zone : 이미지들이 들어갈 위치 id, btn : file tag id */
         imageView = function imageView(att_zone, notFile_orgName) {
@@ -68,10 +94,30 @@
 
             notFile_orgName.onchange = function (e) {
                 var files = e.target.files;
-                var fileArr = Array.prototype.slice.call(files)
+                var fileArr = Array.prototype.slice.call(files);
                 for (f of fileArr) {
-                    imageLoader(f);
+                    if (validateFile(f)) {
+                        imageLoader(f);
+                    }
                 }
+            }
+
+
+            // 파일 유효성 검사 함수
+            validateFile = function (file) {
+                var regex = new RegExp("(.*?)\.(jpg|png|gif)$");
+                var maxSize = 5242880;
+
+                if (!regex.test(file.name.toLowerCase())) {
+                    alert("지원되는 이미지 형식은 jpg, png, gif 입니다.");
+                    return false;
+                }
+
+                if (file.size > maxSize) {
+                    alert("파일 크기는 최대 5MB까지 허용됩니다.");
+                    return false;
+                }
+                return true;
             }
 
 
@@ -93,15 +139,34 @@
                 e.stopPropagation();
                 var dt = e.dataTransfer;
                 files = dt.files;
-                for (f of files) {
-                    imageLoader(f);
+
+               // 파일 개수 제한 검사
+                if (sel_files.length + files.length > 5) {
+                    alert("파일은 최대 5개까지 첨부할 수 있습니다.");
+                    return;
                 }
 
+                for (f of files) {
+                    if (validateFile(f)) {
+                        imageLoader(f);
+                    }
+                }
             }, false)
 
 
             /*첨부된 이미지를 배열에 넣고 미리보기 */
             imageLoader = function (file) {
+               // 파일 개수 제한 검사
+               if (sel_files.length >= 5) {
+                   if (!document.getElementById('fileLimitAlert')) {
+                       var alertDiv = document.createElement('div');
+                       alertDiv.style = 'color:red; font-size:10px;';
+                       alertDiv.id = 'fileLimitAlert';
+                       alertDiv.innerText = '파일은 최대 5개까지 첨부할 수 있습니다.';
+                       attZone.appendChild(alertDiv);
+                   }
+                   return;
+               }
                 sel_files.push(file);
                 var reader = new FileReader();
                 reader.onload = function (ee) {
@@ -150,12 +215,10 @@
         }
     )('att_zone', 'notFile_orgName')
 
-    $('#up').click(function () {
-        $('html, body').animate({
-            scrollTop: 0
-        }, 400);
-        return false;
-    });
+    function goList(){
+        window.location.href = "/notice/list";
+    }
+
 </script>
 </body>
 </html>

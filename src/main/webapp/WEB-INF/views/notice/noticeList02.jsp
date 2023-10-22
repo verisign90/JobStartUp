@@ -12,17 +12,24 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+<!-- ***** Nav start ***** -->
+<%@ include file="../layout/layoutNav.jsp" %>
+<div id="top" data-wow-duration="1s" data-wow-delay="0.5s">
+    <div class="header-text" data-wow-duration="1s" data-wow-delay="1s">
+    </div>
+</div>
+<!-- ***** Nav End ***** -->
 <c:if test="${sessionScope.role == 3}">
     <%@ include file="../layout/layoutAdminSidebar.jsp" %>
 </c:if>
 <article class="total">
 <section class="notice">
+ <div class="notice_content">
   <div class="page-title">
         <div class="container">
             <h3>공지사항</h3>
         </div>
   </div>
-    <div class="content">
        <div class="category_bar">
             <ul class="webtong_tab_type03">
                 <li class="on"><a href="/notice/list">전체</a></li>
@@ -36,17 +43,22 @@
                     <div class="search-window">
                         <form id="searchForm">
                             <div class="search-wrap">
-                              <div class="selcetType">
-                                <select id="searchType" name="searchType" title="검색 유형 선택">
+                              <div class="selectType" id="selectBox">
+                                <select class="select" id="searchType" name="searchType" title="검색 유형 선택">
                                     <option value="">전체 검색</option>
                                     <option value="not_title">제목</option>
                                     <option value="not_content">내용</option>
                                 </select>
+                                <span class="icoArrow"><img src="/img/icoArrow.png" alt=""></span>
+                                </div>
+                                <div class="selectType">
                                 <label for="keyword" class="blind">공지사항 검색</label>
-                                    <input type="text" id="keyword" name="keyword" placeholder="키워드를 입력해 주세요." title="키워드 입력"/>
+                                    <input type="text" id="keyword" name="keyword" placeholder="키워드를 입력해 주세요." title="키워드 입력" style="vertical-align: top;"/>
+                                </div>
+                                <div class="selectType">
                                 <button type="button" class="bt_search" onclick="movePage(1, '${category}');"><i
                                         class="fas fa-search"></i><span class="skip_info">검색</span></button>
-                               </div>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -68,19 +80,37 @@
 
                       </tbody>
                     </table>
-
+                </div>
+            </div>
             <!--/* 페이지네이션 렌더링 영역 */-->
             <div class="paging">
 
             </div>
 
             <!--/* 버튼 */-->
-            <p class="btn_set tr">
-                <a href="/notice/write" class="btns btn_st3 btn_mid">글쓰기</a>
-            </p>
+       <c:if test="${sessionScope.role == 3}">
+            <div class="btnDiv">
+                <p class="btnP">
+                    <a href="/notice/write" class="subBtn">글쓰기</a>
+                </p>
+            <div>
+       </c:if>
     </div>
 </section>
 </article>
+<!-- Footer start -->
+<%@ include file="../layout/layoutFooter.jsp" %>
+<!-- Footer end -->
+<%@include file="../layout/layoutFooter.jsp" %>
+<script src="/css/template/vendor/jquery/jquery.min.js"></script>
+<script src="/css/template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/css/template/assets/js/owl-carousel.js"></script>
+<script src="/css/template/assets/js/animation.js"></script>
+<script src="/css/template/assets/js/imagesloaded.js"></script>
+<script src="/css/template/assets/js/popup.js"></script>
+<script src="/css/template/assets/js/custom.js"></script>
+<script src="/css/template/assets/js/side.js"></script>
+
 <script>
     window.onload = () => {
         findAllPost();
@@ -138,8 +168,7 @@
         let html = '';
         if (pagination.hasPreviousPage) {
             html += `
-                <a href="javascript:void(0);" onclick="movePage(1)" class="page_bt first">첫 페이지</a>
-                <a href="javascript:void(0);" onclick="movePage(` + pagination.firstPage + `-1)" class="page_bt prev">이전 페이지</a>
+                <a href="javascript:void(0);" onclick="movePage(` + pagination.firstPage + `-1)" class="page_bt prev">&laquo;</a>
             `;
         }
         html += '<p>';
@@ -151,8 +180,7 @@
         html += '</p>';
         if (pagination.hasNextPage) {
             html += `
-                <a href="javascript:void(0);" onclick="movePage(` + pagination.lastPage + ` + 1);" class="page_bt next">다음 페이지</a>
-                <a href="javascript:void(0);" onclick="movePage(` + pagination.totalPageCount + `);" class="page_bt last">마지막 페이지</a>
+                <a href="javascript:void(0);" onclick="movePage(` + pagination.lastPage + ` + 1);" class="page_bt next">&raquo;</a>
             `;
         }
         document.querySelector('.paging').innerHTML = html;
@@ -172,8 +200,6 @@
         }
         location.href = location.pathname + '/' + category + '/' + '?' + new URLSearchParams(queryParams).toString();
     }
-
-
 </script>
 </body>
 </html>
