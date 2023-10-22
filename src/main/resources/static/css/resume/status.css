@@ -1,9 +1,100 @@
-.home-wrap {
+.wrap {
     width: 1280px;
     margin: 0 auto;
     padding: 250px 50px 0px 50px;
 }
 
+/* 리스트 */
+.resume_wrap {
+    width: 1280px;
+    margin: 0 auto;
+    padding: 250px 50px 0px 50px;
+}
+
+.resume_title {
+    font-weight: bold;
+    margin-left: 30px;
+}
+
+.writeDiv {
+    margin: 60px 0;
+    text-align: right;
+}
+
+all {
+    font-family: "Malgun Gothic",dotum,gulim,sans-serif;
+}
+
+.resume_list_wrap {
+    margin-top: 56px;
+    letter-spacing: -1px;
+}
+
+.resume_item:first-child {
+    border-top: 1px solid #d7dce5;
+}
+
+.resume_item {
+    display: flex;
+    margin: 0;
+    border: none;
+    border-bottom: 1px solid #eaedf4;
+    padding: 50px;
+    justify-content: space-between;
+}
+
+.resume_item .tit {
+    display: inline-block;
+    position: relative;
+    margin-bottom: 12px;
+    max-width: 764px;
+    color: #373f57;
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 40px;
+    justify-content: space-between;
+}
+
+.resume_list>li {
+    margin-bottom: -57px;
+}
+
+ul{
+    list-style:none;
+}
+
+button {
+    background-color: white;
+    border-color: #7A41FF;
+    color: #7A41FF;
+    border-radius: 5px;
+    padding: 7px;
+}
+
+button:hover {
+    background-color: #7A41FF;
+    color: white;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+a:link {
+    color: black;
+}
+
+a:visited {
+    color: black;
+}
+
+a:hover {
+    color: black;
+}
+
+
+/* 일정관리 */
 .card {
     position: relative;
     display: flex;
@@ -40,7 +131,7 @@
     width: 3px;
     height: 35px;
     left: 0;
-    background-color: rgba(82, 95, 127, .5)
+    background-color: rgb(238 64 127 / 50%)
 }
 
 .note-has-grid .single-note-item .category-dropdown.dropdown-toggle:after {
@@ -77,7 +168,7 @@
 }
 
 .note-has-grid .single-note-item.all-category .point {
-    color: rgba(82, 95, 127, .5)
+    color: rgb(238 64 127 / 50%)
 }
 
 .note-has-grid .single-note-item.note-business .point {
@@ -85,7 +176,7 @@
 }
 
 .note-has-grid .single-note-item.note-business .side-stick {
-    background-color: rgba(44, 208, 126, .5)
+    background-color: rgb(238 64 127 / 50%)
 }
 
 .note-has-grid .single-note-item.note-business .category .category-business {
@@ -145,16 +236,3 @@
         max-width: 216px
     }
 }
-/*
-
-.box-item {
-    box-sizing: border-box;
-    color: white;
-    width: 300px;
-    height: 175px;
-    padding: 30px;
-    border-radius: 20px;
-    font-size: 17px;
-    font-weight: bold;
-    margin-top: 50px;
-}*/

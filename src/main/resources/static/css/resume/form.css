@@ -10,7 +10,7 @@
     border-radius: 0px;
 }
 
-#lang_level0 {
+#lang_level0, #upperLoc, #lowerLoc {
     border: none;
     border-bottom: 2px solid #adb5bd;
     border-radius: 0px;
@@ -67,4 +67,21 @@ select {
     border-radius: 0px 0px 10px 10px;
     transition: all .3s;
     margin-bottom: 30px;
+}
+
+.selected-location {
+    display: inline-block;
+    margin-right: 15px;
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+
+.remove-location-button {
+    background-color: transparent;
+    color: #4b8ef1;
+    border: none;
+    margin-left: 2px;
+    font-size: 15px;
+    font-weight: bolder;
+    cursor: pointer;
 }

@@ -34,4 +34,10 @@ public class ApplicationStatusServiceImpl implements ApplicationStatusService {
         logger.info("member_no: {}", member_no);
         return applicationStatusRepository.selectApplyStatus(member_no);
     }
+
+    //오늘 면접 조회
+    @Override
+    public List<ResumeApplyDTO> selectToday (int member_no) {
+        return applicationStatusRepository.selectToday(member_no);
+    }
 }

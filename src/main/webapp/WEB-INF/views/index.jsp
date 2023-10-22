@@ -42,9 +42,9 @@
         <div class="row">
           <div class="col-lg-6 align-self-center">
             <div class="left-content show-up header-text wow fadeInLeft" data-wow-duration="1s" data-wow-delay="1s">
-              <div class="row">
+              <div class="row" style="margin-left: -120px;">
                 <div class="col-lg-12">
-                  <h2>JobStartUp</h2>
+                  <div class="fw-bolder" style="color: white; font-size: 80px;">JOB START UP</div>
                   <p>오늘의 공고를 확인하세요.</p>
                 </div>
                 <div class="col-lg-12">

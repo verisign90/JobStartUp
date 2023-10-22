@@ -9,9 +9,12 @@ import java.util.Map;
 public interface ApplicationStatusService {
 
     //지원하기
-    public int insertResumeApply (Map<String, Integer> resumeApplyMap);
+    int insertResumeApply (Map<String, Integer> resumeApplyMap);
 
     //이력서 지원현황
     List<ResumeApplyDTO> selectApplyStatus (int member_no);
+
+    //오늘 면접 조회
+    List<ResumeApplyDTO> selectToday (int member_no);
 
 }

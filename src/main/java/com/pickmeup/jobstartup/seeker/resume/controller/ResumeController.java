@@ -82,12 +82,17 @@ public class ResumeController {
     //이력서 작성폼
     @PreAuthorize("isAuthenticated()")
     @GetMapping ("/resumeWrite")
-    public String resumeWriteForm (Model model) {
+    public String resumeWriteForm (Model model, Principal principal) {
         logger.info("ResumeController-resumeWriteForm() 진입");
+
+        Member member = postingBookmarkService.findMemberByUsername(principal.getName());
+
+
         List<LocDTO> upperLoc = resumeService.getUpperLoc();
         List<JobDTO> upperJob = resumeService.getBusiness_type_code_up();
         model.addAttribute("upperLoc", upperLoc);
         model.addAttribute("upperJob", upperJob);
+        model.addAttribute("member", member);
         //return "seeker/resume/resumeWriteForm";
         return "seeker/resume/resumeWriteForm";
     }
