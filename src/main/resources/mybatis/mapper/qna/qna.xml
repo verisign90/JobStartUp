@@ -31,7 +31,7 @@
     <select id="selectQuestionCnt" parameterType="long" resultType="int">
         <![CDATA[
             SELECT COUNT(Q_NO) FROM QUESTION
-            WHERE COMPANY_NO = 0
+            WHERE Q_NO > 0
         ]]>
             <include refid="memberNo"/>
     </select>
@@ -52,8 +52,8 @@
     <select id="selectCompanyQnAList"  resultType="com.pickmeup.jobstartup.qna.dto.QuestionDTO">
         <![CDATA[
             SELECT Q_NO, Q_REGDATE, Q_MODDATE, MEMBER_NO, COMPANY_NO, Q_TYPE, Q_CATEGORY, Q_CONTENT
-            FROM (SELECT /*+ INDEX_DESC(QUESTION SYS_C007665) */ ROWNUM AS ROW_NUM, Q_NO, Q_REGDATE, Q_MODDATE, MEMBER_NO, COMPANY_NO, Q_TYPE, Q_CATEGORY, Q_CONTENT FROM QUESTION WHERE ROWNUM <=#{criteria.currentPageNo}*#{criteria.recordsPerPage})
-            WHERE ROW_NUM >#{criteria.startPage}
+            FROM (SELECT /*+ INDEX_DESC(QUESTION SYS_C007665) */ ROWNUM AS ROW_NUM, Q_NO, Q_REGDATE, Q_MODDATE, MEMBER_NO, COMPANY_NO, Q_TYPE, Q_CATEGORY, Q_CONTENT FROM QUESTION WHERE ROWNUM <= #{criteria.currentPageNo}*#{criteria.recordsPerPage})
+            WHERE ROW_NUM > #{criteria.startPage}
             AND COMPANY_NO = #{companyNo}
         ]]>
     </select>

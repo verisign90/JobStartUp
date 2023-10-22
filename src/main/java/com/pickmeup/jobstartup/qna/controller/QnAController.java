@@ -3,10 +3,10 @@ package com.pickmeup.jobstartup.qna.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pickmeup.jobstartup.common.paging.Criteria;
 import com.pickmeup.jobstartup.common.paging.PagingResponse;
-import com.pickmeup.jobstartup.qna.dto.AnswerDTO;
-import com.pickmeup.jobstartup.qna.dto.AnswerFileDTO;
-import com.pickmeup.jobstartup.qna.dto.QuestionDTO;
-import com.pickmeup.jobstartup.qna.dto.QuestionFileDTO;
+import com.pickmeup.jobstartup.member.entity.Member;
+import com.pickmeup.jobstartup.member.service.MemberService;
+import com.pickmeup.jobstartup.qna.dto.*;
+import com.pickmeup.jobstartup.qna.service.MailService;
 import com.pickmeup.jobstartup.qna.service.QnAService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +23,7 @@ import org.springframework.web.util.UriUtils;
 import java.net.MalformedURLException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
+import java.security.Principal;
 import java.util.Arrays;
 
 @Controller
@@ -31,9 +32,17 @@ import java.util.Arrays;
 public class QnAController {
 
     private final QnAService qnAService;
+    private final MemberService memberService;
+    private final MailService mailService;
 
     @GetMapping("/write")
-    public String writeForm(){
+    public String writeForm(Principal principal, Model model){
+        String memberId = principal.getName();
+        if(memberId==null) {
+            return "redirect:/login/";
+        }
+        Member member = memberService.getMember(memberId);
+        model.addAttribute("member",member);
         return "/qna/questionWriteForm";
     }
 
@@ -63,9 +72,7 @@ public class QnAController {
         if(roleNo==3){
             memberNo=0;
         }
-        System.out.println(memberNo);
         PagingResponse<QuestionDTO> questionPage = qnAService.getList(memberNo, criteria);
-        System.out.println(questionPage.getList().toString());
         model.addAttribute("questionPage", questionPage);
         model.addAttribute("criteria", criteria);
         return "/qna/questionList";
@@ -73,10 +80,8 @@ public class QnAController {
 
     //Company QnA List
     @PostMapping("/recruiter/list")
-    @ResponseBody
     public String companyQnAList(HttpSession session, @RequestParam("company_no") String company_no, Criteria criteria, Model model) throws Exception {
         long companyNo = Long.parseLong(company_no);
-        System.out.println(company_no);
         Integer roleNo = (Integer) session.getAttribute("role");
         if (company_no == null || roleNo != 2) {
             return "redirect:/login/";
@@ -84,29 +89,46 @@ public class QnAController {
         PagingResponse<QuestionDTO> questionPage = qnAService.getCompanyQnAList(companyNo, criteria);
         model.addAttribute("questionPage", questionPage);
         model.addAttribute("criteria", criteria);
+        model.addAttribute("companyNo", companyNo);
         return "/recruiter/mypage/recruiterMyPageContentList";
     }
 
     //Company QnA ListBoard
     @GetMapping("/recruiter/boardList/{company_no}")
-    public String companyQnABoardList(HttpSession session, int company_no, Criteria criteria, Model model) throws Exception {
-        long companyNo = company_no;
-        System.out.println(company_no);
+    public String companyQnABoardList(HttpSession session, @PathVariable("company_no") String strNo, Criteria criteria, Model model) throws Exception {
+        long companyNo = Long.parseLong(strNo);
         Integer roleNo = (Integer) session.getAttribute("role");
-        if (company_no==0 || roleNo != 2) {
+        if (strNo==null || roleNo != 2) {
             return "redirect:/login/";
         }
         PagingResponse<QuestionDTO> questionPage = qnAService.getCompanyQnAList(companyNo, criteria);
         model.addAttribute("questionPage", questionPage);
         model.addAttribute("criteria", criteria);
+        model.addAttribute("companyNo", companyNo);
         return "/qna/questionList";
     }
     
     // 답글 달기
     @PostMapping("/answer")
-    public String answerWrite(AnswerDTO answerDTO, @RequestParam("aFile_orgName") MultipartFile[] multipartFiles) throws Exception {
-        answerDTO.setMember_no(13L);
+    public String answerWrite(HttpSession session, AnswerDTO answerDTO, @RequestParam("aFile_orgName") MultipartFile[] multipartFiles) throws Exception {
+        Integer intNo = (Integer) session.getAttribute("memberNo");
+        Integer roleNo = (Integer) session.getAttribute("role");
+        if (intNo == null || roleNo == 1) {
+            return "redirect:/login/";
+        }
+        long memberNo = intNo;
+        answerDTO.setMember_no(memberNo);
         qnAService.answerWrite(answerDTO, multipartFiles);
+
+        //답장 후에 메일 보내기
+        QuestionDTO questionDTO =qnAService.getQuestion(answerDTO.getQ_no());
+        Member member = memberService.getMemberNo(questionDTO.getMember_no());
+
+        String email = member.getMember_email();
+        String title = "[JobStartUp] "+member.getMember_id()+ "님, QnA 답변이 달렸습니다!";
+        String message = "안녕하세요, JobStartUp입니다. <br/> 회원님이 남기신 QnA에 답변이 달렸습니다. <br/> 홈페이지에 접속해 답변을 확인하세요!<br/> http://localhost:8050/qna/list<br/>";
+        MailDTO mailDTO = new MailDTO(email, title, message);
+        mailService.mailSend(mailDTO);
         return "redirect:/qna/list";
     }
 

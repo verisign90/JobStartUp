@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib  prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html lang="ko" xmlns:c="http://java.sun.com/JSP/Page" xmlns:fmt="http://java.sun.com/JSP/Page"
       xmlns="http://www.w3.org/1999/html">
 <head>
@@ -133,23 +134,22 @@
                         <tr>
                          <c:choose>
                          <c:when test="${empty question.answerDTO}">
-                            <th>답변 대기</th>
+                            <th style="color:red;">답변 대기</th>
                          </c:when>
                          <c:otherwise>
                             <th>답변 완료</th>
                          </c:otherwise>
+                         </c:choose>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <th></th>
-                            <td>
                              <c:choose>
                              <c:when test="${fn:length(question.q_content) > 30}">
                                 <td><c:out value="${fn:substring(question.q_content,0,29)}"/>...</td>
                              </c:when>
                              <c:otherwise>
-                             <td><c:out value="${question.q_content}"/></td>
+                                 <td><c:out value="${question.q_content}"/></td>
                              </c:otherwise>
                              </c:choose>
                         </tr>
@@ -158,7 +158,7 @@
             </div>
         </c:forEach>
         <div class="show-list">
-            <a href=""><p>더보기</p></a>
+            <a href="/qna/recruiter/boardList/${companyNo}"><p>더보기</p></a>
         </div>
     </c:if>
 </div>

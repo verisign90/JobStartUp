@@ -12,12 +12,9 @@ import net.nurigo.sdk.message.request.SingleMessageSendingRequest;
 import net.nurigo.sdk.message.response.SingleMessageSentResponse;
 import net.nurigo.sdk.message.service.DefaultMessageService;
 import org.modelmapper.ModelMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -223,5 +220,19 @@ public class MemberServiceImpl implements MemberService {
         } catch (Exception e) {
             log.error("memberRepository.updatePassword: {}", memberId, e);
         }
+    }
+
+    //회원 번호로 멤버 객체 가져오기
+    @Override
+    public Member getMember(String memberId) {
+        Member member =memberRepository.selectMemberById(memberId);
+        return member;
+    }
+
+    //회원 번호로 멤버 객체 가져오기
+    @Override
+    public Member getMemberNo(long memberNo) {
+        Member member =memberRepository.selectMemberByNo(memberNo);
+        return member;
     }
 }

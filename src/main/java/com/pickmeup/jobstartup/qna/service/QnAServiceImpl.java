@@ -64,14 +64,19 @@ public class QnAServiceImpl implements QnAService{
     //개인 및 관리자
     @Override
     public PagingResponse<QuestionDTO> getList(long memberNo, Criteria criteria) throws Exception {
+        int currentPageNo = criteria.getCurrentPageNo();
         //글 목록 가져오기
         int questionCnt = qnARepository.selectQuestionCnt(memberNo);
+        System.out.println(questionCnt);
         if (questionCnt < 1) {
             return new PagingResponse<>(Collections.emptyList(), null);
         }
+        //Paging 정보를 criteria에 저장
+        criteria.setRecordsPerPage(3);
+        criteria.setPageSize(5);
         Pagination pagination = new Pagination(questionCnt, criteria);
         criteria.setPagination(pagination);
-
+        criteria.setCurrentPageNo(currentPageNo);
         List<QuestionDTO> questionList = qnARepository.selectQuestionList(memberNo, criteria);
         for(QuestionDTO questionDTO :questionList) {
             long qNo = questionDTO.getQ_no();
@@ -98,15 +103,18 @@ public class QnAServiceImpl implements QnAService{
     //회사 QnA
     @Override
     public PagingResponse<QuestionDTO> getCompanyQnAList(long companyNo, Criteria criteria) {
+        int currentPageNo = criteria.getCurrentPageNo();
         //글 목록 가져오기
         int questionCnt = qnARepository.selectCompanyQnACnt(companyNo);
         if (questionCnt < 1) {
             return new PagingResponse<>(Collections.emptyList(), null);
         }
-
+        //Paging 정보를 criteria에 저장
+        criteria.setRecordsPerPage(3);
+        criteria.setPageSize(5);
         Pagination pagination = new Pagination(questionCnt, criteria);
         criteria.setPagination(pagination);
-
+        criteria.setCurrentPageNo(currentPageNo);
         List<QuestionDTO> questionList = qnARepository.selectCompanyQnAList(companyNo, criteria);
 
         for(QuestionDTO questionDTO :questionList) {
