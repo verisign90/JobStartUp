@@ -72,7 +72,7 @@
                                 </c:when>
                                 <c:otherwise>
                                     <div style="display: flex;">
-                                        <div class="gradient-button"><a id="modal_trigger_in" href="${cPath}/login/"><i
+                                        <div class="gradient-button"><a id="modal_trigger_in" href="${cPath}/login"><i
                                                 class="fa fa-sign-in-alt"></i>로그인</a></div>
                                         <div class="gradient-button" style="margin-left: 5px"><a id="modal_trigger_up"
                                                                                                  href="${cPath}/join/select"><i

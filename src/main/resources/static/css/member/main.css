@@ -1,0 +1,284 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+a {
+  color: #296efa;
+  cursor: pointer;
+}
+
+.login {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 3fr 1.5fr;
+   grid-template-columns: 3fr 1.5fr;
+}
+
+.login .form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-color: #f9f9f9;
+}
+
+@media screen and (max-width: 992px) {
+  .login .form {
+    width: 100vw;
+  }
+}
+
+.login .form .steps {
+  margin-left: auto;
+  margin-right: 20px;
+  margin-top: 20px;
+  height: 30px;
+}
+
+.login .form .steps .step {
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 30px;
+  margin-right: 7px;
+}
+
+.login .form .steps .ball {
+  width: 5px;
+  height: 5px;
+  background-color: #ccc;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.login .form .formHead {
+  margin-left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  margin-top: 105px;
+}
+
+.login .form .formHead h2 {
+  margin-bottom: 2rem;
+}
+
+.login .form .formHead p {
+  font-size: 13px;
+  margin-bottom: 1rem;
+}
+
+.login .form form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
+.login .form form .input-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  position: relative;
+}
+
+.login .form form .input-container input {
+  padding: 10px;
+  background-color: #f9f9f9 !important;
+  margin-top: 1rem;
+  border-radius: 3px;
+  outline: none;
+  border: 1px solid #dcdcdc;
+}
+
+.login .form form .input-container input:last-of-type {
+  margin-bottom: 0.5rem;
+}
+
+.login .form form .input-container .top {
+  position: absolute;
+  top: 10px;
+  left: 9px;
+  color: #969696;
+  font-size: 11.4px;
+  background-color: #f9f9f9;
+  padding-left: 2px;
+  padding-right: 2px;
+  visibility: hidden;
+}
+
+.login .form form .input-container img {
+  position: absolute;
+  top: 30px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.login .form form .select {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  position: relative;
+}
+
+.login .form form .select select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 10px;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 3px;
+  border: 1px solid #dcdcdc;
+  color: #5f5e5e;
+  background-color: #f9f9f9;
+  overflow: hidden;
+  background: transparent;
+}
+
+.login .form form .select img {
+  position: absolute;
+  top: 30px;
+  right: 10px;
+  z-index: -1;
+}
+
+.login .form form small {
+  color: #5f5e5e;
+  font-size: 10PX;
+}
+
+.login .form form button {
+  padding: 10px;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  border: 1px solid transparent;
+  font-size: 11px;
+  color: #5f5e5e;
+  cursor: pointer;
+  background-color: #ededed;
+  border-radius: 3px;
+}
+
+.login .form .agree {
+  margin-left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  font-size: 12.2px;
+  line-height: 20px;
+}
+
+.login .blue {
+  height: 100vh;
+  background-color: #296efa;
+  color: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-family: sans-serif;
+  font-weight: 400;
+}
+
+@media screen and (max-width: 992px) {
+  .login .blue {
+    display: none;
+  }
+}
+
+.login .blue h2 {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  margin-bottom: 50px;
+}
+
+.login .blue p {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-item-align: center;
+      align-self: center;
+  color: #e7eef0;
+  font-size: 15px;
+  line-height: 24px;
+  font-weight: 500;
+}
+
+.error {
+  border: 1px solid #e00 !important;
+}
+
+.errorMessage {
+  color: #e00 !important;
+  margin-top: 10px;
+  text-align: left;
+}
+
+.show {
+  visibility: visible !important;
+  display: block !important;
+}
+
+.redTop {
+  color: #e00 !important;
+}
+
+.emailerror {
+  color: #e00 !important;
+  text-align: left;
+  font-size: 11px;
+  display: none;
+}
+
+.selecterror {
+  color: #e00 !important;
+  text-align: left;
+  font-size: 11px;
+  display: none;
+}
+
+.buttonOk {
+  color: #fff !important;
+  background-color: #296efa !important;
+}
+
+.activeBall {
+  background-color: #000 !important;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  box-shadow: 0 0 0 30px #f9f9f9 inset !important;
+  -webkit-box-shadow: 0 0 0 30px #f9f9f9 inset !important;
+  -o-box-shadow: 0 0 0 30px #f9f9f9 inset !important;
+  -moz-box-shadow: 0 0 0 30px #f9f9f9 inset !important;
+}
