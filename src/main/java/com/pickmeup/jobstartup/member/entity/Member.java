@@ -11,7 +11,6 @@ public class Member {
     private int member_no;
     private String member_id;
     private MemberType member_type = MemberType.COMMON;
-    private String menu_id;
     private String member_name;
     private String member_pw;
     private String member_sex;
