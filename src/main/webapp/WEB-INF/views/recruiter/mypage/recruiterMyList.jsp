@@ -210,7 +210,7 @@
             </c:if>
 
             <!--QnA-->
-            <c:if test="${not empty appList}">
+<!--            <c:if test="${not empty appList}">
                 <div class="main-title-container"><h4>지원자 관리</h4></div>
                 <c:forEach var="app" items="${appList}" varStatus="status">
                     <div class="content">
@@ -257,9 +257,8 @@
                             </c:if>
                         </ol>
                     </div>
-                </form>
+                </form>-->
             </c:if>
-
             </div>
         </div>
     </article>

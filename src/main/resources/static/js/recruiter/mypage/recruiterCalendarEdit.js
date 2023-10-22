@@ -7908,7 +7908,7 @@ var FullCalendar = (function (exports) {
                 var buttonName = widget.buttonName, buttonClick = widget.buttonClick, buttonText = widget.buttonText, buttonIcon = widget.buttonIcon, buttonHint = widget.buttonHint;
                 if (buttonName === 'title') {
                     isOnlyButtons = false;
-                    children.push(createElement("h2", { className: "fc-toolbar-title", id: props.titleId }, props.title));
+                    children.push(createElement("h1", { className: "fc-toolbar-title", id: props.titleId }, props.title));
                 }
                 else {
                     var isPressed = buttonName === props.activeButton;

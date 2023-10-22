@@ -133,10 +133,10 @@
                         <tr>
                          <c:choose>
                          <c:when test="${empty question.answerDTO}">
-                            <th>답변대기</th>
+                            <th>답변 대기</th>
                          </c:when>
                          <c:otherwise>
-                            <th>답변완료</th>
+                            <th>답변 완료</th>
                          </c:otherwise>
                         </tr>
                     </thead>

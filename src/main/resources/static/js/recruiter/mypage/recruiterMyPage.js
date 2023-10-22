@@ -33,6 +33,7 @@ $(document).ready(function(){
 
     /* 공고 관리 */
     $("#job-posting").on("click",function(){
+        event.preventDefault();
         let company_no = $(".job_posting_company_no").val();
         $.ajax({
             type:"GET",
@@ -64,6 +65,7 @@ $(document).ready(function(){
 
     /* 박람회 관리 */
     $("#job-fair").on("click",function(){
+        event.preventDefault();
         let company_no = $(".job_fair_company_no").val();
         $.ajax({
             type:"GET",
@@ -95,6 +97,7 @@ $(document).ready(function(){
 
     /* 지원자 관리 */
     $("#apply-manage").on("click",function(){
+        event.preventDefault();
         let company_no = $(".apply_manage_company_no").val();
         $.ajax({
             type:"GET",
@@ -124,8 +127,7 @@ $(document).ready(function(){
         $(this).addClass("active");
     });
 
-
-    /*qna list*/
+    /* 질의 관리 */
     $("#qna").on("click",function(){
         event.preventDefault();
         let company_no = $(".company_no").val();

@@ -1,98 +1,119 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="cPath" value="<%=request.getContextPath() %>" />
-<html lang="ko" xmlns:c="http://java.sun.com/JSP/Page" xmlns:fmt="http://java.sun.com/JSP/Page" xmlns="http://www.w3.org/1999/html">
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<c:set var="cPath" value="<%=request.getContextPath() %>"/>
+<!doctype html>
+<html lang="ko">
 <head>
+    <!-- Required meta tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
-          rel="stylesheet">
-
-    <!-- Bootstrap core CSS -->
-    <link href="/css/template/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/template/assets/css/sidebar.css">
-    <link rel="stylesheet" href="/css/template/assets/css/animated.css">
-    <link rel="stylesheet" href="/css/template/assets/css/owl.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/layout/fontstyle.css">
+    <link rel="stylesheet" href="/css/layout/owl.carousel.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/layout/bootstrap.min.css">
+    <!-- Style -->
+    <link rel="stylesheet" href="/css/layout/style.css">
+    <title>Sidebar #1</title>
 </head>
 <body>
-<div id="menu">
-    <div class="hamburger">
-        <div class="line"></div>
-        <div class="line"></div>
-        <div class="line"></div>
+<aside class="sidebar">
+    <div class="toggle">
+        <a href="#" class="burger js-menu-toggle" data-toggle="collapse" data-target="#main-navbar">
+            <span></span>
+        </a>
     </div>
-    <div class="menu-inner">
-        <ul class="side_menu">
-            <li class="side_item">
-                <div>
-                    <c:if test="${not empty company_no}">
-                        <a class="side_a" href="${cPath}/recruiter/myPage?company_no=${company_no}">
-                            MY HOME
-                        </a>
-                    </c:if>
-                    <c:if test="${empty company_no}">
-                        <a class="side_a" href="${cPath}/recruiter/myPage?company_no=${recruiterMyPageDTO.company_no}">
-                            MY HOME
-                        </a>
-                    </c:if>
-                </div>
-            </li>
-            <li class="side_item">
-                <div class="aside_item">
-                    <a class="side_a" href="${cPath}/jobfair/list">
-                        취업 박람회
+    <div class="side-inner">
+        <c:set var="userName">
+            <sec:authentication property="name"/>
+        </c:set>
+        <div class="logo-wrap">
+            <div class="logo">
+                <span>${fn:substring(userName, 0, 1)}</span>
+            </div>
+            <span class="logo-text">${userName}</span>
+        </div>
+        <div class="nav-menu">
+            <ul>
+                <li><a class="side_a" href="${cPath}/recruiter/myPage?company_no=${recruiterMyPageDTO.company_no}"><span
+                        class="icon-pie-chart mr-3"></span>MY 홈</a></li>
+                <li class="accordion">
+                    <a href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
+                       aria-controls="collapseOne" class="collapsible">
+                        <span class="icon-home mr-3"></span>MY 취업박람회
                     </a>
-                    <ul>
-                        <li>
-                            <a class="side_a" href="${cPath}/recruiter/myPage/jobFairWithPaging?company_no=${company_no}">참여한 박람회</a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li class="side_item">
-                <div class="aside_item">
-                    <a class="side_a" href="${cPath}/recruiter/JPlist">
-                        채용 공고
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne">
+                        <div>
+                            <ul>
+                                <li><a href="#">박람회 목록</a></li>
+                                <li><a href="#">박람회 신청</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li class="accordion">
+                    <a href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
+                       aria-controls="collapseTwo" class="collapsible">
+                        <span class="icon-home mr-3"></span>MY 채용공고
                     </a>
-                    <ul>
-                        <li>
-                            <a class="side_a" href="${cPath}/recruiter/myPage/jobPostingWithPaging?company_no=${company_no}">공고 지원 현황</a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li class="side_item">
-                <div class="aside_item">
-                    <a class="side_a" href="${cPath}/seeker/applyStatus">
-                        채용 관리
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingOne">
+                        <div>
+                            <ul>
+                                <li><a href="#">채용공고 목록</a></li>
+                                <li><a href="#">채용공고 신청</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li class="accordion">
+                    <a href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false"
+                       aria-controls="collapseThree" class="collapsible">
+                        <span class="icon-home mr-3"></span>MY 채용관리
                     </a>
-                    <ul>
-                        <li>
-                            <a class="side_a" href="${cPath}/recruiter/myPage/appManageWithPaging?company_no=${company_no}">지원자 관리</a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li class="side_item">
-                <div class="aside_item">
-                    <a class="side_a" href="${cPath}/qna/recruiter/boardList/${company_no}">
-                        질의 관리
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingOne">
+                        <div>
+                            <ul>
+                                <li><a href="#">지원자 목록</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li class="accordion">
+                    <a href="#" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false"
+                       aria-controls="collapseFour" class="collapsible">
+                        <span class="icon-home mr-3"></span>MY 질의관리
                     </a>
-                </div>
-            </li>
-        </ul>
+                    <div id="collapseFour" class="collapse" aria-labelledby="headingOne">
+                        <div>
+                            <ul>
+                                <li><a href="#">질의 목록</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
-    <svg version="1.1" id="blob" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-        <path id="blob-path" d="M60,500H0V0h60c0,0,20,172,20,250S60,900,60,500z"/>
-    </svg>
-</div>
+</aside>
+<script src="/js/layout/jquery-3.3.1.min.js"></script>
+<script src="/js/layout/popper.min.js"></script>
+<script src="/js/layout/bootstrap.min.js"></script>
+<script src="/js/layout/main.js"></script>
+<script>
+    $(document).ready(function () {
+        var currentPath = window.location.pathname;
+        $(".side_a").each(function () {
+            var linkPath = $(this).attr('href');
+            if (currentPath === linkPath) {
+                $(this).parent('li').addClass('active');
+            } else {
+                $(this).parent('li').removeClass('active');
+            }
+        });
+    });
+</script>
 </body>
 </html>
