@@ -48,12 +48,56 @@
                 #{JOBFAIR_TARGET}, #{JOBFAIR_HOST}, #{JOBFAIR_SITE}, #{JOBFAIR_LOC_CODE})
         ]]>
     </insert>
+
     <insert id="save" parameterType="com.pickmeup.jobstartup.jobfair.dto.JobFairFileDTO">
     <![CDATA[
         INSERT INTO JOB_FAIR_LOGO (JBFILE_ORGNAME, JBFILE_SAVNAME, JBFILE_TYPE)
         VALUES (#{JBFILE_ORGNAME}, #{JBFILE_SAVNAME}, #{JBFILE_TYPE})
         ]]>
     </insert>
+
+    <update id="insertJobFairEntry" parameterType="com.pickmeup.jobstartup.recruiter.apply.dto.ApplyDTO">
+        MERGE INTO COMPANY C
+        USING (SELECT #{company_no, jdbcType=INTEGER}             as company_no,
+                      #{member_no, jdbcType=INTEGER}              as member_no,
+                      #{company_name, jdbcType=VARCHAR}           as company_name,
+                      #{company_hp, jdbcType=VARCHAR}             as company_hp,
+                      #{ceo_name, jdbcType=VARCHAR}               as ceo_name,
+                      #{company_type, jdbcType=VARCHAR}           as company_type,
+                      #{business_type_code, jdbcType=VARCHAR}     as business_type_code,
+                      #{company_address_code, jdbcType=VARCHAR}   as company_address_code,
+                      #{company_sales, jdbcType=VARCHAR}          as company_sales,
+                      #{logo_orgname, jdbcType=VARCHAR}           as logo_orgname,
+                      #{logo_savname, jdbcType=VARCHAR}           as logo_savname,
+                      #{company_address_detail, jdbcType=VARCHAR} as company_address_detail,
+                      #{company_est, jdbcType=VARCHAR}            as company_est,
+                      #{application_date, jdbcType=VARCHAR}       as application_date,
+                      #{company_site, jdbcType=VARCHAR}           as company_site
+               FROM DUAL) S
+        ON (C.member_no = S.member_no)
+        WHEN MATCHED THEN
+            UPDATE
+            SET C.company_name           = S.company_name,
+                C.company_hp             = S.company_hp,
+                C.ceo_name               = S.ceo_name,
+                C.company_type           = S.company_type,
+                C.business_type_code     = S.business_type_code,
+                C.company_address_code   = S.company_address_code,
+                C.company_sales          = S.company_sales,
+                C.logo_orgname           = S.logo_orgname,
+                C.logo_savname           = S.logo_savname,
+                C.company_address_detail = S.company_address_detail,
+                C.company_est            = S.company_est,
+                C.application_date       = S.application_date,
+                C.company_site           = S.company_site
+        WHEN NOT MATCHED THEN
+            INSERT (COMPANY_NO, MEMBER_NO, COMPANY_NAME, COMPANY_HP, CEO_NAME, COMPANY_TYPE, BUSINESS_TYPE_CODE,
+                    COMPANY_ADDRESS_CODE, COMPANY_SALES, LOGO_ORGNAME, LOGO_SAVNAME, COMPANY_ADDRESS_DETAIL,
+                    COMPANY_EST, APPLICATION_DATE, COMPANY_SITE)
+            VALUES (S.company_no, S.member_no, S.company_name, S.company_hp, S.ceo_name, S.company_type,
+                    S.business_type_code, S.company_address_code, S.company_sales, S.logo_orgname, S.logo_savname,
+                    S.company_address_detail, S.company_est, S.application_date, S.company_site);
+    </update>
 
     <update id="updateJobFair" parameterType="com.pickmeup.jobstartup.jobfair.dto.JobFairDTO">
         UPDATE JOB_FAIR

@@ -37,4 +37,6 @@ public interface JobFairRepository {
     void insertEntryJobFair(Long jobFairNo, Long memberNo, Long companyNo);
 
     ApplyDTO findCompanyByMemberNo(Long memberNo);
+
+    void insertJobFairEntry(ApplyDTO companyDTO);
 }
