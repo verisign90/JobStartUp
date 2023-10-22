@@ -9,6 +9,6 @@ import org.springframework.context.annotation.Configuration;
 public class SmsConfig {
     @Bean
     public DefaultMessageService messageService() {
-        return NurigoApp.INSTANCE.initialize("NCSRZ02REC5VXRBR", "NF4WPHFCHC3PECPXGDQOXDVHR2RF2TXN", "https://api.coolsms.co.kr");
+        return NurigoApp.INSTANCE.initialize("NCSSZCCQWSFFYWTR", "4LMR44FDIHRNAI8X6CYLAUFGJA3D9QFL", "https://api.coolsms.co.kr");
     }
 }
