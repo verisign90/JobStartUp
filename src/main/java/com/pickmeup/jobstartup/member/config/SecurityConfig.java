@@ -77,15 +77,6 @@ public class SecurityConfig {
                             ).permitAll();
 
                     // "/qna/" 관련 경로
-                    authorizeHttpRequests
-                            .requestMatchers(
-                                    new MvcRequestMatcher(introspector, "/qna/list"),
-                                    new MvcRequestMatcher(introspector, "/qna/list/**"),
-                                    new MvcRequestMatcher(introspector, "/qna/qfileDownload/**"),
-                                    new MvcRequestMatcher(introspector, "/qna/afileDownload/**"),
-                                    new MvcRequestMatcher(introspector, "/qna/write"),
-                                    new MvcRequestMatcher(introspector, "/qna/write/**")
-                            ).access("hasAuthority('COMPANY') or hasAuthority('COMMON') or hasAnyAuthority('ADMIN')");
 
                     authorizeHttpRequests
                             .requestMatchers(
@@ -96,6 +87,17 @@ public class SecurityConfig {
                                     new MvcRequestMatcher(introspector, "/qna/delete"),
                                     new MvcRequestMatcher(introspector, "/qna/delete/**")
                             ).access("hasAuthority('COMMON') or hasAnyAuthority('ADMIN')");
+
+                    authorizeHttpRequests
+                            .requestMatchers(
+                                    new MvcRequestMatcher(introspector, "/qna/list"),
+                                    new MvcRequestMatcher(introspector, "/qna/list/**"),
+                                    new MvcRequestMatcher(introspector, "/qna/qfileDownload/**"),
+                                    new MvcRequestMatcher(introspector, "/qna/afileDownload/**"),
+                                    new MvcRequestMatcher(introspector, "/qna/write"),
+                                    new MvcRequestMatcher(introspector, "/qna/write/**")
+                            ).access("hasAuthority('COMPANY') or hasAuthority('COMMON') or hasAnyAuthority('ADMIN')");
+
 
                     authorizeHttpRequests
                             .requestMatchers(
