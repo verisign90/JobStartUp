@@ -13,6 +13,13 @@
     <link rel="stylesheet" href="/css/qna/writeForm.css" type="text/css">
 </head>
 <body>
+<!-- ***** Nav start ***** -->
+<%@ include file="../layout/layoutNav.jsp" %>
+<div id="top" data-wow-duration="1s" data-wow-delay="0.5s">
+    <div class="header-text" data-wow-duration="1s" data-wow-delay="1s">
+    </div>
+</div>
+<!-- ***** Nav End ***** -->
 <c:if test="${sessionScope.role == 3}">
     <%@ include file="../layout/layoutAdminSidebar.jsp" %>
 </c:if>
@@ -22,18 +29,18 @@
         <h4>문의하기</h4>
         <div class="inner">
             <form action="/qna/write" enctype="multipart/form-data" method="post" name="writeFrom" id="writeFrom"
-                  class="txt">
+                  class="txt" onsubmit="return validateForm()">
                 <div class="wrap_input">
-         <span class="choice_input">
-          <span class="inpRdo">
-              <input type="radio" name="q_type" id="q_type" class="q_type" value="seeker"/>
-              <label class="lbl" for="q_type">개인</label>
-          </span>
-          <span class="inpRdo">
-              <input type="radio" name="q_type" id="q_type" class="q_type" value="company"/>
-              <label class="lbl" for="q_type">기업</label>
-          </span>
-         </span>
+                 <span class="choice_input">
+                  <span class="inpRdo">
+                      <input type="radio" name="q_type" id="q_type" class="q_type" value="seeker"/>
+                      <label class="lbl" for="q_type">개인</label>
+                  </span>
+                  <span class="inpRdo">
+                      <input type="radio" name="q_type" id="q_type" class="q_type" value="company"/>
+                      <label class="lbl" for="q_type">기업</label>
+                  </span>
+                 </span>
                 </div>
                 <select class="select" name="q_category" id="q_category">
                     <option value="q_category" selected disabled>선택해주세요</option>
@@ -43,7 +50,10 @@
                     <option value="서비스제안·칭찬">서비스제안·칭찬</option>
                     <option value="기타">기타</option>
                 </select>
-                <input type="text" value="xiuxiu@mylover.com" id="email"/>
+                <div id="errorSpan01"></div>
+                <input type="text" value="${member.member_email}" id="email" disabled/>
+                <input type="hidden" value="${member.member_email}" id="email"/>
+                <div id="errorSpan02"></div>
                 <textarea name="q_content" id="textarea" placeholder="문의내용을 입력하세요.(3000자 이내)" rows="10"
                           cols="30"></textarea>
                 <span class="length" id="length">(0/3000자)</span>
@@ -67,7 +77,7 @@
                         </div>
                         <div class="typography-border">
                             <label data-label-placement="right" data-group-item="false">
-                                <input type="checkbox" name="agree"/><span
+                                <input type="checkbox" name="agree" id="agreeCheckbox" /><span
                                     class="typography-checked"><em>개인정보수집 및 이용안내</em>에 동의합니다.</span>
                             </label>
                         </div>
@@ -78,9 +88,19 @@
         </div>
     </section>
 </article>
-<div id="top">
-    <a href="#">TOP</a>
-</div>
+<!-- Footer start -->
+<%@ include file="../layout/layoutFooter.jsp" %>
+<!-- Footer end -->
+<%@include file="../layout/layoutFooter.jsp" %>
+<script src="/css/template/vendor/jquery/jquery.min.js"></script>
+<script src="/css/template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/css/template/assets/js/owl-carousel.js"></script>
+<script src="/css/template/assets/js/animation.js"></script>
+<script src="/css/template/assets/js/imagesloaded.js"></script>
+<script src="/css/template/assets/js/popup.js"></script>
+<script src="/css/template/assets/js/custom.js"></script>
+<script src="/css/template/assets/js/side.js"></script>
+
 <script>
     showUploadResult = function showUploadResult() {
         var attZone = document.getElementById('att_zone');
@@ -170,13 +190,53 @@
             }
         });
 
-        $('#top').click(function () {
-            $('html, body').animate({
-                scrollTop: 0
-            }, 400);
-            return false;
-        });
+        var memberType = ${sessionScope.role}
+        if(memberType==1) {
+            var checkedValue = 'seeker';
+        } else {
+            var checkedValue = 'company';
+        }
+        selectRadioByValue(checkedValue);
     });
+
+
+
+    //유효성 검사
+    function validateForm() {
+      var qCategorySelect = document.getElementById("q_category");
+      var qText = document.getElementById("textarea");
+      var agreeCheckbox = document.getElementById("agreeCheckbox");
+
+     // q_category 유효성 검사
+     if (qCategorySelect.value === "") {
+         var errorSpan = document.getElementById("errorSpan01");
+         errorSpan.innerHTML = "<span style='color: red; font-size:10px; margin-left:10px;'>문의 카테고리를 선택해주세요.</span>";
+         return false;
+     }
+
+      // qText 유효성 검사
+      if (qText.value === "") {
+          var errorSpan = document.getElementById("errorSpan02");
+          errorSpan.innerHTML = "<span style='color: red; font-size:10px; margin-left:10px;'>내용을 입력해주세요.</span>";
+          return false;
+      }
+
+      if (!agreeCheckbox.checked) {
+        alert("개인정보수집 및 이용안내에 동의해야 합니다.");
+        return false;
+      }
+    }
+
+    function selectRadioByValue(checkedValue) {
+        var radioElements = document.getElementsByName('q_type');
+
+        for (var i = 0; i < radioElements.length; i++) {
+            if (radioElements[i].value === checkedValue) {
+                radioElements[i].checked = true;
+                break;
+            }
+        }
+    }
 </script>
 </body>
 </html>

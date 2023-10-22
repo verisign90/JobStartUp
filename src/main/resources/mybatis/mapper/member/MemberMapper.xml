@@ -76,4 +76,17 @@
         UPDATE member SET member_pw = #{newPassword} WHERE member_id = #{memberId}
     </update>
 
+    <!-- memberId로 member객체 가져오기 -->
+    <select id="selectMemberById" parameterType="String" resultType="com.pickmeup.jobstartup.member.entity.Member">
+        SELECT member_no, member_id, member_type, member_name, member_sex, member_hp, member_email, member_birth, member_loc
+        FROM member
+        WHERE member_id = #{memberId}
+    </select>
+
+    <!-- memberNo로 member객체 가져오기 -->
+    <select id="selectMemberByNo" parameterType="long" resultType="com.pickmeup.jobstartup.member.entity.Member">
+        SELECT member_no, member_id, member_type, member_name, member_sex, member_hp, member_email, member_birth, member_loc
+        FROM member
+        WHERE member_no = #{memberNo}
+    </select>
 </mapper>

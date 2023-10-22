@@ -14,38 +14,62 @@
   <link rel="stylesheet" href="/css/qna/list.css" type="text/css">
 </head>
 <body>
+<!-- ***** Nav start ***** -->
+<%@ include file="../layout/layoutNav.jsp" %>
+<div id="top" data-wow-duration="1s" data-wow-delay="0.5s">
+    <div class="header-text" data-wow-duration="1s" data-wow-delay="1s">
+    </div>
+</div>
+<!-- ***** Nav End ***** -->
+<c:if test="${sessionScope.role == 3}">
+    <%@ include file="../layout/layoutAdminSidebar.jsp" %>
+</c:if>
   <article class="question">
     <section class="contents">
       <h4>문의 내역</h4>
       <div class="inner">
-        <h3 class="sans">1:1 문의 내역이 <span class="blue">${questionPage.pagination.totalRecordCount}</span>건 있습니다.</h3>
+        <h5 class="sans">1:1 문의 내역이 <span class="blue">${questionPage.pagination.totalRecordCount}</span>건 있습니다.</h5>
         <div class="acco">
             <c:forEach var="question" items="${questionPage.list}">
               <c:choose>
                 <c:when test="${empty question.answerDTO}">
-                  <section class="three open">
+                  <section class="three openacco">
                     <div class="q">
                         <span class="yet">답변대기</span>
                 </c:when>
                 <c:otherwise>
-                  <section class="three close">
+                  <section class="three closeacco">
                     <div class="q">
                          <span class="finish">답변완료</span>
                 </c:otherwise>
               </c:choose>
               <c:choose>
                <c:when test="${fn:length(question.q_content) > 30}">
-                <p><c:out value="${fn:substring(question.q_content,0,29)}"/>...</p>
+                <p class="fontTitle"><c:out value="${fn:substring(question.q_content,0,29)}"/>...</p>
                </c:when>
                <c:otherwise>
-                <p><c:out value="${question.q_content}"/></p>
+                <p class="fontTitle"><c:out value="${question.q_content}"/></p>
                </c:otherwise>
               </c:choose>
               <p>▶</p>
             </div>
             <div class="a">
               <div class="line">
-                <p>${question.q_content}</p>
+                <p class="fontSty">
+                    <div class="category_content">
+                    <c:choose>
+                        <c:when test="${question.company_no==0}">
+                            <span>[ 홈페이지 문의 - </span>
+                        </c:when>
+                        <c:otherwise>
+                            <span>[ 공고 문의 - </span>
+                        </c:otherwise>
+                    </c:choose>
+                        <span>${question.q_category} ]</span></div>
+                </p>
+                <p class="fontSty">
+                    ${question.q_content}
+                </p>
                   <c:if test="${not empty question.questionFileDTOList}">
                    <span> 첨부파일 :
                      <c:forEach var="questionFile" items="${question.questionFileDTOList}">
@@ -53,27 +77,48 @@
                      </c:forEach>
                    </span>
                   </c:if>
-                  <span><button type="button" onclick="modifyQuestion(${question.q_no});">수정</button></span>
-                  <span><button type="button" onclick="deleteQuestion(${question.q_no});">삭제</button></span>
+                  <c:if test="${question.member_no eq sessionScope.memberNo  && sessionScope.role eq 1}">
+                      <span><button type="button" onclick="modifyQuestion(${question.q_no});">수정</button></span>
+                      <span><button type="button" onclick="deleteQuestion(${question.q_no});">삭제</button></span>
+                  </c:if>
+                  <c:if test="${sessionScope.role eq 3}">
+                    <span><button type="button" onclick="deleteQuestion(${question.q_no});">삭제</button></span>
+                  </c:if>
               </div>
               <div class="answerDiv" id="answerDiv-${question.q_no}">
                 <c:choose>
                  <c:when test="${empty question.answerDTO}">
                     <strong>답변대기</strong>
-                    <p>아직 질문에 답변이 달리지 않았습니다. 영업일 기준 3일 이내로 회신드립니다. <span class="answerBtn"><button type="button" onclick="answerForm(${question.q_no})">답글달기</button></span></p>
+                    <p class="fontSty">
+                        아직 질문에 답변이 달리지 않았습니다. 영업일 기준 3일 이내로 회신드립니다.
+                    <span class="answerBtn">
+                        <c:if test="${question.company_no==0 && sessionScope.role eq 3}">
+                            <button type="button" onclick="answerForm(${question.q_no})">답글달기</button>
+                        </c:if>
+                        <c:if test="${question.company_no eq companyNo && sessionScope.role eq 2 }">
+                            <button type="button" onclick="answerForm(${question.q_no})">답글달기</button>
+                        </c:if>
+                    </span>
+                    </p>
                  </c:when>
                <c:otherwise>
                     <strong>답변완료</strong>
                     <p>${question.answerDTO.a_content}</p>
                       <c:if test="${not empty question.answerDTO.answerFileDTOList}">
-                       <span> 첨부파일 :
-                         <c:forEach var="answerFile" items="${question.answerDTO.answerFileDTOList}">
-                             <a class="no-hover" href="/qna/afileDownload/${answerFile.AFile_no}"><div class="file">${answerFile.AFile_orgName}</div></a>
-                         </c:forEach>
-                       </span>
+                           <span> 첨부파일 :
+                             <c:forEach var="answerFile" items="${question.answerDTO.answerFileDTOList}">
+                                 <a class="no-hover" href="/qna/afileDownload/${answerFile.AFile_no}"><div class="file">${answerFile.AFile_orgName}</div></a>
+                             </c:forEach>
+                           </span>
                       </c:if>
-                   <span><button type="button" onclick="modifyAnswer(${question.q_no}); answerForm(${question.q_no});">수정</button></span>
-                   <span><button type="button" onclick="deleteAnswer(${question.answerDTO.a_no});">삭제</button></span>
+                    <c:if test="${question.company_no eq 0 && sessionScope.role eq 3}">
+                       <span><button type="button" onclick="modifyAnswer(${question.q_no}); answerForm(${question.q_no});">수정</button></span>
+                       <span><button type="button" onclick="deleteAnswer(${question.answerDTO.a_no});">삭제</button></span>
+                    </c:if>
+                    <c:if test="${question.company_no eq companyNo && sessionScope.role eq 2 }">
+                       <span><button type="button" onclick="modifyAnswer(${question.q_no}); answerForm(${question.q_no});">수정</button></span>
+                       <span><button type="button" onclick="deleteAnswer(${question.answerDTO.a_no});">삭제</button></span>
+                    </c:if>
                </c:otherwise>
                </c:choose>
               </div>
@@ -92,10 +137,10 @@
       		<c:forEach var="pNo" begin="${page.firstPage}" end="${page.lastPage}" step="1">
       		 <c:choose>
       		 <c:when test="${pNo != criteria.currentPageNo}">
-      			<li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="movePage(pNo)">${pNo}</a></li>
+      			<li class="page-item"><span><a class="page-link" href="javascript:void(0);" onclick="movePage(${pNo})">${pNo}</a></span></li>
       		 </c:when>
       		  <c:otherwise>
-      		    <li class="page-item">${pNo}</li>
+      		    <li class="page-item"><span>${pNo}</span></li>
       		  </c:otherwise>
       		 </c:choose>
       		</c:forEach>
@@ -108,6 +153,19 @@
     </section>
   </article>
 </body>
+<!-- Footer start -->
+<%@ include file="../layout/layoutFooter.jsp" %>
+<!-- Footer end -->
+<%@include file="../layout/layoutFooter.jsp" %>
+<script src="/css/template/vendor/jquery/jquery.min.js"></script>
+<script src="/css/template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/css/template/assets/js/owl-carousel.js"></script>
+<script src="/css/template/assets/js/animation.js"></script>
+<script src="/css/template/assets/js/imagesloaded.js"></script>
+<script src="/css/template/assets/js/popup.js"></script>
+<script src="/css/template/assets/js/custom.js"></script>
+<script src="/css/template/assets/js/side.js"></script>
+
 <script>
     var accItem = document.getElementsByClassName('three');
     var accHD = document.getElementsByClassName('q');
@@ -118,21 +176,22 @@
     function toggleItem() {
       var itemClass = this.parentNode.className;
       for (i = 0; i < accItem.length; i++) {
-        accItem[i].className = 'three close';
+        accItem[i].className = 'three closeacco';
       }
-      if (itemClass === 'three close') {
-        this.parentNode.className = 'three open';
+      if (itemClass === 'three closeacco') {
+        this.parentNode.className = 'three openacco';
       }
     }
 
-    function movePage(currentPageNo, category) {
-            const urlParams = new URLSearchParams(currentURL.search);
+    function movePage(currentPageNo) {
             const queryParams = {
                 currentPageNo: (currentPageNo) ? currentPageNo : 1,
-                recordsPerPage: 5,
+                recordsPerPage: 3,
                 pageSize: 5,
             }
-            location.href = location.pathname+ '?' + new URLSearchParams(queryParams).toString();
+            const queryString = new URLSearchParams(queryParams).toString();
+            const url = location.pathname + ((queryString !== "") ? "?" + queryString : "");
+            location.href = url;
     }
 
     function answerForm(qNo){

@@ -3,8 +3,6 @@ package com.pickmeup.jobstartup.member.service;
 import com.pickmeup.jobstartup.member.dto.JoinCommonDTO;
 import com.pickmeup.jobstartup.member.dto.JoinCompanyDTO;
 import com.pickmeup.jobstartup.member.entity.Member;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.web.bind.annotation.RequestParam;
 
 public interface MemberService {
     //아이디 중복 여부 검사
@@ -48,4 +46,10 @@ public interface MemberService {
 
     //기업회원 비밀번호 재설정
     void updateCompanyPassword(String memberId, String newPassword);
+
+    //회원 id로 멤벅 객체 가져오기
+    Member getMember(String memberId);
+
+    //회원 번호로 멤버 객체 가져오기
+    Member getMemberNo(long memberNo);
 }

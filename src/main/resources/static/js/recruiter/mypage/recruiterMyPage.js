@@ -129,14 +129,14 @@ $(document).ready(function(){
 
     /* 질의 관리 */
     $("#qna").on("click",function(){
-        event.preventDefault();
         let company_no = $(".company_no").val();
         console.log(company_no);
         $.ajax({
             url: "/qna/recruiter/list",
-            type:"POST",
-            data: { company_no: company_no }
+            type: "POST",
+            data: { company_no : company_no }
         }).done(function(result){
+            console.log(result);
             var html = jQuery('<div>').html(result);
             var contents = html.find("div#content_list").html();
             $("#content-container").html(contents);
