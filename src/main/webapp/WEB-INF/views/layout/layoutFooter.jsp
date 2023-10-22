@@ -24,13 +24,13 @@
     <a href="#">TOP</a>
 </div>
 <footer id="newsletter">
-    <div>
-        <div class="container">
-            <div class="row">
+    <div class="footer-line" style="border-top: 1px solid rgba(42,42,42,0.2);">
+        <div class="container" style="padding-top: 80px;">
+            <div class="row" style="margin-left: 90px">
                 <div class="col-lg-3">
                     <div class="footer-widget">
                         <h4>Contact Us</h4>
-                        <p>6th floor of Esco Building, 7, Teheran-ro 7-gil, Gangnam-gu, Seoul</p>
+                        <p>6th floor of Esco Building,<br/>7, Teheran-ro 7-gil,<br/>Gangnam-gu, Seoul</p>
                         <p><a href="#">010-9913-3180</a></p>
                         <p><a href="#">jobstartup@company.co</a></p>
                     </div>
@@ -73,7 +73,7 @@
                     <div class="footer-widget">
                         <h4>About Our Company</h4>
                         <div class="logo">
-                            <img src="/css/template/assets/images/jobstartup_logo.png" alt="logo">
+                            <img src="/css/template/assets/images/jobstartup_logo_icon.png" alt="logo">
                         </div>
                         <p></p>
                     </div>

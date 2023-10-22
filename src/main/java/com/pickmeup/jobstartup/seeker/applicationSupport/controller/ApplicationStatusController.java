@@ -4,6 +4,7 @@ import ch.qos.logback.core.net.SyslogOutputStream;
 import com.pickmeup.jobstartup.member.entity.Member;
 import com.pickmeup.jobstartup.seeker.applicationSupport.dto.PostingBookmarkDTO;
 import com.pickmeup.jobstartup.seeker.applicationSupport.dto.ResumeApplyDTO;
+import com.pickmeup.jobstartup.seeker.applicationSupport.service.ApplicationStatusService;
 import com.pickmeup.jobstartup.seeker.applicationSupport.service.ApplicationStatusServiceImpl;
 import com.pickmeup.jobstartup.seeker.applicationSupport.service.PostingBookmarkServiceImpl;
 import com.pickmeup.jobstartup.seeker.resume.controller.ResumeController;
@@ -87,20 +88,25 @@ public class ApplicationStatusController {
     public String selectInterviewStatus (Model model) {
         logger.info("ApplicationStatusController-selectInterviewStatus() 진입");
 
+        Member member = null;
         int member_no = 0;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null) {
             Object principal = authentication.getPrincipal();
             if (principal instanceof UserDetails) {
-                Member member = postingBookmarkService.findMemberByUsername(((UserDetails) principal).getUsername());
+                member = postingBookmarkService.findMemberByUsername(((UserDetails) principal).getUsername());
                 member_no = member.getMember_no();
             }
         }
 
         List<ResumeApplyDTO> statusList = applicationStatusService.selectApplyStatus(member_no);
+        List<ResumeApplyDTO> todayList = applicationStatusService.selectToday(member_no);
         logger.info("statusList: {}", statusList);
 
         model.addAttribute("statusResult", statusList);
+        model.addAttribute("todayList", todayList);
+        model.addAttribute("member", member);
+
         return "seeker/applicationSupport/interviewStatus";
     }
 }

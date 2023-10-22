@@ -29,17 +29,16 @@
                 <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
                     <a href="/" class="logo">
-                        <img src="/css/template/assets/images/jobstartup_logo04.png" style="height: 100px;"
+                        <img src="/css/template/assets/images/logo.png" style="height: 90px; padding-top: 10px"
                              alt="Chain App Dev">
                     </a>
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
-                        <li class="scroll-to-section"><a href="${cPath}/" class="active">Home</a></li>
                         <li class="scroll-to-section"><a href="${cPath}/jobfair/list">취업박람회</a></li>
                         <li class="scroll-to-section"><a href="${cPath}/recruiter/JPlist">채용공고</a></li>
                         <c:if test="${sessionScope.role == 1}">
-                            <li class="scroll-to-section"><a href="${cPath}/seeker/resumeList">개인서비스</a></li>
+                            <li class="scroll-to-section"><a href="${cPath}/seeker/mypageHome">개인서비스</a></li>
                         </c:if>
                         <c:if test="${sessionScope.role == 2}">
                             <li class="scroll-to-section"><a
@@ -66,7 +65,7 @@
                                     </a>
                                 </span>
                         </li>
-                        <li style="min-width: 280px">
+                        <li style="min-width: 200px">
                                     <div class="gradient-button"><a id="modal_trigger_out"
                                                                     href="${cPath}/logout">
                                         <i class="fa fa-sign-in-alt"></i>로그아웃</a></div>

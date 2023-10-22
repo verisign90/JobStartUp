@@ -32,10 +32,69 @@
         </collection>
     </resultMap>
 
+    <resultMap id="selectDetail" type="ResumeApplyDTO">
+        <id property="status_no" column="status_no"/>
+        <result property="resume_no" column="resume_no"/>
+        <result property="member_no" column="member_no"/>
+        <result property="posting_no" column="posting_no"/>
+        <result property="first_pass" column="first_pass"/>
+        <result property="final_pass" column="final_pass"/>
+        <result property="interview_date" column="interview_date"/>
+
+        <collection property="jobPostingDTOList" ofType="JobPostingDTO">
+            <id property="posting_no" column="posting_no" javaType="Long" jdbcType="INTEGER"/>
+            <result property="company_no" column="company_no"/>
+            <result property="posting_title" column="posting_title"/>
+            <result property="posting_career" column="posting_career"/>
+            <result property="posting_academy" column="posting_academy"/>
+            <result property="posting_jobCode" column="posting_jobCode"/>
+            <result property="posting_type" column="posting_type"/>
+            <result property="posting_labor" column="posting_labor"/>
+            <result property="posting_preferential" column="posting_preferential"/>
+            <result property="posting_skill" column="posting_skill"/>
+            <result property="posting_salary" column="posting_salary"/>
+            <result property="posting_sdate" column="posting_sdate"/>
+            <result property="posting_edate" column="posting_edate"/>
+            <result property="posting_cnt" column="posting_cnt"/>
+            <result property="isshow" column="isshow"/>
+            <result property="posting_content" column="posting_content"/>
+            <result property="posting_working_day" column="posting_working_day"/>
+            <result property="posting_position" column="posting_position"/>
+        </collection>
+
+        <collection property="companyDTOList" ofType="ApplyDTO">
+            <id property="company_no" column="company_no"/>
+            <result property="member_no" column="member_no"/>
+            <result property="company_name" column="company_name"/>
+            <result property="company_hp" column="company_hp"/>
+            <result property="ceo_name" column="ceo_name"/>
+            <result property="company_type" column="company_type"/>
+            <result property="business_type_code" column="business_type_code"/>
+            <result property="company_address_code" column="company_address_code"/>
+            <result property="company_sales" column="company_sales"/>
+            <result property="logo_orgname" column="logo_orgname"/>
+            <result property="logo_savname" column="logo_savname"/>
+            <result property="company_address_detail" column="company_address_detail"/>
+            <result property="company_est" column="company_est"/>
+            <result property="application_date" column="application_date"/>
+            <result property="company_site" column="company_site"/>
+        </collection>
+    </resultMap>
+
     <select id="selectApplyStatus" resultMap="ApplyStatusMap" parameterType="int">
         SELECT *
         FROM APPLICATION_STATUS
         INNER JOIN RESUME ON APPLICATION_STATUS.RESUME_NO = RESUME.RESUME_NO
         WHERE APPLICATION_STATUS.MEMBER_NO = #{member_no}
+    </select>
+
+    <!-- 오늘 면접 조회 -->
+    <select id="selectToday" resultMap="selectDetail" parameterType="int">
+        SELECT *
+        FROM application_status A
+                 JOIN job_posting JP ON A.posting_no = JP.posting_no
+                 JOIN company C ON JP.company_no = C.company_no
+        WHERE TRUNC(A.interview_date) = TRUNC(SYSDATE)
+            AND A.MEMBER_NO = #{member_no}
     </select>
 </mapper>

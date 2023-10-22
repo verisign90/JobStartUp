@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="cPath" value="<%=request.getContextPath() %>"/>
 <html>
@@ -26,8 +26,9 @@
                         <!-- 제목 input -->
                         <div class="title-container">
                             <div class="form-floating mb-3">
-                                <input type="text" name="resume_title" id="resume_title" class="form-control" value="당신을 표현할 수 있는 제목을 입력하세요." style="color: #a8a8a8" onfocus="titleClick(this)"/>
+                                <input type="text" name="resume_title" id="resume_title" class="form-control" value="${member.member_name}의 이력서" style="color: #a8a8a8" onfocus="titleClick(this)"/>
                                 <label for="resume_title"></label>
+                                <div style="font-size: 13px; color: #a8a8a8; margin: 5px 0px 0px 10px;">* 제목 미기재시 '${member.member_name}의 이력서'로 자동 저장됩니다.</div>
                             </div>
                         </div>
                         <!-- 프로필사진 input -->
@@ -41,7 +42,6 @@
                                             <div class="col-md-12">
                                                 <div style="position: relative;">
                                                     <img id="profileImage" src="/img/default_profile.jpg" style="width: 137px; height: 176px;" class="mb-3" onclick="document.getElementById('profileOrgNameFile').click();" />
-                                                    <span id="imageChangeText" style="position: absolute; top: 10px; left: 10px;">사진 변경</span>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
@@ -54,48 +54,60 @@
                                     </div>
                                     <div class="col-md-10" style="padding: 10px;">
                                         <div class="row">
-                                            <div class="row">
+                                            <div class="row mt-1">
                                                 <div class="col-md-4">
                                                     <!-- 이름 -->
                                                     <div class="form-floating mb-3">
-                                                        <input type="text" name="name" id="name" class="form-control" />
+                                                        <input type="text" name="name" id="name" class="form-control" value="${member.member_name}"/>
                                                         <label for="name" class="form-label">이름</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <!-- 생년월일 -->
                                                     <div class="form-floating mb-3">
-                                                        <input type="text" name="dob" id="dob" class="form-control" />
+                                                        <input type="text" name="dob" id="dob" class="form-control" value="${member.member_birth}"/>
                                                         <label for="dob" class="form-label">생년월일</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <!-- 이메일 -->
                                                     <div class="form-floating mb-3">
-                                                        <input type="text" name="email" id="email" class="form-control" />
+                                                        <input type="text" name="email" id="email" class="form-control" value="${member.member_email}"/>
                                                         <label for="email" class="form-label">이메일</label>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row">
+                                            <div class="row mt-4">
                                                 <div class="col-md-4">
                                                     <!-- 성별 -->
                                                     <div class="form-floating mb-3">
-                                                        <input type="text" name="gender" id="gender" class="form-control" />
+                                                        <c:choose>
+                                                            <c:when test="${member.member_sex eq 'female'}">
+                                                                <c:set var="genderLabel" value="여성" />
+                                                            </c:when>
+                                                            <c:when test="${member.member_sex eq 'male'}">
+                                                                <c:set var="genderLabel" value="남성" />
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <c:set var="genderLabel" value="기타" />
+                                                            </c:otherwise>
+                                                        </c:choose>
+
+                                                        <input type="text" name="gender" id="gender" class="form-control" value="${member.member_sex}"/>
                                                         <label for="gender" class="form-label">성별</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <!-- 휴대폰번호 -->
                                                     <div class="form-floating mb-3">
-                                                        <input type="text" name="phone" id="phone" class="form-control" />
+                                                        <input type="text" name="phone" id="phone" class="form-control" value="${member.member_hp}"/>
                                                         <label for="phone" class="form-label">휴대폰번호</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="mb-3" style="position: relative;">
                                                         <div class="mb-3 grid text-center form-floating" id="addressDiv">
-                                                            <input type="text" name="petAddress" id="sample6_address" class="form-control float-start">
+                                                            <input type="text" name="petAddress" id="sample6_address" class="form-control float-start" value="${member.member_loc}">
                                                             <label for="sample6_address">주소</label>
                                                         </div>
                                                         <div class="mb-1 grid text-center form-floating" id="detailAddressDiv">
@@ -113,84 +125,65 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- 원하는 연봉 input -->
-                        <div class="form-floating mb-3">
-                            <input type="text" name="resume_money" id="resume_money" class="form-control"/>
-                            <label for="resume_money">희망연봉</label>
-                        </div>
-                        <!-- 희망근무지역 input -->
-                        <div id="locationContainer">
-                            <div class="locationBlock">
-                               <%-- <div class="form-floating mb-3">
-                                    <input type="text" name="resumeLocDTOList[0].loc_detail_code_num" id="loc_detail_code_num0" class="form-control"/>
-                                    <label for="loc_detail_code_num0">희망근무지역</label>
-                                </div>--%>
-
-                               <%--<div>
-                                   <span>근무지역</span>
-                                   <select id="upperLoc" name="upperLoc" onchange="loadLowerLoc()">
-                                       <option value="">선택</option>
-                                       <c:forEach items="${upperLoc}" var="upLoc">
-                                           <option value="${upLoc.detail_code_num}">${upLoc.detail_name}</option>
-                                       </c:forEach>
-                                   </select>
-                                   <select id="lowerLoc" name="lowerLoc">
-                                       <option value="">선택</option>
-                                       <c:forEach items="${lowerLoc}" var="loLoc">
-                                           <option value="${loLoc.detail_code_num}">${loLoc.detail_name}</option>
-                                       </c:forEach>
-                                   </select>
-                               </div>--%>
-                               <%--<div>
-                                   <span>근무지역</span>
-                                   <select id="upperLoc" name="upperLoc" onchange="loadLowerLoc()">
-                                       <option value="">선택</option>
-                                       <c:forEach items="${upperLoc}" var="upLoc">
-                                           <option value="${upLoc.detail_code_num}" data-name="${upLoc.detail_name}">${upLoc.detail_name}</option>
-                                       </c:forEach>
-                                   </select>
-                                   <select id="lowerLoc" name="lowerLoc">
-                                       <option value="">선택</option>
-                                       <c:forEach items="${lowerLoc}" var="loLoc">
-                                           <option value="${loLoc.detail_code_num}" data-name="${loLoc.detail_name}">${loLoc.detail_name}</option>
-                                       </c:forEach>
-                                   </select>
-                               </div>
-                               <div id="selectionResult"></div>--%>
-
-                           <div id="locationContainer">
-                               <div class="locationBlock">
-                                   <div>
-                                       <span>근무지역</span>
-                                       <select id="upperLoc" name="upperLoc" onchange="loadLowerLoc()">
-                                           <option value="">선택</option>
-                                           <c:forEach items="${upperLoc}" var="upLoc">
-                                               <option value="${upLoc.detail_code_num}" data-name="${upLoc.detail_name}">${upLoc.detail_name}</option>
-                                           </c:forEach>
-                                       </select>
-                                       <select id="lowerLoc" name="lowerLoc">
-                                           <option value="">선택</option>
-                                           <c:forEach items="${lowerLoc}" var="loLoc">
-                                               <option value="${loLoc.detail_code_num}" data-name="${loLoc.detail_name}">${loLoc.detail_name}</option>
-                                           </c:forEach>
-                                       </select>
-                                   </div>
-                                   <div id="selectionResult">
-                                       <!-- 선택한 지역이 여기에 추가될 것입니다. -->
-                                   </div>
-                               </div>
-                           </div>
+                        <div class="item-container">
+                            <!-- 학력 -->
+                            <div class="form-floating mb-3">
+                                <input type="text" name="" id="education" class="form-control"/>
+                                <label for="education">최종학력</label>
+                            </div>
 
 
+                            <!-- 희망 연봉 -->
+                            <div class="form-floating mb-3">
+                                <input type="text" name="resume_money" id="resume_money" class="form-control"/>
+                                <label for="resume_money">희망연봉</label>
+                            </div>
 
+                            <!-- 업무능력 input -->
+                            <div class="form-floating mb-3">
+                                <input type="text" name="resume_skill" id="resume_skill" class="form-control"/>
+                                <label for="resume_skill">업무능력</label>
+                            </div>
+
+                            <%-- 희망 근무지역 --%>
+                            <div id="locationContainer">
+                                <div class="locationBlock">
+                                    <div class="col-md-12">
+                                        <div class="row form-floating mb-3">
+                                            <div class="col-6">
+                                                <div class="form-floating">
+                                                    <select id="upperLoc" name="upperLoc" class="form-control" onchange="loadLowerLoc()">
+                                                        <option value="">지역 분류를 선택해주세요.</option>
+                                                        <c:forEach items="${upperLoc}" var="upLoc">
+                                                            <option value="${upLoc.detail_code_num}">${upLoc.detail_name}</option>
+                                                        </c:forEach>
+                                                    </select>
+
+                                                    <label for="upperLoc">희망근무지역</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-floating">
+                                                    <select id="lowerLoc" name="lowerLoc" class="form-control">
+                                                        <option value=""></option>
+                                                        <c:forEach items="${lowerLoc}" var="loLoc">
+                                                            <option value="${loLoc.detail_code_num}" data-name="${loLoc.detail_name}">${loLoc.detail_name}</option>
+                                                        </c:forEach>
+                                                    </select>
+                                                    <label for="upperLoc">&nbsp;</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row" style="border: none;">
+                                        <div class="col-sm-0"></div>
+                                        <div class="col-sm-12">
+                                            <span id="selectionResult"></span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <!-- 업무능력 input -->
-                        <div class="form-floating mb-3">
-                            <input type="text" name="resume_skill" id="resume_skill" class="form-control"/>
-                            <label for="resume_skill">업무능력</label>
-                        </div>
-
 
                         <!-- 경력 섹션 -->
                         <div class="item-container">
@@ -209,14 +202,14 @@
                                             <input type="text" name="careerDTOList[0].career_date" id="career_date0" class="form-control"/>
                                             <label for="career_date0">경력기간</label>
                                         </div>
-                                        <%--<div class="form-floating mb-3 col-sm">
+                                        <div class="form-floating mb-3 col-sm">
                                             <input type="text" name="careerDTOList[0].business_type" id="business_type0" class="form-control"/>
                                             <label for="business_type0">경력직무</label>
-                                        </div>--%>
+                                        </div>
 
-                                        <%--<div class="form-floating mb-3 col-sm>
+                                        <div class="form-floating mb-3 col-sm">
 
-                                        <label for="business_type_code_up"></label>
+                                        <%--<label for="business_type_code_up"></label>
                                         <select id="business_type_code_up" name="business_type_code_up" onchange="loadBusiness_type_code_up(0)" required>
                                                 <option value="">선택</option>
                                                 <c:forEach items="${upperJob}" var="upJob">
@@ -230,15 +223,22 @@
                                                 <c:forEach items="${lowerJob}" var="loJob">
                                                     <option value="${loJob.detail_code_num}">${loJob.detail_name}</option>
                                                 </c:forEach>
-                                        </select><br><br>
-                                        </div>--%>
+                                        </select><br><br>--%>
+                                        </div>
+
                                         <div class="form-floating mb-3 col-sm">
                                             <label for="business_type_code_up0">회사업종코드:</label>
                                             <select id="business_type_code_up0" name="business_type_code_up" onchange="loadBusinessTypeCodeUp(0)" required>
                                                 <option value="">선택</option>
+                                                <c:forEach items="${upperJob}" var="upJob">
+                                                    <option value="${upJob.detail_code_num}">${upJob.detail_name}</option>
+                                                </c:forEach>
                                             </select>
                                             <select id="business_type_code0" name="careerDTOList[0].business_type" required>
                                                 <option value="">선택</option>
+                                                <c:forEach items="${lowerJob}" var="loJob">
+                                                    <option value="${loJob.detail_code_num}">${loJob.detail_name}</option>
+                                                </c:forEach>
                                             </select>
                                         </div>
 
@@ -361,18 +361,19 @@
 <%--우편API--%>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-    /*document.addEventListener("DOMContentLoaded", function () {
-        const addButtons = document.getElementsByClassName("addFieldButton");
-        Array.from(addButtons).forEach(button => {
-            button.addEventListener("click", addField);
-        });*/
+    var genderInput = document.getElementById("gender");
+    genderInput.value = "${genderLabel}";
     document.addEventListener("DOMContentLoaded", function () {
         const addButtons = document.getElementsByClassName("addFieldButton");
         Array.from(addButtons).forEach(button => {
             button.addEventListener("click", addField);
         });
+        // const addButtons = document.querySelectorAll(".addFieldButton");
+        // addButtons.forEach(button => {
+        //     button.addEventListener("click", addField);
+        // });
 
-        /*function addField(event) {
+        function addField(event) {
             const section = event.currentTarget.getAttribute('data-section');
             console.log("section:", section);
             const baseName = event.currentTarget.getAttribute('data-basename');
@@ -382,54 +383,51 @@
             const count = container.find("." + section + "Block").length;
             console.log("count:", count);
 
-            let newBlock = document.createElement("div");
-            newBlock.className = section + "Block";*/
-
-        function addField(event) {
-            const section = event.currentTarget.getAttribute('data-section');
-            console.log("section:", section);
-            const baseName = event.currentTarget.getAttribute('data-basename');
-            console.log("baseName:", baseName);
-            const container = document.getElementById(section + "Container");
-            console.log("container:", container);
-            const count = container.getElementsByClassName(section + "Block").length;
-            console.log("count:", count);
+            var nextIndex = 0;
 
             let newBlock = document.createElement("div");
             newBlock.className = section + "Block";
 
-
+            // Depending on the section, adjust the innerHTML
             switch (section) {
-                /*case "location":
+                case "location":
                     newBlock.innerHTML =
                         '<div class="form-floating mb-3">' +
                         '<input type="text" name="' + baseName + '[' + count + '].loc_detail_code_num" id="loc_detail_code_num' + count + '" class="form-control"/>' +
                         '<label for="loc_detail_code_num' + count + '">희망근무지역 ' +  (count+1) + '</label>' +
                         '</div>';
-                    break;*/
+                    break;
                 case "career":
                     newBlock.innerHTML =
                         '<div class="row g-2">' +
                         '<div class="form-floating mb-3 col-sm-6">' +
                         '<input type="text" name="' + baseName + '[' + count + '].career_company" id="career_company' + count + '" class="form-control"/>' +
-                        '<label for="career_company' + count + '">회사명' +  (count+1) + '</label>' +
+                        '<label for="career_company' + count + '">회사명' + (count + 1) + '</label>' +
                         '</div>' +
                         '<div class="form-floating mb-3 col-sm">' +
                         '<input type="text" name="' + baseName + '[' + count + '].career_date" id="career_date' + count + '" class="form-control"/>' +
-                        '<label for="career_date' + count + '">경력기간' +  (count+1) + '</label>' +
+                        '<label for="career_date' + count + '">경력기간' + (count + 1) + '</label>' +
                         '</div>' +
                         '<div class="form-floating mb-3 col-sm">' +
-                        '<label for="business_type_code_up${count}">' + '</label>' +
-                        '<select id="business_type_code_up${count}" name="business_type_code_up" onchange="loadBusinessTypeCodeUp(${count})" required>' +
-                        '<option value="">' + 선택 + '</option>' +
+                        '<label for="business_type_code_up' + count + '">회사업종코드:' + '</label>' +
+                        '<select id="business_type_code_up' + count + '" name="business_type_code_up" onchange="loadBusinessTypeCodeUp(' + count + ')" required>' +
+                        '<option value="">선택' + '</option>' +
+                        '<c:forEach items="${upperJob}" var="upJob">' +
+                        '<option value="${upJob.detail_code_num}">${upJob.detail_name}' + '</option>' +
+                        '</c:forEach>' +
                         '</select>' +
-                        '<select id="business_type_code${count}" name="careerDTOList[${count}].business_type">' +
-                        '<option value="">' + 선택 + '</option>' +
+                        '<label for="business_type' + count + '">경력직무:</label>' +
+                        '<select id="business_type' + count + '" name="' + baseName + '[' + count + '].business_type" required>' +
+                        '<option value="">선택' + '</option>' +
+                        '<c:forEach items="${lowerJob}" var="loJob">' +
+                        '<option value="${loJob.detail_code_num}">${loJob.detail_name}' + '</option>' +
+                        '</c:forEach>' +
                         '</select>' +
                         '</div>' +
                         '<div class="form-floating mb-3">' +
-                        '<textarea name="' + baseName + '[' + count + '].career_work" id="career_work' + count + '" class="form-control" style="width: 942px; height: 137px"></textarea>' +
-                        '<label for="career_work' + count + '">담당업무' +  (count+1) + '</label>' +
+                        '<input type="text" name="' + baseName + '[' + count + '].career_work" id="career_work' + count + '" class="form-control"/>' +
+                        '<label for="career_work' + count + '">담당업무' + (count + 1) + '</label>' +
+                        '</div>' +
                         '</div>';
                     break;
                 case "certificate":
@@ -460,7 +458,10 @@
                         '<input type="text" name="' + baseName + '[' + count + '].lang_level" id="lang_level' + count + '" class="form-control"/>' +
                         '<label for="lang_level' + count + '">회화능력' +  (count+1) + '</label>' +
                         '</div>' +
-                        '</div>' +
+                        '</div>';
+                    break;
+                case "langCer":
+                    newBlock.innerHTML =
                         '<div class="row g-3">' +
                         '<div class="form-floating mb-3 col-sm-6">' +
                         '<input type="text" name="' + baseName + '[' + count + '].lang_cer_exam" id="lang_cer_exam' + count + '" class="form-control"/>' +
@@ -478,8 +479,7 @@
                     break;
 
             }
-            container.appendChild(newBlock);
-            loadBusiness_type_code_up(count);
+            container.append(newBlock);
         }
     });
 
@@ -586,6 +586,32 @@
             .catch(error => console.error('Error:', error));
     }
 
+    document.addEventListener("DOMContentLoaded", function () {
+        const submitBtn = document.getElementById("submitBtn");
+
+        submitBtn.addEventListener("click", function () {
+            const resumeTitleInput = document.getElementById("RESUME_TITLE");
+            const profileOrgNameInput = document.getElementById("PROFILE_ORGNAME");
+            const resumeMoneyInput = document.getElementById("RESUME_MONEY");
+
+            const resumeTitleValue = resumeTitleInput.value.trim();
+            const profileOrgNameValue = profileOrgNameInput.value.trim();
+            const resumeMoneyValue = resumeMoneyInput.value.trim();
+
+            if (resumeTitleValue === "") {
+                alert("제목은 필수 입력입니다.");
+                resumeTitleInput.focus();
+            } else if (profileOrgNameValue === "") {
+                alert("프로필 첨부는 필수 입력입니다.");
+                profileOrgNameInput.focus();
+            } else if (resumeMoneyValue === "") {
+                alert("희망연봉은 필수 입력입니다.");
+                resumeMoneyInput.focus();
+            } else {
+                // 여기에서 제출 또는 다음 동작을 수행합니다.
+            }
+        });
+    });
 
 </script>
 <script>
@@ -648,14 +674,52 @@
         var selectionResult = document.getElementById("selectionResult");
         selectionResult.innerHTML = ""; // 이전 내용 초기화
 
+        // 최대 5개까지만 허용
+        if (locations.length > 5) {
+            alert("희망 근무지역은 최대 5개까지 선택 가능합니다.");
+            locations = locations.slice(0, 5); // 최대 5개까지만 유지
+        }
+
+        // 중복을 방지하기 위한 Set을 사용
+        var selectedLowerLocsSet = new Set();
+
         locations.forEach(function (location, index) {
+            // 중복을 확인
+            if (selectedLowerLocsSet.has(location.code)) {
+                alert("이미 선택된 지역입니다.");
+                return; // 중복된 경우 추가하지 않고 종료
+            }
+
+            // 중복이 아닌 경우 추가
+            selectedLowerLocsSet.add(location.code);
+
             // 새로운 선택 항목을 추가
-            var div = document.createElement("div");
-            div.innerHTML = '<input type="hidden" name="resumeLocDTOList[' + index + '].loc_detail_code_num" value="' + location.code + '" class="form-control" />' + location.name;
-            selectionResult.appendChild(div);
+            var span = document.createElement("span");
+            span.className = "selected-location"; // 간격을 주기 위한 클래스 추가
+
+            // 스타일 추가
+            span.style.marginRight = "15px"; // 간격을 조절할 값
+
+            // 위치 정보 추가
+            span.innerHTML = '<input type="hidden" name="resumeLocDTOList[' + index + '].loc_detail_code_num" value="' + location.code + '" class="form-control"/>' + location.name;
+
+            // X 버튼 추가
+            var closeButton = document.createElement("button");
+            closeButton.className = "remove-location-button";
+            closeButton.innerHTML = "X";
+            closeButton.onclick = function() {
+                // 요소 제거
+                selectedLowerLocsSet.delete(location.code);
+                locations.splice(index, 1);
+                updateSelectionResult(locations);
+            };
+
+            // span에 X 버튼 추가
+            span.appendChild(closeButton);
+
+            selectionResult.appendChild(span);
         });
     }
-
 
 </script>
 </body>

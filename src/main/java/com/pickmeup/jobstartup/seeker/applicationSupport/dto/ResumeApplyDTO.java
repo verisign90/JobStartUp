@@ -1,5 +1,7 @@
 package com.pickmeup.jobstartup.seeker.applicationSupport.dto;
 
+import com.pickmeup.jobstartup.recruiter.apply.dto.ApplyDTO;
+import com.pickmeup.jobstartup.recruiter.jobposting.dto.JobPostingDTO;
 import com.pickmeup.jobstartup.seeker.resume.dto.ResumeDTO;
 import lombok.Builder;
 import lombok.Data;
@@ -20,6 +22,10 @@ public class ResumeApplyDTO {
     private Date interview_date;
 
     private List<ResumeDTO> resumeDTOList;
+
+    private List<ApplyDTO> companyDTOList;
+
+    private List<JobPostingDTO> jobPostingDTOList;
 
     public ResumeApplyDTO () {}
 
