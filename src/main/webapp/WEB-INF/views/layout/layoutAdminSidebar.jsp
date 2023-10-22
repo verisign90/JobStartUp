@@ -1,9 +1,10 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!doctype html>
-<html lang="en">
+<html lang="ko">
 <head>
     <!-- Required meta tags -->
     <meta charset="UTF-8">
@@ -50,14 +51,15 @@
         <div class="nav-menu">
             <ul>
                 <li><a class="side_a" href="${pageContext.request.contextPath}/admin/dashboard"><span
-                        class="icon-pie-chart mr-3"></span>Dashboard</a></li>
+                        class="icon-pie-chart mr-3"></span>대시보드</a></li>
                 <li><a class="side_a" href="${pageContext.request.contextPath}/notice/list"><span
-                        class="icon-notifications_none mr-3"></span>Notice</a></li>
+                        class="icon-notifications_none mr-3"></span>공지사항</a></li>
                 <li><a class="side_a" href="${pageContext.request.contextPath}/jobfair/list"><span
-                        class="icon-format_list_bulleted mr-3"></span>JobFair</a></li>
+                        class="icon-format_list_bulleted mr-3"></span>박람회</a></li>
                 <li><a class="side_a" href="${pageContext.request.contextPath}/jobfair/companylist"><span
-                        class="icon-business_center mr-3"></span>Entry</a></li>
-                <li><a href="${pageContext.request.contextPath}/admin/entry/list"><span class="icon-check mr-3"></span>Apply</a></li>
+                        class="icon-business_center mr-3"></span>참여기업</a></li>
+                <li><a href="${pageContext.request.contextPath}/admin/entry/list"><span class="icon-check mr-3"></span>승인확인</a>
+                </li>
             </ul>
         </div>
     </div>

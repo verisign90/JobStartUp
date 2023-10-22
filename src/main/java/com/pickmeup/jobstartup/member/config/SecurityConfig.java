@@ -82,12 +82,15 @@ public class SecurityConfig {
                                     new MvcRequestMatcher(introspector, "/qna/list"),
                                     new MvcRequestMatcher(introspector, "/qna/list/**"),
                                     new MvcRequestMatcher(introspector, "/qna/qfileDownload/**"),
-                                    new MvcRequestMatcher(introspector, "/qna/afileDownload/**")
+                                    new MvcRequestMatcher(introspector, "/qna/afileDownload/**"),
+                                    new MvcRequestMatcher(introspector, "/qna/write"),
+                                    new MvcRequestMatcher(introspector, "/qna/write/**")
                             ).access("hasAuthority('COMPANY') or hasAuthority('COMMON')");
 
                     authorizeHttpRequests
                             .requestMatchers(
-                                    new MvcRequestMatcher(introspector, "/qna/write"),
+                                    new MvcRequestMatcher(introspector, "/qna/recruiter/boardList"),
+                                    new MvcRequestMatcher(introspector, "/qna/recruiter/boardList/**"),
                                     new MvcRequestMatcher(introspector, "/qna/modify"),
                                     new MvcRequestMatcher(introspector, "/qna/modify/**"),
                                     new MvcRequestMatcher(introspector, "/qna/delete"),
