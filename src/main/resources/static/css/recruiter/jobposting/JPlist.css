@@ -1,13 +1,12 @@
+#content {
+    padding: 8% 10% 6% 10%;
+}
 
 .webtong_tab_type03 li:after, .webtong_tab_type03 li:after {
     -webkit-transition: all 0.5s;
     -moz-transition: all 0.5s;
     -o-transition: all 0.5s;
     transition: all 0.5s
-}
-
-#content {
-    padding: 8% 10% 6% 10%;
 }
 
 .webtong_tab_type03 {
@@ -171,17 +170,18 @@
 }
 
 /*-----------------------------------------------------*/
-/*전체내용 위치조정*/
-.all-content {
-    padding-top: 130px;
+
+/* 전체 내용 위치 조정 */
+.recruitment {
+    text-align: center;
+    padding: 5px;
+    /*margin-bottom: 10px;*/
+    /*margin-left: 150px;*/
+}
+.recruitment h4 {
+    font-weight: 700;
 }
 
-.article-content {
-    padding-top: 200px;
-}
-.recruitment{
-    margin-left: 150px;
-}
 /*----------------------------------------------------*/
 
 .dropdown-submenu {
@@ -224,7 +224,6 @@
     display: none; /* 드롭다운 hover 시에는 숨김 */
 }
 
-
 /*---------------------------------------------------*/
 .loc-detail-name {
     cursor: pointer;
@@ -247,7 +246,6 @@
 .checkbox-wrapper input[type="checkbox"] {
     display: none;
 }
-
 /*-------------------------------------------------------------*/
 /*채용정보 css*/
 .posting_title{
@@ -261,15 +259,18 @@
     font-size: 20px;
     float:right;
 }
-
-
+.jobPostingList-container{
+    margin: 7%;
+}
 .info-container {
     /*border: 1px solid green;*/
-    margin: 20px;
     padding: 10px;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.info-container-items {
+
 
 }
 
@@ -286,11 +287,14 @@
 }
 
 .service-item{
+    height: auto;
+    width: 90%;
     padding: 38px!important;
     margin-bottom: 20px!important;
 }
-/*
---------------------------------------------------*/
+
+
+/* pagination */
 .pagination {
     display: flex;
     justify-content:center;
