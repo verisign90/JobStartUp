@@ -124,15 +124,21 @@ public class JobFairController {
     @GetMapping("/entry/form")
     public String jobFairForm(@RequestParam(name = "jobFairNo") Long jobFairNo, HttpServletRequest request, Model model) {
         Long memberNo = null;
-        String memberNoStr = request.getSession().getAttribute("memberNo").toString();
-        if (memberNoStr != null && memberNoStr.matches("\\d+")) {
-            memberNo = Long.valueOf(memberNoStr);
+        Object memberNoObj = request.getSession().getAttribute("memberNo");
+        if (memberNoObj != null) {
+            String memberNoStr = memberNoObj.toString();
+            if (memberNoStr.matches("\\d+")) {
+                memberNo = Long.valueOf(memberNoStr);
+            }
         }
 
         Long companyNo = null;
-        String companyNoStr = request.getSession().getAttribute("companyNo").toString();
-        if (companyNoStr != null && companyNoStr.matches("\\d+")) {
-            companyNo = Long.valueOf(companyNoStr);
+        Object companyNoObj = request.getSession().getAttribute("companyNo");
+        if (companyNoObj != null) {
+            String companyNoStr = companyNoObj.toString();
+            if (companyNoStr.matches("\\d+")) {
+                companyNo = Long.valueOf(companyNoStr);
+            }
         }
 
         if (companyNo != null) {
@@ -144,7 +150,9 @@ public class JobFairController {
     }
 
     @PostMapping("/entry")
-    public void entryCompany(@ModelAttribute ApplyDTO companyDTO){
+    public String entryCompany(@ModelAttribute ApplyDTO companyDTO) {
+        jobFairService.insertJobFairEntry(companyDTO);
 
+        return "jobfair/jobfair_listist";
     }
 }

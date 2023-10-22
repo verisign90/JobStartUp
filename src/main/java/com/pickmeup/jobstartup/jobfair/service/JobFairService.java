@@ -54,6 +54,10 @@ public class JobFairService {
         jobFairRepository.insertEntryJobFair(jobFairNo, memberNo, companyNo);
     }
 
+    public void insertJobFairEntry(ApplyDTO companyDTO){
+        jobFairRepository.insertJobFairEntry(companyDTO);
+    }
+
     public ApplyDTO findCompanyByMemberNo(Long memberNo){
         return jobFairRepository.findCompanyByMemberNo(memberNo);
     }
