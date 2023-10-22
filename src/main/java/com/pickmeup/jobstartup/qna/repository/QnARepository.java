@@ -6,6 +6,7 @@ import com.pickmeup.jobstartup.qna.dto.AnswerFileDTO;
 import com.pickmeup.jobstartup.qna.dto.QuestionDTO;
 import com.pickmeup.jobstartup.qna.dto.QuestionFileDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
@@ -23,9 +24,13 @@ public interface QnARepository {
     //Qno 가져오기
     public long selectQno() throws DataAccessException;
 
-    public List<QuestionDTO> selectQuestionList(Criteria criteria) throws DataAccessException;
+    public List<QuestionDTO> selectQuestionList(@Param("memberNo") long memberNo, @Param("criteria") Criteria criteria) throws DataAccessException;
 
-    public int selectQuestionCnt() throws DataAccessException;
+    public int selectQuestionCnt(long memberNo) throws DataAccessException;
+
+    public int selectCompanyQnACnt(long companyNo) throws DataAccessException;
+
+    public List<QuestionDTO> selectCompanyQnAList(@Param("companyNo") long companyNo, @Param("criteria") Criteria criteria) throws DataAccessException;
 
     public List<QuestionFileDTO> selectQFileList(long qNo) throws DataAccessException;
 

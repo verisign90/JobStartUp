@@ -124,4 +124,26 @@ $(document).ready(function(){
         $(this).addClass("active");
     });
 
+
+    /*qna list*/
+    $("#qna").on("click",function(){
+        event.preventDefault();
+        let company_no = $(".company_no").val();
+        console.log(company_no);
+        $.ajax({
+            url: "/qna/recruiter/list",
+            type:"POST",
+            data: { company_no: company_no }
+        }).done(function(result){
+            var html = jQuery('<div>').html(result);
+            var contents = html.find("div#content_list").html();
+            $("#content-container").html(contents);
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            console.log("에러");
+            console.log(jqXHR);
+            console.log(textStatus);
+            console.log(errorThrown);
+        });
+    });
+
 });

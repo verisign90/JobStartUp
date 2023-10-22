@@ -8,6 +8,7 @@ import com.pickmeup.jobstartup.qna.dto.AnswerFileDTO;
 import com.pickmeup.jobstartup.qna.dto.QuestionDTO;
 import com.pickmeup.jobstartup.qna.dto.QuestionFileDTO;
 import com.pickmeup.jobstartup.qna.service.QnAService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -36,18 +37,66 @@ public class QnAController {
         return "/qna/questionWriteForm";
     }
 
+    //일반 qna
     @PostMapping("/write")
-    public String write(QuestionDTO questionDTO, @RequestParam("qFile_orgName") MultipartFile[] multipartFiles) throws Exception {
-        questionDTO.setMember_no(13L);
+    public String write(HttpSession session, QuestionDTO questionDTO, @RequestParam("qFile_orgName") MultipartFile[] multipartFiles) throws Exception {
+        Integer intNo = (Integer) session.getAttribute("memberNo");
+        if(intNo==null) {
+            return "redirect:/login/";
+        }
+        long memberNo = intNo;
+        questionDTO.setMember_no(memberNo);
         questionDTO.setCompany_no(0);
         qnAService.write(questionDTO, multipartFiles);
         return "/qna/writeDone";
     }
 
-    //게시판 List
+    //회원별 QnA List - 관리자랑 구분해서 (관리자는 전체 목록)
     @GetMapping("/list")
-    public String list(Criteria criteria, Model model) throws Exception {
-        PagingResponse<QuestionDTO> questionPage = qnAService.getList(criteria);
+    public String list(HttpSession session, Criteria criteria, Model model) throws Exception {
+        Integer intNo = (Integer) session.getAttribute("memberNo");
+        Integer roleNo = (Integer) session.getAttribute("role");
+        if(intNo==null) {
+            return "redirect:/login/";
+        }
+        long memberNo = intNo;
+        if(roleNo==3){
+            memberNo=0;
+        }
+        System.out.println(memberNo);
+        PagingResponse<QuestionDTO> questionPage = qnAService.getList(memberNo, criteria);
+        System.out.println(questionPage.getList().toString());
+        model.addAttribute("questionPage", questionPage);
+        model.addAttribute("criteria", criteria);
+        return "/qna/questionList";
+    }
+
+    //Company QnA List
+    @PostMapping("/recruiter/list")
+    @ResponseBody
+    public String companyQnAList(HttpSession session, @RequestParam("company_no") String company_no, Criteria criteria, Model model) throws Exception {
+        long companyNo = Long.parseLong(company_no);
+        System.out.println(company_no);
+        Integer roleNo = (Integer) session.getAttribute("role");
+        if (company_no == null || roleNo != 2) {
+            return "redirect:/login/";
+        }
+        PagingResponse<QuestionDTO> questionPage = qnAService.getCompanyQnAList(companyNo, criteria);
+        model.addAttribute("questionPage", questionPage);
+        model.addAttribute("criteria", criteria);
+        return "/recruiter/mypage/recruiterMyPageContentList";
+    }
+
+    //Company QnA ListBoard
+    @GetMapping("/recruiter/boardList/{company_no}")
+    public String companyQnABoardList(HttpSession session, int company_no, Criteria criteria, Model model) throws Exception {
+        long companyNo = company_no;
+        System.out.println(company_no);
+        Integer roleNo = (Integer) session.getAttribute("role");
+        if (company_no==0 || roleNo != 2) {
+            return "redirect:/login/";
+        }
+        PagingResponse<QuestionDTO> questionPage = qnAService.getCompanyQnAList(companyNo, criteria);
         model.addAttribute("questionPage", questionPage);
         model.addAttribute("criteria", criteria);
         return "/qna/questionList";

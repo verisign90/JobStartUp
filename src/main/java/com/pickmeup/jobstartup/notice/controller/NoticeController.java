@@ -6,13 +6,17 @@ import com.pickmeup.jobstartup.common.paging.Criteria;
 import com.pickmeup.jobstartup.common.paging.PagingResponse;
 import com.pickmeup.jobstartup.notice.dto.NoticeDTO;
 import com.pickmeup.jobstartup.notice.service.NoticeService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -29,8 +33,16 @@ public class NoticeController {
 
     //게시글 등록
     @PostMapping("/write")
-    public String write(NoticeDTO noticeDTO, @RequestParam("notFile_orgName") MultipartFile[] multipartFiles) throws Exception {
-        noticeService.write(noticeDTO, multipartFiles);
+    public String write(@Valid NoticeDTO noticeDTO, @RequestParam("notFile_orgName") MultipartFile[] multipartFiles, BindingResult bindingResult, Model model) throws Exception {
+        if (bindingResult.hasErrors()) {
+            List<String> errors = bindingResult.getAllErrors().stream().map(e -> e.getDefaultMessage()).collect(Collectors.toList());
+            model.addAttribute("errors", errors);
+            return "/notice/noticeWriteForm";
+        } try {
+            noticeService.write(noticeDTO, multipartFiles);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         return "redirect:/notice/list";
     }
 

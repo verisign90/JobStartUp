@@ -60,11 +60,46 @@ public class QnAServiceImpl implements QnAService{
             }
         }
     }
-
+    
+    //개인 및 관리자
     @Override
-    public PagingResponse<QuestionDTO> getList(Criteria criteria) throws Exception {
+    public PagingResponse<QuestionDTO> getList(long memberNo, Criteria criteria) throws Exception {
         //글 목록 가져오기
-        int questionCnt = qnARepository.selectQuestionCnt();
+        int questionCnt = qnARepository.selectQuestionCnt(memberNo);
+        if (questionCnt < 1) {
+            return new PagingResponse<>(Collections.emptyList(), null);
+        }
+        Pagination pagination = new Pagination(questionCnt, criteria);
+        criteria.setPagination(pagination);
+
+        List<QuestionDTO> questionList = qnARepository.selectQuestionList(memberNo, criteria);
+        for(QuestionDTO questionDTO :questionList) {
+            long qNo = questionDTO.getQ_no();
+            //fileList
+            List<QuestionFileDTO> questionFileDTOList = qnARepository.selectQFileList(qNo);
+            if(!questionFileDTOList.isEmpty()) {
+                questionDTO.setQuestionFileDTOList(questionFileDTOList);
+            }
+            //answer
+            AnswerDTO answerDTO = qnARepository.selectAnswerByQno(qNo);
+            if(answerDTO!=null){
+                long aNo = answerDTO.getA_no();
+                List<AnswerFileDTO> answerFileDTOList = qnARepository.selectAnswerFileByAno(aNo);
+                if(!answerFileDTOList.isEmpty()) {
+                    answerDTO.setAnswerFileDTOList(answerFileDTOList);
+                }
+                questionDTO.setAnswerDTO(answerDTO);
+            }
+        }
+        return new PagingResponse<>(questionList, pagination);
+    }
+    
+    
+    //회사 QnA
+    @Override
+    public PagingResponse<QuestionDTO> getCompanyQnAList(long companyNo, Criteria criteria) {
+        //글 목록 가져오기
+        int questionCnt = qnARepository.selectCompanyQnACnt(companyNo);
         if (questionCnt < 1) {
             return new PagingResponse<>(Collections.emptyList(), null);
         }
@@ -72,7 +107,7 @@ public class QnAServiceImpl implements QnAService{
         Pagination pagination = new Pagination(questionCnt, criteria);
         criteria.setPagination(pagination);
 
-        List<QuestionDTO> questionList = qnARepository.selectQuestionList(criteria);
+        List<QuestionDTO> questionList = qnARepository.selectCompanyQnAList(companyNo, criteria);
 
         for(QuestionDTO questionDTO :questionList) {
             long qNo = questionDTO.getQ_no();

@@ -1,5 +1,6 @@
 package com.pickmeup.jobstartup.notice.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -11,7 +12,9 @@ import java.util.List;
 @AllArgsConstructor
 public class NoticeDTO {
     private long not_no;
+    @NotBlank(message = "제목을 입력해주세요.")
     private String not_title;
+    @NotBlank(message = "내용을 입력해주세요.")
     private String not_content;
     private LocalDateTime not_regDate;
     private LocalDateTime not_modDate;

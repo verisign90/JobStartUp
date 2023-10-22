@@ -81,10 +81,15 @@
                     </ul>
                 </div>
             </li>
+            <li class="side_item">
+                <div class="aside_item">
+                    <a class="side_a" href="${cPath}/qna/recruiter/boardList/${company_no}">
+                        질의 관리
+                    </a>
+                </div>
+            </li>
         </ul>
     </div>
-
-
     <svg version="1.1" id="blob" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <path id="blob-path" d="M60,500H0V0h60c0,0,20,172,20,250S60,900,60,500z"/>
     </svg>
