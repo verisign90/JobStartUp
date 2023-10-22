@@ -68,4 +68,20 @@
         SELECT count(*)
         FROM JOB_POSTING
     </select>
+
+    <select id="selectAllCountData" resultType="com.pickmeup.jobstartup.admin.dto.CountDataDTO">
+            <![CDATA[
+        SELECT (SELECT COUNT(*) FROM MEMBER)                                                AS TOTAL_MEMBERS,
+               (SELECT COUNT(*) FROM MEMBER WHERE TRUNC(MEMBER_REGDATE) = TRUNC(SYSDATE))   AS TODAY_MEMBERS,
+               (SELECT COUNT(*) FROM JOB_FAIR WHERE TRUNC(SYSDATE) <= TRUNC(JOBFAIR_EDATE)) AS PRESENT_JOB_FAIRS,
+               (SELECT COUNT(*)
+                FROM JOB_POSTING
+                WHERE TRUNC(SYSDATE) BETWEEN TRUNC(POSTING_SDATE) AND TRUNC(POSTING_EDATE)) AS ACTIVE_JOB_POSTINGS,
+               (SELECT COUNT(*) FROM MEMBER WHERE member_sex = 'male')                      AS MALE_MEMBERS,
+               (SELECT COUNT(*) FROM MEMBER WHERE member_sex = 'female')                    AS FEMALE_MEMBERS
+        FROM DUAL
+        ]]>
+    </select>
+
+
 </mapper>

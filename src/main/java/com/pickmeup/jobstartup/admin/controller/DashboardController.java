@@ -3,6 +3,7 @@ package com.pickmeup.jobstartup.admin.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.pickmeup.jobstartup.admin.dto.AgeGroupDTO;
+import com.pickmeup.jobstartup.admin.dto.CountDataDTO;
 import com.pickmeup.jobstartup.admin.dto.DashboardDTO;
 import com.pickmeup.jobstartup.admin.dto.RegDateDTO;
 import com.pickmeup.jobstartup.admin.service.DashboardService;
@@ -42,18 +43,22 @@ public class DashboardController {
         ObjectMapper mapper = objectMapper;
 
         try {
+            CountDataDTO countAllData = dashboardService.getAllCountData();
             List<DashboardDTO> dashboardData = dashboardService.getAllDashboardData();
             List<AgeGroupDTO> ageGroupData = dashboardService.getAgeGroupData();
             List<RegDateDTO> regDateData = dashboardService.getRegDate();
 
+            model.addAttribute("countAllData", countAllData);
             model.addAttribute("dashboardData", dashboardData);
             model.addAttribute("ageGroupData", ageGroupData);
             model.addAttribute("regDateData", regDateData);
 
+            String countAllDataJson = mapper.writeValueAsString(dashboardService.getAllCountData());
             String dashboardDataJson = mapper.writeValueAsString(dashboardService.getAllDashboardData());
             String ageGroupDataJson = mapper.writeValueAsString(dashboardService.getAgeGroupData());
             String regDateDataJson = mapper.writeValueAsString(dashboardService.getRegDate());
 
+            model.addAttribute("countAllDataJson", countAllDataJson);
             model.addAttribute("dashboardDataJson", dashboardDataJson);
             model.addAttribute("ageGroupDataJson", ageGroupDataJson);
             model.addAttribute("regDateDataJson", regDateDataJson);
@@ -66,7 +71,7 @@ public class DashboardController {
 
     @GetMapping("/list")
     public String jobFairList(@RequestParam(value = "page", defaultValue = "1") int page,
-                              @RequestParam(value = "size", defaultValue = "3") int size, Model model) {
+                              @RequestParam(value = "size", defaultValue = "10") int size, Model model) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
 
