@@ -9,14 +9,14 @@
 
     <!-- 일반회원가입 -->
     <insert id="savePerson">
-        INSERT INTO member(member_id, member_type, menu_id, member_name, member_pw, member_sex, member_hp, member_email, member_birth, member_loc)
-        VALUES(#{member_id}, #{member_type}, #{menu_id}, #{member_name}, #{member_pw}, #{member_sex}, #{member_hp}, #{member_email}, #{member_birth}, #{member_loc})
+        INSERT INTO member(member_id, member_type, member_name, member_pw, member_sex, member_hp, member_email, member_birth, member_loc)
+        VALUES(#{member_id}, #{member_type}, #{member_name}, #{member_pw}, #{member_sex}, #{member_hp}, #{member_email}, #{member_birth}, #{member_loc})
     </insert>
 
     <!-- 기업회원가입 -->
     <insert id="saveCompany">
-        INSERT INTO member(member_id, member_type, menu_id, member_name, member_pw, member_sex, member_hp, member_email, member_birth, member_loc, status_yn, business_no)
-        VALUES(#{member_id}, #{member_type}, #{menu_id}, #{member_name}, #{member_pw}, #{member_sex}, #{member_hp}, #{member_email}, #{member_birth}, #{member_loc}, #{status_yn}, #{business_no})
+        INSERT INTO member(member_id, member_type, member_name, member_pw, member_sex, member_hp, member_email, member_birth, member_loc, status_yn, business_no)
+        VALUES(#{member_id}, #{member_type}, #{member_name}, #{member_pw}, #{member_sex}, #{member_hp}, #{member_email}, #{member_birth}, #{member_loc}, #{status_yn}, #{business_no})
     </insert>
 
     <!-- 회원 구분에 따른 메뉴 ID 가져오기 -->

@@ -3,11 +3,12 @@ package com.pickmeup.jobstartup.member.controller;
 import com.pickmeup.jobstartup.member.dto.JoinCommonDTO;
 import com.pickmeup.jobstartup.member.dto.JoinCompanyDTO;
 import com.pickmeup.jobstartup.member.entity.Member;
-//import com.pickmeup.jobstartup.member.service.BusinessNumberService;
 import com.pickmeup.jobstartup.member.service.MemberService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 @Controller
 @RequiredArgsConstructor
@@ -25,7 +27,6 @@ import java.util.Map;
 @RequestMapping("/join")
 public class JoinController {
     private final MemberService memberService;
-//    private final BusinessNumberService businessNumberService;
 
     //회원가입 - 개인회원, 기업회원 버튼 보여주기
     @GetMapping("/select")
@@ -48,6 +49,8 @@ public class JoinController {
     //개인 회원가입
     @PostMapping("/common")
     public String joinCommon(@Valid @ModelAttribute JoinCommonDTO joinCommonDTO, BindingResult bindingResult, Model model) {
+        log.info("Received JoinCommonDTO: {}", joinCommonDTO.toString());
+
         //dto 유효성 검사
         if (bindingResult.hasErrors()) {
             model.addAttribute("errors", bindingResult.getFieldErrors());
@@ -127,38 +130,38 @@ public class JoinController {
     }
 
     //4자리 인증번호 받기
-//    @PostMapping("/phoneCheck")
-//    @ResponseBody
-//    public ResponseEntity<Map<String, String>> phoneCheck(HttpSession session,
-//                                                          @RequestParam String userPhoneNumber) {
-//        int randomNumber = new Random().nextInt(9000) + 1000;
-//        memberService.sendSMS(userPhoneNumber, Integer.toString(randomNumber));
-//
-//        session.setAttribute("verifyCode", Integer.toString(randomNumber));
-//        session.setAttribute("verifyCodeTime", System.currentTimeMillis());
-//
-//        Map<String, String> response = new HashMap<>();
-//        return new ResponseEntity<>(response, HttpStatus.OK);
-//    }
-//
-//    //문자로 받은 4자리 인증번호와 사용자가 입력한 4자리 인증번호가 일치하는지 확인
-//    @PostMapping("/verifyCode")
-//    @ResponseBody
-//    public ResponseEntity<Map<String, Object>> verifyCode(HttpSession session,
-//                                                          @RequestParam String userEnteredCode) {
-//        Map<String, Object> response = new HashMap<>();
-//
-//        String verifyCode = (String) session.getAttribute("verifyCode");
-//        Long verifyCodeTime = (Long) session.getAttribute("verifyCodeTime");
-//
-//        if(verifyCodeTime != null && System.currentTimeMillis() - verifyCodeTime <= 3 * 60 * 1000
-//                && userEnteredCode.equals(verifyCode)) {
-//            response.put("verified", true);
-//        } else {
-//            response.put("verified", false);
-//        }
-//        return new ResponseEntity<>(response, HttpStatus.OK);
-//    }
+    @PostMapping("/phoneCheck")
+    @ResponseBody
+    public ResponseEntity<Map<String, String>> phoneCheck(HttpSession session,
+                                                          @RequestParam String userPhoneNumber) {
+        int randomNumber = new Random().nextInt(9000) + 1000;
+        memberService.sendSMS(userPhoneNumber, Integer.toString(randomNumber));
+
+        session.setAttribute("verifyCode", Integer.toString(randomNumber));
+        session.setAttribute("verifyCodeTime", System.currentTimeMillis());
+
+        Map<String, String> response = new HashMap<>();
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    //문자로 받은 4자리 인증번호와 사용자가 입력한 4자리 인증번호가 일치하는지 확인
+    @PostMapping("/verifyCode")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> verifyCode(HttpSession session,
+                                                          @RequestParam String userEnteredCode) {
+        Map<String, Object> response = new HashMap<>();
+
+        String verifyCode = (String) session.getAttribute("verifyCode");
+        Long verifyCodeTime = (Long) session.getAttribute("verifyCodeTime");
+
+        if(verifyCodeTime != null && System.currentTimeMillis() - verifyCodeTime <= 3 * 60 * 1000
+                && userEnteredCode.equals(verifyCode)) {
+            response.put("verified", true);
+        } else {
+            response.put("verified", false);
+        }
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 
     //이메일 중복 검사
     @PostMapping("/duplicateEmail")
