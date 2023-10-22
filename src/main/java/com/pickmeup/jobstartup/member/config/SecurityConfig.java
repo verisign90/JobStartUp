@@ -51,7 +51,7 @@ public class SecurityConfig {
                     authorizeHttpRequests
                             .requestMatchers(
                                     new MvcRequestMatcher(introspector, "/jobfair/entry")
-                            ).access("hasAuthority('UNAPPROVED_COMPANY') or hasAuthority('COMPANY')");
+                            ).access("hasAuthority('UNAPPROVED_COMPANY') or hasAuthority('COMPANY') or hasAnyAuthority('ADMIN')");
 
                     // "/member/" 관련 경로
                     authorizeHttpRequests
@@ -85,7 +85,7 @@ public class SecurityConfig {
                                     new MvcRequestMatcher(introspector, "/qna/afileDownload/**"),
                                     new MvcRequestMatcher(introspector, "/qna/write"),
                                     new MvcRequestMatcher(introspector, "/qna/write/**")
-                            ).access("hasAuthority('COMPANY') or hasAuthority('COMMON')");
+                            ).access("hasAuthority('COMPANY') or hasAuthority('COMMON') or hasAnyAuthority('ADMIN')");
 
                     authorizeHttpRequests
                             .requestMatchers(
@@ -95,7 +95,7 @@ public class SecurityConfig {
                                     new MvcRequestMatcher(introspector, "/qna/modify/**"),
                                     new MvcRequestMatcher(introspector, "/qna/delete"),
                                     new MvcRequestMatcher(introspector, "/qna/delete/**")
-                            ).access("hasAuthority('COMMON')");
+                            ).access("hasAuthority('COMMON') or hasAnyAuthority('ADMIN')");
 
                     authorizeHttpRequests
                             .requestMatchers(
@@ -105,7 +105,7 @@ public class SecurityConfig {
                                     new MvcRequestMatcher(introspector, "/qna/modifyAnswer/**"),
                                     new MvcRequestMatcher(introspector, "/qna/deleteAnswer"),
                                     new MvcRequestMatcher(introspector, "/qna/deleteAnswer/**")
-                            ).access("hasAuthority('COMPANY')");
+                            ).access("hasAuthority('COMPANY') or hasAnyAuthority('ADMIN')");
 
                     // "/recruiter/" 관련 경로
                     authorizeHttpRequests
