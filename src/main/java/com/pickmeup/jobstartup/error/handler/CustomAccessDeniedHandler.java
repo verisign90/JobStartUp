@@ -1,4 +1,4 @@
-package com.pickmeup.jobstartup.member.config;
+package com.pickmeup.jobstartup.error.handler;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,7 +11,6 @@ import java.io.IOException;
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
-        response.setContentType("text/html;charset=UTF-8");
-        response.getWriter().write("접근 권한이 없습니다");
+        response.sendRedirect("/error/403");
     }
 }

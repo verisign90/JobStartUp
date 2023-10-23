@@ -20,10 +20,6 @@
             <h2>
                 계정 로그인
             </h2>
-            <p>
-                <a href="/member/findPersonId">개인회원 아이디/비밀번호 찾기</a><br><br>
-                <a href="/member/findCompanyId">기업회원 아이디/비밀번호 찾기</a>
-            </p>
         </div>
 
         <form action="/login" method="post" novalidate>
@@ -33,7 +29,11 @@
             <div class="input-container">
                 <input type="password" name="password" id="password" placeholder="비밀번호">
             </div>
-
+            <p>
+                <a href="/member/findPersonId">개인회원 아이디/비밀번호 찾기</a>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="/member/findCompanyId">기업회원 아이디/비밀번호 찾기</a>
+            </p>
             <button id='button' type="submit">로그인</button>
         </form>
     </div>
@@ -50,7 +50,7 @@
     </div>
 </div>
 <script>
-    window.onload = function() {
+    window.onload = function () {
         var error = "${error}";
         if (error) {
             alert(error);
