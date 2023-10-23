@@ -25,7 +25,7 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final ModelMapper modelMapper;
     private final BCryptPasswordEncoder passwordEncoder;
-    private final DefaultMessageService messageService;
+//    private final DefaultMessageService messageService;
     private final UserSecurityService userSecurityService;
 
     //아이디 중복 여부 검사
@@ -128,26 +128,26 @@ public class MemberServiceImpl implements MemberService {
         return true;
     }
 
-    //4자리 인증번호 받기
-    @Override
-    public boolean sendSMS(String userPhoneNumber, String randomNumber) {
-        Message message = new Message();
-        message.setFrom("01096275797");
-        message.setTo(userPhoneNumber);
-        message.setText("인증번호는 " + randomNumber + "입니다.");
-
-        try {
-            SingleMessageSentResponse response = messageService.sendOne(new SingleMessageSendingRequest(message));
-
-            if("2000".equals(response.getStatusCode())) {
-                return true;
-            } else {
-                return false;
-            }
-        } catch(Exception e) {
-            return false;
-        }
-    }
+//    //4자리 인증번호 받기
+//    @Override
+//    public boolean sendSMS(String userPhoneNumber, String randomNumber) {
+//        Message message = new Message();
+//        message.setFrom("01047975797");
+//        message.setTo(userPhoneNumber);
+//        message.setText("인증번호는 " + randomNumber + "입니다.");
+//
+//        try {
+//            SingleMessageSentResponse response = messageService.sendOne(new SingleMessageSendingRequest(message));
+//
+//            if("2000".equals(response.getStatusCode())) {
+//                return true;
+//            } else {
+//                return false;
+//            }
+//        } catch(Exception e) {
+//            return false;
+//        }
+//    }
 
     @Override
     public boolean isDuplicateEmail(String emailInput) {

@@ -77,3 +77,11 @@ margin-right:60px;
 	margin: 0 auto;
 }
 
+.downloadFile {
+    display: flex;
+    justify-content: center;
+}
+
+img.excelicon, img.ppticon, img.nonicon, img.pdficon {
+    width: 1.5em;
+}

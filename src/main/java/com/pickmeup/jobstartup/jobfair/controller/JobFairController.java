@@ -243,6 +243,7 @@ public class JobFairController {
 
     @PostMapping("/apply/{JOBFAIR_NO}")//탁
     public String insertInfo(@PathVariable("JOBFAIR_NO") long JOBFAIR_NO, @ModelAttribute ApplyDTO applyDTO, @RequestParam("document") MultipartFile[] files, @RequestParam("logo") MultipartFile logoFile){
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!1"+applyDTO);
         System.out.println("여기는 apply post컨트롤러1");
         System.out.println("상세주소"+applyDTO.getCompany_address_detail());
 
@@ -473,21 +474,30 @@ public class JobFairController {
 
 
     @GetMapping("/wait")//탁
-    public String main(){
+    public String main() {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String memberId = authentication.getName();//접속자 아이디 가져오기
-        System.out.println("나의 아이디= " + memberId );//접속자 아이디 확인
+        System.out.println("나의 아이디= " + memberId);//접속자 아이디 확인
         Member member = applyService.getMemberNO(memberId);//접속자 정보 DTO member 가져오기
         ApplyDTO applyDTO = applyService.getApplyDTO(member.getMember_no());//해당계정의 회사정보불러오기
+
+
+        if (applyDTO == null) {
+            return "redirect:/";
+        }
         int company_no = applyDTO.getCompany_no();
-        int countEntry = applyService.countEntry(company_no);//
+        if (applyService.countEntry(company_no) > 0) {
+            return "redirect:/jobfair/pendingApproval/" + company_no;
+        } else
+            return "redirect:/";
+
+        /*int countEntry = applyService.countEntry(company_no);//
 
         if(countEntry>0){
             return "redirect:/jobfair/pendingApproval/"+company_no;
         }else
-            return "redirect:/";
+            return "redirect:/";*/
+
     }
-
-
 }
