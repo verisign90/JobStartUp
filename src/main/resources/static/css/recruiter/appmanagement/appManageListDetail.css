@@ -166,7 +166,7 @@ table.appManage-content tbody td {
   border-bottom: 1px solid #ccc;
 }
 .download-button {
-  width: 150px;
+  width: auto;
   height: 30px;
   background: #fff;
   border: 1px solid rgb(77,77,77);
@@ -181,8 +181,6 @@ table.appManage-content tbody td {
     color: #fff;
   }
 }
-
-
 /* 승인/반려 */
 .approval-container {
   margin-top: 10px;
@@ -279,6 +277,22 @@ table.first-approval-date td {
         color: #fff;
       }
 }
+.first-enroll-mail, .last-enroll-mail {
+      width: 6em;
+      height: 3em;
+      background: #fff;
+      border: 1px solid rgb(77,77,77);
+      font-weight: 400;
+      font-size: 1em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      &:hover {
+        background: rgb(77,77,77);
+        color: #fff;
+      }
+}
 .final-denial-button, .first-denial-button {
       width: 4em;
       height: 3em;
@@ -295,14 +309,19 @@ table.first-approval-date td {
         color: #fff;
       }
 }
-.first-enroll-mail, .first-denial-mail, .last-enroll-mail, .last-denial-mail {
-    width: 7em;
-    height: 2.5em;
-    border: none;
-    font-size: 12px;
-    font-weight: bold;
-    color: white;
-    border-radius: 2rem;
-    background: #7A41FF;
-    background: linear-gradient(to left, #7a60ff, #cd9ffa);
+.first-denial-mail, .last-denial-mail {
+      width: 6em;
+      height: 3em;
+      background: #fff;
+      border: 1px solid rgb(77,77,77);
+      font-weight: 400;
+      font-size: 1em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      &:hover {
+        background: rgb(77,77,77);
+        color: #fff;
+      }
 }

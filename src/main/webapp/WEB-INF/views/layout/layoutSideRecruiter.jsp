@@ -48,8 +48,7 @@
                     <div id="collapseOne" class="collapse" aria-labelledby="headingOne">
                         <div>
                             <ul>
-                                <li><a href="#">박람회 목록</a></li>
-                                <li><a href="#">박람회 신청</a></li>
+                                <li><a href="${cPath}/recruiter/myPage/jobFairWithPaging?company_no=${company_no}">박람회 목록</a></li>
                             </ul>
                         </div>
                     </div>
@@ -62,8 +61,8 @@
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingOne">
                         <div>
                             <ul>
-                                <li><a href="#">채용공고 목록</a></li>
-                                <li><a href="#">채용공고 신청</a></li>
+                                <li><a href="${cPath}/recruiter/myPage/jobPostingWithPaging?company_no=${company_no}">채용공고 목록</a></li>
+                                <li><a href="${cPath}/recruiter/JPwrite">채용공고 신청</a></li>
                             </ul>
                         </div>
                     </div>
@@ -76,7 +75,7 @@
                     <div id="collapseThree" class="collapse" aria-labelledby="headingOne">
                         <div>
                             <ul>
-                                <li><a href="#">지원자 목록</a></li>
+                                <li><a href="${cPath}/recruiter/myPage/appManageWithPaging?company_no=${company_no}">지원자 목록</a></li>
                             </ul>
                         </div>
                     </div>
@@ -89,7 +88,7 @@
                     <div id="collapseFour" class="collapse" aria-labelledby="headingOne">
                         <div>
                             <ul>
-                                <li><a href="#">질의 목록</a></li>
+                                <li><a href="${cPath}/qna/recruiter/boardList/${company_no}">질의 목록</a></li>
                             </ul>
                         </div>
                     </div>

@@ -23,5 +23,6 @@ public class AppManageDTO {
     private String member_sex;
     private String member_hp;
     private String member_email;
+    private String company_name;
 
 }
