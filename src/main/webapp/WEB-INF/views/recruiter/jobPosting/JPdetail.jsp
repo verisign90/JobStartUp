@@ -28,28 +28,35 @@
 </head>
 <body>
 <%@ include file="../../layout/layoutNav.jsp" %>
-<div  id="top" data-wow-duration="1s" data-wow-delay="0.5s">
+<div id="top" data-wow-duration="1s" data-wow-delay="0.5s">
     <div class="header-text" data-wow-duration="1s" data-wow-delay="1s">
     </div>
 </div>
 <main>
     <article class="all-content">
         <section>
-
-            <div class = "main-first-container">
-                <div class = "first-first-container">
-                    <div>
+            <div class="main-first-container">
+                <div class="first-first-container">
+                    <span>
                         <a href="#" title="" class="companyName" target="_blank"
-                           onclick="window.open(this.href, ''); return false;">기업이름</a>
-                        <a href="#" title="회사이름" class="company-name" target="_blank">${JPdetail.company_name}</a>
-                    </div>
+                           onclick="window.open(this.href, ''); return false;">${JPdetail.company_name}</a>
+                    <span class="second-second-items">
+                    </span>
+                        <%-- 기업팔로우 버튼 --%>
+                        <span class="follow-item"
+                              data-company-no="${JPdetail.company_no}"
+                              data-member-no="${memberNo}">
+                            <button class="follow-button" style="background-color: transparent; border: none;">
+                                <img class="follow-image" src="${cPath}/img/status_unfollow.png" style="width: 20px;" alt=""/>
+                            </button>
+                        </span>
+                    </span>
                     <div>
                         <h1>${JPdetail.posting_title}</h1>
                     </div>
                 </div>
-                <div class = "first-second-container">
-
-                    <div class = "second-first-items">
+                <div class="first-second-container">
+                    <div class="second-first-items">
                         <%-- 민용님 제 스크랩 버튼 놓고갑니다 --%>
                         <div class="bookmark-item"
                              data-posting-no="${postingNo}"
@@ -57,28 +64,19 @@
                             <button class="btn btn-light bookmark-button"
                                     style="/*background-color: transparent; border: #0d6efd; */padding: 10px;">
                                 <img class="bookmark-image" src="${cPath}/img/empty_star.png" style="width: 20px;"
-                                     alt=""/> 스크랩
-                            </button>
-                        </div>
-                    </div>
-                    <div class = "second-second-items">
-                        <%-- 기업팔로우 버튼 --%>
-                        <div class="follow-item"
-                             data-company-no="${JPdetail.company_no}"
-                             data-member-no="${memberNo}">
-                            <button class="follow-button" style="background-color: transparent; border: none;">
-                                <img class="follow-image" src="${cPath}/img/status_unfollow.png" style="width: 20px;"
                                      alt=""/>
                             </button>
                         </div>
                     </div>
-                    <div class = "second-third-items">
+                    <div class="second-third-items">
                         <%-- 기업팔로우 버튼 --%>
-                        <div><button>쪽지</button></div>
+                        <div>
+                            <button>쪽지</button>
+                        </div>
                     </div>
-                    <div class = "second-fourth-items">
+                    <div class="second-fourth-items">
                         <!-- 버튼을 클릭하여 모달을 열도록 합니다. -->
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                        <button type="button" class="btn btn-apply" data-toggle="modal" data-target="#myModal">
                             지원하기
                         </button>
                         <form id="applyForm" action="#" method="post">
@@ -98,10 +96,15 @@
                                                 <div class="resume_list_wrap">
                                                     <ul class="resume_list">
                                                         <li class="resume_item">
-                                                            <input class="member-no" type="hidden" value="${resume.member_no}">
-                                                            <input class="posting-no" type="hidden" value="${postingNo}">
-                                                            <span><a href="${cPath}/seeker/resumeDetail/${resume.resume_no}">${resume.resume_title}</a></span>
-                                                            <span><input class="modifyBtn" type="checkbox" name="resume_no" id="resume_no" value="${resume.resume_no}"></span>
+                                                            <input class="member-no" type="hidden"
+                                                                   value="${resume.member_no}">
+                                                            <input class="posting-no" type="hidden"
+                                                                   value="${postingNo}">
+                                                            <span><a
+                                                                    href="${cPath}/seeker/resumeDetail/${resume.resume_no}">${resume.resume_title}</a></span>
+                                                            <span><input class="modifyBtn" type="checkbox"
+                                                                         name="resume_no" id="resume_no"
+                                                                         value="${resume.resume_no}"></span>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -109,7 +112,8 @@
                                         </div>
                                         <!-- 모달 하단 -->
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기
+                                            </button>
                                             <input type="submit" class="modifyBtn" value="지원하기">
                                         </div>
 
@@ -120,29 +124,23 @@
                     </div>
                 </div>
             </div>
-
         </section>
-
-
-
-
-
         <section>
-            <div class = "main-second-container">
+            <div class="main-second-container">
                 <div>
                     <div>
                         <table>
                             <tr>
                                 <th>경력</th>
-                                <td>${JPdetail.posting_career}</td>
+                                <td>&nbsp;:&nbsp;${JPdetail.posting_career}</td>
                             </tr>
                             <tr>
                                 <th>학력</th>
-                                <td>${JPdetail.posting_academy}</td>
+                                <td>&nbsp;:&nbsp;${JPdetail.posting_academy}</td>
                             </tr>
                             <tr>
                                 <th>근무 형태</th>
-                                <td>${JPdetail.posting_labor}</td>
+                                <td>&nbsp;:&nbsp;${JPdetail.posting_labor}</td>
                             </tr>
                         </table>
                     </div>
@@ -151,24 +149,24 @@
         </section>
 
         <section>
-            <div class = "main-third-container">
+            <div class="main-third-container">
                 <div>
                     <table>
                         <tr>
                             <th>급여</th>
-                            <td>${JPdetail.posting_salary}</td>
+                            <td>&nbsp;:&nbsp;${JPdetail.posting_salary}</td>
                         </tr>
                         <tr>
                             <th>근무 일시</th>
                             <td>
-                                <span>${JPdetail.posting_working_day}</span>
-                                <span>${JPdetail.posting_swork}</span> ~
-                                <span>${JPdetail.posting_ework}</span>
+                                <span>&nbsp;:&nbsp;${JPdetail.posting_working_day}</span>
+                                <span>|&nbsp;${JPdetail.posting_swork}</span> ~
+                                <span>&nbsp;:&nbsp;${JPdetail.posting_ework}</span>
                             </td>
                         </tr>
                         <tr>
                             <th>근무지역</th>
-                            <td><%--${fn:substring(JPdetail.company_address_detail, 0, 6)}--%></td>
+                            <td>&nbsp;:&nbsp;${fn:substring(JPdetail.company_address_detail, 6, 12)}</td>
                         </tr>
                     </table>
                 </div>
@@ -178,7 +176,7 @@
 
 
         <section>
-            <div class = "main-fourth-container">
+            <div class="main-fourth-container">
                 <div>
                     회사 컨텐츠가 들어갈 예정입니다 ${JPdetail.posting_content}
                 </div>
@@ -186,11 +184,12 @@
         </section>
 
         <section>
-            <div class = "main-fifth-container">
+            <div class="main-fifth-container">
+                <!-- 삭제 버튼 -->
+                <a href="${cPath}/recruiter/JPdelete/${JPdetail.posting_no}" class="btn btn-delete"
+                   onclick="return confirm('정말로 삭제하시겠습니까?')">삭제</a>
                 <!-- 수정 버튼 -->
                 <a href="${cPath}/recruiter/JPmodify/${JPdetail.posting_no}" class="btn btn-primary">수정</a>
-                <!-- 삭제 버튼 -->
-                <a href="${cPath}/recruiter/JPdelete/${JPdetail.posting_no}" class="btn btn-danger">삭제</a>
             </div>
         </section>
 
@@ -294,7 +293,7 @@
         });
     });
 
-    $("#applyForm").on("submit", function(event) {
+    $("#applyForm").on("submit", function (event) {
         event.preventDefault(); // 폼의 기본 동작 중단
 
         // 선택한 이력서의 값을 가져옵니다.
@@ -315,12 +314,12 @@
                     posting_no: posting_no, // 공고의 고유 ID
                     resume_no: selectedResume // 선택한 이력서의 고유 ID
                 },
-                success: function(response) {
+                success: function (response) {
                     // 요청이 성공하면 적절한 처리를 수행
                     // 예를 들어, 성공 페이지로 리다이렉트
                     window.location.href = "${cPath}/seeker/resumeApplyDone";
                 },
-                error: function(error) {
+                error: function (error) {
                     // 요청이 실패하면 적절한 오류 처리
                     console.error("에러 발생: " + error);
                 }

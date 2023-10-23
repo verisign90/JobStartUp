@@ -20,6 +20,7 @@
     <div class="header-text" data-wow-duration="1s" data-wow-delay="1s">
     </div>
 </div>
+<%--<%@ include file="../../layout/layoutSideRecruiter.jsp" %>--%>
 <main>
     <!--<article class="article-content">-->
     <article>
@@ -72,10 +73,15 @@
                                 <div class="info-items service-item first-service">
                                     <h3 class="posting_title">${jobPosting.posting_title}</h3>
                                     <div>
-                                        <span class="company_address">${fn:substring(jobPosting.company_address_detail, 0, 6)}</span>
+                                        <%--<span>${JPlist.company_address_detail}</span>--%>
+                                        <span class="company_address">${fn:substring(jobPosting.company_address_detail, 6, 12)}</span>
+                                            |
                                         <span class="posting_career">${jobPosting.posting_career}</span>
+                                            |
                                         <span class="posting_academy">${jobPosting.posting_academy}</span>
+                                            |
                                         <span class="posting_labor">${jobPosting.posting_labor}</span>
+                                            |
                                         <span class="posting_salary">${jobPosting.posting_salary}</span>
                                         <span>
                                         <strong class="company_name"><a>${jobPosting.company_name}</a></strong>
@@ -86,6 +92,9 @@
                         </div>
                     </c:forEach>
                 </div>
+                <br/>
+                <br/>
+                <br/>
                 <div class="pagination">
                     <c:if test="${currentPage > 1}">
                         <!--<a class="page-link" href="${pageContext.request.contextPath}/recruiter/JPlist?page=1">처음</a>-->
@@ -221,7 +230,7 @@ function loadLowerLoc() {
     });
 </script>
 <script>
-    $(document).on('click', 'input[name="upperLoc"]', function () {
+   /* $(document).on('click', 'input[name="upperLoc"]', function () {
         let upperLoc = $(this).val();
         let isChecked = $(this).is(':checked');
 
@@ -249,7 +258,19 @@ function loadLowerLoc() {
             // 체크박스가 해제된 경우 하위 지역 목록 제거
             $(".dropdown-low-content").empty();
         }
-    });
+    });*/
+</script>
+<script>
+    /*document.getElementById('subBtn').addEventListener('click', function (e) {
+        // 근무 지역 유효성 검사
+        const selectUpperLoc = document.getElementById('upperLoc');
+        const selectLowerLoc = document.getElementById('lowerLoc');
+
+        if (selectUpperLoc.value === "" || selectLowerLoc.value === "") {
+            e.preventDefault();
+            alert("근무 지역을 모두 선택해주세요.");
+        }
+    });*/
 </script>
 </body>
 </html>
