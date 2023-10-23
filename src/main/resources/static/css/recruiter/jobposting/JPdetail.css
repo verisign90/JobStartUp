@@ -48,7 +48,10 @@
 
 .second-second-items {
     /*border: 1px solid red;*/
-    margin: 10px;
+    margin: 5px;
+}
+.follow-image{
+    margin-bottom: 2px;
 }
 
 .second-third-items {
@@ -114,5 +117,16 @@
     border-radius: 10px;
     transition: all .3s;
     margin-bottom: 30px;
+}
+.btn-delete{
+    background: #ff0000 !important;
+    margin-left:10px;
+}
+.btn-apply{
+    background: #FF5656!important;
+}
+.bookmark-button{
+    background: #ffffff!important;
+    border: 1px solid #adadad!important;
 }
 
