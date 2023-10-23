@@ -36,6 +36,7 @@ public class FindController {
     }
 
     @PostMapping("/findPersonId")
+    @ResponseBody
     public ResponseEntity<Map<String, String>> findPersonId(@RequestParam("name") String name, @RequestParam("phone") String phone) {
         Map<String, String> response = new HashMap<>();
         String foundId = memberService.findPersonId(name, phone);
@@ -54,29 +55,6 @@ public class FindController {
 //        return "member/resultPersonId";
 //    }
 
-    //개인회원 비밀번호 찾기
-    @GetMapping("/findPersonPassword")
-    public String findPersonPassword(HttpSession session) {
-        session.removeAttribute("message");
-        return "member/findPersonPassword";
-    }
-
-    @PostMapping("/findPersonPassword")
-    public ResponseEntity<Map<String, Object>> findPersonPassword(@RequestParam("memberId") String memberId,
-                                                                  @RequestParam("memberName") String memberName,
-                                                                  @RequestParam("memberPhone") String memberPhone) {
-        Map<String, Object> response = new HashMap<>();
-        Member member = memberService.findPersonPassword(memberId, memberName, memberPhone);
-        if (member != null) {
-            response.put("status", "success");
-            response.put("message", "회원 정보를 찾았습니다.");
-            return ResponseEntity.ok(response);
-        } else {
-            response.put("status", "error");
-            response.put("message", "일치하는 회원 정보를 찾을 수 없습니다");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
-        }
-    }
 
 
     //개인회원 비밀번호 재설정
@@ -108,16 +86,18 @@ public class FindController {
     }
 
     @PostMapping("/findCompanyId")
-    public String findCompanyId(@RequestParam("name") String name,
-                                @RequestParam("business_no") String business_no, Model model) {
+    @ResponseBody
+    public ResponseEntity<Map<String, String>> findCompanyId(@RequestParam("name") String name,
+                                                             @RequestParam("business_no") String business_no) {
+        Map<String, String> response = new HashMap<>();
         String foundId = memberService.findCompanyId(name, business_no);
 
         if (foundId != null) {
-            model.addAttribute("message", "아이디 조회 결과: " + foundId);
+            response.put("message", "당신의 아이디는 " + foundId + " 입니다");
         } else {
-            model.addAttribute("message", "일치하는 아이디를 찾을 수 없습니다");
+            response.put("message", "일치하는 아이디를 찾을 수 없습니다");
         }
-        return "member/resultCompanyId";
+        return  ResponseEntity.ok(response);
     }
 
     //기업회원 아이디 조회 결과
@@ -126,23 +106,52 @@ public class FindController {
         return "member/resultCompanyId";
     }
 
+    //개인회원 비밀번호 찾기
+    @GetMapping("/findPersonPassword")
+    public String findPersonPassword(HttpSession session) {
+        session.removeAttribute("message");
+        return "member/findPersonPassword";
+    }
+
+    @PostMapping("/findPersonPassword")
+    public ResponseEntity<Map<String, Object>> findPersonPassword(@RequestParam("memberId") String memberId,
+                                                                  @RequestParam("memberName") String memberName,
+                                                                  @RequestParam("memberPhone") String memberPhone) {
+        Map<String, Object> response = new HashMap<>();
+        Member member = memberService.findPersonPassword(memberId, memberName, memberPhone);
+        if (member != null) {
+            response.put("status", "success");
+            response.put("message", "회원 정보를 찾았습니다");
+            return ResponseEntity.ok(response);
+        } else {
+            response.put("status", "error");
+            response.put("message", "일치하는 회원 정보를 찾을 수 없습니다");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+    }
+
     //기업회원 비밀번호 찾기
     @GetMapping("/findCompanyPassword")
-    public String findCompanyPassword() {
+    public String findCompanyPassword(HttpSession session) {
+        session.removeAttribute("message");
         return "member/findCompanyPassword";
     }
 
     @PostMapping("/findCompanyPassword")
-    public String findCompanyPassword(@RequestParam("memberId") String memberId, @RequestParam("memberName") String memberName,
-                                      @RequestParam("memberPhone") String memberPhone, Model model,
-                                      RedirectAttributes redirectAttrs) {
+    public ResponseEntity<Map<String, Object>> findCompanyPassword(@RequestParam("memberId") String memberId,
+                                                                   @RequestParam("memberName") String memberName,
+                                                                   @RequestParam("memberPhone") String memberPhone) {
+        Map<String, Object> response = new HashMap<>();
         Member member = memberService.findCompanyPassword(memberId, memberName, memberPhone);
+
         if (member != null) {
-            model.addAttribute("member", member);
-            return "member/updateCompanyPassword";
+            response.put("status", "success");
+            response.put("message", "회원 정보를 찾았습니다");
+            return ResponseEntity.ok(response);
         } else {
-            redirectAttrs.addFlashAttribute("message", "일치하는 회원 정보를 찾을 수 없습니다");
-            return "redirect:/findCompanyPassword";
+            response.put("status", "error");
+            response.put("message", "일치하는 회원 정보를 찾을 수 없습니다");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
     }
 
