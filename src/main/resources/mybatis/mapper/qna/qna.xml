@@ -43,18 +43,22 @@
     </select>
     <select id="selectQuestionList"  resultType="com.pickmeup.jobstartup.qna.dto.QuestionDTO">
         <![CDATA[
-            SELECT Q_NO, Q_REGDATE, Q_MODDATE, MEMBER_NO, COMPANY_NO, Q_TYPE, Q_CATEGORY, Q_CONTENT
-            FROM (SELECT /*+ INDEX_DESC(QUESTION SYS_C007665) */ ROWNUM AS ROW_NUM, Q_NO, Q_REGDATE, Q_MODDATE, MEMBER_NO, COMPANY_NO, Q_TYPE, Q_CATEGORY, Q_CONTENT FROM QUESTION WHERE ROWNUM <=#{criteria.currentPageNo}*#{criteria.recordsPerPage})
-            WHERE ROW_NUM >#{criteria.startPage}
+            SELECT /*+ INDEX_DESC(QUESTION SYS_C007665) */ Q_NO, Q_REGDATE, Q_MODDATE, MEMBER_NO, COMPANY_NO, Q_TYPE, Q_CATEGORY, Q_CONTENT
+            FROM (SELECT ROWNUM AS ROW_NUM, Q_NO, Q_REGDATE, Q_MODDATE, MEMBER_NO, COMPANY_NO, Q_TYPE, Q_CATEGORY, Q_CONTENT FROM QUESTION WHERE ROWNUM <= #{criteria.currentPageNo}*#{criteria.recordsPerPage}
         ]]>
             <include refid="memberNo"/>
+        <![CDATA[
+            )
+            WHERE ROW_NUM > #{criteria.startPage}
+        ]]>
     </select>
     <select id="selectCompanyQnAList"  resultType="com.pickmeup.jobstartup.qna.dto.QuestionDTO">
         <![CDATA[
-            SELECT Q_NO, Q_REGDATE, Q_MODDATE, MEMBER_NO, COMPANY_NO, Q_TYPE, Q_CATEGORY, Q_CONTENT
-            FROM (SELECT /*+ INDEX_DESC(QUESTION SYS_C007665) */ ROWNUM AS ROW_NUM, Q_NO, Q_REGDATE, Q_MODDATE, MEMBER_NO, COMPANY_NO, Q_TYPE, Q_CATEGORY, Q_CONTENT FROM QUESTION WHERE ROWNUM <= #{criteria.currentPageNo}*#{criteria.recordsPerPage})
-            WHERE ROW_NUM > #{criteria.startPage}
+            SELECT /*+ INDEX_DESC(QUESTION SYS_C007665) */ Q_NO, Q_REGDATE, Q_MODDATE, MEMBER_NO, COMPANY_NO, Q_TYPE, Q_CATEGORY, Q_CONTENT
+            FROM (SELECT ROWNUM AS ROW_NUM, Q_NO, Q_REGDATE, Q_MODDATE, MEMBER_NO, COMPANY_NO, Q_TYPE, Q_CATEGORY, Q_CONTENT FROM QUESTION WHERE ROWNUM <= #{criteria.currentPageNo}*#{criteria.recordsPerPage}
             AND COMPANY_NO = #{companyNo}
+            )
+            WHERE ROW_NUM > #{criteria.startPage}
         ]]>
     </select>
     <select id="selectQFileList" parameterType="long" resultType="com.pickmeup.jobstartup.qna.dto.QuestionFileDTO">

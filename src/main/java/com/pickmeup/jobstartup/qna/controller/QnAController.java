@@ -86,6 +86,7 @@ public class QnAController {
         if(roleNo==3){
             memberNo=0;
         }
+        System.out.println(criteria.getCurrentPageNo());
         PagingResponse<QuestionDTO> questionPage = qnAService.getList(memberNo, criteria);
         model.addAttribute("questionPage", questionPage);
         model.addAttribute("criteria", criteria);

@@ -11,7 +11,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/recruiter/jobposting/JPlist.css">
-    <!--<link rel="stylesheet" href="${pageContext.request.contextPath}/css/base.css">-->
     <title>채용 공고 목록</title>
 </head>
 <body>
@@ -38,18 +37,31 @@
         <div class = "searchBar">
             <form action = "/recruiter/JPlistBySearch" method="get">
                 <div class="">
-                    <div class="selectType" id="selectBox">
+                    <div class="selectType" id="selectBox">ㅇ
                         <label for="keyword" class="blind">지역 검색</label>
-                        <select id="upperLoc" name="upperLocSelected" onchange="loadLowerLoc()" required>
+                        <select id="upperLoc" name="upperLocSelected" onchange="loadLowerLoc()">
                             <option value="">선택</option>
                             <c:forEach items="${upperLoc}" var="upLoc">
                                 <option value="${upLoc.detail_code_num}">${upLoc.detail_name}</option>
                             </c:forEach>
                         </select>
-                        <select id="lowerLoc" name="lowerLocSelected" required>
+                        <select id="lowerLoc" name="lowerLocSelected" >
                             <option value="">선택</option>
                             <c:forEach items="${lowerLoc}" var="loLoc">
                                 <option value="${loLoc.detail_code_num}">${loLoc.detail_name}</option>
+                            </c:forEach>
+                        </select>
+                        <label for="business_type_code_up" class="blind">직무 검색</label>
+                        <select id="business_type_code_up" name="posting_upperjobCode" onchange="loadBusinessTypeCodeUp(0)">
+                            <option value="">선택</option>
+                                <c:forEach items="${upperJob}" var="upJob">
+                                    <option value="${upJob.detail_code_num}">${upJob.detail_name}</option>
+                                </c:forEach>
+                        </select>
+                        <select id="business_type_code" name="posting_jobCode">
+                            <option value="">선택</option>
+                            <c:forEach items="${lowerJob}" var="loJob">
+                                <option value="${loJob.detail_code_num}">${loJob.detail_code_num}</option>
                             </c:forEach>
                         </select>
                         <input type="text" id="keyword" name="keyword" placeholder="키워드를 입력해 주세요."/>
@@ -187,6 +199,7 @@
 
 <!-- test 코드 -->
 <script>
+//지역
 function loadLowerLoc() {
     var upperLocValue = document.getElementById("upperLoc").value;
     fetch('/recruiter/getJPLowerLoc?upperLoc=' + upperLocValue)
@@ -203,6 +216,26 @@ function loadLowerLoc() {
         })
         .catch(error => console.error('Error:', error));
 }
+
+//직무
+function loadBusinessTypeCodeUp(count) {
+    var upperLocValue = document.getElementById("business_type_code_up").value;
+    var lowerLocSelect = document.getElementById("business_type_code");
+
+    fetch('/recruiter/posting_jobCode?posting_jobCode=' + upperLocValue)
+        .then(response => response.json())
+        .then(data => {
+            lowerLocSelect.innerHTML = "<option value=''>선택</option>";
+            data.forEach(type_code => {
+                var option = document.createElement("option");
+                option.value = type_code.detail_code_num;
+                option.text = type_code.detail_name;
+
+                lowerLocSelect.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Error:', error));
+    }
 </script>
 <script>
     function toggleCheckbox(element) {

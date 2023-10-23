@@ -2,15 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.pickmeup.jobstartup.recruiter.jobposting.repository.JobPostingRepository">
+    <sql id="search">
+        <choose>
+            <!-- 키워드가 있는 경우 -->
+            <when test="keyword != null and keyword != ''">
+                AND J.POSTING_TITLE LIKE '%' || #{keyword} || '%'
+            </when>
+        </choose>
 
+        <choose>
+            <!-- 지역이 있는 경우 -->
+            <when test="lowerLoc != null and lowerLoc != ''">
+                AND C.COMPANY_ADDRESS_CODE = #{lowerLoc}
+            </when>
+        </choose>
+
+        <choose>
+            <!-- 직무가 있는 경우 -->
+            <when test="posting_jobCode != null and posting_jobCode != ''">
+                AND J.POSTING_JOB_CODE = #{posting_jobCode}
+            </when>
+        </choose>
+    </sql>
     <!--채용공고 등록-->
     <insert id="insertJobPostingDTO" parameterType="JobPostingDTO">
         <![CDATA[
-        INSERT INTO JOB_POSTING (COMPANY_NO, POSTING_TITLE, POSTING_CAREER, POSTING_ACADEMY, POSTING_LABOR,
-                                 POSTING_SALARY, POSTING_SDATE, POSTING_EDATE, POSTING_CONTENT, POSTING_CNT,
+        INSERT INTO JOB_POSTING (COMPANY_NO, POSTING_TITLE, POSTING_CAREER, POSTING_ACADEMY, POSTING_JOB_CODE, POSTING_LABOR, POSTING_PREFERENTIAL,
+                                 POSTING_SKILL, POSTING_SALARY, POSTING_SDATE, POSTING_EDATE, POSTING_CONTENT, POSTING_CNT,
                                  POSTING_WORKING_DAY, POSTING_SWORK, POSTING_EWORK)
-        VALUES (#{company_no}, #{posting_title}, #{posting_career}, #{posting_academy}, #{posting_labor},
-                #{posting_salary}, #{posting_sdate}, #{posting_edate}, #{posting_content}, #{posting_cnt},
+        VALUES (#{company_no}, #{posting_title}, #{posting_career}, #{posting_academy}, #{posting_jobCode}, #{posting_labor},
+                #{posting_preferential}, #{posting_skill}, #{posting_salary}, #{posting_sdate}, #{posting_edate}, #{posting_content}, #{posting_cnt},
                 #{posting_working_day}, #{posting_swork}, #{posting_ework})
         ]]>
     </insert>
@@ -18,16 +39,8 @@
     <!--채용공고 목록조회-->
     <select id="paginationPosting" parameterType="int" resultType="JobPostingDTO">
         <![CDATA[
-            SELECT J.POSTING_NO,
-                   J.POSTING_TITLE,
-                   J.POSTING_CAREER,
-                   J.POSTING_ACADEMY,
-                   J.POSTING_LABOR,
-                   J.POSTING_SALARY,
-                   j.POSTING_SWORK,
-                   j.POSTING_EWORK,
-                   C.COMPANY_NAME,
-                   C.COMPANY_ADDRESS_DETAIL
+            SELECT J.POSTING_NO, J.POSTING_TITLE, J.POSTING_CAREER, J.POSTING_ACADEMY, J.POSTING_JOB_CODE,
+                   J.POSTING_LABOR, J.POSTING_SALARY, j.POSTING_SWORK, j.POSTING_EWORK, C.COMPANY_NAME, C.COMPANY_ADDRESS_DETAIL
             FROM JOB_POSTING J,
                  COMPANY C
             WHERE J.COMPANY_NO = C.COMPANY_NO
@@ -40,21 +53,14 @@
     <!-- 채용공고 목록조회 (검색) : 추가 -->
     <select id="paginationPostingBySearch" resultType="JobPostingDTO">
         <![CDATA[
-            SELECT J.POSTING_NO,
-                   J.POSTING_TITLE,
-                   J.POSTING_CAREER,
-                   J.POSTING_ACADEMY,
-                   J.POSTING_LABOR,
-                   J.POSTING_SALARY,
-                   J.POSTING_SWORK,
-                   J.POSTING_EWORK,
-                   C.COMPANY_NAME,
-                   C.COMPANY_ADDRESS_DETAIL
+            SELECT J.POSTING_NO, J.POSTING_TITLE, J.POSTING_CAREER, J.POSTING_ACADEMY, J.POSTING_JOB_CODE, J.POSTING_LABOR,
+                   J.POSTING_SALARY, J.POSTING_SWORK, J.POSTING_EWORK, C.COMPANY_NAME, C.COMPANY_ADDRESS_DETAIL,  C.COMPANY_ADDRESS_CODE
             FROM JOB_POSTING J
             INNER JOIN COMPANY C ON J.COMPANY_NO = C.COMPANY_NO
-            WHERE (C.COMPANY_ADDRESS_DETAIL LIKE '%' || #{upperLoc} || '%')
-                AND (C.COMPANY_ADDRESS_DETAIL LIKE '%' || #{lowerLoc} || '%')
-                AND (J.POSTING_TITLE LIKE '%' || #{keyword} || '%')
+            WHERE C.COMPANY_NO > 0
+        ]]>
+            <include refid="search"/>
+        <![CDATA[
             ORDER BY J.POSTING_NO DESC
             OFFSET #{offset} ROWS FETCH NEXT #{size} ROWS ONLY
         ]]>

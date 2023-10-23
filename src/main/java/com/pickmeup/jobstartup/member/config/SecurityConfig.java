@@ -44,6 +44,9 @@ public class SecurityConfig {
                                     new MvcRequestMatcher(introspector, "/jobfair/detail/**"),
                                     new MvcRequestMatcher(introspector, "/recruiter/JPlist"),
                                     new MvcRequestMatcher(introspector, "/recruiter/JPdetail/**"),
+                                    new MvcRequestMatcher(introspector, "/recruiter/getJPLowerLoc"),
+                                    new MvcRequestMatcher(introspector, "/recruiter/posting_jobCode"),
+                                    new MvcRequestMatcher(introspector, "/recruiter/JPlistBySearch"),
                                     new MvcRequestMatcher(introspector, "/")
                             ).permitAll();
 
@@ -116,7 +119,8 @@ public class SecurityConfig {
                     authorizeHttpRequests
                             .requestMatchers(
                                     new MvcRequestMatcher(introspector, "/recruiter"),
-                                    new MvcRequestMatcher(introspector, "/recruiter/**")
+                                    new MvcRequestMatcher(introspector, "/recruiter/**"),
+                                    new MvcRequestMatcher(introspector, "/recruiter/JPwrite")
                             ).access("hasAuthority('COMPANY') or hasAuthority('ADMIN')");
 
                     // "/seeker/" 관련 경로

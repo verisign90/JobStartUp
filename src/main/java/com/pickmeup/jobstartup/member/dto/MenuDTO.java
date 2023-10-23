@@ -2,12 +2,18 @@ package com.pickmeup.jobstartup.member.dto;
 
 import lombok.*;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class MenuDTO {
+public class MenuDTO implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private String menu_id;
     private String hir_menu_id;
     private String menu_name;
