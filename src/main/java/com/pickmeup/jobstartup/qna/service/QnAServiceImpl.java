@@ -67,7 +67,6 @@ public class QnAServiceImpl implements QnAService{
         int currentPageNo = criteria.getCurrentPageNo();
         //글 목록 가져오기
         int questionCnt = qnARepository.selectQuestionCnt(memberNo);
-        System.out.println(questionCnt);
         if (questionCnt < 1) {
             return new PagingResponse<>(Collections.emptyList(), null);
         }

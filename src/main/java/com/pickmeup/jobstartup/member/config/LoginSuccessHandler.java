@@ -1,6 +1,5 @@
 package com.pickmeup.jobstartup.member.config;
 
-import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,6 +21,9 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         HttpSession session = request.getSession();
         session.setAttribute("memberNo", ((CustomUserDetails) authentication.getPrincipal()).getMemberNo());
         Long companyNo = ((CustomUserDetails) authentication.getPrincipal()).getCompanyNo();
+        session.setAttribute("menuBarList", ((CustomUserDetails) authentication.getPrincipal()).getMenuList());
+        session.setAttribute("hirMenuList", ((CustomUserDetails) authentication.getPrincipal()).getHirMenuList());
+        session.setAttribute("downMenuList", ((CustomUserDetails) authentication.getPrincipal()).getDownMenuList());
         if (roles.contains("COMMON")) {
             session.setAttribute("role", 1);
             response.sendRedirect("/");
@@ -35,7 +37,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         } else if (roles.contains("UNAPPROVED_COMPANY")) {
             session.setAttribute("role", 4);
             session.setAttribute("companyNo", ((CustomUserDetails) authentication.getPrincipal()).getCompanyNo());
-            response.sendRedirect("/jobfair/wait");
+            response.sendRedirect("/apply/apply");
         } else {
             session.setAttribute("role", 9);
             response.sendRedirect("/login");

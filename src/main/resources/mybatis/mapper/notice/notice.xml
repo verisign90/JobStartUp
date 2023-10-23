@@ -59,53 +59,73 @@
 
     <select id="selectNoticeList" parameterType="com.pickmeup.jobstartup.common.paging.Criteria" resultType="com.pickmeup.jobstartup.notice.dto.NoticeDTO">
         <![CDATA[
-            SELECT * FROM (SELECT /*+ INDEX_DESC(NOTICE SYS_C007673)*/ ROWNUM AS ROW_NUM, NOT_NO, NOT_TITLE, NOT_CONTENT, NOT_REGDATE, NOT_MODDATE, NOT_CATEGORY FROM NOTICE WHERE ROWNUM <=#{currentPageNo}*#{recordsPerPage})
-            WHERE ROW_NUM >#{startPage}
+            SELECT /*+ INDEX_DESC(NOTICE SYS_C007673)*/ NOT_NO, NOT_TITLE, NOT_CONTENT, NOT_REGDATE, NOT_MODDATE, NOT_CATEGORY
+            FROM (SELECT  ROWNUM AS ROW_NUM, NOT_NO, NOT_TITLE, NOT_CONTENT, NOT_REGDATE, NOT_MODDATE, NOT_CATEGORY FROM NOTICE WHERE ROWNUM <=#{currentPageNo}*#{recordsPerPage}
+        ]]>
+        <include refid="category"/>
+        <include refid="search" />
+        <![CDATA[
+            )
+                WHERE ROW_NUM >#{startPage}
+        ]]>
+    </select>
+
+    <select id="selectNoticeCnt" parameterType="com.pickmeup.jobstartup.common.paging.Criteria" resultType="int">
+        <![CDATA[
+            SELECT COUNT(not_no) FROM NOTICE
+            WHERE not_no > 0
         ]]>
             <include refid="category"/>
             <include refid="search" />
     </select>
 
-    <select id="selectNoticeCnt" parameterType="com.pickmeup.jobstartup.common.paging.Criteria" resultType="int">
-        SELECT COUNT(not_no) FROM NOTICE
-        WHERE not_no > 0
-        <include refid="category"/>
-        <include refid="search" />
-    </select>
-
     <select id="selectNotice" parameterType="long" resultType="com.pickmeup.jobstartup.notice.dto.NoticeDTO">
-        SELECT * FROM NOTICE
-        WHERE NOT_NO = #{notNo}
+        <![CDATA[
+            SELECT NOT_NO, NOT_TITLE, NOT_CONTENT, NOT_REGDATE, NOT_MODDATE, NOT_CATEGORY FROM NOTICE
+            WHERE NOT_NO = #{notNo}
+       ]]>
     </select>
 
     <select id="selectNoticeFile" parameterType="long" resultType="com.pickmeup.jobstartup.notice.dto.NoticeFileDTO">
-        SELECT * FROM NOTICE_FILE
-        WHERE NOT_NO = #{notNo}
+        <![CDATA[
+            SELECT NOT_NO, NOT_TITLE, NOT_CONTENT, NOT_REGDATE, NOT_MODDATE, NOT_CATEGORY FROM NOTICE_FILE
+            WHERE NOT_NO = #{notNo}
+        ]]>
     </select>
 
     <select id="selectNoticeFileByFileNo" parameterType="long" resultType="com.pickmeup.jobstartup.notice.dto.NoticeFileDTO">
-        SELECT * FROM NOTICE_FILE
-        WHERE NOTFILE_NO = #{notFileNo}
+        <![CDATA[
+            SELECT NOTFILE_NO, NOT_NO, NOTFILE_ORGNAME, NOTFILE_SAVNAME, NOTFILE_TYPE FROM NOTICE_FILE
+            WHERE NOTFILE_NO = #{notFileNo}
+        ]]>
     </select>
 
     <update id="updateNoticeDTO" parameterType="com.pickmeup.jobstartup.notice.dto.NoticeDTO">
-        UPDATE NOTICE
-        SET NOT_TITLE = #{not_title}, NOT_CONTENT = #{not_content}, NOT_MODDATE = sysdate, NOT_CATEGORY = #{not_category}
-        WHERE NOT_NO = #{not_no}
+        <![CDATA[
+            UPDATE NOTICE
+            SET NOT_TITLE = #{not_title}, NOT_CONTENT = #{not_content}, NOT_MODDATE = sysdate, NOT_CATEGORY = #{not_category}
+            WHERE NOT_NO = #{not_no}
+        ]]>
     </update>
 
     <delete id="deleteFileAll" parameterType="long">
-        DELETE FROM NOTICE_FILE
-        WHERE NOT_NO = #{notNo}
+        <![CDATA[
+            DELETE FROM NOTICE_FILE
+            WHERE NOT_NO = #{notNo}
+        ]]>
     </delete>
 
     <delete id="deleteFileByFileNo" parameterType="long">
-        DELETE FROM NOTICE_FILE
-        WHERE NOTFILE_NO = #{notFileNo}
+        <![CDATA[
+            DELETE FROM NOTICE_FILE
+            WHERE NOTFILE_NO = #{notFileNo}
+        ]]>
     </delete>
 
     <delete id="deleteNoticeByNo" parameterType="long">
-        DELETE FROM NOTICE
-        WHERE NOT_NO = #{notNo}
+        <![CDATA[
+            DELETE FROM NOTICE
+            WHERE NOT_NO = #{notNo}
+        ]]>
     </delete>
 </mapper>

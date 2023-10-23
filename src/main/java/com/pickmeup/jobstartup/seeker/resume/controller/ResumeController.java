@@ -214,7 +214,6 @@ public class ResumeController {
     @GetMapping("/getLowerLoc")
     @ResponseBody
     public List<LocDTO> getLowerLoc(@RequestParam("upperLoc") String upperLoc) {
-        System.out.println("upperLoc = " + upperLoc);
         return resumeService.getLowerLoc(upperLoc);
     }
 

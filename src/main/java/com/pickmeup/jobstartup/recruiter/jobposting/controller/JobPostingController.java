@@ -7,13 +7,15 @@ import com.pickmeup.jobstartup.common.paging.PagingResponse;
 import com.pickmeup.jobstartup.member.entity.Member;
 import com.pickmeup.jobstartup.qna.dto.QuestionDTO;
 import com.pickmeup.jobstartup.qna.service.QnAService;
+import com.pickmeup.jobstartup.recruiter.apply.dto.JobDTO;
 import com.pickmeup.jobstartup.recruiter.apply.dto.LocDTO;
 import com.pickmeup.jobstartup.recruiter.apply.service.ApplyService;
 import com.pickmeup.jobstartup.recruiter.jobposting.dto.JobPostingDTO;
+import com.pickmeup.jobstartup.recruiter.jobposting.dto.SearchDTO;
 import com.pickmeup.jobstartup.recruiter.jobposting.service.JobPostingService;
 import com.pickmeup.jobstartup.seeker.applicationSupport.service.PostingBookmarkServiceImpl;
 import com.pickmeup.jobstartup.seeker.resume.dto.ResumeDTO;
-import com.pickmeup.jobstartup.seeker.resume.service.ResumeServiceImpl;
+import com.pickmeup.jobstartup.seeker.resume.service.ResumeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -33,34 +35,42 @@ import java.util.Map;
 public class JobPostingController {
 
     private final JobPostingService jobPostingService;
+    private final ResumeService resumeService;
 
     @Autowired
     private PostingBookmarkServiceImpl postingBookmarkService;
-
-    @Autowired
-    private ResumeServiceImpl resumeService;
 
     private final ApplyService applyService;
     private final QnAService qnAService;
 
     /*공고등록 폼*/
     @GetMapping("/JPwrite")
-    public String JPwriteForm(@ModelAttribute("company_no") long company_no, Model model) throws Exception {
+    public String JPwriteForm(Model model) throws Exception {
+        List<JobDTO> upperJob = resumeService.getBusiness_type_code_up();
         List<LocDTO> upperLoc = jobPostingService.getUpperLoc();
+        model.addAttribute("upperJob", upperJob);
         model.addAttribute("upperLoc", upperLoc);
         return "/recruiter/jobPosting/JPwriteForm";
     }
 
     /*게시글 등록*/
     @PostMapping("/JPwrite")
-    public ModelAndView JPwrite(JobPostingDTO jobPostingDTO, @RequestParam long company_no,
+    public ModelAndView JPwrite(JobPostingDTO jobPostingDTO,
                                 @RequestParam("posting_content") String content, ModelAndView modelAndView) throws Exception {
-        jobPostingDTO.setCompany_no(company_no);
         jobPostingDTO.setPosting_content(content);
+        System.out.println(jobPostingDTO.getCompany_no());
         jobPostingService.insertJobPostingDTO(jobPostingDTO);
         modelAndView.setViewName("redirect:/recruiter/JPlist");
         return modelAndView;
     }
+
+    //하위 업종코드 받아오기
+    @GetMapping("/posting_jobCode")
+    @ResponseBody
+    public List<JobDTO> getBusiness_type_code(@RequestParam String posting_jobCode) {
+        return resumeService.getBusiness_type_code(posting_jobCode);
+    }
+
 
     /*//공고리스트
     @GetMapping("/JPlist")
@@ -91,6 +101,7 @@ public class JobPostingController {
 
         Map<String, Object> paginationResult = jobPostingService.paginationPosting(page, size);
         List<LocDTO> upperLoc = jobPostingService.getUpperLoc();
+        List<JobDTO> upperJob = resumeService.getBusiness_type_code_up();
 
         List<JobPostingDTO> jobPostingList = (List<JobPostingDTO>) paginationResult.get("jobPostingList");
         int totalPages = (int) paginationResult.get("totalPages");
@@ -106,6 +117,7 @@ public class JobPostingController {
 
         // 기존 코드
         model.addAttribute("upperLoc", upperLoc);
+        model.addAttribute("upperJob", upperJob);
 
         String JPlist = mapper.writeValueAsString(jobPostingService.selectJPlist());
         model.addAttribute("JPlist", JPlist);
@@ -116,14 +128,15 @@ public class JobPostingController {
     //목록 조회 (검색) 추가
     @GetMapping("/JPlistBySearch")
     public String JPlistBySearch(@RequestParam(value = "page", defaultValue = "1") int page,
-                             @RequestParam(value = "size", defaultValue = "10") int size,
-                             @ModelAttribute("upperLocSelected") String upperLocSelected, @ModelAttribute("lowerLocSelected") String lowerLocSelected,
-                             @ModelAttribute("keyword") String keyword, Model model) throws Exception {
+                                 @RequestParam(value = "size", defaultValue = "10") int size,
+                                 SearchDTO searchDTO, Model model) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
 
+        List<JobDTO> upperJob = resumeService.getBusiness_type_code_up();
+
         Map<String, Object> paginationResult =
-                jobPostingService.paginationPostingBySearch(page,size,upperLocSelected,lowerLocSelected,keyword);
+                jobPostingService.paginationPostingBySearch(page,size, searchDTO);
         List<LocDTO> totalUpperLoc = jobPostingService.getUpperLoc();
 
         List<JobPostingDTO> jobPostingListBySearch = (List<JobPostingDTO>) paginationResult.get("jobPostingList");
@@ -140,6 +153,7 @@ public class JobPostingController {
 
         // 기존 코드
         model.addAttribute("upperLoc", totalUpperLoc);
+        model.addAttribute("upperJob", upperJob);
 
         String JPlist = mapper.writeValueAsString(jobPostingService.selectJPlistBySearch());
 

@@ -1,7 +1,6 @@
 package com.pickmeup.jobstartup.recruiter.jobposting.dto;
 
-import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
+import lombok.Data;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -35,7 +34,6 @@ public class JobPostingDTO {
     private String isshow;
     private String posting_content;
     private String posting_working_day;
-    private String posting_position;
     private String posting_swork;
     private String posting_ework;
 }

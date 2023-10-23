@@ -1,7 +1,9 @@
-<!DOCTYPE html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="companyNo" value="${sessionScope.companyNo}"/>
+
+<!DOCTYPE html>
 <html lang="ko" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -38,14 +40,14 @@
 <main>
     <article class="all-content">
         <form action="${pageContext.request.contextPath}/recruiter/JPwrite" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="company_no" value="${company_no}">
+           <input type="hidden" value="${companyNo}" id="company_no" name="company_no" />
             <section>
                 <div class="title">
                     <input type="text" name="posting_title" id="posting_title" class="posting_title" placeholder="공고 제목"
                            required="제목을 입력해주세요">
                 </div>
                 <div>
-                    <label for="c1" class="mini-career">직무·직업</label>
+                    <label for="c1" class="mini-career">직급</label>
                 </div>
                 <div class="div-line">
                     <input type="checkbox" name="posting_career" id="c1" value="신입"/><label for="c1">신입</label>
@@ -54,6 +56,7 @@
                     <input type="checkbox" name="posting_career" id="c4" value="신입 지원 가능"/><label for="c4">신입 지원
                     가능</label>
                 </div>
+
                 <div>
                     <span class="mini-academy">지원학력</span>
                 </div>
@@ -67,6 +70,24 @@
                         <option value="석사졸업 이상">석사졸업 이상</option>
                         <option value="박사졸업 이상">박사졸업 이상</option>
                         <option value="기타">기타</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="business_type_code_up">직무</label>
+                </div>
+                <div class="div-line">
+                    <select id="business_type_code_up" name="posting_upperjobCode" onchange="loadBusinessTypeCodeUp(0)" required>
+                        <option value="">--선택--</option>
+                        <c:forEach items="${upperJob}" var="upJob">
+                            <option value="${upJob.detail_code_num}">${upJob.detail_name}</option>
+                        </c:forEach>
+                    </select>
+                    <select id="business_type_code" name="posting_jobCode" required>
+                        <option value="">--선택--</option>
+                        <c:forEach items="${lowerJob}" var="loJob">
+                            <option value="${loJob.detail_code_num}">${loJob.detail_code_num}</option>
+                        </c:forEach>
                     </select>
                 </div>
 
@@ -95,6 +116,14 @@
                     <label for="w9">교육생</label>
                     <input type="checkbox" name="posting_labor" id="w10" value="기간제"/>
                     <label for="w10">기간제</label>
+                </div>
+
+                <div>
+                    <label for="posting_preferential" class="mini-labor">우대사항</label>
+                </div>
+
+                <div class="labor-line">
+                    <input type="text" name="" id="posting_preferential" class="posting_preferential" >
                 </div>
             </section>
             <section>
@@ -274,6 +303,26 @@
             })
             .catch(error => console.error('Error:', error));
     }
+
+    <%-- 상위 직무에 따른 하위 직무 불러오기 --%>
+    function loadBusinessTypeCodeUp(count) {
+        var upperLocValue = document.getElementById("business_type_code_up").value;
+        var lowerLocSelect = document.getElementById("business_type_code");
+
+        fetch('/recruiter/posting_jobCode?posting_jobCode=' + upperLocValue)
+            .then(response => response.json())
+            .then(data => {
+                lowerLocSelect.innerHTML = "<option value=''>선택</option>";
+                data.forEach(type_code => {
+                    var option = document.createElement("option");
+                    option.value = type_code.detail_code_num;
+                    option.text = type_code.detail_name;
+
+                    lowerLocSelect.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error:', error));
+        }
 </script>
 <script>
     document.getElementById('subBtn').addEventListener('click', function (e) {

@@ -2,6 +2,7 @@ package com.pickmeup.jobstartup.recruiter.jobposting.service;
 
 import com.pickmeup.jobstartup.recruiter.apply.dto.LocDTO;
 import com.pickmeup.jobstartup.recruiter.jobposting.dto.JobPostingDTO;
+import com.pickmeup.jobstartup.recruiter.jobposting.dto.SearchDTO;
 import com.pickmeup.jobstartup.recruiter.jobposting.repository.JobPostingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -117,19 +118,17 @@ public class JobPostingServicelmpl implements JobPostingService{
 
     //검색 통한 목록 조회
     @Override
-    public Map<String, Object> paginationPostingBySearch(int page, int size,
-                                                         String upperLocSelected, String lowerLocSelected,
-                                                         String keyword) {
+    public Map<String, Object> paginationPostingBySearch(int page, int size, SearchDTO searchDTO) {
 
-        String upperLocPre = jobPostingRepository.selectUpper(upperLocSelected);
-        String upperLoc = upperLocPre.substring(0, 2);
-        String lowerLoc = jobPostingRepository.selectLower(lowerLocSelected);
+        String keyword = searchDTO.getKeyword();
+        String lowerLoc = searchDTO.getLowerLocSelected();
+        String posting_jobCode = searchDTO.getPosting_jobCode();
         int offset = (page - 1) * size;
 
         Map<String, Object> map = new HashMap<>();
         map.put("offset", offset);
         map.put("size", size);
-        map.put("upperLoc", upperLoc);
+        map.put("posting_jobCode", posting_jobCode);
         map.put("lowerLoc", lowerLoc);
         map.put("keyword", keyword);
 
