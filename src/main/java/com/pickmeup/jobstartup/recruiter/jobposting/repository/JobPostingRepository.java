@@ -54,6 +54,9 @@ public interface JobPostingRepository {
     //검색 통한 목록 개수 조회 -- 추가
     int countPostingBySearch(Map<String, Object> map);
 
+    //조회수
+    void postingCnt(@Param("posting_no") int postingNo);
+
     //public List<LocDTO> getLowerLocData(List<String> upperLocValues);
     public List<LocDTO> getLowerLocData(@Param("upperLocValues") List<String> upperLocValues);
 }

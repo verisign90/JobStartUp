@@ -190,4 +190,12 @@
         ]]>
     </select>
 
+    <update id="postingCnt" parameterType="int">
+        <![CDATA[
+        UPDATE JOB_POSTING
+        SET POSTING_CNT=POSTING_CNT + 1
+        WHERE POSTING_NO = #{posting_no}
+        ]]>
+    </update>
+
 </mapper>

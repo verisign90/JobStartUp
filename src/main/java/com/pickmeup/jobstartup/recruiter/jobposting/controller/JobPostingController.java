@@ -2,20 +2,16 @@ package com.pickmeup.jobstartup.recruiter.jobposting.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.pickmeup.jobstartup.common.paging.Criteria;
-import com.pickmeup.jobstartup.common.paging.PagingResponse;
 import com.pickmeup.jobstartup.member.entity.Member;
-import com.pickmeup.jobstartup.qna.dto.QuestionDTO;
-import com.pickmeup.jobstartup.qna.service.QnAService;
 import com.pickmeup.jobstartup.recruiter.apply.dto.JobDTO;
 import com.pickmeup.jobstartup.recruiter.apply.dto.LocDTO;
-import com.pickmeup.jobstartup.recruiter.apply.service.ApplyService;
 import com.pickmeup.jobstartup.recruiter.jobposting.dto.JobPostingDTO;
 import com.pickmeup.jobstartup.recruiter.jobposting.dto.SearchDTO;
 import com.pickmeup.jobstartup.recruiter.jobposting.service.JobPostingService;
 import com.pickmeup.jobstartup.seeker.applicationSupport.service.PostingBookmarkServiceImpl;
 import com.pickmeup.jobstartup.seeker.resume.dto.ResumeDTO;
 import com.pickmeup.jobstartup.seeker.resume.service.ResumeService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -26,6 +22,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -40,8 +37,7 @@ public class JobPostingController {
     @Autowired
     private PostingBookmarkServiceImpl postingBookmarkService;
 
-    private final ApplyService applyService;
-    private final QnAService qnAService;
+
 
     /*공고등록 폼*/
     @GetMapping("/JPwrite")
@@ -162,47 +158,102 @@ public class JobPostingController {
         return "recruiter/jobPosting/JPlist";
     }
 
-    //상세조회
-        @GetMapping("/JPdetail/{posting_no}")
-        public String detail (@PathVariable("posting_no") int posting_no, Model model) throws Exception {
-            JobPostingDTO JPdetail = jobPostingService.selectJPdetail(posting_no);
+    /*@GetMapping("/JPdetail/{posting_no}")
+    public String detail ( @PathVariable("posting_no") int posting_no, HttpSession session , Model model) throws Exception {
+        JobPostingDTO JPdetail = jobPostingService.selectJPdetail(posting_no);
+        String postingCntKey = "postingCnt";
 
-            int memberNo = 0;
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            if (authentication != null) {
-                Object principal = authentication.getPrincipal();
-                if (principal instanceof UserDetails) {
-                    Member member = postingBookmarkService.findMemberByUsername(((UserDetails) principal).getUsername());
-                    memberNo = member.getMember_no();
-                }
+        int memberNo = 0;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null) {
+            Object principal = authentication.getPrincipal();
+            if (principal instanceof UserDetails) {
+                Member member = postingBookmarkService.findMemberByUsername(((UserDetails) principal).getUsername());
+                memberNo = member.getMember_no();
             }
-
-            //Message no 전달
-            long companyNo = JPdetail.getCompany_no();
-            long recruiterNo = applyService.getMemberNoByCompany(companyNo);
-
-            //Question&Answer List 전달
-            PagingResponse<QuestionDTO> questionPage = qnAService.getCompanyQnAList(companyNo, new Criteria());
-
-            System.out.println("companyNo : "+companyNo+ ", questionPage : "+questionPage.getList().toString());
-
-            List<ResumeDTO> resumeList = resumeService.selectResumeList(memberNo);
-
-            System.out.println(JPdetail.toString());
-            model.addAttribute("JPdetail", JPdetail);
-            model.addAttribute("postingNo", posting_no);
-            model.addAttribute("memberNo", memberNo);
-            model.addAttribute("resumeList", resumeList);
-
-            //메세지 및 QnA list
-            model.addAttribute("recruiterNo", recruiterNo);
-            model.addAttribute("questionPage", questionPage);
-            return "recruiter/jobPosting/JPdetail";
         }
+
+        List<ResumeDTO> resumeList = resumeService.selectResumeList(memberNo);
+
+        model.addAttribute("JPdetail", JPdetail);
+        model.addAttribute("postingNo", posting_no);
+        model.addAttribute("memberNo", memberNo);
+        model.addAttribute("resumeList", resumeList);
+        *//*return "recruiter/jobPosting/JPdetail";*//*
+
+        // 중복 조회 방지 로직
+
+        // 세션에서 이미 조회한 게시물 ID 리스트 가져오기
+        List<Integer> postingCnt = (List<Integer>) session.getAttribute(postingCntKey);
+
+        if (postingCnt != null && postingCnt.contains(posting_no)) {
+            // 중복 처리 로직 작성 (예: 에러 메세지 출력 또는 리다이렉트)
+            return "duplicate_error";
+        }
+
+        // 조회수 증가 및 게시물 정보 가져오기
+        jobPostingService.postingCnt(posting_no);
+
+        // 기존 코드 생략
+
+        // 세션에 현재 게시물 ID 추가하기
+        if (postingCnt == null) {
+            postingCnt = new ArrayList<>();
+            session.setAttribute(postingCntKey, postingCnt);
+        }
+
+        postingCnt.add(posting_no);
+
+        return "recruiter/jobPosting/JPdetail";
+    }*/
+
+
+    //상세조회
+    @GetMapping("/JPdetail/{posting_no}")
+    public String detail(@PathVariable("posting_no") int posting_no,HttpSession session, Model model) throws Exception {
+        postingCnt(posting_no, session);
+
+        JobPostingDTO JPdetail = jobPostingService.selectJPdetail(posting_no);
+        int memberNo = getMemberNoFromSecurityContext();
+        List<ResumeDTO> resumeList = resumeService.selectResumeList(memberNo);
+
+        model.addAttribute("JPdetail", JPdetail);
+        model.addAttribute("postingNo", posting_no);
+        model.addAttribute("memberNo", memberNo);
+        model.addAttribute("resumeList", resumeList);
+
+        return "recruiter/jobPosting/JPdetail";
+    }
+
+    public void  postingCnt(int posting_no, HttpSession session) {
+        // 중복 조회 방지 로직
+        String postingCntKey = "postingCnt";
+        List<Integer> postingCnt = (List<Integer>) session.getAttribute(postingCntKey);
+
+        if (postingCnt == null) {
+            postingCnt = new ArrayList<>();
+            session.setAttribute(postingCntKey, postingCnt);
+        }
+
+        if (!postingCnt.contains(posting_no)) {
+            jobPostingService.postingCnt(posting_no);
+            postingCnt.add(posting_no);
+        }
+    }
+
+    private int getMemberNoFromSecurityContext() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
+            Member member = postingBookmarkService.findMemberByUsername(((UserDetails) authentication.getPrincipal()).getUsername());
+            return member.getMember_no();
+        }
+        return 0;
+    }
+
 
     // 수정 페이지로 이동
     @GetMapping("/JPmodify/{posting_no}")
-    public String modifyForm ( @PathVariable("posting_no") int posting_no, Model model) throws Exception {
+    public String modifyForm(@PathVariable("posting_no") int posting_no, Model model) throws Exception {
         JobPostingDTO jobPostingDTO = jobPostingService.selectJPdetail(posting_no);
         List<LocDTO> upperLoc = jobPostingService.getUpperLoc();
         ObjectMapper mapper = new ObjectMapper();
@@ -231,7 +282,7 @@ public class JobPostingController {
 
     // 수정 작업 처리
     @PostMapping("/JPmodify")
-    public String JPmodify (@RequestParam Map < String, Object > map) throws Exception {
+    public String JPmodify(@RequestParam Map<String, Object> map) throws Exception {
         jobPostingService.JPmodify(map);
         // jobPosting을 사용하여 해당 채용 정보를 업데이트
         return "redirect:/recruiter/JPlist"; // 수정 후 목록 페이지로 리다이렉트
@@ -239,8 +290,8 @@ public class JobPostingController {
 
     // 삭제 작업 처리
     @GetMapping("/JPdelete/{posting_no}")
-    public ModelAndView JPdelete ( @PathVariable("posting_no") int posting_no, ModelAndView modelAndView) throws
-    Exception {
+    public ModelAndView JPdelete(@PathVariable("posting_no") int posting_no, ModelAndView modelAndView) throws
+            Exception {
         jobPostingService.JPdelete(posting_no);
         modelAndView.setViewName("redirect:/recruiter/JPlist"); // 삭제 후 목록 페이지로
         return modelAndView;

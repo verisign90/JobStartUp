@@ -47,6 +47,7 @@
                     <input type="text" name="posting_title" id="posting_title" class="posting_title" placeholder="공고 제목"
                            required="제목을 입력해주세요">
                 </div>
+                <input type="hidden">
                 <div>
                     <label for="c1" class="mini-career">직급</label>
                 </div>

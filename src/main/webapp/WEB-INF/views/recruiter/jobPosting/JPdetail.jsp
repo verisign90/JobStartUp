@@ -50,7 +50,15 @@
                               data-member-no="${memberNo}">
                             <button class="follow-button" style="background-color: transparent; border: none;">
                                 <img class="follow-image" src="${cPath}/img/status_unfollow.png" style="width: 20px;" alt=""/>
+
                             </button>
+                        </span>
+                        <%--조회수--%>
+                        <span>
+                            <span>
+                                 <img id="message_img" src="${cPath}/img/cnt/eye-icon.png" style="width:20px;" margin="1px;">
+                                <span>${JPdetail.posting_cnt}</span>
+                            </span>
                         </span>
                     </span>
                     <div>
@@ -339,6 +347,26 @@
 <!-- message modal -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script>
+    // 페이지가 완전히 로드된 후 실행
+    $(document).ready(function() {
+        // 조회수 갱신을 위한 Ajax 요청
+        $.ajax({
+            url: '/recruiter/JPlist', // 서버의 조회수 증가 API URL
+            type: 'GET',
+            data: {posting_no: ${posting_no}}, // 게시물 번호 전송
+            success: function(response) {
+                // 서버에서 새 조회수를 응답으로 받아와 웹 페이지에 갱신
+                $('#postingCount').text(response.newPostingCount);
+            },
+            error: function(xhr, status, error) {
+                console.error('조회수 갱신 실패:', status, error);
+            }
+        });
+    });
+
+
+
+
     $(document).ready(function () {
         $(".bookmark-item").each(function () {
             const item = $(this);

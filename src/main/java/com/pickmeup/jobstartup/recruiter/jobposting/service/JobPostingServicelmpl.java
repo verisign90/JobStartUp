@@ -5,6 +5,7 @@ import com.pickmeup.jobstartup.recruiter.jobposting.dto.JobPostingDTO;
 import com.pickmeup.jobstartup.recruiter.jobposting.dto.SearchDTO;
 import com.pickmeup.jobstartup.recruiter.jobposting.repository.JobPostingRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -116,6 +117,11 @@ public class JobPostingServicelmpl implements JobPostingService{
         return result;
     }
 
+    @Override
+    public Map<String, Object> paginationPostingBySearch(int page, int size, String upperLoc, String lowerLoc, String keyword) {
+        return null;
+    }
+
     //검색 통한 목록 조회
     @Override
     public Map<String, Object> paginationPostingBySearch(int page, int size, SearchDTO searchDTO) {
@@ -150,6 +156,12 @@ public class JobPostingServicelmpl implements JobPostingService{
 
         result.put("totalPages", totalPages);
         return result;
+    }
+
+    //조회수
+    @Override
+    public void postingCnt(int postingNo) {
+        jobPostingRepository.postingCnt(postingNo);
     }
 
 }
