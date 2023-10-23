@@ -21,7 +21,8 @@
                 계정 로그인
             </h2>
             <p>
-                <a href="/member/find">아이디/비밀번호 찾기</a>
+                <a href="/member/findPersonId">개인회원 아이디/비밀번호 찾기</a><br><br>
+                <a href="/member/find">기업회원 아이디/비밀번호 찾기</a>
             </p>
         </div>
 
