@@ -1,6 +1,7 @@
 package com.pickmeup.jobstartup.main.service;
 
 import com.pickmeup.jobstartup.jobfair.dto.JobFairDTO;
+import com.pickmeup.jobstartup.main.dto.JobPostDTO;
 import com.pickmeup.jobstartup.main.repository.MainRepository;
 import com.pickmeup.jobstartup.recruiter.apply.dto.ApplyDTO;
 import lombok.RequiredArgsConstructor;
@@ -17,11 +18,14 @@ public class MainServiceImpl implements MainService {
         return mainRepository.getCompanyList();
     }
 
+    @Override
+    public List<JobPostDTO> getJobPostingList() {
+        return mainRepository.selectJobPost();
+    }
+
     public ApplyDTO getCompanyNO(int companyNo){
         return mainRepository.getCompanyNO(companyNo);
     }
 
-    public List<JobFairDTO> getJobFairList(){
-        return mainRepository.getJobFairList();
-    }
+    public List<JobFairDTO> getJobFairList(){return mainRepository.getJobFairList();}
 }

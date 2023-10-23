@@ -77,11 +77,8 @@ public class SecurityConfig {
                             ).permitAll();
 
                     // "/qna/" 관련 경로
-
                     authorizeHttpRequests
                             .requestMatchers(
-                                    new MvcRequestMatcher(introspector, "/qna/recruiter/boardList"),
-                                    new MvcRequestMatcher(introspector, "/qna/recruiter/boardList/**"),
                                     new MvcRequestMatcher(introspector, "/qna/modify"),
                                     new MvcRequestMatcher(introspector, "/qna/modify/**"),
                                     new MvcRequestMatcher(introspector, "/qna/delete"),
@@ -95,12 +92,18 @@ public class SecurityConfig {
                                     new MvcRequestMatcher(introspector, "/qna/qfileDownload/**"),
                                     new MvcRequestMatcher(introspector, "/qna/afileDownload/**"),
                                     new MvcRequestMatcher(introspector, "/qna/write"),
-                                    new MvcRequestMatcher(introspector, "/qna/write/**")
+                                    new MvcRequestMatcher(introspector, "/qna/write/**"),
+                                    new MvcRequestMatcher(introspector, "/qna/recruiter/write"),
+                                    new MvcRequestMatcher(introspector, "/qna/recruiter/write/**")
                             ).access("hasAuthority('COMPANY') or hasAuthority('COMMON') or hasAnyAuthority('ADMIN')");
 
 
                     authorizeHttpRequests
                             .requestMatchers(
+                                    new MvcRequestMatcher(introspector, "/qna/recruiter/boardList"),
+                                    new MvcRequestMatcher(introspector, "/qna/recruiter/boardList/**"),
+                                    new MvcRequestMatcher(introspector, "/qna/recruiter/list"),
+                                    new MvcRequestMatcher(introspector, "/qna/recruiter/list/**"),
                                     new MvcRequestMatcher(introspector, "/qna/answer"),
                                     new MvcRequestMatcher(introspector, "/qna/answer/**"),
                                     new MvcRequestMatcher(introspector, "/qna/modifyAnswer"),
@@ -121,6 +124,20 @@ public class SecurityConfig {
                             .requestMatchers(
                                     new MvcRequestMatcher(introspector, "/seeker/**")
                             ).access("hasAuthority('COMMON') or hasAuthority('ADMIN')");
+
+                    // "/message/" 관련 경로
+                    authorizeHttpRequests
+                            .requestMatchers(
+                                    new MvcRequestMatcher(introspector, "/message/**"),
+                                    new MvcRequestMatcher(introspector, "/message/write"),
+                                    new MvcRequestMatcher(introspector, "/message/list"),
+                                    new MvcRequestMatcher(introspector, "/message/list/**"),
+                                    new MvcRequestMatcher(introspector, "/message/sentList"),
+                                    new MvcRequestMatcher(introspector, "/message/read"),
+                                    new MvcRequestMatcher(introspector, "/message/sentRead"),
+                                    new MvcRequestMatcher(introspector, "/message/receiver/delete"),
+                                    new MvcRequestMatcher(introspector, "/message/sender/delete")
+                            ).access("hasAuthority('COMPANY') or hasAuthority('COMMON') or hasAnyAuthority('ADMIN')");
 
                     // ADMIN은 모든 접근 허용
                     authorizeHttpRequests

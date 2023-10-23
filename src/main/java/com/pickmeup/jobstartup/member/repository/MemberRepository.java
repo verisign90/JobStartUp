@@ -1,10 +1,13 @@
 package com.pickmeup.jobstartup.member.repository;
 
 import com.pickmeup.jobstartup.member.dto.CompanyDTO;
+import com.pickmeup.jobstartup.member.dto.MenuDTO;
 import com.pickmeup.jobstartup.member.entity.Member;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.ArrayList;
 
 @Mapper
 @Repository
@@ -55,4 +58,7 @@ public interface MemberRepository {
     
     //no로 멤버 객체 가져오기
     Member selectMemberByNo(long memberNo);
+    
+    //메뉴 리스트
+    ArrayList<MenuDTO> getMenuListBymemberType(@Param("memberType") String memberType, @Param("menu_level") long menu_level);
 }

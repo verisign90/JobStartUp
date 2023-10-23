@@ -82,6 +82,7 @@
                             </label>
                         </div>
                     </div>
+                    <input type="hidden" name="company_no" id="company_no" class="company_no" value="0"/>
                     <button type="submit" name="subBtn">등록하기</button>
                 </section>
             </form>

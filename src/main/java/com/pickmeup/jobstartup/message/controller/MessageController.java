@@ -23,11 +23,6 @@ public class MessageController {
 
     private final MessageService messageService;
 
-    @GetMapping("/list02")
-    public String messageList02(){
-        return "/message/messageList";
-    }
-
     @PostMapping("/write")
     @ResponseBody
     public String sendMessage(@ModelAttribute("messageDTO") MessageDTO messageDTO) throws Exception {
@@ -44,7 +39,7 @@ public class MessageController {
         Long member_no = intNo.longValue();
         PagingResponse<MessageDTO> messageDTOPage = messageService.getMessageList(member_no, criteria);
         model.addAttribute("messageDTOPage", messageDTOPage);
-        return "/message/messageList02";
+        return "/message/messageList";
     }
 
     @GetMapping("/sentList")

@@ -89,4 +89,23 @@
         FROM member
         WHERE member_no = #{memberNo}
     </select>
+
+    <!-- 메뉴 리스트 -->
+    <select id="getMenuListBymemberType" resultType="com.pickmeup.jobstartup.member.dto.MenuDTO">
+        SELECT ta.MENU_ID, ta.HIR_MENU_ID, ta.MENU_NAME, ta.MENU_URL, ta.GROUP_NO, ta.MENU_LEVEL, ta.MENU_ORDER
+        FROM MENU_MASTER ta
+        WHERE EXISTS (
+        SELECT  1
+        FROM  MENU_AUTHORITY tb
+        WHERE ta.MENU_ID = tb.MENU_ID
+        <if test="memberType != null">
+            AND tb.MEMBER_TYPE in (#{memberType}, '9')
+        </if>
+        <if test="memberType == null">
+            AND tb.MEMBER_TYPE = '9'
+        </if>
+        )
+        AND ta.MENU_LEVEL= #{menu_level}
+        ORDER BY ta.MENU_ORDER
+    </select>
 </mapper>

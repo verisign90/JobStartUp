@@ -23,4 +23,12 @@
             FROM job_fair
         ]]>
     </select>
+    <select id="selectJobPost" resultType="com.pickmeup.jobstartup.main.dto.JobPostDTO">
+        <![CDATA[
+            SELECT C.COMPANY_NO, C.COMPANY_NAME, C.COMPANY_ADDRESS_DETAIL, C.LOGO_SAVNAME, J.POSTING_NO, J.POSTING_TITLE, J.POSTING_CAREER, J.POSTING_ACADEMY, J.POSTING_LABOR, J.POSTING_SALARY
+            FROM COMPANY C, JOB_POSTING J
+            WHERE C.COMPANY_NO = J.COMPANY_NO
+            ORDER BY POSTING_NO DESC
+        ]]>
+    </select>
 </mapper>

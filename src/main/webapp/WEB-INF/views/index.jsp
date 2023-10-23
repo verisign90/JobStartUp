@@ -45,7 +45,7 @@
               <div class="row" style="margin-left: -120px;">
                 <div class="col-lg-12">
                   <div class="fw-bolder" style="color: white; font-size: 80px;">JOB START UP</div>
-                  <p>오늘의 공고를 확인하세요.</p>
+                  <h4>오늘의 공고를 확인하세요.</h4>
                 </div>
                 <div class="col-lg-12">
                 </div>
@@ -70,13 +70,14 @@
         <div class="section-heading  wow fadeInDown" data-wow-duration="1s" data-wow-delay="0.5s">
           <h4>Today's <em> Company &amp; Job Posting</em> for you</h4>
           <img src="/css/template/assets/images/heading-line-dec.png" alt="">
-          <p class="font-class"> 당신을 위한 오늘의 <a rel="nofollow" href="https://www.toocss.com/" target="_blank">기업</a> 과 <a href="https://templatemo.com/contact" target="_parent"> 공고 </a> 입니다. 확인해보세요!</p>
+          <p class="font-class"> 당신을 위한 오늘의 <span>기업</span> 과 <a href="" target="_parent"> 공고 </a> 입니다. 확인해보세요!</p>
         </div>
       </div>
     </div>
   </div>
 </div>
 
+<!-- 관련 기업 소개 -->
 <div class="container">
   <div class="row">
     <c:if test="${not empty applyDTOList }">
@@ -96,14 +97,98 @@
     </c:if>
   </div>
 </div>
+<!-- 관련 기업 소개 -->
 
+<div style="margin : 50px 0 50px 0;"></div>
 
+<!-- 공고 소개 -->
+<div class="container">
+  <div class="row">
+    <c:if test="${not empty jobPostingList}">
+      <c:forEach var="jobPost" items="${jobPostingList}" varStatus="status">
+       <c:if test="${status.index < 8}">
+         <div class="col-lg-3">
+            <div class="service-item first-service">
+                <div class="icon"><img src="/image/apply/${jobPost.logo_savname}"/></div>
+                <h4>${jobPost.company_name}</h4>
+                <p>${jobPost.posting_title}</p>
+                <p>
+                <c:if test="${not empty jobPost.posting_career}">
+                    <span>${jobPost.posting_career}&nbsp;/&nbsp;</span>
+                </c:if>
+                <c:if test="${not empty jobPost.posting_academy}">
+                    <span>${jobPost.posting_academy}&nbsp;/&nbsp;</span>
+                </c:if>
+                <c:if test="${not empty jobPost.posting_labor}">
+                    <span>${jobPost.posting_labor}&nbsp;/&nbsp;</span>
+                </c:if>
+                <c:if test="${not empty jobPost.posting_salary}">
+                    <span>${jobPost.posting_salary}</span>
+                </c:if>
+                </p>
+                <div class="text-button">
+                  <a href="/recruiter/JPdetail/${jobPost.posting_no}">Job Posting More<i class="fa fa-arrow-right"></i></a>
+                </div>
+            </div>
+         </div>
+       </c:if>
+      </c:forEach>
+    </c:if>
+  </div>
+</div>
+<!-- 공고 소개 -->
+
+<div id="services" class="services section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2">
+        <div class="section-heading  wow fadeInDown" data-wow-duration="1s" data-wow-delay="0.5s">
+          <h4>Today's <em> JobFair </em> for you</h4>
+          <img src="/css/template/assets/images/heading-line-dec.png" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 취업 박람회 소개 -->
+<div class="container">
+  <div class="row">
+    <c:if test="${not empty jobFairDTO}">
+      <c:forEach var="jobFair" items="${jobFairDTO}" varStatus="status">
+       <c:if test="${status.index < 4}">
+         <div class="col-lg-3">
+            <div class="service-item first-service">
+              <div class="icon"><img src="/image/apply/${apply.logo_orgname}"/></div>
+                <h4>${jobFair.JOBFAIR_TITLE}</h4>
+                <p>${jobFair.JOBFAIR_SDATE} ~ ${jobFair.JOBFAIR_EDATE}</p>
+                <p>${jobFair.JOBFAIR_HOST}</p>
+                <p>${jobFair.JOBFAIR_PLACE}</p>
+                <div class="text-button">
+                  <a href="/jobfair/detail/${jobFair.JOBFAIR_NO}">JobFair More<i class="fa fa-arrow-right"></i></a>
+                </div>
+            </div>
+         </div>
+       </c:if>
+      </c:forEach>
+    </c:if>
+  </div>
+</div>
+<!-- 공고 소개 -->
 
 <!-- 중간에 날린 부분 있음 -->
 
 <!-- Footer start -->
 <%@ include file="layout/layoutFooter.jsp" %>
 <!-- Footer end -->
+<script src="/css/template/vendor/jquery/jquery.min.js"></script>
+<script src="/css/template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/css/template/assets/js/owl-carousel.js"></script>
+<script src="/css/template/assets/js/animation.js"></script>
+<script src="/css/template/assets/js/imagesloaded.js"></script>
+<script src="/css/template/assets/js/popup.js"></script>
+<script src="/css/template/assets/js/custom.js"></script>
+<script src="/css/template/assets/js/side.js"></script>
 
 </body>
 </html>
