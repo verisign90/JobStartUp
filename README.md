@@ -22,7 +22,7 @@
 <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=flat&logo=Spring Boot&logoColor=white"/><br/>
 
 **IDE**<br/>
-<img src="https://assets.stickpng.com/images/58480910cef1014c0b5e48f7.png" alt="Intellij IDEA Logo" itemprop="contentUrl"><br/>
+<img src="https://assets.stickpng.com/images/58480910cef1014c0b5e48f7.png" alt="Intellij IDEA Logo"><br/>
 
 **DBMS**<br/>
 <img src="https://img.shields.io/badge/Oracle-F80000?style=flat&logo=Oracle&logoColor=white"/><br/>
