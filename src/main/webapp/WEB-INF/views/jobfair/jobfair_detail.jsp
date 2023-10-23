@@ -25,7 +25,7 @@
     <%@ include file="../layout/layoutAdminSidebar.jsp" %>
 </c:if>
 <main>
-    <article>
+    <article style="margin: 200px 250px 50px;">
         <div class="jobfair_info">
             <div>
                 <img class="img_jobfair" src=""
@@ -34,7 +34,7 @@
             <div class="jobfair_info_inner">
                 <div class="jobfair_info_block">
                     <div class="jobfair_key">
-                        title
+                        제목
                     </div>
                     <div class="jobfair_value">
                         ${jobFair.JOBFAIR_TITLE}
@@ -42,7 +42,7 @@
                 </div>
                 <div class="jobfair_info_block">
                     <div class="jobfair_key">
-                        date
+                        일시
                     </div>
                     <div class="jobfair_value">
                         ${jobFair.JOBFAIR_SDATE} - ${jobFair.JOBFAIR_EDATE}
@@ -50,7 +50,7 @@
                 </div>
                 <div class="jobfair_info_block">
                     <div class="jobfair_key">
-                        place
+                        장소
                     </div>
                     <div class="jobfair_value">
                         ${jobFair.JOBFAIR_PLACE}
@@ -58,7 +58,7 @@
                 </div>
                 <div class="jobfair_info_block">
                     <div class="jobfair_key">
-                        target
+                        타겟
                     </div>
                     <div class="jobfair_value">
                         ${jobFair.JOBFAIR_TARGET}
@@ -66,7 +66,7 @@
                 </div>
                 <div class="jobfair_info_block">
                     <div class="jobfair_key">
-                        host
+                        주관
                     </div>
                     <div class="jobfair_value">
                         ${jobFair.JOBFAIR_HOST}
@@ -74,7 +74,7 @@
                 </div>
                 <div class="jobfair_info_block">
                     <div class="jobfair_key">
-                        site
+                        사이트
                     </div>
                     <div class="jobfair_value">
                         <a href="${jobFair.JOBFAIR_SITE}">
@@ -95,6 +95,7 @@
                         삭제
                     </a>
                 </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <div>
                     <a href="${pageContext.request.contextPath}/jobfair/write/edit?jobFairNo=${jobFair.JOBFAIR_NO}"
                        class="button-link">

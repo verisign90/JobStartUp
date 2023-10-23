@@ -22,7 +22,7 @@
     <%@ include file="../layout/layoutAdminSidebar.jsp" %>
 </c:if>
 <main>
-    <article>
+    <article style="margin: 200px 250px 50px;">
         <div>
             박람회 등록하기
         </div>

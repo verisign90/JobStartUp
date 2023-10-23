@@ -10,9 +10,13 @@
     </select>
 
     <select id="paginationEntryCompany" parameterType="map" resultType="com.pickmeup.jobstartup.jobfair.dto.EntryCompanyDTO">
-        SELECT JOBFAIRENTRY_NO, JOBFAIR_NO, COMPANY_NO
-        FROM JOB_FAIR_ENTRY
+        SELECT JFE.JOBFAIRENTRY_NO, JFE.JOBFAIR_NO, JFE.COMPANY_NO, JF.JOBFAIR_TITLE, C.COMPANY_NAME
+        FROM JOB_FAIR_ENTRY JFE,
+             COMPANY C,
+             JOB_FAIR JF
         WHERE JOBFAIRENTRY_STATUS = 'N'
+          AND JFE.COMPANY_NO = C.COMPANY_NO
+          AND JFE.JOBFAIR_NO = JF.JOBFAIR_NO
         ORDER BY JOBFAIRENTRY_NO ASC
         OFFSET #{offset} ROWS FETCH NEXT #{size} ROWS ONLY
     </select>
