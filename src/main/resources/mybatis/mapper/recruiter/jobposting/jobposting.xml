@@ -18,45 +18,84 @@
     <!--채용공고 목록조회-->
     <select id="paginationPosting" parameterType="int" resultType="JobPostingDTO">
         <![CDATA[
-        SELECT J.POSTING_NO,
-               J.POSTING_TITLE,
-               J.POSTING_CAREER,
-               J.POSTING_ACADEMY,
-               J.POSTING_LABOR,
-               J.POSTING_SALARY,
-               j.POSTING_SWORK,
-               j.POSTING_EWORK,
-               C.COMPANY_NAME,
-               C.COMPANY_ADDRESS_DETAIL
-        FROM JOB_POSTING J,
-             COMPANY C
-        WHERE J.COMPANY_NO = C.COMPANY_NO
-          /*AND TRUNC(J.POSTING_SDATE) <= TRUNC(SYSDATE) AND TRUNC(SYSDATE) <= TRUNC(J.POSTING_EDATE)*/
-        ORDER BY POSTING_NO DESC
-        offset #{offset} rows fetch next #{size} rows only
+            SELECT J.POSTING_NO,
+                   J.POSTING_TITLE,
+                   J.POSTING_CAREER,
+                   J.POSTING_ACADEMY,
+                   J.POSTING_LABOR,
+                   J.POSTING_SALARY,
+                   j.POSTING_SWORK,
+                   j.POSTING_EWORK,
+                   C.COMPANY_NAME,
+                   C.COMPANY_ADDRESS_DETAIL
+            FROM JOB_POSTING J,
+                 COMPANY C
+            WHERE J.COMPANY_NO = C.COMPANY_NO
+              /*AND TRUNC(J.POSTING_SDATE) <= TRUNC(SYSDATE) AND TRUNC(SYSDATE) <= TRUNC(J.POSTING_EDATE)*/
+            ORDER BY POSTING_NO DESC
+            OFFSET #{offset} ROWS FETCH NEXT #{size} ROWS ONLY
+        ]]>
+    </select>
+
+    <!-- 채용공고 목록조회 (검색) : 추가 -->
+    <select id="paginationPostingBySearch" resultType="JobPostingDTO">
+        <![CDATA[
+            SELECT J.POSTING_NO,
+                   J.POSTING_TITLE,
+                   J.POSTING_CAREER,
+                   J.POSTING_ACADEMY,
+                   J.POSTING_LABOR,
+                   J.POSTING_SALARY,
+                   J.POSTING_SWORK,
+                   J.POSTING_EWORK,
+                   C.COMPANY_NAME,
+                   C.COMPANY_ADDRESS_DETAIL
+            FROM JOB_POSTING J
+            INNER JOIN COMPANY C ON J.COMPANY_NO = C.COMPANY_NO
+            WHERE (C.COMPANY_ADDRESS_DETAIL LIKE '%' || #{upperLoc} || '%')
+                AND (C.COMPANY_ADDRESS_DETAIL LIKE '%' || #{lowerLoc} || '%')
+                AND (J.POSTING_TITLE LIKE '%' || #{keyword} || '%')
+            ORDER BY J.POSTING_NO DESC
+            OFFSET #{offset} ROWS FETCH NEXT #{size} ROWS ONLY
+        ]]>
+    </select>
+
+    <!--상위 주소 -->
+    <select id="selectUpper" parameterType="string" resultType="string">
+        <![CDATA[
+            select detail_name from detail_code
+            where detail_code_num = #{upperLocSelected}
+        ]]>
+    </select>
+
+    <!--하위 주소 -->
+    <select id="selectLower" parameterType="string" resultType="string">
+        <![CDATA[
+            select detail_name from detail_code
+            where detail_code_num = #{lowerLocSelected}
         ]]>
     </select>
 
 
     <!--공고상세조회-->
     <select id="selectJPdetail" parameterType="int" resultType="JobPostingDTO">
-    <![CDATA[
-        SELECT J.POSTING_NO,
-               J.POSTING_TITLE,
-               J.POSTING_CAREER,
-               J.POSTING_ACADEMY,
-               J.POSTING_LABOR,
-               J.POSTING_SALARY,
-               J.POSTING_WORKING_DAY,
-               J.POSTING_CONTENT,
-               J.POSTING_SWORK,
-               J.POSTING_EWORK,
-               C.COMPANY_NAME,
-               C.COMPANY_ADDRESS_DETAIL,
-               C.COMPANY_NO
-        FROM COMPANY C
-                 INNER JOIN JOB_POSTING J ON C.COMPANY_NO = J.COMPANY_NO
-        WHERE J.POSTING_NO = #{posting_no}
+        <![CDATA[
+            SELECT J.POSTING_NO,
+                   J.POSTING_TITLE,
+                   J.POSTING_CAREER,
+                   J.POSTING_ACADEMY,
+                   J.POSTING_LABOR,
+                   J.POSTING_SALARY,
+                   J.POSTING_WORKING_DAY,
+                   J.POSTING_CONTENT,
+                   J.POSTING_SWORK,
+                   J.POSTING_EWORK,
+                   C.COMPANY_NAME,
+                   C.COMPANY_ADDRESS_DETAIL,
+                   C.COMPANY_NO
+            FROM COMPANY C
+                     INNER JOIN JOB_POSTING J ON C.COMPANY_NO = J.COMPANY_NO
+            WHERE J.POSTING_NO = #{posting_no}
         ]]>
     </select>
 
@@ -83,7 +122,6 @@
         ]]>
     </delete>
 
-
     <!--상위주소-->
     <select id="getUpperLoc" resultType="com.pickmeup.jobstartup.recruiter.apply.dto.LocDTO">
         <![CDATA[
@@ -108,23 +146,37 @@
         ]]>
     </select>
 
-    <select id="countPosting" resultType="int">
-        SELECT COUNT(*) FROM JOB_POSTING
-    </select>
-
-
     <select id="getLowerLocData" resultType="com.pickmeup.jobstartup.recruiter.apply.dto.LocDTO" parameterType="List">
         <![CDATA[
-    SELECT *
-    FROM detail_code
-    WHERE
-    <foreach collection="list" item="upperLoc" open="(" separator=" OR " close=")">
-      detail_code_num >= #{upperLoc} + 1 AND detail_code_num < #{upperLoc} + 1000
-    </foreach>
-    AND code_level = 2
-    ORDER BY detail_code_num
-  ]]>
+            SELECT *
+            FROM detail_code
+            WHERE
+            <foreach collection="list" item="upperLoc" open="(" separator=" OR " close=")">
+              detail_code_num >= #{upperLoc} + 1 AND detail_code_num < #{upperLoc} + 1000
+            </foreach>
+            AND code_level = 2
+            ORDER BY detail_code_num
+        ]]>
     </select>
 
+    <!-- pagination : 포스팅 총 개수 -->
+    <select id="countPostingBySearch" parameterType="map" resultType="int">
+        <![CDATA[
+            SELECT COUNT(rownum)
+            from company c
+            JOIN job_posting p ON c.company_no = p.company_no
+            WHERE (C.COMPANY_ADDRESS_DETAIL LIKE '%' || #{upperLoc} || '%')
+                AND (C.COMPANY_ADDRESS_DETAIL LIKE '%' || #{lowerLoc} || '%')
+                AND (p.POSTING_TITLE LIKE '%' || #{keyword} || '%')
+        ]]>
+    </select>
+
+
+    <!-- pagination : 포스팅 총 개수(검색)  -->
+    <select id="countPosting" resultType="int">
+        <![CDATA[
+            SELECT COUNT(*) FROM JOB_POSTING
+        ]]>
+    </select>
 
 </mapper>

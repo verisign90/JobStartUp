@@ -15,6 +15,9 @@ public interface JobPostingService {
     //채용공고 목록조회
     public List<JobPostingDTO> selectJPlist() throws Exception;
 
+    //채용공고 목록조회(검색)
+    public List<JobPostingDTO> selectJPlistBySearch() throws Exception;
+
     //채용공고 상세조회
     public JobPostingDTO selectJPdetail (int posting_no) throws Exception;
 
@@ -32,4 +35,9 @@ public interface JobPostingService {
 
     //page : 현재 페이지, size : 페이지당 게시물 수
     Map<String, Object> paginationPosting(int page, int size);
+
+    //page : 현재 페이지, size : 페이지당 게시물 수
+    Map<String, Object> paginationPostingBySearch(int page, int size,
+                                                  String upperLoc, String lowerLoc,
+                                                  String keyword);
 }
