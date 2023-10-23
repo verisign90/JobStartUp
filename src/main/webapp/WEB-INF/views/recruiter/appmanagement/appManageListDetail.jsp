@@ -187,11 +187,11 @@
                                 <button type="button" class="final-denial-button">반려</button>
                             </div>
                         </form>
-                        <!--<form action="/recruiter/mailFirstEnroll" method="post">
+                        <form action="/recruiter/mailFirstEnroll" method="post">
                             <input type="hidden" id="first_enroll_mail_status_no" name="status_no" value="${selectInfo.status_no}">
                             <input type="hidden" id="first_enroll_mail_member_email" name="member_email" value="${selectInfo.member_email}">
                             <button type="button" class="first-enroll-mail">메일 안내</button>
-                        </form>-->
+                        </form>
                     </div>
                 </c:if>
                 <!-- 1차 채용 거절 -->
@@ -199,33 +199,33 @@
                     <div class = "mention-container">
                         채용이 거절된 지원자입니다.
                     </div>
-                    <!--<form action="/recruiter/mailFirstDenial" method="post">
+                    <form action="/recruiter/mailFirstDenial" method="post">
                         <input type="hidden" id="first_denial_mail_status_no" name="status_no" value="${selectInfo.status_no}">
                         <input type="hidden" id="first_denial_mail_member_email" name="member_email" value="${selectInfo.member_email}">
                         <button type="button" class="first-denial-mail">메일 안내</button>
-                    </form>-->
+                    </form>
                 </c:if>
                 <!-- 최종 합격 -->
                 <c:if test="${selectInfo.first_pass eq 'Y' && selectInfo.final_pass eq 'Y'}">
                     <div class = "mention-container">
                         채용이 승인된 지원자입니다.
                     </div>
-                    <!--<form action="/recruiter/mailLastEnroll" method="post">
+                    <form action="/recruiter/mailLastEnroll" method="post">
                         <input type="hidden" id="last_enroll_mail_status_no" name="status_no" value="${selectInfo.status_no}">
                         <input type="hidden" id="last_enroll_mail_member_email" name="member_email" value="${selectInfo.member_email}">
                         <button type="button" class="last-enroll-mail">메일 안내</button>
-                    </form>-->
+                    </form>
                 </c:if>
                 <!-- 최종 채용 거절 -->
                 <c:if test="${selectInfo.first_pass eq 'Y' && selectInfo.final_pass eq 'F'}">
                     <div class = "mention-container">
                         채용이 거절된 지원자입니다.
                     </div>
-                    <!--<form action="/recruiter/mailLastDenial" method="post">
+                    <form action="/recruiter/mailLastDenial" method="post">
                         <input type="hidden" id="last_denial_mail_status_no" name="status_no" value="${selectInfo.status_no}">
                         <input type="hidden" id="last_denial_mail_member_email" name="member_email" value="${selectInfo.member_email}">
                         <button type="button" class="last-denial-mail">메일 안내</button>
-                    </form>-->
+                    </form>
                 </c:if>
                 </div>
             </div>
