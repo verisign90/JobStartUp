@@ -21,32 +21,35 @@
     <%@ include file="../layout/layoutAdminSidebar.jsp" %>
 </c:if>
 <main>
-    <article>
+    <article style="margin: 0 100px">
         <ul style="padding-left: 8px; margin-left: 8px;">
             <li class="jobfair_list">
                 <div class="board_no">
-                    No
+                    번호
                 </div>
-                <div class="board_title">
-                    JFNO
+                <div class="board_job_fair">
+                    박람회
                 </div>
-                <div class="board_date">
-                    CNO
+                <div class="board_company">
+                    신청 기업
+                </div>
+                <div class="board_btn">
+
                 </div>
             </li>
             <c:forEach var="company" items="${entryCompanyList}">
                 <hr/>
                 <li class="jobfair_list">
                     <div class="board_no">${company.JOBFAIRENTRY_NO}</div>
-                    <div class="board_title">
+                    <div class="board_job_fair">
                         <a href="${pageContext.request.contextPath}/jobfair/detail/${company.JOBFAIR_NO}">
                             <div>${company.JOBFAIR_NO}</div>
                         </a>
                     </div>
-                    <div class="board_date">${company.COMPANY_NO}</div>
-                    <div id="registering_jobfair">
+                    <div class="board_company">${company.COMPANY_NO}</div>
+                    <div class="board_btn">
                         <a href="${pageContext.request.contextPath}/admin/entry/apply?jobFairEntryNo=${company.JOBFAIRENTRY_NO}" class="button-link">
-                            등록하기
+                            승인
                         </a>
                     </div>
                 </li>

@@ -21,17 +21,17 @@
     <%@ include file="../layout/layoutAdminSidebar.jsp" %>
 </c:if>
 <main>
-    <article>
+    <article style="margin: 0 100px">
         <ul style="padding-left: 8px; margin-left: 10px;">
             <li class="jobfair_list">
                 <div class="board_no">
-                    No
+                    번호
                 </div>
-                <div class="board_title">
-                    Company
+                <div class="board_company">
+                    참가 기업
                 </div>
-                <div class="board_date">
-                    Fair
+                <div class="board_job_fair">
+                    박람회
                 </div>
             </li>
             <script>
@@ -40,20 +40,15 @@
                 <hr/>
                 <li class="jobfair_list">
                     <div class="board_no">${company.JOBFAIRENTRY_NO}</div>
-                    <div class="board_title">
+                    <div class="board_company">
                         <!--<a href="${pageContext.request.contextPath}/admin/jobfairdetail/${company.COMPANY_NO}">-->
                         <div>${company.COMPANY_NAME}</div>
                         <!--</a>-->
                     </div>
-                    <div class="board_date">${company.JOBFAIR_TITLE}</div>
+                    <div class="board_job_fair">${company.JOBFAIR_TITLE}</div>
                 </li>
             </c:forEach>
         </ul>
-        <div id="registering_jobfair">
-            <a href="${pageContext.request.contextPath}/admin/jobfair/write" class="button-link">
-                등록하기
-            </a>
-        </div>
     </article>
 </main>
 <%@include file="../layout/layoutFooter.jsp" %>

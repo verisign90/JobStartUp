@@ -21,17 +21,17 @@
     <%@ include file="../layout/layoutAdminSidebar.jsp" %>
 </c:if>
 <main>
-    <article>
+    <article style="margin: 0 100px">
         <ul style="padding-left: 8px; margin-left: 8px;">
             <li class="jobfair_list">
                 <div class="board_no">
-                    No
+                    번호
                 </div>
                 <div class="board_title">
-                    Title
+                    제목
                 </div>
                 <div class="board_date">
-                    Date
+                    기간
                 </div>
             </li>
             <c:forEach var="jobFair" items="${jobFair}">
