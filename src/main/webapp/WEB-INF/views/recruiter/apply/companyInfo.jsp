@@ -35,10 +35,13 @@
     <link rel="stylesheet" href="/css/recruiter/apply/apply.css" type="text/css">
 
 </head>
+<body>
 <div>
     <%@ include file="../../layout/layoutNav.jsp" %>
 </div>
-<body>
+<c:if test="${sessionScope.role == 3}">
+    <%@ include file="../../layout/layoutAdminSidebar.jsp" %>
+</c:if>
 <br><br><br><br><br><br>
 <div class="container1">
     <c:choose>
@@ -103,7 +106,7 @@
         <div class="form-control1">
             <label for="logo">회사 로고</label>
             <!--<img id="logo-preview" src="#" alt="로고 미리보기" style="display: none; width: 200px; height: auto;">-->
-            <small id="logo-error" style="color: red;"></small><br><br>
+            <small id="logo" style="color: red;"></small><br><br>
         </div>
 
 
@@ -118,10 +121,10 @@
 
                         </c:when>
                         <c:when test="${fn:endsWith(file.cfile_orgname, '.xlsx')}">
-                            <img src="${cPath}/image/icon/excel.png"" alt="Excel Icon">
+                            <img src="${cPath}/image/icon/excel.png" alt="Excel Icon">
                         </c:when>
                         <c:when test="${fn:endsWith(file.cfile_orgname, '.pptx')}">
-                            <img src="${cPath}/image/icon/ppt.png"" alt="Excel Icon">
+                            <img src="${cPath}/image/icon/ppt.png" alt="Excel Icon">
                         </c:when>
                         <c:otherwise>
                             <img src="${pageContext.request.contextPath}/resources/icons/default.png"
@@ -140,7 +143,7 @@
 
 
         <div class="form-control1">
-            <label for="username">매출액</label>
+            <label for="company_sales">매출액</label>
             <input type="text" id="company_sales" name="company_sales" value="${applyDTO.company_sales}" readonly
                    required/>
             <small id="sales-error" style="color: red;"></small><br><br>
