@@ -7,7 +7,6 @@
 <head>
 <title>QnA List</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
-<link rel="stylesheet" href="/css/notice/list.css" type="text/css" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://kit.fontawesome.com/f3def94eb2.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="/css/common/base.css" type="text/css">
@@ -78,11 +77,15 @@
                    </span>
                   </c:if>
                   <c:if test="${question.member_no eq sessionScope.memberNo  && sessionScope.role eq 1}">
-                      <span><button type="button" onclick="modifyQuestion(${question.q_no});">수정</button></span>
-                      <span><button type="button" onclick="deleteQuestion(${question.q_no});">삭제</button></span>
+                  <div class="btnWrap">
+                      <span><button type="button" class="subBtn_q" onclick="modifyQuestion(${question.q_no});">수정</button></span>
+                      <span><button type="button" class="subBtn_q" onclick="deleteQuestion(${question.q_no});">삭제</button></span>
+                  </div>
                   </c:if>
                   <c:if test="${sessionScope.role eq 3}">
-                    <span><button type="button" onclick="deleteQuestion(${question.q_no});">삭제</button></span>
+                  <div class="btnWrap">
+                    <span><button type="button" class="subBtn_q" onclick="deleteQuestion(${question.q_no});">삭제</button></span>
+                  </div>
                   </c:if>
               </div>
               <div class="answerDiv" id="answerDiv-${question.q_no}">
@@ -91,14 +94,16 @@
                     <strong>답변대기</strong>
                     <p class="fontSty">
                         아직 질문에 답변이 달리지 않았습니다. 영업일 기준 3일 이내로 회신드립니다.
-                    <span class="answerBtn">
                         <c:if test="${question.company_no==0 && sessionScope.role eq 3}">
-                            <button type="button" onclick="answerForm(${question.q_no})">답글달기</button>
+                        <div class="btnWrap">
+                            <button type="button" class="subBtn_q" onclick="answerForm(${question.q_no})">답글달기</button>
+                        </div>
                         </c:if>
                         <c:if test="${question.company_no eq companyNo && sessionScope.role eq 2 }">
-                            <button type="button" onclick="answerForm(${question.q_no})">답글달기</button>
+                        <div class="btnWrap">
+                            <button type="button" class="subBtn_q" onclick="answerForm(${question.q_no})">답글달기</button>
+                        </div>
                         </c:if>
-                    </span>
                     </p>
                  </c:when>
                <c:otherwise>
@@ -112,12 +117,16 @@
                            </span>
                       </c:if>
                     <c:if test="${question.company_no eq 0 && sessionScope.role eq 3}">
-                       <span><button type="button" onclick="modifyAnswer(${question.q_no}); answerForm(${question.q_no});">수정</button></span>
-                       <span><button type="button" onclick="deleteAnswer(${question.answerDTO.a_no});">삭제</button></span>
+                    <div class="btnWrap">
+                       <span><button type="button" class="subBtn_q" onclick="modifyAnswer(${question.q_no}); answerForm(${question.q_no});">수정</button></span>
+                       <span><button type="button" class="subBtn_q" onclick="deleteAnswer(${question.answerDTO.a_no});">삭제</button></span>
+                    </div>
                     </c:if>
                     <c:if test="${question.company_no eq companyNo && sessionScope.role eq 2 }">
-                       <span><button type="button" onclick="modifyAnswer(${question.q_no}); answerForm(${question.q_no});">수정</button></span>
-                       <span><button type="button" onclick="deleteAnswer(${question.answerDTO.a_no});">삭제</button></span>
+                    <div class="btnWrap">
+                       <span><button type="button" class="subBtn_q" onclick="modifyAnswer(${question.q_no}); answerForm(${question.q_no});">수정</button></span>
+                       <span><button type="button" class="subBtn_q" onclick="deleteAnswer(${question.answerDTO.a_no});">삭제</button></span>
+                    </div>
                     </c:if>
                </c:otherwise>
                </c:choose>
