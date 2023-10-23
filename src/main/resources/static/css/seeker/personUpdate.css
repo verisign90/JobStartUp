@@ -7,6 +7,7 @@
 
 body {
   background-image: #34495e;
+  padding : 200px 250px 100px 250px;
 }
 
 .joinForm {
@@ -32,6 +33,7 @@ body {
   margin: 10px -80px;
   padding: 10px 10px 10px 10px;
   position: relative;
+  width: 530px;
 }
 
 .textForm input[type="text"] {
@@ -54,7 +56,7 @@ body {
   margin-bottom: 0px;
 }
 
-.btn {
+.hello {
   position: relative;
   left: 40%;
   transform: translateX(-50%);
@@ -72,7 +74,7 @@ body {
   display: inline;
 }
 
-.btn:hover {
+.hello:hover {
   background-position: right;
 }
 
@@ -176,3 +178,10 @@ label {
     top: 10px;  /* 입력 필드와 남은 시간의 수직 정렬을 위해 이 값을 조절하세요 */
 }
 
+.dummy {
+    margin: 10px;
+}
+
+main {
+    padding : 200px 250px 100px 250px;
+}
