@@ -2,10 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.pickmeup.jobstartup.seeker.applicationSupport.repository.ApplicationStatusRepository">
+    <!-- 이력서 지원하기 -->
     <insert id="insertResumeApply" parameterType="map">
         INSERT INTO APPLICATION_STATUS (MEMBER_NO, POSTING_NO, RESUME_NO)
         VALUES (#{member_no}, #{posting_no}, #{resume_no})
     </insert>
+
+    <!-- 글 삭제시 이력서 지원도 삭제 -->
+    <delete id="deleteApply" parameterType="int">
+        DELETE FROM APPLICATION_STATUS
+        WHERE RESUME_NO = #{resume_no}
+    </delete>
 
     <!-- 이력서 지원현황 조회 (resultMap) -->
     <resultMap id="ApplyStatusMap" type="ResumeApplyDTO">
@@ -84,8 +91,9 @@
     <select id="selectApplyStatus" resultMap="ApplyStatusMap" parameterType="int">
         SELECT *
         FROM APPLICATION_STATUS
-        INNER JOIN RESUME ON APPLICATION_STATUS.RESUME_NO = RESUME.RESUME_NO
-        WHERE APPLICATION_STATUS.MEMBER_NO = #{member_no}
+                 INNER JOIN RESUME ON APPLICATION_STATUS.RESUME_NO = RESUME.RESUME_NO
+        WHERE APPLICATION_STATUS.MEMBER_NO = #{member_no} AND INTERVIEW_DATE IS NOT NULL
+        ORDER BY INTERVIEW_DATE
     </select>
 
     <!-- 오늘 면접 조회 -->
@@ -96,5 +104,15 @@
                  JOIN company C ON JP.company_no = C.company_no
         WHERE TRUNC(A.interview_date) = TRUNC(SYSDATE)
             AND A.MEMBER_NO = #{member_no}
+    </select>
+
+    <!-- 예정된 면접 조회 -->
+    <select id="selectPlan" resultMap="selectDetail" parameterType="int">
+        SELECT *
+        FROM application_status A
+                 JOIN job_posting JP ON A.posting_no = JP.posting_no
+                 JOIN company C ON JP.company_no = C.company_no
+        WHERE A.interview_date > TRUNC(SYSDATE + 1)
+          AND A.MEMBER_NO = #{member_no}
     </select>
 </mapper>

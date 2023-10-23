@@ -49,6 +49,11 @@ public class ResumeDTO {
         this.resume_orgname = resumeDTO.getResume_orgname();
         this.resume_savname = resumeDTO.getResume_savname();
         this.resume_url = resumeDTO.getResume_url();
+        this.careerDTOList = resumeDTO.getCareerDTOList();
+        this.resumeLocDTOList= resumeDTO.getResumeLocDTOList();
+        this.certificateDTOList = resumeDTO.getCertificateDTOList();
+        this.languageDTOList = resumeDTO.getLanguageDTOList();
+        this.languageCertificateDTOList = resumeDTO.getLanguageCertificateDTOList();
     }
 
 }

@@ -50,43 +50,43 @@
         <div class="nav-menu">
             <ul>
                 <li><a class="side_a" href="${cPath}/seeker/mypageHome"><span
-                        class="icon-pie-chart mr-3"></span>MY 홈</a></li>
+                        class="icon-home mr-3"></span>MY 홈</a></li>
 
                 <li class="accordion">
                     <a href="${cPath}/seeker/resumeList" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
                        aria-controls="collapseOne" class="collapsible">
-                        <span class="icon-home mr-3"></span>이력서
+                        <span class="icon-th-list mr-3"></span>이력서
                     </a>
                     <div id="collapseOne" class="collapse" aria-labelledby="headingOne">
                         <div>
                             <ul>
-                                <li><a href="${cPath}/seeker/resumeWrite">이력서 작성</a></li>
-                                <li><a href="${cPath}/seeker/resumeList">이력서 관리</a></li>
+                                <li><a href="${cPath}/seeker/resumeWrite">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-pencil mr-3"></span>이력서 작성</a></li>
+                                <li><a href="${cPath}/seeker/resumeList">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-settings_applications mr-3"></span>이력서 관리</a></li>
                             </ul>
                         </div>
                     </div>
                 </li>
 
                 <li><a class="side_a" href="${cPath}/seeker/bookmarkList"><span
-                        class="icon-notifications_none mr-3"></span>스크랩 / 관심기업</a></li>
+                        class="icon-bookmark mr-3"></span>스크랩 / 관심기업</a></li>
 
                 <li><a class="side_a" href="${cPath}/seeker/applyStatus"><span
                         class="icon-notifications_none mr-3"></span>입사지원 현황</a></li>
 
                 <li><a class="side_a" href="${cPath}/seeker/interviewStatus"><span
-                        class="icon-notifications_none mr-3"></span>면접 현황</a></li>
+                        class="icon-schedule mr-3"></span>면접 현황</a></li>
 
                 <li class="accordion">
                     <a href="${cPath}/seeker/memberCheck" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
                        aria-controls="collapseTwo" class="collapsible">
-                        <span class="icon-search2 mr-3"></span>회원정보 관리
+                        <span class="icon-person mr-3"></span>회원정보 관리
                     </a>
 
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingOne">
                         <div>
                             <ul>
-                                <li><a href="${cPath}/seeker/userInfoUpdate">개인정보 수정</a></li>
-                                <li><a href="${cPath}/seeker/userPWUpdate">비밀번호 변경</a></li>
+                                <li><a href="${cPath}/seeker/userInfoUpdate">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-edit mr-3"></span>개인정보 수정</a></li>
+                                <li><a href="${cPath}/seeker/userPWUpdate">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-system_update mr-3"></span>비밀번호 변경</a></li>
                             </ul>
                         </div>
                     </div>

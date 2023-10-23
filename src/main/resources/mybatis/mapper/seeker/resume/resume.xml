@@ -165,4 +165,22 @@
         where parents_code = #{business_type_code_up}
         ]]>
     </select>
+
+    <!-- 지역 값 불러오기 -->
+    <select id="selectDetailName" resultType="LocDTO">
+        SELECT
+            DETAIL_NAME
+        FROM
+            DETAIL_CODE
+        WHERE
+            DETAIL_CODE_NUM = #{detail_code_num}  -- 시작 DETAIL_CODE_NUM
+        UNION ALL
+        SELECT
+            DC.DETAIL_NAME
+        FROM
+            DETAIL_CODE DC
+                JOIN DETAIL_CODE P ON DC.DETAIL_CODE_NUM = P.PARENTS_CODE
+        WHERE
+            P.DETAIL_CODE_NUM = #{detail_code_num}
+    </select>
 </mapper>
