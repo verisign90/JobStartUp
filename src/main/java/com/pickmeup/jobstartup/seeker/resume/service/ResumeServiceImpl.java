@@ -46,6 +46,7 @@ public class ResumeServiceImpl implements ResumeService{
 
     //이력서 삭제
     @Override
+    @Transactional
     public void deleteResume (int resume_no) {
         logger.info("ResumeServiceImpl-deleteResume() 진입");
         resumeRepository.deleteResume(resume_no);
@@ -61,7 +62,7 @@ public class ResumeServiceImpl implements ResumeService{
         resumeRepository.deleteResumeLoc(resume_no);
         resumeRepository.deleteCertificate(resume_no);
         applicationStatusRepository.deleteApply(resume_no);
-        deleteResume(resume_no);
+        this.deleteResume(resume_no);
     }
 
     //이력서 작성
@@ -242,6 +243,7 @@ public class ResumeServiceImpl implements ResumeService{
 
     //이력서 수정
     @Override
+    @Transactional
     public void modifyResume (int resume_no, ResumeDTO modifyResumeDTO, MultipartFile profileOrgNameFile, MultipartFile resumeOrgNameFile) {
 
         List<CareerDTO> modifyCareerDTOList = new ArrayList<>();

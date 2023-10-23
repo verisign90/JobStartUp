@@ -3,13 +3,10 @@ package com.pickmeup.jobstartup.seeker.resume.controller;
 import com.pickmeup.jobstartup.member.entity.Member;
 import com.pickmeup.jobstartup.recruiter.apply.dto.JobDTO;
 import com.pickmeup.jobstartup.recruiter.apply.dto.LocDTO;
-import com.pickmeup.jobstartup.recruiter.apply.service.ApplyService;
-import com.pickmeup.jobstartup.seeker.applicationSupport.dto.PostingBookmarkDTO;
 import com.pickmeup.jobstartup.seeker.applicationSupport.service.PostingBookmarkServiceImpl;
 import com.pickmeup.jobstartup.seeker.resume.dto.CareerDTO;
 import com.pickmeup.jobstartup.seeker.resume.dto.ResumeDTO;
 import com.pickmeup.jobstartup.seeker.resume.dto.ResumeLocDTO;
-import com.pickmeup.jobstartup.seeker.resume.service.ResumeService;
 import com.pickmeup.jobstartup.seeker.resume.service.ResumeServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +22,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
