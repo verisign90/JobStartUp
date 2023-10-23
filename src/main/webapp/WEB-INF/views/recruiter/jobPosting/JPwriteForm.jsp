@@ -1,8 +1,7 @@
+<!DOCTYPE html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
-<!DOCTYPE html>
 <html lang="ko" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -39,6 +38,7 @@
 <main>
     <article class="all-content">
         <form action="${pageContext.request.contextPath}/recruiter/JPwrite" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="company_no" value="${company_no}">
             <section>
                 <div class="title">
                     <input type="text" name="posting_title" id="posting_title" class="posting_title" placeholder="공고 제목"
