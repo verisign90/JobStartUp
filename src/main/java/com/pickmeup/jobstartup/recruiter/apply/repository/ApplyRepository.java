@@ -49,6 +49,10 @@ public interface ApplyRepository {
 
     public EntryDTO getEntry(int company_no);
 
+
+    //회사번호로 회원번호 불러오기
+    public long getMemberNoByCno(long companyNo);
+
     public void deleteEntry(int company_no);
 
     public int countEntry(int company_no);

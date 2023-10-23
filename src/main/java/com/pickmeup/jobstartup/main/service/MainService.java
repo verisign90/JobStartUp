@@ -1,6 +1,7 @@
 package com.pickmeup.jobstartup.main.service;
 
 import com.pickmeup.jobstartup.jobfair.dto.JobFairDTO;
+import com.pickmeup.jobstartup.main.dto.JobPostDTO;
 import com.pickmeup.jobstartup.recruiter.apply.dto.ApplyDTO;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,8 @@ import java.util.List;
 public interface MainService {
 
     public List<ApplyDTO> getCompanyList();
+
+    public List<JobPostDTO> getJobPostingList();
 
     public ApplyDTO getCompanyNO(int companyNo);
 

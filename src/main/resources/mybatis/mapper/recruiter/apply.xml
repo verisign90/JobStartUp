@@ -160,6 +160,15 @@
 
     </select>
 
+    <!-- CompanyNo로 MemberNo 가져오기 -->
+    <select id="getMemberNoByCno" resultType="long" parameterType="long">
+        <![CDATA[
+        select member_no from company
+        where company_no = #{companyNo}
+        ]]>
+    </select>
+
+
     <!-- 테스트 -->
     <select id="insertTest"  parameterType="TestDTO">
         <![CDATA[

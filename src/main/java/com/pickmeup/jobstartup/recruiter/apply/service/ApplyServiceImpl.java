@@ -94,5 +94,10 @@ public class ApplyServiceImpl implements ApplyService {
 
     public int countEntry(int company_no){return applyRepository.countEntry(company_no);}
 
+    @Override
+    public long getMemberNoByCompany(long companyNo) {
+        return applyRepository.getMemberNoByCno(companyNo);
+    }
+
 }
 

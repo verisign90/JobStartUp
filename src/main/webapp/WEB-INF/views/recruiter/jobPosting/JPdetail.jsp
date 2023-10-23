@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/recruiter/jobposting/JPdetail.css">
-
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/recruiter/jobposting/JPqna.css">
     <!-- Bootstrap core CSS -->
     <link href="/css/template/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Additional CSS Files -->
@@ -70,9 +70,11 @@
                     </div>
                     <div class="second-third-items">
                         <%-- 기업팔로우 버튼 --%>
-                        <div>
-                            <button>쪽지</button>
+                        <!-- 쪽지 -->
+                        <div id="btnWrap">
+                          <button type="button" id="popupBtn"><img src="${pageContext.request.contextPath}/img/message/messageList.png" style="width:25px;"/></button>
                         </div>
+                        <!-- 쪽지 -->
                     </div>
                     <div class="second-fourth-items">
                         <!-- 버튼을 클릭하여 모달을 열도록 합니다. -->
@@ -112,8 +114,7 @@
                                         </div>
                                         <!-- 모달 하단 -->
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기
-                                            </button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
                                             <input type="submit" class="modifyBtn" value="지원하기">
                                         </div>
 
@@ -125,6 +126,11 @@
                 </div>
             </div>
         </section>
+
+
+
+
+
         <section>
             <div class="main-second-container">
                 <div>
@@ -183,6 +189,58 @@
             </div>
         </section>
 
+<!-- QnAList-->
+        <section>
+            <div class = "main-six-container">
+                <div class="qnaList">
+                  <div class="qnaTitle">
+                    <h5> Q & A </h5>
+                    <button type="button" class="writeBtn" id="writeBtn">1:1 문의하기</button>&nbsp;&nbsp;<button type="button" class="writeBtn"><a href="/qna/list">1:1 문의내역</a></button>
+                  </div>
+                <div class="writeFormDiv"></div>
+                    <div id="accordion_wrap">
+                        <c:forEach var="question" items="${questionPage.list}" >
+                    	   <div class="que">
+                    	    <c:choose>
+                              <c:when test="${fn:length(question.q_content) > 30}">
+                                <span class="categoryFont">[${question.q_category}]</span>&nbsp;&nbsp;<span><c:out value="${fn:substring(question.q_content,0,29)}"/>...</span>
+                              </c:when>
+                              <c:otherwise>
+                                <span class="categoryFont">[${question.q_category}]</span>&nbsp;&nbsp;<span><c:out value="${question.q_content}"/></span>
+                              </c:otherwise>
+                            </c:choose>
+                               <div class="arrow-wrap">
+                                 <span class="arrow-top">↑</span>
+                                <span class="arrow-bottom">↓</span>
+                               </div>
+                    	   </div>
+                    	   <div class="anw">
+                    	     <p class="questionBox"><span class="qusestion_content"><c:out value="${question.q_content}"/></span></p>
+                    		  <c:choose>
+                               <c:when test="${empty question.answerDTO}">
+                                 <div class="answerSts">
+                                     <strong>답변대기</strong>
+                                      <p style="margin-left:10px;">
+                                          아직 질문에 답변이 달리지 않았습니다.
+                                      </p>
+                                  </div>
+                               </c:when>
+                             <c:otherwise>
+                                <div class="answerSts">
+                                  <strong>답변완료</strong>
+                                  <p style="margin-left:10px;">${question.answerDTO.a_content}</p>
+                                </div>
+                             </c:otherwise>
+                             </c:choose>
+                    	   </div>
+                    	</c:forEach>
+                    </div>
+                </div>
+            </div>
+        </section>
+<!-- QnAList-->
+
+
         <section>
             <div class="main-fifth-container">
                 <!-- 삭제 버튼 -->
@@ -196,7 +254,64 @@
 
     </article>
 </main>
-
+<!--qna modal-->
+        <div id="QnAmodalWrap">
+           <div class="modalBody">
+           <div class="modalHeader">
+             <span id="closeBtn" class="closeBtn">&times;</span>
+             <h4 class="modal-title" id="myModalLabel">인사담당자에게 질문하기</h4>
+           </div>
+              <form class="qnaForm">
+                <input type="hidden" name="q_type" id="q_type" value="seeker"/>
+                <input type="hidden" name="company_no" id="company_no" value="${JPdetail.company_no}" />
+                <div class="form-group">
+                  <label for="q_category">카테고리</label>
+                  <select class="form-control" name="q_category" id="q_category">
+                    <option value="q_category" selected disabled>선택해주세요</option>
+                    <option value="채용일반">채용일반</option>
+                    <option value="경력사항">경력사항</option>
+                    <option value="근무환경">근무환경</option>
+                    <option value="기타">기타</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="q_content">문의 내용</label>
+                  <textarea class="form-control" name="q_content" id="q_content" placeholder="문의내용을 입력하세요." rows="10"></textarea>
+                </div>
+                <div class="modalFooter">
+                    <button type="button" class="btn" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn" id="qnaSub">작성</button>
+                </div>
+              </form>
+           </div>
+        </div>
+<!--qna modal-->
+<!-- message modal -->
+    <div id="modalWrap">
+       <div class="modalBody">
+       <div class="modalHeader">
+         <span id="messageCloseBtn" class="messageCloseBtn">&times;</span>
+         <h4 class="modal-title" id="myModalLabel">쪽지 보내기</h4>
+       </div>
+          <form class="msg_form">
+              <input type="hidden" name="mes_sender" id="mes_sender" value="${sessionScope.memberNo}"/>
+                <div class="form-group">
+                  <label for="to">To</label>
+                  <input type="text" value="${JPdetail.company_name}" class="form-control" id="mes_receiver" name="mes_receiver" disabled>
+                  <input type="hidden" value="${recruiterNo}" class="form-control" id="mes_receiver" name="mes_receiver">
+                </div>
+                <div class="form-group">
+                  <label for="mes_content">Message</label>
+                  <textarea class="form-control" id="mes_content" name="mes_content" rows="10"></textarea>
+                </div>
+                <div class="modalFooter">
+                    <button type="button" class="btn" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn" id="sendBtn">Send</button>
+                </div>
+          </form>
+       </div>
+    </div>
+<!-- message modal -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script>
     $(document).ready(function () {
@@ -330,7 +445,118 @@
     });
 
 </script>
+<!-- qna 및 message script -->
+<script>
+    //QnA 아코디언
+    $(".que").click(function() {
+       $(this).next(".anw").stop().slideToggle(300);
+        $(this).toggleClass('on').siblings().removeClass('on');
+        $(this).next(".anw").siblings(".anw").slideUp(300); // 1개씩 펼치기
+    });
 
+    //qna 작성 모달창
+    const writeBtn = document.getElementById('writeBtn');
+    const modal = document.getElementById('QnAmodalWrap');
+    const closeBtn = document.getElementById('closeBtn');
+
+    modal.style.display = 'none'; // 페이지 로드 시 모달 숨김
+
+    writeBtn.addEventListener('click', function(event) {
+      event.preventDefault(); // 폼 제출 동작 막기
+      modal.style.display = 'block';
+    });
+
+    closeBtn.addEventListener('click', function() {
+      modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', function(event) {
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+
+    //QnA 남기기
+    $("#qnaSub").click(function(){
+        var msg = "1:1 문의를 남기시겠습니까?";
+
+        if(!confirm(msg)) {
+            return false;
+        }
+
+        var jsonStr = $(".qnaForm").serialize();
+        console.log(jsonStr);
+
+        $.ajax({
+            url : '${cPath}/qna/recruiter/write',
+            type: 'POST',
+            data: $(".qnaForm").serialize(),
+            success: function(data) {
+                console.log(data);
+                alert("문의를 남겼습니다. ");
+                $("#QnAmodalWrap").hide();
+                $("#mes_content").val('');
+            },
+             error: function(jqXHR, textStatus, errorThrown) {
+                  console.error('Error:', errorThrown);
+                  console.error('Error:', jqXHR);
+                  console.error('Error:', textStatus);
+             }
+        });
+    });
+
+    //qna 작성 모달창
+    const btn = document.getElementById('popupBtn');
+    const messageModal = document.getElementById('modalWrap');
+    const messageCloseBtn = document.getElementById('messageCloseBtn');
+
+    messageModal.style.display = 'none'; // 페이지 로드 시 모달 숨김
+
+    btn.addEventListener('click', function(event) {
+      event.preventDefault(); // 폼 제출 동작 막기
+      messageModal.style.display = 'block';
+    });
+
+    messageCloseBtn.addEventListener('click', function() {
+      messageModal.style.display = 'none';
+    });
+
+    window.addEventListener('click', function(event) {
+      if (event.target === modal) {
+        messageModal.style.display = 'none';
+      }
+    });
+
+
+    //message 보내기
+    $("#sendBtn").click(function(){
+        var msg = "쪽지를 보내시겠습니까?";
+
+        if(!confirm(msg)) {
+            return false;
+        }
+
+        var jsonStr = $(".msg_form").serialize();
+        console.log(jsonStr);
+
+        $.ajax({
+            url : '${cPath}/message/write',
+            type: 'POST',
+            data: $(".msg_form").serialize(),
+            success: function(data) {
+                console.log(data);
+                alert("쪽지를 보냈습니다.");
+                $("#modalWrap").hide();
+                $("#mes_content").val('');
+            },
+             error: function(jqXHR, textStatus, errorThrown) {
+                  console.error('Error:', errorThrown);
+                  console.error('Error:', jqXHR);
+                  console.error('Error:', textStatus);
+             }
+        });
+    });
+</script>
 <script src="/css/template/vendor/jquery/jquery.min.js"></script>
 <script src="/css/template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="/css/template/assets/js/owl-carousel.js"></script>

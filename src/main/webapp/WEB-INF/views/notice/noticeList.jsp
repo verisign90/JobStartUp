@@ -7,7 +7,6 @@
     <title>Notice List</title>
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
-    <!--<link rel="stylesheet" href="/css/common/base.css" type="text/css" />-->
     <link rel="stylesheet" href="/css/notice/list.css" type="text/css"/>
     <c:set var="category" value="${param.category}"/>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -23,58 +22,95 @@
 <c:if test="${sessionScope.role == 3}">
     <%@ include file="../layout/layoutAdminSidebar.jsp" %>
 </c:if>
-<div class="content">
-    <section id="content">
-        <h2 class="notice">Notice</h2>
-        <ul class="webtong_tab_type03">
-            <li class="on"><a href="/notice/list">전체</a></li>
-            <li><a href="/notice/list/seeker">개인회원</a></li>
-            <li><a href="/notice/list/company">기업회원</a></li>
-        </ul>
-        <!--/* 검색 */-->
-        <div class="search_box">
-            <form id="searchForm">
-                <div class="sch_group fl">
-                    <select id="searchType" name="searchType" title="검색 유형 선택">
-                        <option value="">전체 검색</option>
-                        <option value="not_title">제목</option>
-                        <option value="not_content">내용</option>
-                    </select>
-                    <input type="text" id="keyword" name="keyword" placeholder="키워드를 입력해 주세요." title="키워드 입력"/>
-                    <button type="button" class="bt_search" onclick="movePage(1, '${category}');"><i
-                            class="fas fa-search"></i><span class="skip_info">검색</span></button>
+<article class="total">
+<section class="notice">
+ <div class="notice_content">
+  <div class="page-title">
+        <div class="container">
+            <h3>공지사항</h3>
+        </div>
+  </div>
+       <div class="category_bar">
+            <ul class="webtong_tab_type03">
+                <li class="on"><a href="/notice/list">전체</a></li>
+                <li><a href="/notice/list/seeker">개인회원</a></li>
+                <li><a href="/notice/list/company">기업회원</a></li>
+            </ul>
+       </div>
+            <!--/* 검색 */-->
+            <div id="board-search">
+                <div class="container">
+                    <div class="search-window">
+                        <form id="searchForm">
+                            <div class="search-wrap">
+                              <div class="selectType" id="selectBox">
+                                <select class="select" id="searchType" name="searchType" title="검색 유형 선택">
+                                    <option value="">전체 검색</option>
+                                    <option value="not_title">제목</option>
+                                    <option value="not_content">내용</option>
+                                </select>
+                                <span class="icoArrow"><img src="/img/icoArrow.png" alt=""></span>
+                                </div>
+                                <div class="selectType">
+                                <label for="keyword" class="blind">공지사항 검색</label>
+                                    <input type="text" id="keyword" name="keyword" placeholder="키워드를 입력해 주세요." title="키워드 입력" style="vertical-align: top;"/>
+                                </div>
+                                <div class="selectType">
+                                <button type="button" class="bt_search" onclick="movePage(1, '${category}');"><i
+                                        class="fas fa-search"></i><span class="skip_info">검색</span></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </form>
-        </div>
-        <!--/* 리스트 */-->
-        <table class="tb tb_col">
-            <thead>
-            <tr>
-                <th scope="col" class="no">번호</th>
-                <th scope="col" class="subject">제목</th>
-                <th scope="col">등록일</th>
-            </tr>
-            </thead>
-            <!--/* 리스트 데이터 렌더링 영역 */-->
-            <tbody id="list">
+            </div>
+            <!--/* 리스트 */-->
+            <div id="board-list">
+                <div class="container">
+                    <table class="board-table">
+                      <thead>
+                        <tr>
+                            <th scope="col" class="th-num">번호</th>
+                            <th scope="col" class="th-title">제목</th>
+                            <th scope="col" class="th-date">등록일</th>
+                        </tr>
+                      </thead>
+                        <!--/* 리스트 데이터 렌더링 영역 */-->
+                      <tbody id="list">
 
-            </tbody>
-        </table>
+                      </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--/* 페이지네이션 렌더링 영역 */-->
+            <div class="paging">
 
-        <!--/* 페이지네이션 렌더링 영역 */-->
-        <div class="paging">
+            </div>
 
-        </div>
-
-        <!--/* 버튼 */-->
-        <p class="btn_set tr">
-            <a href="/notice/write" class="btns btn_st3 btn_mid">글쓰기</a>
-        </p>
-    </section>
-</div>
+            <!--/* 버튼 */-->
+       <c:if test="${sessionScope.role == 3}">
+            <div class="btnDiv">
+                <p class="btnP">
+                    <a href="/notice/write" class="subBtn">글쓰기</a>
+                </p>
+            <div>
+       </c:if>
+    </div>
+</section>
+</article>
 <!-- Footer start -->
 <%@ include file="../layout/layoutFooter.jsp" %>
 <!-- Footer end -->
+<%@include file="../layout/layoutFooter.jsp" %>
+<script src="/css/template/vendor/jquery/jquery.min.js"></script>
+<script src="/css/template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/css/template/assets/js/owl-carousel.js"></script>
+<script src="/css/template/assets/js/animation.js"></script>
+<script src="/css/template/assets/js/imagesloaded.js"></script>
+<script src="/css/template/assets/js/popup.js"></script>
+<script src="/css/template/assets/js/custom.js"></script>
+<script src="/css/template/assets/js/side.js"></script>
+
 <script>
     window.onload = () => {
         findAllPost();
@@ -115,9 +151,9 @@
                 ('0' + date.getSeconds()).slice(-2);
             html += `
                 <tr>
-                    <td>` + row.not_no + `</td>
-                    <td class="tl"><a href="/notice/read/` + row.not_no + `">` + row.not_title + `</a></td>
-                    <td>` + formatted + `</td>
+                    <td class="th-num">` + row.not_no + `</td>
+                    <td class="th-title"><a href="/notice/read/` + row.not_no + `">` + row.not_title + `</a></td>
+                    <td class="th-date">` + formatted + `</td>
                 </tr>
             `;
         })
@@ -132,8 +168,7 @@
         let html = '';
         if (pagination.hasPreviousPage) {
             html += `
-                <a href="javascript:void(0);" onclick="movePage(1)" class="page_bt first">첫 페이지</a>
-                <a href="javascript:void(0);" onclick="movePage(` + pagination.firstPage + `-1)" class="page_bt prev">이전 페이지</a>
+                <a href="javascript:void(0);" onclick="movePage(` + pagination.firstPage + `-1)" class="page_bt prev">&laquo;</a>
             `;
         }
         html += '<p>';
@@ -145,8 +180,7 @@
         html += '</p>';
         if (pagination.hasNextPage) {
             html += `
-                <a href="javascript:void(0);" onclick="movePage(` + pagination.lastPage + ` + 1);" class="page_bt next">다음 페이지</a>
-                <a href="javascript:void(0);" onclick="movePage(` + pagination.totalPageCount + `);" class="page_bt last">마지막 페이지</a>
+                <a href="javascript:void(0);" onclick="movePage(` + pagination.lastPage + ` + 1);" class="page_bt next">&raquo;</a>
             `;
         }
         document.querySelector('.paging').innerHTML = html;
@@ -166,7 +200,6 @@
         }
         location.href = location.pathname + '/' + category + '/' + '?' + new URLSearchParams(queryParams).toString();
     }
-
 </script>
 </body>
 </html>

@@ -1,24 +1,22 @@
 package com.pickmeup.jobstartup.recruiter.jobposting.controller;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.pickmeup.jobstartup.jobfair.dto.JobFairDTO;
+import com.pickmeup.jobstartup.common.paging.Criteria;
+import com.pickmeup.jobstartup.common.paging.PagingResponse;
 import com.pickmeup.jobstartup.member.entity.Member;
+import com.pickmeup.jobstartup.qna.dto.QuestionDTO;
+import com.pickmeup.jobstartup.qna.service.QnAService;
 import com.pickmeup.jobstartup.recruiter.apply.dto.LocDTO;
+import com.pickmeup.jobstartup.recruiter.apply.service.ApplyService;
 import com.pickmeup.jobstartup.recruiter.jobposting.dto.JobPostingDTO;
 import com.pickmeup.jobstartup.recruiter.jobposting.service.JobPostingService;
-import com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterMyPageDTO;
-import com.pickmeup.jobstartup.recruiter.mypage.service.RecruiterMyPageService;
 import com.pickmeup.jobstartup.seeker.applicationSupport.service.PostingBookmarkServiceImpl;
 import com.pickmeup.jobstartup.seeker.resume.dto.ResumeDTO;
 import com.pickmeup.jobstartup.seeker.resume.service.ResumeServiceImpl;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -26,8 +24,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.security.Principal;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,6 +39,9 @@ public class JobPostingController {
 
     @Autowired
     private ResumeServiceImpl resumeService;
+
+    private final ApplyService applyService;
+    private final QnAService qnAService;
 
     /*공고등록 폼*/
     @GetMapping("/JPwrite")
@@ -120,7 +119,6 @@ public class JobPostingController {
                              @RequestParam(value = "size", defaultValue = "10") int size,
                              @ModelAttribute("upperLocSelected") String upperLocSelected, @ModelAttribute("lowerLocSelected") String lowerLocSelected,
                              @ModelAttribute("keyword") String keyword, Model model) throws Exception {
-
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
 
@@ -151,28 +149,42 @@ public class JobPostingController {
     }
 
     //상세조회
-    @GetMapping("/JPdetail/{posting_no}")
-    public String detail ( @PathVariable("posting_no") int posting_no, Model model) throws Exception {
-        JobPostingDTO JPdetail = jobPostingService.selectJPdetail(posting_no);
+        @GetMapping("/JPdetail/{posting_no}")
+        public String detail (@PathVariable("posting_no") int posting_no, Model model) throws Exception {
+            JobPostingDTO JPdetail = jobPostingService.selectJPdetail(posting_no);
 
-        int memberNo = 0;
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null) {
-            Object principal = authentication.getPrincipal();
-            if (principal instanceof UserDetails) {
-                Member member = postingBookmarkService.findMemberByUsername(((UserDetails) principal).getUsername());
-                memberNo = member.getMember_no();
+            int memberNo = 0;
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication != null) {
+                Object principal = authentication.getPrincipal();
+                if (principal instanceof UserDetails) {
+                    Member member = postingBookmarkService.findMemberByUsername(((UserDetails) principal).getUsername());
+                    memberNo = member.getMember_no();
+                }
             }
+
+            //Message no 전달
+            long companyNo = JPdetail.getCompany_no();
+            long recruiterNo = applyService.getMemberNoByCompany(companyNo);
+
+            //Question&Answer List 전달
+            PagingResponse<QuestionDTO> questionPage = qnAService.getCompanyQnAList(companyNo, new Criteria());
+
+            System.out.println("companyNo : "+companyNo+ ", questionPage : "+questionPage.getList().toString());
+
+            List<ResumeDTO> resumeList = resumeService.selectResumeList(memberNo);
+
+            System.out.println(JPdetail.toString());
+            model.addAttribute("JPdetail", JPdetail);
+            model.addAttribute("postingNo", posting_no);
+            model.addAttribute("memberNo", memberNo);
+            model.addAttribute("resumeList", resumeList);
+
+            //메세지 및 QnA list
+            model.addAttribute("recruiterNo", recruiterNo);
+            model.addAttribute("questionPage", questionPage);
+            return "recruiter/jobPosting/JPdetail";
         }
-
-        List<ResumeDTO> resumeList = resumeService.selectResumeList(memberNo);
-
-        model.addAttribute("JPdetail", JPdetail);
-        model.addAttribute("postingNo", posting_no);
-        model.addAttribute("memberNo", memberNo);
-        model.addAttribute("resumeList", resumeList);
-        return "recruiter/jobPosting/JPdetail";
-    }
 
     // 수정 페이지로 이동
     @GetMapping("/JPmodify/{posting_no}")

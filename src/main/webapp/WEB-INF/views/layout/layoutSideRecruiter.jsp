@@ -2,6 +2,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="cPath" value="<%=request.getContextPath() %>"/>
+<c:set var="companyNo" value="${sessionScope.companyNo}"/>
 <!doctype html>
 <html lang="ko">
 <head>
@@ -88,7 +89,7 @@
                     <div id="collapseFour" class="collapse" aria-labelledby="headingOne">
                         <div>
                             <ul>
-                                <li><a href="${cPath}/qna/recruiter/boardList/${company_no}">질의 목록</a></li>
+                                <li><a href="${cPath}/qna/recruiter/boardList/${companyNo}">질의 목록</a></li>
                             </ul>
                         </div>
                     </div>

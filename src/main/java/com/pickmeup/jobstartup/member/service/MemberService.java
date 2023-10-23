@@ -52,4 +52,5 @@ public interface MemberService {
 
     //회원 번호로 멤버 객체 가져오기
     Member getMemberNo(long memberNo);
+
 }

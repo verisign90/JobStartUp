@@ -39,7 +39,7 @@ public class QnAController {
     public String writeForm(Principal principal, Model model){
         String memberId = principal.getName();
         if(memberId==null) {
-            return "redirect:/login/";
+            return "redirect:/login";
         }
         Member member = memberService.getMember(memberId);
         model.addAttribute("member",member);
@@ -51,13 +51,27 @@ public class QnAController {
     public String write(HttpSession session, QuestionDTO questionDTO, @RequestParam("qFile_orgName") MultipartFile[] multipartFiles) throws Exception {
         Integer intNo = (Integer) session.getAttribute("memberNo");
         if(intNo==null) {
-            return "redirect:/login/";
+            return "redirect:/login";
         }
         long memberNo = intNo;
         questionDTO.setMember_no(memberNo);
-        questionDTO.setCompany_no(0);
         qnAService.write(questionDTO, multipartFiles);
         return "/qna/writeDone";
+    }
+
+    //기업 qna
+    @PostMapping("/recruiter/write")
+    @ResponseBody
+    public String writeRecruiter(HttpSession session, @ModelAttribute("questionDTO") QuestionDTO questionDTO) throws Exception {
+        Integer intNo = (Integer) session.getAttribute("memberNo");
+        if(intNo==null) {
+            return "redirect:/login";
+        }
+        System.out.println(questionDTO.toString());
+        long memberNo = intNo;
+        questionDTO.setMember_no(memberNo);
+        qnAService.write(questionDTO, null);
+        return "success";
     }
 
     //회원별 QnA List - 관리자랑 구분해서 (관리자는 전체 목록)
@@ -66,7 +80,7 @@ public class QnAController {
         Integer intNo = (Integer) session.getAttribute("memberNo");
         Integer roleNo = (Integer) session.getAttribute("role");
         if(intNo==null) {
-            return "redirect:/login/";
+            return "redirect:/login";
         }
         long memberNo = intNo;
         if(roleNo==3){
@@ -84,7 +98,7 @@ public class QnAController {
         long companyNo = Long.parseLong(company_no);
         Integer roleNo = (Integer) session.getAttribute("role");
         if (company_no == null || roleNo != 2) {
-            return "redirect:/login/";
+            return "redirect:/login";
         }
         PagingResponse<QuestionDTO> questionPage = qnAService.getCompanyQnAList(companyNo, criteria);
         model.addAttribute("questionPage", questionPage);
@@ -99,7 +113,7 @@ public class QnAController {
         long companyNo = Long.parseLong(strNo);
         Integer roleNo = (Integer) session.getAttribute("role");
         if (strNo==null || roleNo != 2) {
-            return "redirect:/login/";
+            return "redirect:/login";
         }
         PagingResponse<QuestionDTO> questionPage = qnAService.getCompanyQnAList(companyNo, criteria);
         model.addAttribute("questionPage", questionPage);
@@ -114,7 +128,7 @@ public class QnAController {
         Integer intNo = (Integer) session.getAttribute("memberNo");
         Integer roleNo = (Integer) session.getAttribute("role");
         if (intNo == null || roleNo == 1) {
-            return "redirect:/login/";
+            return "redirect:/login";
         }
         long memberNo = intNo;
         answerDTO.setMember_no(memberNo);
