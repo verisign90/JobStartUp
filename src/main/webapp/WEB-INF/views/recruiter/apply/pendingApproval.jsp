@@ -27,6 +27,18 @@
     <link rel="stylesheet" href="/css/common/base.css" type="text/css">
     <link rel="stylesheet" href="/css/qna/list.css" type="text/css">
     <link rel="stylesheet" href="/css/recruiter/apply/apply.css" type="text/css">
+    <style>
+        button[name="home"] {
+
+
+
+                border-radius: 10px; /* 모서리를 10px 둥글게 만듭니다. */
+        }
+        button[name="home"]:hover {
+            background-color: #ffFFFF;
+            border-radius: 10px;
+        }
+    </style>
 </head>
 <body>
 <%@ include file="../../layout/layoutNav.jsp" %>
@@ -47,7 +59,7 @@
         <button type="button" name="home">
             <a href="/jobfair/companyInfo/${company_no}">회사정보보기</a>
         </button>
-        <button type="button" name="home">
+        <button type="button" name="home" style="width:98px;">
             <a href="/jobfair/deleteEntry/${company_no}">신청취소</a>
         </button>
       </div>

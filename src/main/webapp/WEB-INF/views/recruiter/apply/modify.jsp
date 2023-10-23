@@ -51,9 +51,16 @@
     			<input type="text" id="company_name" name="company_name" value="${applyDTO.company_name}" required>
     		</div>
 
+            <!--탁 회사번호 히든으로 전달-->
+            <div class="form-control1">
+
+                <input type="hidden" id="member_no" name="member_no" value="${member.member_no}" readonly />
+            </div>
+
+
     		<div class="form-control1">
     			<label for="username">회사전화번호</label>
-    			<input type="text" id="company_hp" name="company_hp" value="${applyDTO.company_hp}"pattern="\d{3}-\d{4}-\d{4}">
+    			<input type="hidden" id="company_hp" name="company_hp" value="${applyDTO.company_hp}"pattern="\d{3}-\d{4}-\d{4}">
     			<small id="phone-error" style="color: red;"></small>
     		</div>
 
@@ -131,7 +138,8 @@
             <span id="img"><img id="logo-preview" src="${cPath}/image/apply/${applyDTO.logo_savname}" style="width:300px;"/></span>
     		<div class="form-control1">
                 <label for="logo" style="font-size: 16px; display: inline-block; margin-right: 10px;">로고 업로드</label>
-                <input type="file" id="logo" name="logo" accept="image/*" onchange="previewLogo(event)" required required style="display: inline-block; width: 300px;"/>
+                <input type="hidden" id="old_logo" name="old_logo" value="${applyDTO.logo_savname}"/>
+                <input type="file" id="logo" name="logo" accept="image/*" onchange="previewLogo(event)" required="required" style="display: inline-block; width: 300px;"/>
                 <!--<img id="logo-preview" src="#" alt="로고 미리보기" style="display: none; width: 200px; height: auto;">-->
                 <small id="logo-error" style="color: red;"></small><br><br>
             </div>
@@ -153,22 +161,22 @@
                 <c:forEach items="${fileDTOList}" var="file">
                     <div id="${file.cfile_orgname}">
                         <p>File Name: ${file.cfile_orgname}</p>
-
-                        <c:choose>
-                            <c:when test="${fn:endsWith(file.cfile_orgname, '.pdf')}">
-                                <img src="${cPath}/image/icon/pdf.png" alt="PDF Icon">
-
-                            </c:when>
-                            <c:when test="${fn:endsWith(file.cfile_orgname, '.xlsx')}">
-                                <img src="${cPath}/image/icon/excel.png"" alt="Excel Icon">
-                            </c:when>
-                            <c:when test="${fn:endsWith(file.cfile_orgname, '.pptx')}">
-                                <img src="${cPath}/image/icon/ppt.png"" alt="Excel Icon">
-                            </c:when>
-                            <c:otherwise>
-                                <img src="${pageContext.request.contextPath}/resources/icons/default.png" alt="Default Icon">
-                            </c:otherwise>
-                        </c:choose>
+                        <div class ="downloadFile">
+                            <c:choose>
+                                <c:when test="${fn:endsWith(file.cfile_orgname, '.pdf')}">
+                                    <img class = "pdficon" src="${cPath}/image/icon/pdf.png" alt="PDF Icon">
+                                </c:when>
+                                <c:when test="${fn:endsWith(file.cfile_orgname, '.xlsx')}">
+                                    <img class = "excelicon" src="${cPath}/image/icon/excel.png"" alt="Excel Icon">
+                                </c:when>
+                                <c:when test="${fn:endsWith(file.cfile_orgname, '.pptx')}">
+                                    <img class = "ppticon" src="${cPath}/image/icon/ppt.png"" alt="Excel Icon">
+                                </c:when>
+                                <c:otherwise>
+                                    <img class = "nonicon" src="${pageContext.request.contextPath}/resources/icons/default.png" alt="Default Icon">
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
                         <!-- 파일 아이콘 표시 -->
 
                         <!-- 파일 다운로드 링크 -->

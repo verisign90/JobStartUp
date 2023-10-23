@@ -130,7 +130,7 @@ public class JoinController {
     }
 
     //4자리 인증번호 받기
-    @PostMapping("/phoneCheck")
+   /* @PostMapping("/phoneCheck")
     @ResponseBody
     public ResponseEntity<Map<String, String>> phoneCheck(HttpSession session,
                                                           @RequestParam String userPhoneNumber) {
@@ -142,7 +142,7 @@ public class JoinController {
 
         Map<String, String> response = new HashMap<>();
         return new ResponseEntity<>(response, HttpStatus.OK);
-    }
+    }*/
 
     //문자로 받은 4자리 인증번호와 사용자가 입력한 4자리 인증번호가 일치하는지 확인
     @PostMapping("/verifyCode")

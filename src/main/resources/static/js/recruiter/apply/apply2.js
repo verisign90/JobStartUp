@@ -157,11 +157,17 @@
 
 
     function previewLogo(event) {
+     alert('previewLogo');
+    var currentLogoName =document.getElementById("old_logo").value;
+
+
+    console.log(currentLogoName);
+    alert(currentLogoName);
             var logoInput = event.target;
             var logoPreview = document.getElementById("logo-preview");
             var logoError = document.getElementById("logo-error");
-            var currentLogoName = "${applyDTO.logo_savname}"; // 현재 파일명을 가져옴
-            console.log(currentLogoName);
+            //var currentLogoName = savename; // 현재 파일명을 가져옴
+
             var file = logoInput.files[0];
 
             if (file) {
@@ -315,7 +321,7 @@
         var extraAddress = document.getElementById("sample6_extraAddress").value;
 
         document.getElementById("company_address_detail").value =
-            postcode + " " + address + " " + detailAddress + " " + extraAddress;
+            address + " " + detailAddress + " " + extraAddress + " " + postcode ;
 
     }
     function logCompanyAddressDetail() {

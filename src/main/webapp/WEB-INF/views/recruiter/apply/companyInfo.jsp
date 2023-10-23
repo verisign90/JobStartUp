@@ -52,20 +52,21 @@
         </c:when>
     </c:choose>
 
-    <div class="form-control1">
-        <label for="company_name">회사명:</label>
-        <input type="text" id="company_name" name="company_name" value="${applyDTO.company_name}" readonly required>
-    </div>
-    <div class="form-control1" style="display: none;">
-        <label for="member_no">회원번호:</label>
-        <input type="text" id="member_no" name="member_no" value="${applyDTO.member_no}" readonly required/>
-    </div>
-    <div class="form-control1">
-        <label for="company_hp">회사전화번호</label>
-        <input type="text" id="company_hp" name="company_hp" value="${applyDTO.company_hp}" readonly
-               pattern="\d{3}-\d{4}-\d{4}">
-        <small id="phone-error" style="color: red;"></small>
-    </div>
+    		<div class="form-control1">
+    			<label for="username">회사명:</label>
+    			<input type="text" id="company_name" name="company_name" value="${applyDTO.company_name}"  readonly required>
+    		</div>
+            <div class="form-control1">
+                <label for="username">회원번호:</label>
+                <input type="text" id="member_no" name="member_no" readonly required />
+
+
+    		</div>
+    		<div class="form-control1">
+    			<label for="username">회사전화번호</label>
+    			<input type="text" id="company_hp" name="company_hp" value="${applyDTO.company_hp}" readonly pattern="\d{3}-\d{4}-\d{4}">
+    			<small id="phone-error" style="color: red;"></small>
+    		</div>
 
     <div class="form-control1">
         <label for="ceo_name">대표자명</label>
@@ -87,12 +88,11 @@
         <small id="date-error" style="color: red;"></small>
     </div>
 
-    <div class="form-control1">
-        <label for="company_site">회사 웹사이트:</label>
-        <input type="text" id="company_site" name="company_site" value="${applyDTO.company_site}" readonly
-               placeholder="https://www.example.com">
-        <small id="website-error" style="color: red;"></small>
-    </div>
+            <div class="form-control1">
+                <label for="website">회사 웹사이트:</label>
+                <input type="text" id="company_site" name="company_site" value="${applyDTO.company_site}" readonly placeholder="https://www.example.com">
+                <small id="website-error" style="color: red;"></small>
+            </div>
 
 
     <div>
@@ -106,7 +106,7 @@
         <div class="form-control1">
             <label for="logo">회사 로고</label>
             <!--<img id="logo-preview" src="#" alt="로고 미리보기" style="display: none; width: 200px; height: auto;">-->
-            <small id="logo" style="color: red;"></small><br><br>
+            <small id="logo-error" style="color: red;"></small><br><br>
         </div>
 
 
@@ -159,8 +159,8 @@
 <script>
 
 
-    <!-- Scripts -->
-    <script src="/css/template/vendor/jquery/jquery.min.js"></script>
+<!-- Scripts -->
+<script src="/css/template/vendor/jquery/jquery.min.js"></script>
 <script src="/css/template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="/css/template/assets/js/owl-carousel.js"></script>
 <script src="/css/template/assets/js/animation.js"></script>
