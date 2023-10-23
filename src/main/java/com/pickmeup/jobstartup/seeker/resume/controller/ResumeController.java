@@ -6,7 +6,9 @@ import com.pickmeup.jobstartup.recruiter.apply.dto.LocDTO;
 import com.pickmeup.jobstartup.recruiter.apply.service.ApplyService;
 import com.pickmeup.jobstartup.seeker.applicationSupport.dto.PostingBookmarkDTO;
 import com.pickmeup.jobstartup.seeker.applicationSupport.service.PostingBookmarkServiceImpl;
+import com.pickmeup.jobstartup.seeker.resume.dto.CareerDTO;
 import com.pickmeup.jobstartup.seeker.resume.dto.ResumeDTO;
+import com.pickmeup.jobstartup.seeker.resume.dto.ResumeLocDTO;
 import com.pickmeup.jobstartup.seeker.resume.service.ResumeService;
 import com.pickmeup.jobstartup.seeker.resume.service.ResumeServiceImpl;
 import org.slf4j.Logger;
@@ -23,6 +25,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -39,7 +43,7 @@ public class ResumeController {
 
     //이력서 목록
     @RequestMapping("/resumeList")
-    public String resumeList (Model model) {
+    public String resumeList(Model model) {
         logger.info("ResumeController-resumeList() 진입");
 
         int memberNo = 0;
@@ -52,25 +56,59 @@ public class ResumeController {
             }
         }
 
+
         List<ResumeDTO> resumeList = resumeService.selectResumeList(memberNo);
+        String num = null;
+        for (ResumeDTO resume :resumeList) {
+            for (ResumeLocDTO resumeLoc : resume.getResumeLocDTOList()) {
+                num = resumeLoc.getLoc_detail_code_num();
+            }
+        }
+
+        List<LocDTO> locList = resumeService.selectDetailName(num);
+        Collections.reverse(locList);
+
         logger.info("resumeList: {}", resumeList);
-        model.addAttribute("resumeList",resumeList);
+        model.addAttribute("resumeList", resumeList);
+        model.addAttribute("locList", locList);
+
         return "seeker/resume/resumeList";
     }
 
     //이력서 상세 조회
-    @RequestMapping ("/resumeDetail/{resume_no}")
-    public String resumeDetail (Model model, @PathVariable int resume_no) {
-        logger.info("ResumeController-resumeDetail() 진입");
+    @RequestMapping("/resumeDetail/{resume_no}")
+    public String resumeDetail(Model model, @PathVariable int resume_no, Principal principal) {
+
+        Member member = postingBookmarkService.findMemberByUsername(principal.getName());
         ResumeDTO resumeDetial = resumeService.selectResumeDetail(resume_no);
-        logger.info("resumeDetail: {}", resumeDetial);
-        model.addAttribute("resumeDetail",resumeDetial);
+
+        ResumeLocDTO loc = null;
+        CareerDTO career = null;
+        for (int i =0; i <resumeDetial.getResumeLocDTOList().size(); i++) {
+            loc = resumeDetial.getResumeLocDTOList().get(i);
+        }
+
+        for (int i=0; i< resumeDetial.getCareerDTOList().size(); i++) {
+            career = resumeDetial.getCareerDTOList().get(i);
+        }
+
+        List<LocDTO> locNameList = resumeService.selectDetailName(loc.getLoc_detail_code_num());
+        List <LocDTO> workNameList = resumeService.selectDetailName(career.getBusiness_type());
+        /*list를 역순으로 만들어줌*/
+        Collections.reverse(locNameList);
+        logger.info("locNameList: {}", locNameList) ;
+
+        model.addAttribute("resumeDetail", resumeDetial);
+        model.addAttribute("member", member);
+        model.addAttribute("locNameList", locNameList);
+        model.addAttribute("workNameList", workNameList);
+
         return "seeker/resume/resumeDetail";
     }
 
     //이력서 삭제
-    @GetMapping ("/resumeDelete")
-    public String resumeDelete (@RequestParam int resume_no, @RequestParam int lang_no) {
+    @GetMapping("/resumeDelete")
+    public String resumeDelete(@RequestParam int resume_no, @RequestParam int lang_no) {
         logger.info("ResumeController-resumeDelete() 진입");
 
         logger.info("ResumeController-resumeDelete lang_no: {}", lang_no);
@@ -81,8 +119,8 @@ public class ResumeController {
 
     //이력서 작성폼
     @PreAuthorize("isAuthenticated()")
-    @GetMapping ("/resumeWrite")
-    public String resumeWriteForm (Model model, Principal principal) {
+    @GetMapping("/resumeWrite")
+    public String resumeWriteForm(Model model, Principal principal) {
         logger.info("ResumeController-resumeWriteForm() 진입");
 
         Member member = postingBookmarkService.findMemberByUsername(principal.getName());
@@ -98,15 +136,19 @@ public class ResumeController {
     }
 
     //이력서 작성 처리
-    @PostMapping ("/resumeWrite")
-    public String resumeWrite (@ModelAttribute ResumeDTO resumeDTO,
-                               @RequestParam MultipartFile profileOrgNameFile,
-                               @RequestParam MultipartFile resumeOrgNameFile,
-                               Principal principal) throws IOException {
+    @PostMapping("/resumeWrite")
+    public String resumeWrite(@ModelAttribute ResumeDTO resumeDTO,
+                              @RequestParam MultipartFile profileOrgNameFile,
+                              @RequestParam MultipartFile resumeOrgNameFile,
+                              Principal principal) throws IOException {
         logger.info("ResumeController-resumeWrite() 진입");
 
         Member member = postingBookmarkService.findMemberByUsername(principal.getName());
         int memberNo = member.getMember_no();
+
+        if (resumeDTO.getResume_title() == null || resumeDTO.getResume_title().equals("")) {
+            resumeDTO.setResume_title(member.getMember_name() + "의 이력서");
+        }
 
         resumeDTO.setMember_no(memberNo);
         String profileOrgName = profileOrgNameFile.getOriginalFilename();
@@ -122,10 +164,10 @@ public class ResumeController {
     }
 
     //이력서 수정폼 요청
-    @GetMapping ("/resumeModify/{resume_no}")
-    public String resumeModifyForm (@PathVariable int resume_no,
-                                    @ModelAttribute ResumeDTO modifyResumeDTO,
-                                    Model model) {
+    @GetMapping("/resumeModify/{resume_no}")
+    public String resumeModifyForm(@PathVariable int resume_no,
+                                   @ModelAttribute ResumeDTO modifyResumeDTO,
+                                   Model model) {
         logger.info("ResumeController-resumeModifyForm() 진입");
 
         ResumeDTO originalResumeDTO = resumeService.selectResumeDetail(resume_no);
@@ -155,15 +197,15 @@ public class ResumeController {
     }
 
     //이력서 수정 처리
-    @PostMapping ("/resumeModify/{resume_no}")
-    public String resumeModify (@PathVariable int resume_no,
-                                @ModelAttribute ResumeDTO modifyResumeDTO,
-                                @RequestParam MultipartFile profileOrgNameFile,
-                                @RequestParam MultipartFile resumeOrgNameFile
-                                ) {
+    @PostMapping("/resumeModify/{resume_no}")
+    public String resumeModify(@PathVariable int resume_no,
+                               @ModelAttribute ResumeDTO modifyResumeDTO,
+                               @RequestParam MultipartFile profileOrgNameFile,
+                               @RequestParam MultipartFile resumeOrgNameFile
+    ) {
         logger.info("ResumeController-resumeModify() 진입");
 
-        resumeService.modifyResume (resume_no, modifyResumeDTO, profileOrgNameFile, resumeOrgNameFile);
+        resumeService.modifyResume(resume_no, modifyResumeDTO, profileOrgNameFile, resumeOrgNameFile);
 
         return String.format("redirect:/seeker/resumeDetail/{resume_no}");
     }
@@ -182,5 +224,4 @@ public class ResumeController {
     public List<JobDTO> getBusiness_type_code(@RequestParam String business_type_code_up) {
         return resumeService.getBusiness_type_code(business_type_code_up);
     }
-
 }

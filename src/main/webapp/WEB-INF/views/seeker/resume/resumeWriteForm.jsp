@@ -170,7 +170,7 @@
                                                             <option value="${loLoc.detail_code_num}" data-name="${loLoc.detail_name}">${loLoc.detail_name}</option>
                                                         </c:forEach>
                                                     </select>
-                                                    <label for="upperLoc">&nbsp;</label>
+                                                    <label for="upperLoc"></label>
                                                 </div>
                                             </div>
                                         </div>
@@ -193,55 +193,36 @@
                             </div>
                             <div id="careerContainer">
                                 <div class="careerBlock">
-                                    <div class="row g-2">
-                                        <div class="form-floating mb-3 col-sm-6">
+                                    <div class="row g-2 form-floating ">
+                                        <div class="form-floating mb-3 col-sm-4">
                                             <input type="text" name="careerDTOList[0].career_company" id="career_company0" class="form-control custom-underline"/>
                                             <label for="career_company0">회사명</label>
                                         </div>
-                                        <div class="form-floating mb-3 col-sm">
+                                        <div class="form-floating mb-3 col-sm-4">
                                             <input type="text" name="careerDTOList[0].career_date" id="career_date0" class="form-control"/>
                                             <label for="career_date0">경력기간</label>
                                         </div>
-                                        <div class="form-floating mb-3 col-sm">
-                                            <input type="text" name="careerDTOList[0].business_type" id="business_type0" class="form-control"/>
-                                            <label for="business_type0">경력직무</label>
+                                        <div class="col-sm-2 ">
+                                            <div class="form-floating mb-3 col-sm">
+                                                <select id="business_type_code_up0" name="business_type_code_up" onchange="loadBusinessTypeCodeUp(0)" required>
+                                                    <option value="">선택</option>
+                                                    <c:forEach items="${upperJob}" var="upJob">
+                                                        <option value="${upJob.detail_code_num}">${upJob.detail_name}</option>
+                                                    </c:forEach>
+                                                </select>
+                                                <label for="business_type_code_up0">경력직무</label>
+                                            </div>
                                         </div>
-
-                                        <div class="form-floating mb-3 col-sm">
-
-                                        <%--<label for="business_type_code_up"></label>
-                                        <select id="business_type_code_up" name="business_type_code_up" onchange="loadBusiness_type_code_up(0)" required>
-                                                <option value="">선택</option>
-                                                <c:forEach items="${upperJob}" var="upJob">
-                                                    <option value="${upJob.detail_code_num}">${upJob.detail_name}</option>
-                                                </c:forEach>
-                                            </select>
-
-                                        <label for="business_type_code"></label>
-                                        <select id="business_type_code" name="careerDTOList[0].business_type" required>
-                                                <option value="">선택</option>
-                                                <c:forEach items="${lowerJob}" var="loJob">
-                                                    <option value="${loJob.detail_code_num}">${loJob.detail_name}</option>
-                                                </c:forEach>
-                                        </select><br><br>--%>
+                                        <div class="col-2 form-floating mb-3">
+                                            <div class="col-sm">
+                                                <select id="business_type_code0" name="careerDTOList[0].business_type" required>
+                                                    <option value="">선택</option>
+                                                    <c:forEach items="${lowerJob}" var="loJob">
+                                                        <option value="${loJob.detail_code_num}">${loJob.detail_name}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
                                         </div>
-
-                                        <div class="form-floating mb-3 col-sm">
-                                            <label for="business_type_code_up0">회사업종코드:</label>
-                                            <select id="business_type_code_up0" name="business_type_code_up" onchange="loadBusinessTypeCodeUp(0)" required>
-                                                <option value="">선택</option>
-                                                <c:forEach items="${upperJob}" var="upJob">
-                                                    <option value="${upJob.detail_code_num}">${upJob.detail_name}</option>
-                                                </c:forEach>
-                                            </select>
-                                            <select id="business_type_code0" name="careerDTOList[0].business_type" required>
-                                                <option value="">선택</option>
-                                                <c:forEach items="${lowerJob}" var="loJob">
-                                                    <option value="${loJob.detail_code_num}">${loJob.detail_name}</option>
-                                                </c:forEach>
-                                            </select>
-                                        </div>
-
                                     </div>
                                     <div class="form-floating mb-3">
                                         <textarea name="careerDTOList[0].career_work" id="career_work0" class="form-control" style="width: 942px; height: 137px"></textarea>
@@ -289,7 +270,7 @@
                                 <div class="languageBlock">
                                     <div class="row g-2">
                                         <div class="form-floating mb-3 col-sm-6">
-                                            <input type="text" name="languageDTOList[0].lang_name" id="lang_name0" class="form-control"/>
+                                            <input type="text" name="languageDTOList[0].lang_name" id="lang_name0" class="form-control selectLevel"/>
                                             <label for="lang_name0">언어명</label>
                                         </div>
                                         <div class="form-floating mb-3 col-sm">
@@ -303,6 +284,7 @@
                                         </div>
                                     </div>
                                     <%-- 어학 자격증 --%>
+                                    <button class="addFieldButton border-0 fs-6 fw-bolder text-primary custom-text-style" data-section="langCer" data-basename="languageCertificateDTOList" type="button" style="background-color: transparent;">+ 추가</button>
                                     <div id="langCerContainer">
                                         <div class="langCerBlock">
                                             <div class="row g-3">
@@ -363,6 +345,7 @@
 <script>
     var genderInput = document.getElementById("gender");
     genderInput.value = "${genderLabel}";
+
     document.addEventListener("DOMContentLoaded", function () {
         const addButtons = document.getElementsByClassName("addFieldButton");
         Array.from(addButtons).forEach(button => {
@@ -400,35 +383,40 @@
                 case "career":
                     newBlock.innerHTML =
                         '<div class="row g-2">' +
-                        '<div class="form-floating mb-3 col-sm-6">' +
+                        '<div class="form-floating mb-3 col-sm-4">' +
                         '<input type="text" name="' + baseName + '[' + count + '].career_company" id="career_company' + count + '" class="form-control"/>' +
                         '<label for="career_company' + count + '">회사명' + (count + 1) + '</label>' +
                         '</div>' +
-                        '<div class="form-floating mb-3 col-sm">' +
+                        '<div class="form-floating mb-3 col-sm-4">' +
                         '<input type="text" name="' + baseName + '[' + count + '].career_date" id="career_date' + count + '" class="form-control"/>' +
                         '<label for="career_date' + count + '">경력기간' + (count + 1) + '</label>' +
                         '</div>' +
+                        '<div class="col-sm-2 ">' +
                         '<div class="form-floating mb-3 col-sm">' +
-                        '<label for="business_type_code_up' + count + '">회사업종코드:' + '</label>' +
                         '<select id="business_type_code_up' + count + '" name="business_type_code_up" onchange="loadBusinessTypeCodeUp(' + count + ')" required>' +
-                        '<option value="">선택' + '</option>' +
+                        '<option value="">선택' +
+                        '</option>' +
                         '<c:forEach items="${upperJob}" var="upJob">' +
-                        '<option value="${upJob.detail_code_num}">${upJob.detail_name}' + '</option>' +
+                        '<option value="${upJob.detail_code_num}">${upJob.detail_name}' +
+                        '</option>' +
                         '</c:forEach>' +
                         '</select>' +
-                        '<label for="business_type' + count + '">경력직무:</label>' +
-                        '<select id="business_type' + count + '" name="' + baseName + '[' + count + '].business_type" required>' +
+                        '</div class="col-2 form-floating mb-3">' +
+                        '<label for="business_type' + count + '">경력직무' + '</label>' +
+                        '<div class="col-sm">' +
+                        '<select id="business_type_code' + count + '" name="' + baseName + '[' + count + '].business_type" required>' +
                         '<option value="">선택' + '</option>' +
                         '<c:forEach items="${lowerJob}" var="loJob">' +
                         '<option value="${loJob.detail_code_num}">${loJob.detail_name}' + '</option>' +
                         '</c:forEach>' +
                         '</select>' +
                         '</div>' +
-                        '<div class="form-floating mb-3">' +
-                        '<input type="text" name="' + baseName + '[' + count + '].career_work" id="career_work' + count + '" class="form-control"/>' +
-                        '<label for="career_work' + count + '">담당업무' + (count + 1) + '</label>' +
                         '</div>' +
-                        '</div>';
+                        '</div>' +
+                        '<div class="form-floating mb-3">' +
+                        '<textarea name="' + baseName + '[' + count + '].career_work" id="career_work' + count + '" class="form-control" style="width: 942px; height: 137px">' + '</textarea>' +
+                        '<label for="career_work' + count + '">담당업무' + (count + 1) + '</label>' +
+                        '</div>' ;
                     break;
                 case "certificate":
                     newBlock.innerHTML =
@@ -455,7 +443,16 @@
                         '<label for="lang_name' + count + '">언어명' +  (count+1) + '</label>' +
                         '</div>' +
                         '<div class="form-floating mb-3 col-sm">' +
-                        '<input type="text" name="' + baseName + '[' + count + '].lang_level" id="lang_level' + count + '" class="form-control"/>' +
+                        '<select name="' + baseName + '[' + count + '].lang_level" id="lang_level' + count + '" class="form-control"/>' +
+                        '<option value="수준">' + '수준'+
+                        '</option>' +
+                        '<option value="유창함">' + '유창함'+
+                        '</option>' +
+                        '<option value="비즈니스 회화"">' + '비즈니스 회화'+
+                        '</option>' +
+                        '<option value="일상회화">' + '일상회화'+
+                        '</option>' +
+                        '</select>' +
                         '<label for="lang_level' + count + '">회화능력' +  (count+1) + '</label>' +
                         '</div>' +
                         '</div>';
@@ -575,6 +572,7 @@
         fetch('/seeker/getBusiness_type_code_up?business_type_code_up=' + upperLocValue)
             .then(response => response.json())
             .then(data => {
+                console.log(data);
                 lowerLocSelect.innerHTML = "<option value=''>선택</option>";
                 data.forEach(type_code => {
                     var option = document.createElement("option");
@@ -585,34 +583,6 @@
             })
             .catch(error => console.error('Error:', error));
     }
-
-    document.addEventListener("DOMContentLoaded", function () {
-        const submitBtn = document.getElementById("submitBtn");
-
-        submitBtn.addEventListener("click", function () {
-            const resumeTitleInput = document.getElementById("RESUME_TITLE");
-            const profileOrgNameInput = document.getElementById("PROFILE_ORGNAME");
-            const resumeMoneyInput = document.getElementById("RESUME_MONEY");
-
-            const resumeTitleValue = resumeTitleInput.value.trim();
-            const profileOrgNameValue = profileOrgNameInput.value.trim();
-            const resumeMoneyValue = resumeMoneyInput.value.trim();
-
-            if (resumeTitleValue === "") {
-                alert("제목은 필수 입력입니다.");
-                resumeTitleInput.focus();
-            } else if (profileOrgNameValue === "") {
-                alert("프로필 첨부는 필수 입력입니다.");
-                profileOrgNameInput.focus();
-            } else if (resumeMoneyValue === "") {
-                alert("희망연봉은 필수 입력입니다.");
-                resumeMoneyInput.focus();
-            } else {
-                // 여기에서 제출 또는 다음 동작을 수행합니다.
-            }
-        });
-    });
-
 </script>
 <script>
 

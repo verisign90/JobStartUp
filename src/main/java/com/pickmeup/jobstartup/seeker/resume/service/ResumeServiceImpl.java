@@ -2,11 +2,13 @@ package com.pickmeup.jobstartup.seeker.resume.service;
 
 import com.pickmeup.jobstartup.recruiter.apply.dto.JobDTO;
 import com.pickmeup.jobstartup.recruiter.apply.dto.LocDTO;
+import com.pickmeup.jobstartup.seeker.applicationSupport.repository.ApplicationStatusRepository;
 import com.pickmeup.jobstartup.seeker.resume.dto.*;
 import com.pickmeup.jobstartup.seeker.resume.repository.ResumeRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.ReturnedType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,6 +26,9 @@ public class ResumeServiceImpl implements ResumeService{
 
     @Autowired
     private ResumeRepository resumeRepository;
+
+    @Autowired
+    private ApplicationStatusRepository applicationStatusRepository;
 
     //이력서 목록조회
     @Override
@@ -55,6 +60,7 @@ public class ResumeServiceImpl implements ResumeService{
         resumeRepository.deleteLanguage(resume_no);
         resumeRepository.deleteResumeLoc(resume_no);
         resumeRepository.deleteCertificate(resume_no);
+        applicationStatusRepository.deleteApply(resume_no);
         deleteResume(resume_no);
     }
 
@@ -194,6 +200,11 @@ public class ResumeServiceImpl implements ResumeService{
         // langNoList와 resumeDTO.getLanguageCertificateDTOList()의 크기가 같다고 가정
         for (int i = 0; i < langNoList.size(); i++) {
             int langNoResult = langNoList.get(i);
+            logger.info("langNoList.size(): {}", langNoList.size());
+            logger.info("resumeDTO.getLanguageCertificateDTOList(): {}", resumeDTO.getLanguageCertificateDTOList());
+            logger.info("resumeDTO.getLanguageCertificateDTOList().get(i):{}", resumeDTO.getLanguageCertificateDTOList().get(i));
+            logger.info("resumeDTO.getLanguageCertificateDTOList().size(): {}", resumeDTO.getLanguageCertificateDTOList().size());
+
             LanguageCertificateDTO resumeDTOInLCDTO = resumeDTO.getLanguageCertificateDTOList().get(i);
 
             LanguageCertificateDTO languageCertificateDTO = LanguageCertificateDTO.builder()
@@ -343,6 +354,13 @@ public class ResumeServiceImpl implements ResumeService{
     @Override
     public List<JobDTO> getBusiness_type_code(String business_type_code_up){
         return resumeRepository.getBusiness_type_code(business_type_code_up);
+    }
+
+    @Override
+    public List<LocDTO> selectDetailName (String detail_code_num) {
+        List<LocDTO> result = resumeRepository.selectDetailName(detail_code_num);
+        logger.info("result : {}", result);
+        return result;
     }
 
 }

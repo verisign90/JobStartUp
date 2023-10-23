@@ -33,34 +33,34 @@
                 </div>
             </c:if>
             <c:if test="${not empty resumeList}">
-                <c:forEach items="${resumeList}" var="resume">
-                    <c:forEach items="${resume.resumeLocDTOList}" var="loc">
-                        <div class="resume_list_wrap">
-                            <ul class="resume_list">
-                                <li class="resume_item">
-                                    <div class="row">
-                                        <div class="col-md-9">
-                                            <div><a href="${cPath}/seeker/resumeDetail/${resume.resume_no}">${resume.resume_title}</a></div>
-                                            <div>희망연봉 ${resume.resume_money}</div>
-                                            <div>${loc.loc_detail_code_num}</div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <span><a href="${cPath}/seeker/resumeModify/${resume.resume_no}"><button class="modifyBtn" type="button">수정</button></a></span>
+                <div class="resume_list_wrap">
+                    <ul class="resume_list">
+                        <c:forEach items="${resumeList}" var="resume">
+                            <li class="resume_item">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <div><a href="${cPath}/seeker/resumeDetail/${resume.resume_no}">${resume.resume_title}</a></div>
+                                        <div>희망연봉 ${resume.resume_money}</div>
+                                        <div>
+                                            희망 근무지역
+                                            <c:forEach items="${locList}" var="loc2">
+                                                ${loc2.detail_name}
+                                            </c:forEach>
                                         </div>
                                     </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </c:forEach>
-                </c:forEach>
+                                    <div class="col-md-3">
+                                        <span><a href="${cPath}/seeker/resumeModify/${resume.resume_no}"><button class="modifyBtn" type="button">수정</button></a></span>
+                                    </div>
+                                </div>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </div>
             </c:if>
         </div>
     </main>
-<footer>
-    <%@ include file="../../layout/layoutFooter.jsp" %>
-</footer>
+<%@ include file="../../layout/layoutFooter.jsp" %>
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-<script src="/css/template/assets/js/side.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>

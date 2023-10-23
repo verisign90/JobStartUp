@@ -20,4 +20,10 @@ public interface ApplicationStatusRepository {
 
     //오늘 면접 조회
     List<ResumeApplyDTO> selectToday (int member_no);
+
+    //예정 면접 조회
+    List<ResumeApplyDTO> selectPlan (int member_no);
+
+    //이력서 삭제시 지원도 delete
+    int deleteApply (int resume_no);
 }

@@ -16,6 +16,13 @@
     border-radius: 0px;
 }
 
+select *  {
+    border: none;
+    border-bottom: 2px solid #adb5bd;
+    border-radius: 0px;
+}
+
+
 select {
     border: none;
     box-shadow: none;

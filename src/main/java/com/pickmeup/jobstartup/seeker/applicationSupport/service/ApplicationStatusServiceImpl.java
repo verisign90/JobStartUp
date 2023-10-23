@@ -40,4 +40,11 @@ public class ApplicationStatusServiceImpl implements ApplicationStatusService {
     public List<ResumeApplyDTO> selectToday (int member_no) {
         return applicationStatusRepository.selectToday(member_no);
     }
+
+    //예정 면접 조회
+    @Override
+    public List<ResumeApplyDTO> selectPlan (int member_no) {
+        return applicationStatusRepository.selectPlan(member_no);
+    }
+
 }

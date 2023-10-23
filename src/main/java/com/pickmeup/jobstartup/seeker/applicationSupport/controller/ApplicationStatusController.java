@@ -101,12 +101,43 @@ public class ApplicationStatusController {
 
         List<ResumeApplyDTO> statusList = applicationStatusService.selectApplyStatus(member_no);
         List<ResumeApplyDTO> todayList = applicationStatusService.selectToday(member_no);
+        List<ResumeApplyDTO> planList = applicationStatusService.selectPlan(member_no);
         logger.info("statusList: {}", statusList);
 
         model.addAttribute("statusResult", statusList);
         model.addAttribute("todayList", todayList);
         model.addAttribute("member", member);
+        model.addAttribute("planList", planList);
 
         return "seeker/applicationSupport/interviewStatus";
+    }
+
+    //면접일정 확인하기
+    @RequestMapping("/interviewStatusPlan")
+    public String selectInterviewStatusPlan (Model model) {
+        logger.info("ApplicationStatusController-selectInterviewStatus() 진입");
+
+        Member member = null;
+        int member_no = 0;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null) {
+            Object principal = authentication.getPrincipal();
+            if (principal instanceof UserDetails) {
+                member = postingBookmarkService.findMemberByUsername(((UserDetails) principal).getUsername());
+                member_no = member.getMember_no();
+            }
+        }
+
+        List<ResumeApplyDTO> statusList = applicationStatusService.selectApplyStatus(member_no);
+        List<ResumeApplyDTO> todayList = applicationStatusService.selectToday(member_no);
+        List<ResumeApplyDTO> planList = applicationStatusService.selectPlan(member_no);
+        logger.info("statusList: {}", statusList);
+
+        model.addAttribute("statusResult", statusList);
+        model.addAttribute("todayList", todayList);
+        model.addAttribute("member", member);
+        model.addAttribute("planList", planList);
+
+        return "seeker/applicationSupport/interviewStatusPlan";
     }
 }

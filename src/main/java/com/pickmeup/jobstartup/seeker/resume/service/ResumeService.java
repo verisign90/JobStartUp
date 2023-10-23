@@ -42,4 +42,7 @@ public interface ResumeService {
     List<JobDTO> getBusiness_type_code_up();
 
     List<JobDTO> getBusiness_type_code(String business_type_code);
+
+    //지역 이름 받아오기
+    List<LocDTO> selectDetailName (String detail_code_num);
 }
