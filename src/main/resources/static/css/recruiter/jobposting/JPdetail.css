@@ -1,5 +1,9 @@
 main {
-    display: block;
+  display: block;
+}
+
+body {
+  display: block;
 }
 
 .all-content{

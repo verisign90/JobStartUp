@@ -62,10 +62,6 @@
         ]]>
     </delete>
 
-    <!--기업 페이지: calendar 수정(수정중)-->
-
-
-
     <!--기업 페이지: 박람회 현황 + pagination-->
     <select id="getJobFairList" resultType="com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterJobFairDTO">
         <![CDATA[
@@ -114,9 +110,9 @@
     <!--기업 페이지: 지원자 관리 + pagination-->
     <select id="getAppList" resultType="com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterAppManageDTO">
         <![CDATA[
-            SELECT status_no, member_no, posting_no, first_pass, final_pass, interview_date, resume_title, resume_no
-            FROM(SELECT /*+ INDEX(a SYS_C007741) INDEX_DESC(r SYS_C007616) */
-                        rownum as w, a.status_no as status_no, a.member_no as member_no, a.posting_no as posting_no,
+            SELECT /*+ INDEX(a SYS_C007741) INDEX_DESC(r SYS_C007616) */
+                    status_no, member_no, posting_no, first_pass, final_pass, interview_date, resume_title, resume_no
+            FROM(SELECT rownum as w, a.status_no as status_no, a.member_no as member_no, a.posting_no as posting_no,
                         a.first_pass as first_pass, a.final_pass as final_pass, a.interview_date as interview_date,
                         r.resume_title as resume_title, r.resume_no as resume_no
                 FROM application_status a INNER JOIN resume r ON a.resume_no = r.resume_no
@@ -135,6 +131,17 @@
                     SELECT DISTINCT(posting_no)
                     FROM job_posting
                     WHERE company_no = #{company_no})
+        ]]>
+    </select>
+
+    <!-- 기업 페이지 : 일반 정보 수정 -->
+    <select id="getGeneralInfo" resultType="com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterGeneralInfoDTO">
+        <![CDATA[
+            SELECT m.member_no, m.member_id, m.member_type, m.member_name, m.member_pw,
+                   m.member_sex, m.member_hp, m.member_email,
+                   m.member_loc, m.member_birth, c.company_no
+            FROM member m INNER JOIN company c on m.member_no = c.member_no
+            WHERE c.company_no = #{company_no}
         ]]>
     </select>
 

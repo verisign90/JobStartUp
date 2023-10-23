@@ -1,16 +1,23 @@
 /** recruiterMyPage.jsp **/
 /* company profile */
+body{
+    200px 250px 100px 250px;
+}
+.article {
+    /*padding : 200px 250px 100px 250px;*/
+}
+.main-container {
+/*    padding : 200px 250px 100px 250px;*/
+    margin-right: 5%;
+    margin-left: 5%;
+    padding: 5px;
+}
 .main-title-container h4 {
     font-weight: 700;
 }
 .main-title-container {
     text-align: center;
     margin-bottom: 10px;
-    padding: 5px;
-}
-.main-container {
-    margin-right: 5%;
-    margin-left: 5%;
     padding: 5px;
 }
 .info-container {
@@ -125,6 +132,9 @@ table.company-info-lists tbody td {
 .button-container {
     /*border: 1px solid black;*/
 }
+.dummy{
+    margin: 10px;
+}
 
 /** recruiterMyPage.jsp + recruiterMyList.jsp + recruiterMyPageContentList.jsp **/
 /* related info list */
@@ -180,7 +190,7 @@ table.company-info-lists tbody td {
 
 /** recruiterMyPage.jsp + recruiterMyList.jsp **/
 .info-list-container {
-    width: 90%;
+    width: 70%;
     height: auto;
     display: block;
     margin: auto;
@@ -311,7 +321,7 @@ table.company_lists thead th {
   color: #369;
   border-bottom: 1px solid #036;
   padding: 0.5em;
-  font-size: x-large;
+  font-size: larger;
 }
 table.company_lists tbody th {
   width: 35%;

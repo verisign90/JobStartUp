@@ -1,6 +1,9 @@
 package com.pickmeup.jobstartup.recruiter.mypage.controller;
 
 import com.pickmeup.jobstartup.recruiter.apply.dto.ApplyDTO;
+import com.pickmeup.jobstartup.recruiter.apply.dto.FileDTO;
+import com.pickmeup.jobstartup.recruiter.apply.dto.JobDTO;
+import com.pickmeup.jobstartup.recruiter.apply.dto.LocDTO;
 import com.pickmeup.jobstartup.recruiter.apply.service.ApplyService;
 import com.pickmeup.jobstartup.recruiter.mypage.dto.*;
 import com.pickmeup.jobstartup.recruiter.mypage.service.RecruiterMyPageService;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
+import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.*;
 
@@ -29,6 +33,7 @@ public class RecruiterMyPageController {
     private RecruiterMyPageService recruiterMyPageService;
 
     //관련 서비스 또는 DTO
+    @Autowired
     private ApplyService applyService;
     private ApplyDTO applyDTO;
 
@@ -163,7 +168,90 @@ public class RecruiterMyPageController {
         model.addAttribute("appListPaging",new RecruiterPagingDTO(criteria,totalCount));
         return "/recruiter/mypage/recruiterMyList";
     }
+    
+    //기업 페이지: 일반 정보 수정폼
+    @GetMapping("/myPage/generalInfo/{company_no}")
+    public String getGeneralInfo(@ModelAttribute("company_no") int company_no,
+                                 Model model) {
+
+        RecruiterGeneralInfoDTO generalInfo = recruiterMyPageService.getGeneralInfo(company_no);
+        model.addAttribute("generalInfo",generalInfo);
+        return "/recruiter/mypage/recruiterMyPageMInfoEdit";
+    }
+    
 
 
+    /* apply code */
+
+    //기업 페이지: 정보 수정 (요청)
+    @GetMapping("/myPage/editCompanyInfo/{company_no}")
+    public String updateCompanyInfoForm(@ModelAttribute("company_no") int company_no,
+                                        Model model) {
+
+        List<FileDTO> fileDTOList = applyService.getFileList(company_no);
+        ApplyDTO applyDTO = applyService.getCompanyInfo(company_no);
+        List<LocDTO> upperLoc = applyService.getUpperLoc();
+        List<JobDTO> upperJob = applyService.getBusiness_type_code_up();
+
+        model.addAttribute("fileDTOList",fileDTOList);
+        model.addAttribute("applyDTO",applyDTO);
+        model.addAttribute("upperLoc", upperLoc);
+        model.addAttribute("upperJob", upperJob);
+        model.addAttribute("upperLoc", upperLoc);
+        model.addAttribute("upperJob", upperJob);
+        return "/recruiter/mypage/recruiterMyPageInfoEdit";
+    }
+
+    //기업 페이지: 정보 수정
+    @PostMapping("/myPage/editCompanyInfo/{company_no}")
+    public String updateCompanyInfo(@ModelAttribute("company_no") int company_no,
+                                    @ModelAttribute("applyDTO") ApplyDTO applyDTO,
+                                    @RequestParam("document") MultipartFile[] files,
+                                    @RequestParam("logo") MultipartFile logoFile){
+        if (!logoFile.isEmpty()) {
+            try {
+                String originalFileName = logoFile.getOriginalFilename();
+                String uploadDir = "C:/jobStartUp_fileUpload/company/logo";
+                UUID uuid = UUID.randomUUID();
+                String logo_savname = uuid.toString()+"_"+originalFileName;
+                String filePath = uploadDir + File.separator + logo_savname;
+                File dest = new File(filePath);
+                logoFile.transferTo(dest);
+                applyDTO.setLogo_orgname(originalFileName);
+                applyDTO.setLogo_savname(logo_savname);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        List<FileDTO> fileDTOList = new ArrayList<>();
+        for (MultipartFile file : files) {
+            int check = applyService.existCheck(file.getOriginalFilename(),company_no);
+            if (!file.isEmpty() && check ==0) {
+                try {
+                    String originalFileName = file.getOriginalFilename();
+                    String uploadDir = "C:/jobStartUp_fileUpload/company/file";
+                    UUID uuid = UUID.randomUUID();
+                    String cfile_savname = uuid.toString()+"_"+originalFileName;
+                    String filePath = uploadDir + File.separator + cfile_savname;
+                    File dest = new File(filePath);
+                    file.transferTo(dest);
+                    FileDTO fileDTO = new FileDTO();
+                    fileDTO.setCfile_orgname(originalFileName);
+                    fileDTO.setCfile_savname(cfile_savname);
+                    fileDTOList.add(fileDTO);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        applyService.updateInfo(applyDTO);
+        for (FileDTO fileDTO : fileDTOList) {
+            System.out.println("test FileDTO" + fileDTO);
+            fileDTO.setCompany_no(company_no);
+        }
+        applyService.insertFile(fileDTOList);
+
+        return "redirect:/recruiter/myPage?company_no="+company_no;
+    }
 
 }
