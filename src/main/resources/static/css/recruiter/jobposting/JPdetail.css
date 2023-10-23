@@ -1,3 +1,7 @@
+main {
+    display: block;
+}
+
 .all-content{
   margin-right: 5%;
   margin-left: 5%;
@@ -77,6 +81,40 @@
     transition: all .3s;
     margin-bottom: 30px;
 }
+.company_logo {
+    display: flex;
+    justify-content: center;
+}
+.image {
+    width: 70%;
+    display: block;
+    overflow: hidden;
+    margin: auto;
+    border-radius: 1em;
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+}
+.second-container {
+    display: grid;
+    grid-template-columns: 2fr 8fr;
+}
+table.company_info {
+  border-collapse: collapse;
+  line-height: 1.5;
+  width: 100%;
+}
+table.company_info tbody th {
+  width: 11%;
+  padding: 10px;
+  font-size: 1.1em;
+  font-weight: bold;
+  vertical-align: top;
+}
+table.company_info td {
+  width: 70%;
+  padding: 10px;
+  font-size: 1.1em;
+  vertical-align: top;
+}
 
 /* 3rd section */
 .main-third-container {
@@ -89,6 +127,29 @@
     border-radius: 10px;
     transition: all .3s;
     margin-bottom: 30px;
+}
+.third-container{
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-left: 3%;
+}
+table.posting_info {
+  border-collapse: collapse;
+  line-height: 1.5;
+  width: 200%;
+}
+table.posting_info tbody th {
+  width: 11%;
+  padding: 10px;
+  font-size: 1.1em;
+  font-weight: bold;
+  vertical-align: top;
+}
+table.posting_info td {
+  width: 70%;
+  padding: 10px;
+  font-size: 1.1em;
+  vertical-align: top;
 }
 
 /* 4th section */
@@ -104,6 +165,10 @@
     transition: all .3s;
     margin-bottom: 30px;
 }
+.fourth-container {
+    margin-left: 3%;
+}
+
 
 /* qna seciton*/
 .main-six-container {

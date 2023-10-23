@@ -63,7 +63,7 @@
                         <div>
                             <ul>
                                 <li><a href="${cPath}/recruiter/myPage/jobPostingWithPaging?company_no=${company_no}">채용공고 목록</a></li>
-                                <li><a href="${cPath}/recruiter/JPwrite">채용공고 신청</a></li>
+                                <li><a href="${cPath}/recruiter/JPwrite?company_no=${company_no}">채용공고 신청</a></li>
                             </ul>
                         </div>
                     </div>

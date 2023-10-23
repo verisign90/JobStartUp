@@ -90,9 +90,14 @@
                    J.POSTING_CONTENT,
                    J.POSTING_SWORK,
                    J.POSTING_EWORK,
+                   C.COMPANY_NO,
                    C.COMPANY_NAME,
                    C.COMPANY_ADDRESS_DETAIL,
-                   C.COMPANY_NO
+                   C.COMPANY_TYPE,
+                   C.COMPANY_SITE,
+                   C.COMPANY_EST,
+                   C.COMPANY_SALES,
+                   C.LOGO_SAVNAME
             FROM COMPANY C
                      INNER JOIN JOB_POSTING J ON C.COMPANY_NO = J.COMPANY_NO
             WHERE J.POSTING_NO = #{posting_no}

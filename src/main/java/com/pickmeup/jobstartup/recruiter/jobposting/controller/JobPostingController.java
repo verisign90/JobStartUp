@@ -45,7 +45,7 @@ public class JobPostingController {
 
     /*공고등록 폼*/
     @GetMapping("/JPwrite")
-    public String JPwriteForm(Model model) throws Exception {
+    public String JPwriteForm(@ModelAttribute("company_no") long company_no, Model model) throws Exception {
         List<LocDTO> upperLoc = jobPostingService.getUpperLoc();
         model.addAttribute("upperLoc", upperLoc);
         return "/recruiter/jobPosting/JPwriteForm";
@@ -53,9 +53,9 @@ public class JobPostingController {
 
     /*게시글 등록*/
     @PostMapping("/JPwrite")
-    public ModelAndView JPwrite(JobPostingDTO jobPostingDTO,
+    public ModelAndView JPwrite(JobPostingDTO jobPostingDTO, @RequestParam long company_no,
                                 @RequestParam("posting_content") String content, ModelAndView modelAndView) throws Exception {
-        jobPostingDTO.setCompany_no(0L);
+        jobPostingDTO.setCompany_no(company_no);
         jobPostingDTO.setPosting_content(content);
         jobPostingService.insertJobPostingDTO(jobPostingDTO);
         modelAndView.setViewName("redirect:/recruiter/JPlist");

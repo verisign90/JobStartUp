@@ -9,10 +9,16 @@ import java.time.LocalDateTime;
 
 @Data
 public class JobPostingDTO {
-
+    /* 회사 정보 */
     private Long company_no;
     private String company_name;
     private String company_address_detail;
+    private String company_type;
+    private String company_site;
+    private String company_est;
+    private String company_sales;
+    private String logo_savname;
+    /* 채용 공고 정보 */
     private Long posting_no;
     private String posting_title;
     private String posting_career;
@@ -32,6 +38,4 @@ public class JobPostingDTO {
     private String posting_position;
     private String posting_swork;
     private String posting_ework;
-
-
 }

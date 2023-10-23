@@ -34,6 +34,8 @@
 </div>
 <main>
     <article class="all-content">
+
+        <!-- 채용 공고 제목 및 여러 아이콘 -->
         <section>
             <div class="main-first-container">
                 <div class="first-first-container">
@@ -127,69 +129,93 @@
             </div>
         </section>
 
-
-
-
-
+        <!-- 기업 정보 -->
         <section>
             <div class="main-second-container">
                 <div>
-                    <div>
-                        <table>
-                            <tr>
-                                <th>경력</th>
-                                <td>&nbsp;:&nbsp;${JPdetail.posting_career}</td>
-                            </tr>
-                            <tr>
-                                <th>학력</th>
-                                <td>&nbsp;:&nbsp;${JPdetail.posting_academy}</td>
-                            </tr>
-                            <tr>
-                                <th>근무 형태</th>
-                                <td>&nbsp;:&nbsp;${JPdetail.posting_labor}</td>
-                            </tr>
-                        </table>
+                    <div class = "second-container">
+                        <div class="company_logo">
+                            <img class="image" src="${pageContext.request.contextPath}/image/mypage/${JPdetail.logo_savname}" />
+                        </div>
+                        <div>
+                            <table class="company_info">
+                                <tbody>
+                                    <tr>
+                                        <th>주소</th>
+                                        <td>${JPdetail.company_address_detail}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>유형</th>
+                                        <td>${JPdetail.company_type}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>사이트</th>
+                                        <td>${JPdetail.company_site}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>설립연도</th>
+                                        <td>${JPdetail.company_est}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>매출액</th>
+                                        <td>${JPdetail.company_sales}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- 채용 공고 정보 : 일반 -->
         <section>
             <div class="main-third-container">
-                <div>
-                    <table>
+                <div class="third-container">
+                    <table class="posting_info">
+                        <tr>
+                            <th>경력</th>
+                            <td>${JPdetail.posting_career}</td>
+                        </tr>
+                        <tr>
+                            <th>학력</th>
+                            <td>${JPdetail.posting_academy}</td>
+                        </tr>
+                        <tr>
+                            <th>근무 형태</th>
+                            <td>${JPdetail.posting_labor}</td>
+                        </tr>
                         <tr>
                             <th>급여</th>
-                            <td>&nbsp;:&nbsp;${JPdetail.posting_salary}</td>
+                            <td>${JPdetail.posting_salary}</td>
                         </tr>
                         <tr>
                             <th>근무 일시</th>
                             <td>
-                                <span>&nbsp;:&nbsp;${JPdetail.posting_working_day}</span>
+                                <span>${JPdetail.posting_working_day}</span>
                                 <span>|&nbsp;${JPdetail.posting_swork}</span> ~
                                 <span>&nbsp;:&nbsp;${JPdetail.posting_ework}</span>
                             </td>
                         </tr>
                         <tr>
                             <th>근무지역</th>
-                            <td>&nbsp;:&nbsp;${fn:substring(JPdetail.company_address_detail, 6, 12)}</td>
+                            <td>${fn:substring(JPdetail.company_address_detail, 6, 12)}</td>
                         </tr>
                     </table>
                 </div>
             </div>
-            </div>
         </section>
 
-
+        <!-- 채용 공고 정보 : editor-->
         <section>
             <div class="main-fourth-container">
-                <div>
+                <div class="fourth-container">
                     회사 컨텐츠가 들어갈 예정입니다 ${JPdetail.posting_content}
                 </div>
             </div>
         </section>
 
-<!-- QnAList-->
+        <!-- QnAList-->
         <section>
             <div class = "main-six-container">
                 <div class="qnaList">
@@ -238,9 +264,9 @@
                 </div>
             </div>
         </section>
-<!-- QnAList-->
+        <!-- QnAList-->
 
-
+        <!-- 삭제 또는 수정 -->
         <section>
             <div class="main-fifth-container">
                 <!-- 삭제 버튼 -->
@@ -250,7 +276,6 @@
                 <a href="${cPath}/recruiter/JPmodify/${JPdetail.posting_no}" class="btn btn-primary">수정</a>
             </div>
         </section>
-
 
     </article>
 </main>
