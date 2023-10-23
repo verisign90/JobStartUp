@@ -201,17 +201,19 @@ public class JobFairController {
         System.out.println("나의 아이디= " + memberId );//접속자 아이디 확인
         Member member = applyService.getMemberNO(memberId);//접속자 정보 DTO member 가져오기
         ApplyDTO applyDTO = applyService.getApplyDTO(member.getMember_no());//해당계정의 회사정보불러오기
-        int company_no = applyDTO.getCompany_no();
+
 
 
         if(applyDTO == null)  {
             System.out.println("if문 안쪽");
             return "redirect:/jobfair/apply/"+jobFairNo;
         }
-        else if(applyDTO != null &&applyService.countEntry(company_no)==0){
-            System.out.println("두번째 if문 안쪽");
-            applyService.insertEntry(jobFairNo,applyDTO.getCompany_no());
-            return "redirect:/jobfair/list";
+        int company_no = applyDTO.getCompany_no();
+        if(applyDTO != null &&applyService.countEntry(company_no)==0){
+
+        System.out.println("두번째 if문 안쪽");
+        applyService.insertEntry(jobFairNo,applyDTO.getCompany_no());
+        return "redirect:/jobfair/list";
         }else
             System.out.println("해당사항무");
         return "redirect:/jobfair/list";
@@ -484,7 +486,7 @@ public class JobFairController {
         if(countEntry>0){
             return "redirect:/jobfair/pendingApproval/"+company_no;
         }else
-            return "/";
+            return "redirect:/";
     }
 
 
