@@ -29,6 +29,12 @@ public class JobPostingServicelmpl implements JobPostingService{
     }
 
 
+    //채용공고 목록조회(검색)
+    @Override
+    public List<JobPostingDTO> selectJPlistBySearch(){
+        return jobPostingRepository.paginationPostingBySearch();
+    }
+
     //공고상세조회
     @Override
     public JobPostingDTO selectJPdetail(int posting_no)  {
@@ -39,7 +45,6 @@ public class JobPostingServicelmpl implements JobPostingService{
     //공고수정
     @Override
     public void JPmodify(Map<String, Object> map) throws Exception {
-        System.out.println("여기는서비스입니다"+map);
         jobPostingRepository.JPmodify(map);
     }
 
@@ -54,7 +59,6 @@ public class JobPostingServicelmpl implements JobPostingService{
     @Override
     public List<LocDTO> getUpperLoc() {
         List<LocDTO> upperLoc = jobPostingRepository.getUpperLoc();
-        System.out.println("서비스 upperLoc = " + upperLoc);
         return upperLoc;
     }
 
@@ -94,6 +98,44 @@ public class JobPostingServicelmpl implements JobPostingService{
 
         List<JobPostingDTO> jobPostingList = jobPostingRepository.paginationPosting(paramMap);
         int totalCount = jobPostingRepository.countPosting();
+        int totalPages = (int) Math.ceil((double) totalCount / size);
+
+        // 페이지네이션 번호를 5개씩 가져오도록 수정
+        int startPage = Math.max(1, page - 2); // 현재 페이지 기준으로 앞에 2페이지까지 표시
+        int endPage = Math.min(startPage + 4, totalPages); // 시작 페이지부터 최대 5페이지까지 표시
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("jobPostingList", jobPostingList);
+
+        // 수정된 startPage와 endPage 정보도 함께 반환
+        result.put("startPage", startPage);
+        result.put("endPage", endPage);
+
+        result.put("totalPages", totalPages);
+        return result;
+    }
+
+    //검색 통한 목록 조회
+    @Override
+    public Map<String, Object> paginationPostingBySearch(int page, int size,
+                                                         String upperLocSelected, String lowerLocSelected,
+                                                         String keyword) {
+
+        String upperLocPre = jobPostingRepository.selectUpper(upperLocSelected);
+        String upperLoc = upperLocPre.substring(0, 2);
+        String lowerLoc = jobPostingRepository.selectLower(lowerLocSelected);
+        int offset = (page - 1) * size;
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("offset", offset);
+        map.put("size", size);
+        map.put("upperLoc", upperLoc);
+        map.put("lowerLoc", lowerLoc);
+        map.put("keyword", keyword);
+
+        List<JobPostingDTO> jobPostingList = jobPostingRepository.paginationPostingBySearch(map);
+
+        int totalCount = jobPostingRepository.countPostingBySearch(map);
         int totalPages = (int) Math.ceil((double) totalCount / size);
 
         // 페이지네이션 번호를 5개씩 가져오도록 수정

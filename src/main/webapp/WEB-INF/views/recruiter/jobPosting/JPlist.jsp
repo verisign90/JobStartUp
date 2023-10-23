@@ -11,57 +11,56 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/recruiter/jobposting/JPlist.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/base.css">
+    <!--<link rel="stylesheet" href="${pageContext.request.contextPath}/css/base.css">-->
     <title>채용 공고 목록</title>
 </head>
-
 <body>
 <%@ include file="../../layout/layoutNav.jsp" %>
 <div  id="top" data-wow-duration="1s" data-wow-delay="0.5s">
     <div class="header-text" data-wow-duration="1s" data-wow-delay="1s">
     </div>
 </div>
-<%@ include file="../../layout/layoutSideRecruiter.jsp" %>
 <main>
     <!--<article class="article-content">-->
     <article>
-        <!-- 검색 활용 -->
-        <!--<section>
-            <ul class="webtong_tab_type03">
-            <li class="dropdown">
-                <a href="#" class="dropbtn">지역</a>
-                <span class="dropdown-content">
-                    <c:forEach items="${upperLoc}" var="upLoc">
-                        <div class="checkbox-wrapper" onclick="toggleCheckbox(this)">
-                            <input type="checkbox" name="upperLoc" id="${upLoc.detail_code_num}"
-                                   value="${upLoc.detail_code_num}">
-                            <span class="loc-detail-name">${upLoc.detail_name}</span>
-                        </div>
-                    </c:forEach>
-                </span>
-                <span class="dropdown-low-content">
-                    <c:forEach items="${lowerLoc}" var="loLoc">
-                        <div class="" onclick="toggleCheckbox(this)">
-                            <input type="checkbox" name="lowerLoc" id="${loLoc.detail_code_num}"
-                                   value="${loLoc.detail_code_num}">
-                            <span class="loc-detail-name">${loLoc.detail_name}</span>
-                        </div>
-                    </c:forEach>
-                </span>
-            </li>
-            <li><a href="/#">개인회원</a></li>
-            <li class="searchContainer">
-                <div class="searchWrapper">
-                    <input type="text" id="searchInput" placeholder="검색어 입력">
+
+        <div class="recruitment">
+            <h4><!--채용 공고 정보--></h4><br/>
+            <h4><!--채용 공고 정보--></h4><br/>
+            <h4><!--채용 공고 정보--></h4><br/>
+            <h4><!--채용 공고 정보--></h4><br/>
+            <h4><!--채용 공고 정보--></h4><br/>
+            <h4><!--수정해야 함--></h4><br/>
+        </div>
+
+        <!-- 검색 -->
+        <div class = "searchBar">
+            <form action = "/recruiter/JPlistBySearch" method="get">
+                <div class="">
+                    <div class="selectType" id="selectBox">
+                        <label for="keyword" class="blind">지역 검색</label>
+                        <select id="upperLoc" name="upperLocSelected" onchange="loadLowerLoc()" required>
+                            <option value="">선택</option>
+                            <c:forEach items="${upperLoc}" var="upLoc">
+                                <option value="${upLoc.detail_code_num}">${upLoc.detail_name}</option>
+                            </c:forEach>
+                        </select>
+                        <select id="lowerLoc" name="lowerLocSelected" required>
+                            <option value="">선택</option>
+                            <c:forEach items="${lowerLoc}" var="loLoc">
+                                <option value="${loLoc.detail_code_num}">${loLoc.detail_name}</option>
+                            </c:forEach>
+                        </select>
+                        <input type="text" id="keyword" name="keyword" placeholder="키워드를 입력해 주세요."/>
+                        <button type="submit" ><i class="fas fa-search"></i>
+                            <span class="skip_info">검색</span></button>
+                    </div>
                 </div>
-            </li>
-        </ul>
-        </section>-->
-        <section>
-            <div class="recruitment">
-                <h4><!--채용 공고 정보--></h4>
-            </div>
-            <%--<c:forEach var="JPlist" items="${JPlist}"></c:forEach>--%>
+            </form>
+        </div>
+
+        <!-- jobPosting (검색 x) -->
+        <c:if test="${not empty jobPostingList}">
             <div class="jobPostingList-container">
                 <div class="info-container">
                     <c:forEach var="jobPosting" items="${jobPostingList}">
@@ -73,7 +72,6 @@
                                 <div class="info-items service-item first-service">
                                     <h3 class="posting_title">${jobPosting.posting_title}</h3>
                                     <div>
-                                        <%--<span>${JPlist.company_address_detail}</span>--%>
                                         <span class="company_address">${fn:substring(jobPosting.company_address_detail, 0, 6)}</span>
                                         <span class="posting_career">${jobPosting.posting_career}</span>
                                         <span class="posting_academy">${jobPosting.posting_academy}</span>
@@ -111,10 +109,63 @@
                     </c:if>
                 </div>
             </div>
-        </section>
+        </c:if>
+
+        <!-- jobPosting (검색 o) -->
+        <c:if test ="${not empty jobPostingListBySearch}">
+            <div class="jobPostingList-container">
+                <div class="info-container">
+                <c:forEach var="jobPostingListBySearch" items="${jobPostingListBySearch}">
+                    <div class="info-container-items">
+                        <input type="hidden" name="posting_swork" ${jobPostingListBySearch.posting_swork}>
+                        <input type="hidden" name="posting_ework" ${jobPostingListBySearch.posting_ework}>
+                        <input type="hidden" name="posting_no" ${jobPostingListBySearch.posting_no}>
+                        <a href="${cPath}/recruiter/JPdetail/${jobPostingListBySearch.posting_no}" target="_blank">
+                            <div class="info-items service-item first-service">
+                                <h3 class="posting_title">${jobPostingListBySearch.posting_title}</h3>
+                                <div>
+                                    <span class="company_address">${fn:substring(jobPostingListBySearch.company_address_detail, 0, 6)}</span>
+                                    <span class="posting_career">${jobPostingListBySearch.posting_career}</span>
+                                    <span class="posting_academy">${jobPostingListBySearch.posting_academy}</span>
+                                    <span class="posting_labor">${jobPostingListBySearch.posting_labor}</span>
+                                    <span class="posting_salary">${jobPostingListBySearch.posting_salary}</span>
+                                    <span>
+                            <strong class="company_name"><a>${jobPostingListBySearch.company_name}</a></strong>
+                        </span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </c:forEach>
+                </div>
+            </div>
+            <div class="pagination">
+                <c:if test="${currentPage > 1}">
+                    <!--<a class="page-link" href="${pageContext.request.contextPath}/recruiter/JPlist?page=1">처음</a>-->
+                    <a class="page-link" href="${pageContext.request.contextPath}/recruiter/JPlistBySearch?page=${currentPage - 1}&upperLocSelected=${upperLocSelected}&lowerLocSelected=${lowerLocSelected}&keyword=${keyword}">이전</a>
+                </c:if>
+
+                <c:forEach begin="${startPage}" end="${endPage}" var="pageNum">
+                    <c:choose>
+                        <c:when test="${pageNum == currentPage}">
+                            <span class="current page-link">${pageNum}</span>
+                        </c:when>
+                        <c:otherwise>
+                            <a class="page-link" href="${pageContext.request.contextPath}/recruiter/JPlistBySearch?page=${pageNum}&upperLocSelected=${upperLocSelected}&lowerLocSelected=${lowerLocSelected}&keyword=${keyword}">${pageNum}</a>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+
+                <c:if test="${currentPage < totalPages}">
+                    <a class="page-link" href="${pageContext.request.contextPath}/recruiter/JPlistBySearch?page=${currentPage + 1}&upperLocSelected=${upperLocSelected}&lowerLocSelected=${lowerLocSelected}&keyword=${keyword}">다음</a>
+                    <!--<a class="page-link" href="${pageContext.request.contextPath}/recruiter/JPlist?page=${totalPages}">마지막</a>-->
+                </c:if>
+            </div>
+        </c:if>
+
     </article>
 </main>
-<%@include file="../../layout/layoutFooter.jsp" %>
+<%@ include file="../../layout/layoutFooter.jsp" %>
 <!-- Scripts -->
 <script src="/css/template/vendor/jquery/jquery.min.js"></script>
 <script src="/css/template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -124,42 +175,25 @@
 <script src="/css/template/assets/js/popup.js"></script>
 <script src="/css/template/assets/js/custom.js"></script>
 <script src="/css/template/assets/js/side.js"></script>
+
+<!-- test 코드 -->
 <script>
-    var dropdown = document.querySelector('.dropdown');
-
-    dropdown.addEventListener('click', function () {
-        this.classList.toggle('active');
-
-        var dropdownContent = this.querySelector('.dropdown-content');
-
-        if (this.classList.contains('active')) {
-            dropdownContent.style.display = 'block';
-
-            // 드롭다운 내부의 스크롤을 마우스로 조작 가능하도록 설정합니다.
-            dropdownContent.style.overflowY = 'auto';
-
-            // 이벤트 전파를 막아 클릭 시 드롭다운이 닫히지 않도록 합니다.
-            dropdownContent.addEventListener('click', function (event) {
-                event.stopPropagation();
+function loadLowerLoc() {
+    var upperLocValue = document.getElementById("upperLoc").value;
+    fetch('/recruiter/getJPLowerLoc?upperLoc=' + upperLocValue)
+        .then(response => response.json())
+        .then(data => {
+            var lowerLocSelect = document.getElementById("lowerLoc");
+            lowerLocSelect.innerHTML = "";
+            data.forEach(loLoc => {
+                var option = document.createElement("option");
+                option.value = loLoc.detail_code_num;
+                option.text = loLoc.detail_name;
+                lowerLocSelect.appendChild(option);
             });
-        } else {
-            dropdownContent.style.display = 'none';
-        }
-    });
-    window.addEventListener('click', function (event) {
-        if (!event.target.matches('.dropbtn')) {
-            var dropdowns = document.querySelectorAll('.dropdown');
-
-            for (var i = 0; i < dropdowns.length; i++) {
-                var openDropdown = dropdowns[i];
-
-                if (openDropdown.classList.contains('active')) {
-                    openDropdown.classList.remove('active');
-                    openDropdown.querySelector('.dropdown-content').style.display = 'none';
-                }
-            }
-        }
-    });
+        })
+        .catch(error => console.error('Error:', error));
+}
 </script>
 <script>
     function toggleCheckbox(element) {
@@ -200,7 +234,6 @@
                 success: function (response) {
                     let lowerLocContainer = $(".dropdown-low-content");
                     lowerLocContainer.empty(); // 기존 하위 지역 목록을 제거
-
                     $.each(response, function (index, loLoc) {
                         let lowerLocHtml = `
                         <div class="" onclick="toggleCheckbox(this)">
@@ -208,7 +241,6 @@
                             <span class="loc-detail-name">${loLoc.detail_name}</span>
                         </div>
                     `;
-
                         lowerLocContainer.append(lowerLocHtml);
                     });
                 }
