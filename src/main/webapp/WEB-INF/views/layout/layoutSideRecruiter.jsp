@@ -89,7 +89,22 @@
                     <div id="collapseFour" class="collapse" aria-labelledby="headingOne">
                         <div>
                             <ul>
-                                <li><a href="${cPath}/qna/recruiter/boardList/${companyNo}">질의 목록</a></li>
+                                <li><a href="${cPath}/qna/recruiter/boardList/${company_no}">질의 목록</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li class="accordion">
+                    <a href="#" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false"
+                       aria-controls="collapseFive" class="collapsible">
+                        <span class="icon-home mr-3"></span>MY 회원정보
+                    </a>
+                    <div id="collapseFive" class="collapse" aria-labelledby="headingOne">
+                        <div>
+                            <ul>
+                                <li><a href="${cPath}/recruiter/myPage/generalInfo/${company_no}">일반 정보 수정</a></li>
+                                <li><a href="${cPath}/recruiter/myPage/editCompanyInfo/${company_no}">기업 정보 수정</a></li>
+                                <li><a href="#">회원 탈퇴</a></li>
                             </ul>
                         </div>
                     </div>

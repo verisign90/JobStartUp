@@ -29,9 +29,9 @@
 </div>
 <%@ include file="../../layout/layoutSideRecruiter.jsp" %>
 <main>
-    <article>
-    <div class="main-title-container"><h4>기업 마이 페이지</h4></div>
+    <article class="article">
     <div class="main-container">
+        <div class="main-title-container"><h4>기업 마이 페이지</h4></div>
         <div class="info-container">
             <div class="info-main-container">
                 <div class="company">

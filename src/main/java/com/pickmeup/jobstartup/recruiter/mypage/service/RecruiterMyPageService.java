@@ -40,5 +40,6 @@ public interface RecruiterMyPageService {
     //기업 페이지: calendar 삭제
     int deleteRecruCalendar(RecruiterCalendarDTO recruiterCalendarDTO);
 
-    //기업 페이지: calendar 수정
+    //기업 페이지: 일반 정보 수정
+    RecruiterGeneralInfoDTO getGeneralInfo(int company_no);
 }

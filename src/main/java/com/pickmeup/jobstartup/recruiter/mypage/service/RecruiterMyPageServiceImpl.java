@@ -160,7 +160,11 @@ public class RecruiterMyPageServiceImpl implements RecruiterMyPageService{
         return recruiterCalendarDTO;
     }
 
-    //기업 페이지: calendar 수정
+    //기업 페이지: 일반 정보 수정
+    @Override
+    public RecruiterGeneralInfoDTO getGeneralInfo(int company_no) {
+        return recruiterMyPageRepository.getGeneralInfo(company_no);
+    }
 
 
 }
