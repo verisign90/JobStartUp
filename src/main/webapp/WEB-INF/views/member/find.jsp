@@ -18,14 +18,14 @@
 
 <div>
     <h3>개인회원</h3>
-    <button onclick="navigateTo('/findPersonId')">아이디 찾기</button>
-    <button onclick="navigateTo('/findPersonPassword')">비밀번호 찾기</button>
+    <button onclick="navigateTo('/member/findPersonId')">아이디 찾기</button>
+    <button onclick="navigateTo('/member/findPersonPassword')">비밀번호 찾기</button>
 </div>
 
 <div>
     <h3>기업회원</h3>
-    <button onclick="navigateTo('/findCompanyId')">아이디 찾기</button>
-    <button onclick="navigateTo('/findCompanyPassword')">비밀번호 찾기</button>
+    <button onclick="navigateTo('/member/findCompanyId')">아이디 찾기</button>
+    <button onclick="navigateTo('/member/findCompanyPassword')">비밀번호 찾기</button>
 </div>
 </body>
 </html>

@@ -6,11 +6,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -32,43 +36,48 @@ public class FindController {
     }
 
     @PostMapping("/findPersonId")
-    public String findPersonId(@RequestParam("name") String name, @RequestParam("phone") String phone, Model model) {
+    public ResponseEntity<Map<String, String>> findPersonId(@RequestParam("name") String name, @RequestParam("phone") String phone) {
+        Map<String, String> response = new HashMap<>();
         String foundId = memberService.findPersonId(name, phone);
 
         if (foundId != null) {
-            model.addAttribute("message", "아이디 조회 결과: " + foundId);
+            response.put("message", "당신의 아이디는 " + foundId + " 입니다");
         } else {
-            model.addAttribute("message", "일치하는 아이디를 찾을 수 없습니다");
+            response.put("message", "일치하는 아이디를 찾을 수 없습니다");
         }
-        return "member/resultPersonId";
+        return ResponseEntity.ok(response);
     }
 
     //개인회원 아이디 조회 결과
-    @GetMapping("/resultPersonId")
-    public String resultPersonId() {
-        return "member/resultPersonId";
-    }
+//    @GetMapping("/resultPersonId")
+//    public String resultPersonId() {
+//        return "member/resultPersonId";
+//    }
 
     //개인회원 비밀번호 찾기
     @GetMapping("/findPersonPassword")
-    public String findPersonPassword() {
+    public String findPersonPassword(HttpSession session) {
+        session.removeAttribute("message");
         return "member/findPersonPassword";
     }
 
     @PostMapping("/findPersonPassword")
-    public String findPersonPassword(@RequestParam("memberId") String memberId,
-                                     @RequestParam("memberName") String memberName,
-                                     @RequestParam("memberPhone") String memberPhone, Model model,
-                                     RedirectAttributes redirectAttrs) {
+    public ResponseEntity<Map<String, Object>> findPersonPassword(@RequestParam("memberId") String memberId,
+                                                                  @RequestParam("memberName") String memberName,
+                                                                  @RequestParam("memberPhone") String memberPhone) {
+        Map<String, Object> response = new HashMap<>();
         Member member = memberService.findPersonPassword(memberId, memberName, memberPhone);
         if (member != null) {
-            model.addAttribute("member", member);
-            return "member/updatePassword";
+            response.put("status", "success");
+            response.put("message", "회원 정보를 찾았습니다.");
+            return ResponseEntity.ok(response);
         } else {
-            redirectAttrs.addFlashAttribute("message", "일치하는 회원 정보를 찾을 수 없습니다");
-            return "redirect:/findPersonPassword";
+            response.put("status", "error");
+            response.put("message", "일치하는 회원 정보를 찾을 수 없습니다");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
     }
+
 
     //개인회원 비밀번호 재설정
     @GetMapping("/updatePassword")
