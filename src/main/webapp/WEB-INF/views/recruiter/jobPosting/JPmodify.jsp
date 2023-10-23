@@ -16,8 +16,8 @@
     <%--<link rel="stylesheet" href="${pageContext.request.contextPath}/css/base.css">--%>
     <%--<link rel="stylesheet" href="${pageContext.request.contextPath}/ckeditor5-2/sample/styles.css">--%>
     <%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/layout/layout.css">--%>
-    <script src="${contextPath}/ckeditor5-2/build/ckeditor.js"></script>
-    <%--<script src="https://cdn.ckeditor.com/ckeditor5/39.0.2/classic/ckeditor.js"></script>--%>
+    <%--<script src="${contextPath}/ckeditor5-2/build/ckeditor.js"></script>--%>
+    <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
 
     <!-- Bootstrap core CSS -->
     <link href="/css/template/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -39,37 +39,26 @@
 <main>
     <article class="all-content">
         <form action="${pageContext.request.contextPath}/recruiter/JPmodify" method="post" enctype="multipart/form-data">
-            <input type="hidden" id="posting_no" name="posting_no" value="${jobPostingDTO.posting_no}"/>
             <section>
-                <div>
-                    <h3>모집분야</h3>
+                <div class="title">
+                    <input type="text" name="posting_title" id="posting_title" class="posting_title" placeholder="공고 제목"
+                           required="제목을 입력해주세요">
                 </div>
+                <input type="hidden">
                 <div>
-                    <label for="posting_title" class="">공고 제목</label>
-                    <input type="text" name="posting_title" id="posting_title" class=""
-                           value="${jobPostingDTO.posting_title}">
+                    <label for="c1" class="mini-career">직무·직업</label>
                 </div>
-                <div>
-                    <label for="c1" class="">직무·직업</label>
-                    <input type="checkbox" name="posting_career" id="c1"
-                           value="신입" ${jobPostingDTO.posting_career == '신입' ? 'checked' : ''}/><label
-                        for="c1">신입</label>
-                    <input type="checkbox" name="posting_career" id="c2"
-                           value="경력" ${jobPostingDTO.posting_career == '경력' ? 'checked' : ''}/><label
-                        for="c2">경력</label>
-                    <input type="checkbox" name="posting_career" id="c3"
-                           value="경력무관" ${jobPostingDTO.posting_career == '경력무관' ? 'checked' : ''}/><label
-                        for="c3">경력무관</label>
-                    <input type="checkbox" name="posting_career" id="c4"
-                           value="신입 지원 가능" ${jobPostingDTO.posting_career == '신입 지원 가능' ? 'checked' : ''}/><label
-                        for="c4">신입 지원
+                <div class="div-line">
+                    <input type="checkbox" name="posting_career" id="c1" value="신입"/><label for="c1">신입</label>
+                    <input type="checkbox" name="posting_career" id="c2" value="경력"/><label for="c2">경력</label>
+                    <input type="checkbox" name="posting_career" id="c3" value="경력무관"/><label for="c3">경력무관</label>
+                    <input type="checkbox" name="posting_career" id="c4" value="신입 지원 가능"/><label for="c4">신입 지원
                     가능</label>
                 </div>
                 <div>
-                    <h3>지원자격</h3>
+                    <span class="mini-academy">지원학력</span>
                 </div>
                 <div>
-                    <span>지원학력</span>
                     <select name="posting_academy" id="posting_academy">
                         <option value="" selected disabled>--학력선택--</option>
                         <option value="학력무관">학력무관</option>
@@ -83,43 +72,37 @@
                 </div>
 
                 <div>
-                    <label for="w1" class="">근무형태</label>
-                    <input type="checkbox" name="posting_labor" id="w1"
-                           value="정규직" ${jobPostingDTO.posting_career == '정규직' ? 'checked' : ''}/><label
-                        for="w1">정규직</label>
-                    <input type="checkbox" name="posting_labor" id="w2"
-                           value="계약직" ${jobPostingDTO.posting_career == '계약직' ? 'checked' : ''}/><label
-                        for="w2">계약직</label>
-                    <input type="checkbox" name="posting_labor" id="w3"
-                           value="인턴직" ${jobPostingDTO.posting_career == '인턴직' ? 'checked' : ''}/><label
-                        for="w3">인턴직</label>
-                    <input type="checkbox" name="posting_labor" id="w4"
-                           value="아르바이트" ${jobPostingDTO.posting_career == '아르바이트' ? 'checked' : ''}/><label for="w4">아르바이트</label>
-                    <input type="checkbox" name="posting_labor" id="w5"
-                           value="파견직" ${jobPostingDTO.posting_career == '파견직' ? 'checked' : ''}/><label
-                        for="w5">파견직</label>
-                    <input type="checkbox" name="posting_labor" id="w6"
-                           value="해외취업" ${jobPostingDTO.posting_career == '해외취업' ? 'checked' : ''}/><label
-                        for="w6">해외취업</label>
-                    <input type="checkbox" name="posting_labor" id="w7"
-                           value="계약직 (정규직 전환가능)" ${jobPostingDTO.posting_career == '계약직 (정규직 전환가능)' ? 'checked' : ''}/><label
-                        for="w7">계약직 (정규직
-                    전환가능)</label>
-                    <input type="checkbox" name="posting_labor" id="w8"
-                           value="인턴직 (정규직 전환가능)" ${jobPostingDTO.posting_career == '인턴직 (정규직 전환가능)' ? 'checked' : ''}/><label
-                        for="w8"> 인턴직
-                    (정규직 전환가능)</label>
-                    <input type="checkbox" name="posting_labor" id="w9"
-                           value="교육생" ${jobPostingDTO.posting_career == '교육생' ? 'checked' : ''}/><label
-                        for="w9">교육생</label>
-                    <input type="checkbox" name="posting_labor" id="w10"
-                           value="기간제" ${jobPostingDTO.posting_career == '기간제' ? 'checked' : ''}/><label
-                        for="w10">기간제</label>
+                    <label for="w1" class="mini-labor">근무형태</label>
+                </div>
+
+                <div class="labor-line">
+                    <input type="checkbox" name="posting_labor" id="w1" value="정규직"/>
+                    <label for="w1">정규직</label>
+                    <input type="checkbox" name="posting_labor" id="w2" value="계약직"/>
+                    <label for="w2">계약직</label>
+                    <input type="checkbox" name="posting_labor" id="w3" value="인턴직"/>
+                    <label for="w3">인턴직</label>
+                    <input type="checkbox" name="posting_labor" id="w4" value="아르바이트"/>
+                    <label for="w4">아르바이트</label>
+                    <input type="checkbox" name="posting_labor" id="w5" value="파견직"/>
+                    <label for="w5">파견직</label>
+                    <input type="checkbox" name="posting_labor" id="w6" value="해외취업"/>
+                    <label for="w6">해외취업</label>
+                    <input type="checkbox" name="posting_labor" id="w7" value="계약직(정규직 전환가능)"/>
+                    <label for="w7">계약직(정규직 전환가능)</label>
+                    <input type="checkbox" name="posting_labor" id="w8" value="인턴직(정규직 전환가능)"/>
+                    <label for="w8">인턴직(정규직 전환가능)</label>
+                    <input type="checkbox" name="posting_labor" id="w9" value="교육생"/>
+                    <label for="w9">교육생</label>
+                    <input type="checkbox" name="posting_labor" id="w10" value="기간제"/>
+                    <label for="w10">기간제</label>
                 </div>
             </section>
             <section>
                 <div>
-                    <span>급여</span>
+                    <span class="mini-salary">급여</span>
+                </div>
+                <div>
                     <select name="posting_salary" id="posting_salary">
                         <option value="" selected disabled>--급여선택--</option>
                         <option value="회사내규에 따름">회사내규에 따름</option>
@@ -143,8 +126,10 @@
                         <option value="1억원 이상">1억원 이상</option>
                     </select>
                 </div>
-                <div>
+                <div class="mini-working_day">
                     <span>근무일시</span>
+                </div>
+                <div class="div-line">
                     <input type="radio" name="posting_working_day" value="주 5일(월~금)">주 5일(월~금)
                     <input type="radio" name="posting_working_day" value="주 6일(월~토)">주 6일(월~토)
                     <input type="radio" name="posting_working_day" value="주 3일(격일제)">주 3일(격일제)
@@ -152,7 +137,9 @@
                     <input type="radio" name="posting_working_day" value="면접 후 결정">면접 후 결정
                 </div>
                 <div>
-                    <span>출근시간</span>
+                    <span class="mini-swork">출근시간</span>
+                </div>
+                <div>
                     <select id="posting_swork" name="posting_swork">
                         <option value="" selected disabled>--선택--</option>
                         <option value="08:00">08:00</option>
@@ -162,8 +149,10 @@
                         <option value="10:00">10:00</option>
                     </select>
                 </div>
-                <div>
+                <div class="mini-ework">
                     <span>퇴근시간</span>
+                </div>
+                <div>
                     <select id="posting_ework" name="posting_ework">
                         <option value="" selected disabled>--선택--</option>
                         <option value="17:00">17:00</option>
@@ -174,51 +163,49 @@
                     </select>
 
                 </div>
-                <div>
+                <div class="mini-Loc">
                     <span>근무지역</span>
-                    <select id="upperLoc" name="upperLoc" onchange="loadLowerLoc()">
-                        <option value="">선택</option>
-                        <c:forEach items="${upperLoc}" var="upLoc">
-                            <option value="${upLoc.detail_code_num}">${upLoc.detail_name}</option>
-                        </c:forEach>
-                    </select>
-                    <select id="lowerLoc" name="lowerLoc">
-                        <option value="">선택</option>
-                        <c:forEach items="${lowerLoc}" var="loLoc">
-                            <option value="${loLoc.detail_code_num}">${loLoc.detail_name}</option>
-                        </c:forEach>
-                    </select>
                 </div>
-                <div>
+                <div class="select-container">
+                    <div>
+                        <select class="upperLoc" id="upperLoc" name="upperLoc" onchange="loadLowerLoc()">
+                            <option value="">선택</option>
+                            <c:forEach items="${upperLoc}" var="upLoc">
+                                <option value="${upLoc.detail_code_num}">${upLoc.detail_name}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <div>
+                        <select class="lowerLoc" id="lowerLoc" name="lowerLoc">
+                            <option value="">선택</option>
+                            <c:forEach items="${lowerLoc}" var="loLoc">
+                                <option value="${loLoc.detail_code_num}">${loLoc.detail_name}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                </div>
+                <br/>
+                <div class="div-sdate">
                     <span>시작일</span>
                     <input type="datetime-local" name="posting_sdate" id="posting_sdate"/>
                 </div>
-                <div>
+                <div class="div-edate">
                     <span>마감일</span>
                     <input type="datetime-local" name="posting_edate" id="posting_edate"/>
                 </div>
+                <br/>
             </section>
-            <section>
+            <section class="texteditor">
                 <textarea class="editor" name="posting_content" id="editor"></textarea>
             </section>
-            <section>
-<%--                <div>
-                    <label for="imageFileName" class="form-label">이미지</label>
-                    <input type="file" name="imageFileName" id="imageFileName" class="form-control-file"
-                           onchange="readURL(this);"/>
-                    <img src="#" id="preview" style="width:150px;"/>
-                </div>--%>
-            </section>
-
-            <div>
-                <button type="submit" id="subBtn">입력</button>
+            <div class="btn-submit">
+                <button type="submit" class="subBtn" name="subBtn" id="subBtn">등록</button>
             </div>
         </form>
     </article>
 </main>
-<footer>
-    footer
-</footer>
+<%@include file="../../layout/layoutFooter.jsp" %>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/css/template/vendor/jquery/jquery.min.js"></script>
 <script src="/css/template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -229,41 +216,18 @@
 <script src="/css/template/assets/js/custom.js"></script>
 
 <script>
-    const watchdog = new CKSource.EditorWatchdog();
-
-    window.watchdog = watchdog;
-
-    watchdog.setCreator((element, config) => {
-        return CKSource.Editor
-            .create(element, config)
-            .then(editor => {
-                return editor;
-            });
-    });
-
-    watchdog.setDestructor(editor => {
-        return editor.destroy();
-    });
-
-    watchdog.on('error', handleSampleError);
-
-    watchdog
-        .create(document.querySelector('.editor'), {
-            // Editor configuration.
+    ClassicEditor
+        .create(document.querySelector('#editor'), {
+            ckfinder: {
+                uploadUrl: '/upload'
+            }
         })
-        .catch(handleSampleError);
-
-    function handleSampleError(error) {
-        const issueUrl = 'https://github.com/ckeditor/ckeditor5/issues';
-
-        const message = [
-            'Oops, something went wrong!',
-            `Please, report the following error on ${ issueUrl } with the build id "jdvxf7v1zcxg-ysu3jnu712sw" and the error stack trace:`
-        ].join('\n');
-
-        console.error(message);
-        console.error(error);
-    }
+        .then(editor => {
+            console.log('Editor was initialized');
+        })
+        .catch(error => {
+            console.error(error);
+        });
 
 
     document.addEventListener("DOMContentLoaded", function () {
@@ -313,77 +277,109 @@
     }
 </script>
 <script>
-     $(document).ready(function() {
-        var posting_academy = ${posting_academy}; // 데이터베이스에서 가져온 posting_academy 값
-        var posting_salary = ${posting_salary}; // 데이터베이스에서 가져온 posting_salary 값
-        var posting_swork = ${posting_swork}; // 데이터베이스에서 가져온 posting_swork 값
-        var posting_ework = ${posting_ework}; // 데이터베이스에서 가져온 posting_ework 값
-        var posting_career = ${posting_career}; // 데이터베이스에서 가져온 posting_career 값
-        var posting_labor = ${posting_labor}; // 데이터베이스에서 가져온 posting_labor 값
-        var posting_working_day = ${posting_working_day}; // 데이터베이스에서 가져온 posting_working_day 값
+    document.getElementById('subBtn').addEventListener('click', function (e) {
 
-        // 이후, 해당 값을 사용하여 폼 필드를 채우는 함수를 호출할 수 있습니다.
-        selectOptionByValue('posting_academy', posting_academy);
-        selectOptionByValue('posting_salary', posting_salary);
-        selectOptionByValue('posting_swork', posting_swork);
-        selectOptionByValue('posting_ework', posting_ework);
-        selectRadioByValue('posting_career', posting_career);
-        selectRadioByValue('posting_labor', posting_labor);
-        selectRadioByValue('posting_working_day', posting_working_day);
-    });
+        // 직무·직업 유효성 검사
+        const careerCheckboxes = document.querySelectorAll('input[name="posting_career"]');
+        let careerChecked = false;
 
-    function selectRadioByValue(fieldName, checkedValue) {
-        var radioElements = document.getElementsByName(fieldName);
-
-        for (var i = 0; i < radioElements.length; i++) {
-            if (radioElements[i].value === checkedValue) {
-                radioElements[i].checked = true;
-                break;
-            }
-        }
-    }
-
-    function selectOptionByValue(selectId, selectedValue) {
-        var selectElement = document.getElementById(selectId);
-
-        for (var i = 0; i < selectElement.options.length; i++) {
-            if (selectElement.options[i].value === selectedValue) {
-                selectElement.selectedIndex = i;
-                break;
-            }
-        }
-    }
-
-   /* $(document).ready(function() {
-        // 서버에서 데이터 가져오기
-        $.ajax({
-            url: "/recruiter/modify/{posting_no}",
-            type: "GET",
-            dataType: "json",
-            success: function(data) {
-                // 데이터를 받았을 때, 폼 필드를 채우는 함수 호출
-                fillFormFields(data);
-            },
-            error: function() {
-                // 에러 처리 로직
+        careerCheckboxes.forEach((checkbox) => {
+            if (checkbox.checked) {
+                careerChecked = true;
             }
         });
+
+        if (!careerChecked) {
+            e.preventDefault();
+            alert("직무·직업을 최소 한 개 이상 선택해주세요.");
+            return;
+        }
+
+        // 지원학력 유효성 검사
+        const selectElem = document.getElementById('posting_academy');
+
+        if (selectElem.value === "") {
+            e.preventDefault();
+            alert("지원학력을 선택해주세요.");
+            return;
+        }
+
+        // 근무형태 유효성 검사
+        const laborCheckboxes = document.querySelectorAll('input[name="posting_labor"]');
+        let laborChecked = false;
+
+        laborCheckboxes.forEach((checkbox) => {
+            if (checkbox.checked) {
+                laborChecked = true;
+            }
+        });
+
+        if (!laborChecked) {
+            e.preventDefault();
+            alert("근무형태를 최소 한 개 이상 선택해주세요.");
+        }
+
+
+        // 급여 유효성 검사
+        const selectSalary = document.getElementById('posting_salary');
+
+        if (selectSalary.value === "") {
+            e.preventDefault();
+            alert("급여을 선택해주세요.");
+            return;
+        }
+
+        const radios = document.querySelectorAll('input[name="posting_working_day"]');
+        let checked = false;
+
+        radios.forEach((radio) => {
+            if (radio.checked) {
+                checked = true;
+            }
+        });
+
+        if (!checked) {
+            e.preventDefault();
+            alert("근무일시를 선택해주세요.");
+        }
+
+        // 출근 시간 유효성 검사
+        const selectSwork = document.getElementById('posting_swork');
+
+        if (selectSwork.value === "") {
+            e.preventDefault();
+            alert("출근 시간을 선택해주세요.");
+            return;
+        }
+
+        // 퇴근 시간 유효성 검사
+        const selectEwork = document.getElementById('posting_ework');
+
+        if (selectEwork.value === "") {
+            e.preventDefault();
+            alert("퇴근 시간을 선택해주세요.");
+            return;
+        }
+
+        // 근무 지역 유효성 검사
+        const selectUpperLoc = document.getElementById('upperLoc');
+        const selectLowerLoc = document.getElementById('lowerLoc');
+
+        if (selectUpperLoc.value === "" || selectLowerLoc.value === "") {
+            e.preventDefault();
+            alert("근무 지역을 모두 선택해주세요.");
+        }
+
+        // 공고 내용 유효성 검사
+        const contentElem = document.querySelector('.ck-content');
+
+        if (contentElem.textContent.trim() === "") {
+            e.preventDefault();
+            alert("공고 내용을 입력해주세요.");
+        }
+
     });
 
-    function fillFormFields(data) {
-        // 데이터를 이용하여 폼 필드를 채우는 로직을 구현
-        $("#posting_swork").val(data.posting_swork);
-        $("#posting_ework").val(data.posting_ework);
-        $("#posting_academy").val(data.posting_academy);
-        $("#posting_salary").val(data.posting_salary);
-        $("#posting_career").val(data.posting_career);
-        $("#posting_labor").val(data.posting_labor);
-        $("#posting_working_day").val(data.posting_working_day);
-        // 다른 필드에 대해서도 값 설정
-    }*/
-
-
 </script>
-
 </body>
 </html>

@@ -3,6 +3,7 @@ package com.pickmeup.jobstartup.recruiter.jobposting.service;
 
 import com.pickmeup.jobstartup.recruiter.apply.dto.LocDTO;
 import com.pickmeup.jobstartup.recruiter.jobposting.dto.JobPostingDTO;
+import org.springframework.data.repository.query.Param;
 import com.pickmeup.jobstartup.recruiter.jobposting.dto.SearchDTO;
 
 import java.util.List;
@@ -38,5 +39,11 @@ public interface JobPostingService {
     Map<String, Object> paginationPosting(int page, int size);
 
     //page : 현재 페이지, size : 페이지당 게시물 수
+    Map<String, Object> paginationPostingBySearch(int page, int size,
+                                                  String upperLoc, String lowerLoc,
+                                                  String keyword);
+
+    //조회수
+    void postingCnt(int postingNo);
     Map<String, Object> paginationPostingBySearch(int page, int size, SearchDTO searchDTO);
 }
