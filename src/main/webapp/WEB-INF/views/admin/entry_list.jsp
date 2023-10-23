@@ -46,10 +46,19 @@
                             <div>${company.JOBFAIR_NO}</div>
                         </a>
                     </div>
-                    <div class="board_company">${company.COMPANY_NO}</div>
+                    <a href="${pageContext.request.contextPath}/jobfair/companyInfo/${company.COMPANY_NO}">
+                        <div class="board_company">${company.COMPANY_NO}</div>
+                    </a>
                     <div class="board_btn">
-                        <a href="${pageContext.request.contextPath}/admin/entry/apply?jobFairEntryNo=${company.JOBFAIRENTRY_NO}" class="button-link">
+                        <a href="${pageContext.request.contextPath}/admin/entry/apply?jobFairEntryNo=${company.JOBFAIRENTRY_NO}&companyNo=${company.COMPANY_NO}"
+                           class="button-link">
                             승인
+                        </a>
+                    </div>
+                    <div class="board_btn">
+                        <a href="${pageContext.request.contextPath}/admin/entry/reject?jobFairEntryNo=${company.JOBFAIRENTRY_NO}&companyNo=${company.COMPANY_NO}"
+                           class="button-link">
+                            거절
                         </a>
                     </div>
                 </li>

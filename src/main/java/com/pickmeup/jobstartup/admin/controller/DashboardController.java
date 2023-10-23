@@ -7,8 +7,6 @@ import com.pickmeup.jobstartup.admin.dto.CountDataDTO;
 import com.pickmeup.jobstartup.admin.dto.DashboardDTO;
 import com.pickmeup.jobstartup.admin.dto.RegDateDTO;
 import com.pickmeup.jobstartup.admin.service.DashboardService;
-import com.pickmeup.jobstartup.admin.service.EntryService;
-import com.pickmeup.jobstartup.jobfair.dto.EntryDTO;
 import com.pickmeup.jobstartup.jobfair.dto.JobFairDTO;
 import com.pickmeup.jobstartup.jobfair.service.JobFairService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 

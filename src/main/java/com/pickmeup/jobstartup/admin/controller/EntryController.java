@@ -6,11 +6,11 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.pickmeup.jobstartup.admin.service.EntryService;
 import com.pickmeup.jobstartup.jobfair.dto.EntryCompanyDTO;
 import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -21,9 +21,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RequestMapping("/admin")
 public class EntryController {
-
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @Autowired
     private EntryService entryService;
@@ -53,10 +50,21 @@ public class EntryController {
     }
 
     @GetMapping("/entry/apply")
-    public String applyEntryCompany (Long jobFairEntryNo){
-        entryService.applyEntryCompany(jobFairEntryNo);
+    public String applyEntryCompany (@Param("jobFairEntryNo") Long jobFairEntryNo, @Param("companyNo") Long companyNo){
+        entryService.applyEntryCompany(jobFairEntryNo, companyNo);
 
-        return "/admin/entry_list";
+        return "redirect:/admin/entry/list";
     }
+
+
+    @GetMapping("/entry/reject")
+    public String rejectEntryCompany (@Param("jobFairEntryNo") Long jobFairEntryNo, @Param("companyNo") Long companyNo){
+        entryService.rejectEntryCompany(jobFairEntryNo, companyNo);
+
+        return "redirect:/admin/entry/list";
+    }
+
+
+
 
 }

@@ -53,10 +53,10 @@
         </div>
 
         <!--탁 회사번호 히든으로 전달-->
-        <div class="form-control1">
+        <%--<div class="form-control1">
             <label for="company_name">회원번호:</label>
             <input type="text" id="member_no" name="member_no" value="${member.member_no}" readonly />
-        </div>
+        </div>--%>
 
         <div class="form-control1">
             <label for="company_hp">회사전화번호</label>

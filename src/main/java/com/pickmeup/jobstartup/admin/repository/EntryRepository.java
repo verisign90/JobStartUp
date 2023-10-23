@@ -21,5 +21,12 @@ public interface EntryRepository {
 
     void applyEntryCompany(Long jobFairEntryNo);
 
+    void updateMemberType(Long companyNo);
+
+    int countJobFairByCompanyNo(Long companyNo);
+
+    void updateRejectCompany(Long companyNo);
+
+    void rejectEntryCompany(Long jobFairEntryNo);
 
 }
