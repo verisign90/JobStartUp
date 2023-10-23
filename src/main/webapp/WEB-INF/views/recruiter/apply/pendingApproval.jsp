@@ -45,10 +45,10 @@
 
       <div>
         <button type="button" name="home">
-            <a href="/recruiter/companyInfo/${company_no}">회사정보보기</a>
+            <a href="/jobfair/companyInfo/${company_no}">회사정보보기</a>
         </button>
         <button type="button" name="home">
-            <a href="company-info.html">회사정보보기</a>
+            <a href="/jobfair/deleteEntry/${company_no}">신청취소</a>
         </button>
       </div>
     </section>
@@ -65,7 +65,7 @@
 <script src="/css/template/assets/js/imagesloaded.js"></script>
 <script src="/css/template/assets/js/popup.js"></script>
 <script src="/css/template/assets/js/custom.js"></script>
-<script src="/css/js/recruiter/apply/apply2.js"></script>
+<script src="/js/recruiter/apply/apply2.js"></script>
 
 </body>
 </html>

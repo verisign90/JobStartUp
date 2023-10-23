@@ -34,49 +34,48 @@
     <link rel="stylesheet" href="/css/qna/list.css" type="text/css">
     <link rel="stylesheet" href="/css/recruiter/apply/apply.css" type="text/css">
 
-
 </head>
 <div>
     <%@ include file="../layout/layoutNav.jsp" %>
 </div>
-<body class="mybody">
+<body>
 
 <br><br><br><br><br><br>
 <div class="container1">
     <div class="header">
-        <h2>Create Account</h2>
+        <h2>기업정보등록</h2>
     </div>
-    <form id="form" class="form" action="/jobfair/entry" method="post" enctype="multipart/form-data"
+    <form id="form" class="form" action="/jobfair/apply/${JOBFAIR_NO}" method="post" enctype="multipart/form-data"
           onsubmit="return onSubmitForm();">
         <div class="form-control1">
-            <label for="company_name">회사명:</label>
-            <input type="text" id="company_name" name="company_name" value="${companyInfo.company_name}" required>
+                <label for="company_name">회사명:</label>
+                <input type="text" id="company_name" name="company_name"  required>
         </div>
+
+        <!--탁 회사번호 히든으로 전달-->
         <div class="form-control1">
-            <label for="member_no">회원번호:</label>
-            <input type="text" id="member_no" name="member_no" value="${companyInfo.member_no}" readonly/>
-
-
+            <label for="company_name">회원번호:</label>
+            <input type="text" id="member_no" name="member_no" value="${member.member_no}" readonly />
         </div>
+
         <div class="form-control1">
             <label for="company_hp">회사전화번호</label>
-            <input type="text" id="company_hp" name="company_hp" pattern="\d{2,3}-\d{3,4}-\d{4}"
-                   value="${companyInfo.company_hp}">
-            <small id="phone-error" style="color: red;"></small>
+            <input type="text" id="company_hp" name="company_hp" pattern="\d{2,3}-\d{3,4}-\d{4}">
+            <small id="phone-error" style="color: red; margin-left:60px;"></small>
         </div>
 
         <div class="form-control1">
             <label for="ceo_name">대표자명</label>
-            <input type="text" id="ceo_name" name="ceo_name" value="${companyInfo.ceo_name}" required/>
+            <input type="text" id="ceo_name" name="ceo_name"  required/>
 
         </div>
         <div class="form-control1">
-            <label for="company_type">회사분류</label>
+            <label for="company_type" class="company_type">회사분류</label>
             <select id="company_type" name="company_type" required>
                 <option value="">선택</option>
-                <option value="대기업" ${companyInfo.company_type eq '대기업' ? 'selected' : ''}>대기업</option>
-                <option value="중소기업" ${companyInfo.company_type eq '중소기업' ? 'selected' : ''}>중소기업</option>
-                <option value="소기업" ${companyInfo.company_type eq '소기업' ? 'selected' : ''}>소기업</option>
+                <option value="대기업">대기업</option>
+                <option value="중소기업">중소기업</option>
+                <option value="소기업">소기업</option>
             </select>
         </div>
 
@@ -84,30 +83,26 @@
         <div>
             <div class="form-control1">
                 <label for="sample6_postcode">회사주소</label>
-                <input type="text" id="sample6_postcode" placeholder="우편번호"
-                       value="${companyInfo.company_address_detail.substring(0, 5)}"><br>
+                <input type="text" id="sample6_postcode" placeholder="우편번호"><br>
                 <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
-                <input type="text" id="sample6_address" placeholder="주소"
-                       value="${companyInfo.company_address_detail.substring(6)}">
+                <input type="text" id="sample6_address" placeholder="주소">
                 <input type="text" id="sample6_detailAddress" placeholder="상세주소">
                 <input type="text" id="sample6_extraAddress" placeholder="참고항목">
-                <input type="hidden" id="company_address_detail" name="company_address_detail"
-                       value="${companyInfo.company_address_detail}" required>
+                <input type="hidden" id="company_address_detail" name="company_address_detail" required>
             </div>
 
             <div class="form-control1">
                 <label for="business_type_code_up">회사업종코드:</label>
-                <select id="business_type_code_up" name="business_type_code_up" onchange="loadBusiness_type_code_up()"
+                <select id="business_type_code_up" class="upper" name="business_type_code_up" onchange="loadBusiness_type_code_up()"
                         required>
                     <option value="">선택</option>
                     <c:forEach items="${upperJob}" var="upJob">
-                        <option value="${upJob.detail_code_num}"
-                        ${upJob.detail_code_num == companyInfo.business_type_code ? 'selected' : ''}>${upJob.detail_name}</option>
+                        <option value="${upJob.detail_code_num}">${upJob.detail_name}</option>
                     </c:forEach>
                 </select>
 
 
-                <select id="business_type_code" name="business_type_code" required>
+                <select id="business_type_code" class="lower" name="business_type_code" required>
                     <option value="">선택</option>
                     <c:forEach items="${lowerJob}" var="loJob">
                         <option value="${loJob.detail_code_num}">${loJob.detail_name}</option>
@@ -117,38 +112,38 @@
 
             <div class="form-control1">
                 <label for="upperLoc">회사주소코드:</label>
-                <select id="upperLoc" name="upperLoc" onchange="loadLowerLoc()" required>
+                <select id="upperLoc" class="upper" name="upperLoc" onchange="loadLowerLoc()" required>
                     <option value="">선택</option>
                     <c:forEach items="${upperLoc}" var="upLoc">
                         <option value="${upLoc.detail_code_num}">${upLoc.detail_name}</option>
                     </c:forEach>
                 </select>
 
-                <select id="company_address_code" name="company_address_code" required>
+                <select id="company_address_code" class="lower" name="company_address_code" required>
                     <option value="">선택</option>
                     <c:forEach items="${lowerLoc}" var="loLoc">
                         <option value="${loLoc.detail_code_num}">${loLoc.detail_name}</option>
                     </c:forEach>
                 </select><br><br>
             </div>
-            <div class="form-control1">
-                <label for="logo">로고 업로드</label>
-                <input type="file" id="logo" name="logo" accept="image/*" required/>
+            <div class="form-control1 custom-file-upload">
+                <label for="logo" style="font-size: 16px; display: inline-block; margin-right: 10px;">로고 업로드</label>
+                <input type="file" id="logo" class="logo" width:200px; name="logo" accept="image/*" required style="display: inline-block; width: 300px;"/>
                 <img id="logo-preview" src="#" alt="로고 미리보기" style="display: none; width: 200px; height: auto;">
                 <small id="logo-error" style="color: red;"></small><br><br>
             </div>
 
             <div class="form-control1">
-                <label for="document">파일 업로드</label>
+                <label for="document" style="font-size: 16px; display: inline-block; margin-right: 10px;">파일 업로드</label>
                 <input type="file" id="document" name="document" accept=".pdf, .doc, .docx , .pptx , .xlsx" required
-                       multiple/>
+                       style="display: inline-block; width: 300px;" multiple/>
 
                 <small id="document-error" style="color: red;"></small><br><br>
             </div>
 
             <div class="form-control1">
                 <label for="company_est">회사 설립일:</label>
-                <input type="date" id="company_est" name="company_est" required onblur="validateDate()" value="${companyInfo.company_est}">
+                <input type="date" id="company_est" name="company_est" required onblur="validateDate()">
                 <small id="date-error" style="color: red;"></small>
             </div>
 
@@ -163,7 +158,8 @@
                 <input type="text" id="company_sales" name="company_sales" required/>
                 <small id="sales-error" style="color: red;"></small><br><br>
             </div>
-            <input class="button" type="submit" value="제출">
+            <button>Submit</button>
+            <!--<input class="button" type="submit" value="제출">-->
         </div>
     </form>
 </div>
@@ -176,12 +172,13 @@
 <script src="/css/template/assets/js/animation.js"></script>
 <script src="/css/template/assets/js/imagesloaded.js"></script>
 <script src="/css/template/assets/js/popup.js"></script>
-<script src="/css/template/assets/js/custom.js"></script>
+<!--<script src="/css/template/assets/js/custom.js"></script>-->
 <script src="/js/recruiter/apply/apply2.js"></script>
 
-
-</body>
 <div>
     <%@include file="../layout/layoutFooter.jsp" %>
 </div>
+
+</body>
+
 </html>

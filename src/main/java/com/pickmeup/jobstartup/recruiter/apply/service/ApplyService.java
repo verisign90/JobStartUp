@@ -46,4 +46,8 @@ public interface ApplyService {
     public void insertEntry(long jobfair_no, int company_no);
 
     public EntryDTO getEntry(int company_no);
+
+    public void deleteEntry(int company_no);
+
+    public int countEntry(int company_no);
 }
