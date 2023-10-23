@@ -18,7 +18,8 @@
     function deleteFile(cfile_savname, cfile_no) {
         if (confirm("파일을 삭제하시겠습니까?")) {
             var xhr = new XMLHttpRequest();
-            xhr.open("POST", "/recruiter/delete", true);
+            xhr.open("POST", "/jobfair/jfdelete", true);
+            console.log("도달");
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
@@ -154,51 +155,51 @@
         }
     }*/
 
+
     function previewLogo(event) {
-        var logoInput = event.target;
-        var logoPreview = document.getElementById("logo-preview");
-        var logoError = document.getElementById("logo-error");
-        var currentLogoName = "${applyDTO.logo_savname}"; // 현재 파일명을 가져옴
+            var logoInput = event.target;
+            var logoPreview = document.getElementById("logo-preview");
+            var logoError = document.getElementById("logo-error");
+            var currentLogoName = "${applyDTO.logo_savname}"; // 현재 파일명을 가져옴
+            console.log(currentLogoName);
+            var file = logoInput.files[0];
 
-        var file = logoInput.files[0];
+            if (file) {
+                var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
 
-        if (file) {
-            var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+                if (!allowedExtensions.exec(file.name)) {
+                    logoError.textContent = "이미지 파일 (.jpg, .jpeg, .png, .gif)만 업로드할 수 있습니다.";
+                    logoInput.value = ""; // 파일 선택 해제
+                    logoPreview.style.display = "none"; // 이미지 미리보기 숨기기
+                } else {
+                    // 파일 유효성 검사 통과 시 미리보기 설정
+                    logoError.textContent = ""; // 유효성 검사 메시지 지우기
+                    logoPreview.style.display = "block"; // 이미지 미리보기 표시
 
-            if (!allowedExtensions.exec(file.name)) {
-                logoError.textContent = "이미지 파일 (.jpg, .jpeg, .png, .gif)만 업로드할 수 있습니다.";
-                logoInput.value = ""; // 파일 선택 해제
-                logoPreview.style.display = "none"; // 이미지 미리보기 숨기기
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        logoPreview.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+
+                    // 파일을 서버로 업로드할 수 있도록 AJAX 요청을 보내고 파라미터로 파일과 현재 파일명 전달
+                    var formData = new FormData();
+                    formData.append("logo", file);
+                    formData.append("currentLogoName", currentLogoName);
+
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "/jobfair/deleteLogo", true);
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            // 성공적으로 업로드 및 수정이 완료됐을 때의 로직을 이곳에 추가
+                        }
+                    };
+                    xhr.send(formData);
+                }
             } else {
-                // 파일 유효성 검사 통과 시 미리보기 설정
-                logoError.textContent = ""; // 유효성 검사 메시지 지우기
-                logoPreview.style.display = "block"; // 이미지 미리보기 표시
-
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    logoPreview.src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-
-                // 파일을 서버로 업로드할 수 있도록 AJAX 요청을 보내고 파라미터로 파일과 현재 파일명 전달
-                var formData = new FormData();
-                formData.append("logo", file);
-                formData.append("currentLogoName", currentLogoName);
-
-                var xhr = new XMLHttpRequest();
-                xhr.open("POST", "/recruiter/deleteLogo", true);
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState === 4 && xhr.status === 200) {
-                        // 성공적으로 업로드 및 수정이 완료됐을 때의 로직을 이곳에 추가
-                    }
-                };
-                xhr.send(formData);
+                logoPreview.style.display = "none"; // 이미지 미리보기 숨기기
             }
-        } else {
-            logoPreview.style.display = "none"; // 이미지 미리보기 숨기기
         }
-    }
-
 
 
 
@@ -234,7 +235,7 @@
     function loadLowerLoc() {
                         var upperLocValue = document.getElementById("upperLoc").value;
 
-                        fetch('/recruiter/getLowerLoc2?upperLoc=' + upperLocValue)
+                        fetch('/jobfair/getLowerLoc2?upperLoc=' + upperLocValue)
                             .then(response => response.json())
                             .then(data => {
                                 var lowerLocSelect = document.getElementById("company_address_code");
@@ -253,7 +254,7 @@
         function loadBusiness_type_code_up() {
                         var upperLocValue = document.getElementById("business_type_code_up").value;
 
-                        fetch('/recruiter/getBusiness_type_code_up?business_type_code_up=' + upperLocValue)
+                        fetch('/jobfair/getBusiness_type_code_up?business_type_code_up=' + upperLocValue)
                             .then(response => response.json())
                             .then(data => {
                                 var lowerLocSelect = document.getElementById("business_type_code");
@@ -321,7 +322,7 @@
         var companyAddressDetail = document.getElementById("company_address_detail").value;
         console.log("company_address_detail 값: " + companyAddressDetail);
     }
-    /* 폼 제출시 호출되는 함수 8/
+    /* 폼 제출시 호출되는 함수 */
     function onSubmitForm() {
         address();
 

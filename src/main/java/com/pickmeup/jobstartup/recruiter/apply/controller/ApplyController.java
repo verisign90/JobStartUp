@@ -71,6 +71,20 @@ public class ApplyController {
         return "/recruiter/apply/pendingApproval";
     }
 
+    /*@GetMapping("/pendingApproval/")
+    public String pendingApproval2(Model model){
+        System.out.println("insertJobFairEntryinsertJobFairEntryinsertJobFairEntryinsertJobFairEntry= " );
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String memberId = authentication.getName();
+        Member member = applyService.getMemberNO(memberId);//접속자 정보 DTO member 가져오기
+        MemberType memberType = member.getMember_type();//접속자 멤버타입확인
+
+
+        model.addAttribute("entryDTO",entryDTO);
+
+
+        return "/recruiter/apply/pendingApproval";
+    }*/
 
     @PostMapping("/test")
     public String insertTest(@ModelAttribute TestDTO testDTO){
@@ -377,7 +391,7 @@ public class ApplyController {
         applyService.insertFile(fileDTOList);//파일 인설트
         applyService.insertEntry(JOBFAIR_NO,company_no);//잡페어엔트리 인설트
         System.out.println("여기는 apply post컨트롤러2");
-        return String.format("redirect:/recruiter/job");
+        return "redirect:/recruiter/pendingApproval/"+company_no;
     }
 
     //하위지역 받아오기

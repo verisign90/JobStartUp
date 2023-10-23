@@ -90,5 +90,9 @@ public class ApplyServiceImpl implements ApplyService {
 
     public EntryDTO getEntry(int company_no){return applyRepository.getEntry(company_no);}
 
+    public void deleteEntry(int company_no){applyRepository.deleteEntry(company_no);}
+
+    public int countEntry(int company_no){return applyRepository.countEntry(company_no);}
+
 }
 

@@ -168,4 +168,20 @@
         ]]>
 
     </select>
+
+    <delete id="deleteEntry"  parameterType="int">
+        <![CDATA[
+        delete from job_fair_entry
+        where company_no = #{company_no}
+        ]]>
+    </delete>
+    <select id="countEntry"  parameterType="int">
+        <![CDATA[
+        select count(*)
+        from job_fair_entry
+        where company_no = #{company_no}
+        ]]>
+
+    </select>
+
 </mapper>
