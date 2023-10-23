@@ -36,7 +36,17 @@ public class EntryService {
         return result;
     }
 
-    public void applyEntryCompany(Long jobFairEntry){
-        entryRepository.applyEntryCompany(jobFairEntry);
+    public void applyEntryCompany(Long jobFairEntryNo, Long companyNo) {
+        entryRepository.applyEntryCompany(jobFairEntryNo);
+        entryRepository.updateMemberType(companyNo);
+    }
+
+    public void rejectEntryCompany(Long jobFairEntryNo, Long companyNo) {
+        int cnt = entryRepository.countJobFairByCompanyNo(companyNo);
+
+        if (cnt < 2) {
+            entryRepository.updateRejectCompany(companyNo);
+        }
+        entryRepository.rejectEntryCompany(jobFairEntryNo);
     }
 }

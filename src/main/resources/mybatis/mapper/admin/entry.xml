@@ -21,9 +21,38 @@
         SELECT COUNT(*) FROM JOB_FAIR_ENTRY
     </select>
 
-    <insert id="applyEntryCompany" parameterType="com.pickmeup.jobstartup.jobfair.dto.EntryCompanyDTO">
+    <update id="applyEntryCompany">
         UPDATE JOB_FAIR_ENTRY
         SET JOBFAIRENTRY_STATUS='Y'
         WHERE JOBFAIRENTRY_NO=#{jobFairEntryNo}
-    </insert>
+    </update>
+
+    <update id="updateMemberType">
+        UPDATE member
+        SET member_type = 2
+        WHERE member_no = (SELECT member_no
+                           FROM company
+                           WHERE company_no = #{companyNo})
+    </update>
+
+    <select id="countJobFairByCompanyNo" resultType="int">
+        SELECT COUNT(*) AS COUNT_ENTRY_JOBFAIR
+        FROM JOB_FAIR_ENTRY
+        WHERE COMPANY_NO = #{companyNo}
+        AND JOBFAIRENTRY_STATUS = 'Y'
+    </select>
+
+    <delete id="rejectEntryCompany">
+        DELETE
+        FROM JOB_FAIR_ENTRY
+        WHERE JOBFAIRENTRY_NO = #{jobFairEntryNo}
+    </delete>
+
+    <update id="updateRejectCompany">
+        UPDATE MEMBER
+        SET MEMBER_TYPE=4
+        WHERE MEMBER_NO = (SELECT MEMBER_NO
+                           FROM COMPANY
+                           WHERE COMPANY_NO = #{companyNo})
+    </update>
 </mapper>

@@ -40,131 +40,124 @@
 </div>
 <body>
 <br><br><br><br><br><br>
-    <div class="container1">
-    	<c:choose>
-            <c:when test="${entryDTO.JOBFAIRENTRY_STATUS eq 'N'}">
-                <div class="header">
-                    <h2>승인대기중입니다.</h2>
+<div class="container1">
+    <c:choose>
+        <c:when test="${entryDTO.JOBFAIRENTRY_STATUS eq 'N'}">
+            <div class="header">
+                <h2>승인대기중입니다.</h2>
+            </div>
+        </c:when>
+    </c:choose>
+
+    <div class="form-control1">
+        <label for="company_name">회사명:</label>
+        <input type="text" id="company_name" name="company_name" value="${applyDTO.company_name}" readonly required>
+    </div>
+    <div class="form-control1" style="display: none;">
+        <label for="member_no">회원번호:</label>
+        <input type="text" id="member_no" name="member_no" value="${applyDTO.member_no}" readonly required/>
+    </div>
+    <div class="form-control1">
+        <label for="company_hp">회사전화번호</label>
+        <input type="text" id="company_hp" name="company_hp" value="${applyDTO.company_hp}" readonly
+               pattern="\d{3}-\d{4}-\d{4}">
+        <small id="phone-error" style="color: red;"></small>
+    </div>
+
+    <div class="form-control1">
+        <label for="ceo_name">대표자명</label>
+        <input type="text" id="ceo_name" name="ceo_name" value="${applyDTO.ceo_name}" readonly required/>
+
+    </div>
+
+    <div class="form-control1">
+        <label for="company_type">기업형태</label>
+        <input type="text" id="company_type" name="company_type" value="${applyDTO.company_type}" readonly required/>
+
+    </div>
+
+
+    <div class="form-control1">
+        <label for="company_est">회사 설립일:</label>
+        <input type="text" id="company_est" name="company_est" value="${applyDTO.company_est}" readonly required
+               onblur="validateDate()">
+        <small id="date-error" style="color: red;"></small>
+    </div>
+
+    <div class="form-control1">
+        <label for="company_site">회사 웹사이트:</label>
+        <input type="text" id="company_site" name="company_site" value="${applyDTO.company_site}" readonly
+               placeholder="https://www.example.com">
+        <small id="website-error" style="color: red;"></small>
+    </div>
+
+
+    <div>
+        <div class="form-control1">
+            <label for="company_address">회사 주소</label>
+            <input type="text" id="company_address" name="company_address" value="${applyDTO.company_address_detail}"
+                   readonly placeholder="https://www.example.com">
+            <small id="website-error" style="color: red;"></small>
+        </div>
+        <span id="img"><img id="logo-preview" src="${cPath}/image/apply/${applyDTO.logo_savname}" style="width:300px;"/></span>
+        <div class="form-control1">
+            <label for="logo">회사 로고</label>
+            <!--<img id="logo-preview" src="#" alt="로고 미리보기" style="display: none; width: 200px; height: auto;">-->
+            <small id="logo-error" style="color: red;"></small><br><br>
+        </div>
+
+
+        <div id="fileListContainer">
+            <c:forEach items="${fileDTOList}" var="file">
+                <div id="${file.cfile_orgname}">
+                    <p>File Name: ${file.cfile_orgname}</p>
+
+                    <c:choose>
+                        <c:when test="${fn:endsWith(file.cfile_orgname, '.pdf')}">
+                            <img src="${cPath}/image/icon/pdf.png" alt="PDF Icon">
+
+                        </c:when>
+                        <c:when test="${fn:endsWith(file.cfile_orgname, '.xlsx')}">
+                            <img src="${cPath}/image/icon/excel.png"" alt="Excel Icon">
+                        </c:when>
+                        <c:when test="${fn:endsWith(file.cfile_orgname, '.pptx')}">
+                            <img src="${cPath}/image/icon/ppt.png"" alt="Excel Icon">
+                        </c:when>
+                        <c:otherwise>
+                            <img src="${pageContext.request.contextPath}/resources/icons/default.png"
+                                 alt="Default Icon">
+                        </c:otherwise>
+                    </c:choose>
+                    <!-- 파일 아이콘 표시 -->
+
+                    <!-- 파일 다운로드 링크 -->
+                    <a href="/recruiter/download?fileName=${file.cfile_savname}" download="${file.cfile_orgname}">Download
+                        File</a>
+
                 </div>
-            </c:when>
-        </c:choose>
-
-    		<div class="form-control1">
-    			<label for="username">회사명:</label>
-    			<input type="text" id="company_name" name="company_name" value="${applyDTO.company_name}"  readonly required>
-    		</div>
-            <div class="form-control1">
-                <label for="username">회원번호:</label>
-                <input type="text" id="member_no" name="member_no" readonly required />
+            </c:forEach>
+        </div>
 
 
-    		</div>
-    		<div class="form-control1">
-    			<label for="username">회사전화번호</label>
-    			<input type="text" id="company_hp" name="company_hp" value="${applyDTO.company_hp}" readonly pattern="\d{3}-\d{4}-\d{4}">
-    			<small id="phone-error" style="color: red;"></small>
-    		</div>
-
-    		<div class="form-control1">
-    			<label for="username">대표자명</label>
-    			<input type="text" id="ceo_name" name="ceo_name" value="${applyDTO.ceo_name}" readonly required/>
-
-    		</div>
-
-    		<div class="form-control1">
-                <label for="username">대표자명</label>
-                <input type="text" id="ceo_name" name="ceo_name" value="${applyDTO.company_type}" readonly required/>
-
-            </div>
-
-
-
-
-
-            <div class="form-control1">
-                <label for="establishment_date">회사 설립일:</label>
-                <input type="text" id="company_est" name="company_est" value="${applyDTO.company_est}" readonly required onblur="validateDate()">
-                <small id="date-error" style="color: red;"></small>
-            </div>
-
-            <div class="form-control1">
-                <label for="website">회사 웹사이트:</label>
-                <input type="text" id="company_site" name="company_site" value="${applyDTO.company_site}" readonly placeholder="https://www.example.com">
-                <small id="website-error" style="color: red;"></small>
-            </div>
-
-
-
-            <div>
-                <div class="form-control1">
-                    <label for="website">회사 주소</label>
-                    <input type="text" id="company_site" name="company_site" value="${applyDTO.company_address_detail}" readonly placeholder="https://www.example.com">
-                    <small id="website-error" style="color: red;"></small>
-                </div>
-            <span id="img"><img id="logo-preview" src="${cPath}/image/apply/${applyDTO.logo_savname}" style="width:300px;"/></span>
-    		<div class="form-control1">
-                <label for="username">회사 로고</label>
-                <!--<img id="logo-preview" src="#" alt="로고 미리보기" style="display: none; width: 200px; height: auto;">-->
-                <small id="logo-error" style="color: red;"></small><br><br>
-            </div>
-
-
-
-
-
-
-
-
-            <div id="fileListContainer">
-                <c:forEach items="${fileDTOList}" var="file">
-                    <div id="${file.cfile_orgname}">
-                        <p>File Name: ${file.cfile_orgname}</p>
-
-                        <c:choose>
-                            <c:when test="${fn:endsWith(file.cfile_orgname, '.pdf')}">
-                                <img src="${cPath}/image/icon/pdf.png" alt="PDF Icon">
-
-                            </c:when>
-                            <c:when test="${fn:endsWith(file.cfile_orgname, '.xlsx')}">
-                                <img src="${cPath}/image/icon/excel.png"" alt="Excel Icon">
-                            </c:when>
-                            <c:when test="${fn:endsWith(file.cfile_orgname, '.pptx')}">
-                                <img src="${cPath}/image/icon/ppt.png"" alt="Excel Icon">
-                            </c:when>
-                            <c:otherwise>
-                                <img src="${pageContext.request.contextPath}/resources/icons/default.png" alt="Default Icon">
-                            </c:otherwise>
-                        </c:choose>
-                        <!-- 파일 아이콘 표시 -->
-
-                        <!-- 파일 다운로드 링크 -->
-                        <a href="/recruiter/download?fileName=${file.cfile_savname}" download="${file.cfile_orgname}">Download File</a>
-
-                    </div>
-                </c:forEach>
-            </div>
-
-
-    		<div class="form-control1">
-                <label for="username">매출액</label>
-                <input type="text" id="company_sales" name="company_sales" value="${applyDTO.company_sales}" readonly required/>
-                <small id="sales-error" style="color: red;"></small><br><br>
-            </div>
+        <div class="form-control1">
+            <label for="username">매출액</label>
+            <input type="text" id="company_sales" name="company_sales" value="${applyDTO.company_sales}" readonly
+                   required/>
+            <small id="sales-error" style="color: red;"></small><br><br>
+        </div>
     </div>
 
     <a href="/jobfair/jfmodify/${applyDTO.company_no}">수정</a>
     <a href="/jobfair/deleteEntry/${applyDTO.company_no}">삭제</a>
 
-    </div>
-
-
+</div>
 
 
 <script>
 
 
-<!-- Scripts -->
-<script src="/css/template/vendor/jquery/jquery.min.js"></script>
+    <!-- Scripts -->
+    <script src="/css/template/vendor/jquery/jquery.min.js"></script>
 <script src="/css/template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="/css/template/assets/js/owl-carousel.js"></script>
 <script src="/css/template/assets/js/animation.js"></script>
@@ -172,11 +165,6 @@
 <script src="/css/template/assets/js/popup.js"></script>
 <!--<script src="/css/template/assets/js/custom.js"></script>-->
 <script src="/js/recruiter/apply/apply2.js"></script>
-
-
-
-
-
 
 
 </script>
