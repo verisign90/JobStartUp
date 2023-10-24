@@ -70,16 +70,16 @@
                                 <c:if test="${sessionScope.role == 3}">관리자</c:if>
                             </a>
                         </li>
-                        <li class="scroll-to-section">
+                        <li class="scroll-to-section nav-member-name">
                             <c:choose>
                                 <c:when test="${sessionScope.role != null}">
                                 <div id="someElement" data-member-no="${sessionScope.memberNo}"></div>
-                                <span ><sec:authentication property="name" /> 님</span>
+                                <span><sec:authentication property="name" /> 님</span>
                         </li>
                         <li class="scroll-to-section">
                                 <span id="message_img_hover">
                                     <a id="message" href="${cPath}/message/list">
-                                        <img id="message_img" src="${cPath}/img/message/messageList.png" style="width:25px;"
+                                        <img class="nav-message-img" id="message_img" src="${cPath}/img/message/messageList.png" style="width:25px;"
                                             onmouseover="this.src='${cPath}/img/message/openMessage.png'"
                                             onmouseout="this.src='${cPath}/img/message/messageList.png'"/>
                                     </a>

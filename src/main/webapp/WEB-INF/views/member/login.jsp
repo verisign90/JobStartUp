@@ -40,12 +40,11 @@
 
     <!--Introduction side-->
     <div class='blue'>
-        <h2>Dummy Heading</h2>
-        <p>
-            Lorem ipsum, dolor sit amet, consectetur <br/>
-            adipisicing elit, sed do eiusmod tempor <br/>
-            incididunt ut labore et dolore magna <br/>
-            aliqua.
+        <h2>Job Start Up</h2>
+        <p style="width: 500px;">
+           At Job Start Up, we believe that the right job can transform a person's life, and the right person can transform a business. This is the guiding principle behind
+           our work at Job Start Up, where we connect talented individuals with diverse and
+           exciting job opportunities across various industries. <br>
         </p>
     </div>
 </div>

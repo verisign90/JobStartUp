@@ -5,11 +5,15 @@ main {
 body {
   display: block;
 }
+p{
+    color: #000000!important;
+    margin: auto!important;
+    font-weight: 300!important;
+    font-size: 18px!important;
+}
 
 .all-content{
-  margin-right: 5%;
-  margin-left: 5%;
-  padding: 5px;
+    padding : 200px 250px 100px 250px;
 }
 
 /* 1st section */
@@ -25,6 +29,10 @@ body {
     border-top-right-radius: 50px;
     transition: all .3s;
     margin-bottom: 30px;
+}
+
+.Cnt{
+    margin-left: 15px;
 }
 
 .first-first-container {
@@ -67,6 +75,12 @@ body {
     margin: 10px;
 }
 
+.message-icon{
+    margin-top: 10px;
+    width:25px;
+}
+
+
 .second-fourth-items {
     /*border: 1px solid red;*/
     margin: 10px;
@@ -107,7 +121,7 @@ table.company_info {
   width: 100%;
 }
 table.company_info tbody th {
-  width: 11%;
+  width: 12%;
   padding: 10px;
   font-size: 1.1em;
   font-weight: bold;
@@ -134,31 +148,50 @@ table.company_info td {
 }
 .third-container{
     display: grid;
-    grid-template-columns: 1fr;
-    margin-left: 3%;
+    grid-template-columns: 1fr 1fr;
 }
-table.posting_info {
+.posting_info {
   border-collapse: collapse;
   line-height: 1.5;
   width: 200%;
 }
-table.posting_info tbody th {
-  width: 11%;
-  padding: 10px;
+.posting_info tbody th {
+  width: 12%;
+  padding: 9px;
   font-size: 1.1em;
   font-weight: bold;
   vertical-align: top;
 }
-table.posting_info td {
+.posting_info td {
   width: 70%;
   padding: 10px;
   font-size: 1.1em;
   vertical-align: top;
 }
 
+.posting_info2 {
+    border-collapse: collapse;
+    line-height: 1.5;
+    width: 200%;
+}
+.posting_info2 tbody th {
+    width: 12%;
+    padding: 9px;
+    font-size: 1.1em;
+    font-weight: bold;
+    vertical-align: top;
+}
+.posting_info2 td {
+    width: 70%;
+    padding: 10px;
+    font-size: 1.1em;
+    vertical-align: top;
+}
+
+
 /* 4th section */
 .main-fourth-container {
-    height: 300px;
+
     display: flex;
     margin: auto;
     z-index: 1;
@@ -170,7 +203,10 @@ table.posting_info td {
     margin-bottom: 30px;
 }
 .fourth-container {
-    margin-left: 3%;
+
+
+    /*margin-left: 3%;
+    text-align: center;*/
 }
 
 
@@ -185,10 +221,6 @@ table.posting_info td {
     border-radius: 10px;
     transition: all .3s;
     margin-bottom: 30px;
-}
-
-.all-content {
-    padding: 3% 10% 3% 10%;
 }
 /* 5th section */
 .main-fifth-container {
@@ -213,5 +245,13 @@ table.posting_info td {
 .bookmark-button{
     background: #ffffff!important;
     border: 1px solid #adadad!important;
+    margin-top: 3px;
+}
+
+.nav-member-name{
+    margin-top: 8px!important;
+}
+.nav-message-img{
+    margin-top: 7px;
 }
 
