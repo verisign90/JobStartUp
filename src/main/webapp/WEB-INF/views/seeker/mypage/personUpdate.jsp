@@ -1,11 +1,12 @@
-<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="cPath" value="<%=request.getContextPath() %>"/>
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>개인정보 수정</title>
     <link href="/css/seeker/personUpdate.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/commmon/base.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/base.css">
 </head>
 <body>
 <header>
@@ -63,6 +64,6 @@
 </article>
 </main>
 <div class="dummy"></div>
-<%@include file="/WEB-INF/views/layout/layoutFooter.jsp" %>
+<%@ include file="../../layout/layoutFooter.jsp" %>
 </body>
 </html>
