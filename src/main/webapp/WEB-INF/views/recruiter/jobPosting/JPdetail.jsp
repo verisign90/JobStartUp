@@ -21,20 +21,23 @@
     <link rel="stylesheet" href="/css/template/assets/css/templatemo-chain-app-dev.css">
     <link rel="stylesheet" href="/css/template/assets/css/animated.css">
     <link rel="stylesheet" href="/css/template/assets/css/owl.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/base.css">
 
     <title>공고 상세(기업 소개) 페이지</title>
-
+    <style>
+        .modal-header .close {
+            background-color: transparent; /* 배경색을 투명하게 설정 */
+            border: none; /* 테두리 제거 */
+            opacity: 1; /* 버튼의 투명도 조정 */
+        }
+    </style>
 </head>
 <body>
 <%@ include file="../../layout/layoutNav.jsp" %>
 <div id="top" data-wow-duration="1s" data-wow-delay="0.5s">
-    <div class="header-text" data-wow-duration="1s" data-wow-delay="1s">
-    </div>
+    <div class="header-text" data-wow-duration="1s" data-wow-delay="1s"></div>
 </div>
-<main>
-    <article class="all-content">
-
+<main class="all-content">
+    <article>
         <!-- 채용 공고 제목 및 여러 아이콘 -->
         <section>
             <div class="main-first-container">
@@ -49,14 +52,16 @@
                               data-company-no="${JPdetail.company_no}"
                               data-member-no="${memberNo}">
                             <button class="follow-button" style="background-color: transparent; border: none;">
-                                <img class="follow-image" src="${cPath}/img/status_unfollow.png" style="width: 20px;" alt=""/>
+                                <img class="follow-image" src="${cPath}/img/status_unfollow.png" style="width: 20px;"
+                                     alt=""/>
 
                             </button>
                         </span>
                         <%--조회수--%>
                         <span>
-                            <span>
-                                 <img id="message_img" src="${cPath}/img/cnt/eye-icon.png" style="width:20px;" margin="1px;">
+                            <span class="Cnt">
+                                 <img id="postingCnt" src="${cPath}/img/cnt/eye-icon.png" style="width:20px;"
+                                      margin="1px;">
                                 <span>${JPdetail.posting_cnt}</span>
                             </span>
                         </span>
@@ -66,6 +71,16 @@
                     </div>
                 </div>
                 <div class="first-second-container">
+                    <div class="second-third-items">
+                        <!-- 쪽지 -->
+                        <div id="btnWrap">
+                            <button type="button" class="popupBtn" id="popupBtn">
+                                <img src="${pageContext.request.contextPath}/img/message/messageList.png"
+                                     class="message-icon"/>
+                            </button>
+                        </div>
+                        <!-- 쪽지 -->
+                    </div>
                     <div class="second-first-items">
                         <%-- 민용님 제 스크랩 버튼 놓고갑니다 --%>
                         <div class="bookmark-item"
@@ -78,22 +93,14 @@
                             </button>
                         </div>
                     </div>
-                    <div class="second-third-items">
-                        <%-- 기업팔로우 버튼 --%>
-                        <!-- 쪽지 -->
-                        <div id="btnWrap">
-                          <button type="button" id="popupBtn"><img src="${pageContext.request.contextPath}/img/message/messageList.png" style="width:25px;"/></button>
-                        </div>
-                        <!-- 쪽지 -->
-                    </div>
                     <div class="second-fourth-items">
                         <!-- 버튼을 클릭하여 모달을 열도록 합니다. -->
-                        <button type="button" class="btn btn-apply" data-toggle="modal" data-target="#myModal">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
                             지원하기
                         </button>
                         <form id="applyForm" action="#" method="post">
                             <!-- 모달 창 -->
-                            <div class="modal" id="myModal">
+                            <div class="modal fade" id="myModal">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <!-- 모달 헤더 -->
@@ -103,20 +110,15 @@
                                         </div>
                                         <!-- 모달 본문 -->
                                         <div class="modal-body">
-                                            <button><a href="${cPath}/seeker/resumeWrite">이력서 작성</a></button>
+                                            <a href="${cPath}/seeker/resumeWrite" class="btn btn-secondary">이력서 작성</a>
                                             <c:forEach items="${resumeList}" var="resume">
-                                                <div class="resume_list_wrap">
-                                                    <ul class="resume_list">
-                                                        <li class="resume_item">
-                                                            <input class="member-no" type="hidden"
-                                                                   value="${resume.member_no}">
-                                                            <input class="posting-no" type="hidden"
-                                                                   value="${postingNo}">
-                                                            <span><a
-                                                                    href="${cPath}/seeker/resumeDetail/${resume.resume_no}">${resume.resume_title}</a></span>
-                                                            <span><input class="modifyBtn" type="checkbox"
-                                                                         name="resume_no" id="resume_no"
-                                                                         value="${resume.resume_no}"></span>
+                                                <div class="resume_list_wrap mt-3">
+                                                    <ul class="list-group">
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                            <input class="member-no" type="hidden" value="${resume.member_no}">
+                                                            <input class="posting-no" type="hidden" value="${postingNo}">
+                                                            <a href="${cPath}/seeker/resumeDetail/${resume.resume_no}">${resume.resume_title}</a>
+                                                            <input class="modifyBtn" type="checkbox" name="resume_no" id="resume_no" value="${resume.resume_no}">
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -125,9 +127,8 @@
                                         <!-- 모달 하단 -->
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-                                            <input type="submit" class="modifyBtn" value="지원하기">
+                                            <input type="submit" class="btn btn-primary" value="지원하기">
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -141,33 +142,34 @@
         <section>
             <div class="main-second-container">
                 <div>
-                    <div class = "second-container">
+                    <div class="second-container">
                         <div class="company_logo">
-                            <img class="image" src="${pageContext.request.contextPath}/image/mypage/${JPdetail.logo_savname}" />
+                            <img class="image"
+                                 src="${pageContext.request.contextPath}/image/mypage/${JPdetail.logo_savname}"/>
                         </div>
                         <div>
                             <table class="company_info">
                                 <tbody>
-                                    <tr>
-                                        <th>주소</th>
-                                        <td>${JPdetail.company_address_detail}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>유형</th>
-                                        <td>${JPdetail.company_type}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>사이트</th>
-                                        <td>${JPdetail.company_site}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>설립연도</th>
-                                        <td>${JPdetail.company_est}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>매출액</th>
-                                        <td>${JPdetail.company_sales}</td>
-                                    </tr>
+                                <tr>
+                                    <th>주소</th>
+                                    <td>${JPdetail.company_address_detail}</td>
+                                </tr>
+                                <tr>
+                                    <th>유형</th>
+                                    <td>${JPdetail.company_type}</td>
+                                </tr>
+                                <tr>
+                                    <th>사이트</th>
+                                    <td>${JPdetail.company_site}</td>
+                                </tr>
+                                <tr>
+                                    <th>설립연도</th>
+                                    <td>${JPdetail.company_est}</td>
+                                </tr>
+                                <tr>
+                                    <th>매출액</th>
+                                    <td>${JPdetail.company_sales}</td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -193,6 +195,8 @@
                             <th>근무 형태</th>
                             <td>${JPdetail.posting_labor}</td>
                         </tr>
+                    </table>
+                    <table class="posting_info2">
                         <tr>
                             <th>급여</th>
                             <td>${JPdetail.posting_salary}</td>
@@ -202,12 +206,12 @@
                             <td>
                                 <span>${JPdetail.posting_working_day}</span>
                                 <span>|&nbsp;${JPdetail.posting_swork}</span> ~
-                                <span>&nbsp;:&nbsp;${JPdetail.posting_ework}</span>
+                                <span>${JPdetail.posting_ework}</span>
                             </td>
                         </tr>
                         <tr>
                             <th>근무지역</th>
-                            <td>${fn:substring(JPdetail.company_address_detail, 6, 12)}</td>
+                            <td>${fn:substring(JPdetail.company_address_detail, 0, 6)}</td>
                         </tr>
                     </table>
                 </div>
@@ -218,56 +222,60 @@
         <section>
             <div class="main-fourth-container">
                 <div class="fourth-container">
-                    회사 컨텐츠가 들어갈 예정입니다 ${JPdetail.posting_content}
+                    ${JPdetail.posting_content}
                 </div>
             </div>
         </section>
 
         <!-- QnAList-->
         <section>
-            <div class = "main-six-container">
+            <div class="main-six-container">
                 <div class="qnaList">
-                  <div class="qnaTitle">
-                    <h5> Q & A </h5>
-                    <button type="button" class="writeBtn" id="writeBtn">1:1 문의하기</button>&nbsp;&nbsp;<button type="button" class="writeBtn"><a href="/qna/list">1:1 문의내역</a></button>
-                  </div>
-                <div class="writeFormDiv"></div>
+                    <div class="qnaTitle">
+                        <h5> Q & A </h5>
+                        <button type="button" class="writeBtn" id="writeBtn">1:1 문의하기</button>&nbsp;&nbsp;<button
+                            type="button" class="writeBtn"><a href="/qna/list">1:1 문의내역</a></button>
+                    </div>
+                    <div class="writeFormDiv"></div>
                     <div id="accordion_wrap">
-                        <c:forEach var="question" items="${questionPage.list}" >
-                    	   <div class="que">
-                    	    <c:choose>
-                              <c:when test="${fn:length(question.q_content) > 30}">
-                                <span class="categoryFont">[${question.q_category}]</span>&nbsp;&nbsp;<span><c:out value="${fn:substring(question.q_content,0,29)}"/>...</span>
-                              </c:when>
-                              <c:otherwise>
-                                <span class="categoryFont">[${question.q_category}]</span>&nbsp;&nbsp;<span><c:out value="${question.q_content}"/></span>
-                              </c:otherwise>
-                            </c:choose>
-                               <div class="arrow-wrap">
-                                 <span class="arrow-top">↑</span>
-                                <span class="arrow-bottom">↓</span>
-                               </div>
-                    	   </div>
-                    	   <div class="anw">
-                    	     <p class="questionBox"><span class="qusestion_content"><c:out value="${question.q_content}"/></span></p>
-                    		  <c:choose>
-                               <c:when test="${empty question.answerDTO}">
-                                 <div class="answerSts">
-                                     <strong>답변대기</strong>
-                                      <p style="margin-left:10px;">
-                                          아직 질문에 답변이 달리지 않았습니다.
-                                      </p>
-                                  </div>
-                               </c:when>
-                             <c:otherwise>
-                                <div class="answerSts">
-                                  <strong>답변완료</strong>
-                                  <p style="margin-left:10px;">${question.answerDTO.a_content}</p>
+                        <c:forEach var="question" items="${questionPage.list}">
+                            <div class="que">
+                                <c:choose>
+                                    <c:when test="${fn:length(question.q_content) > 30}">
+                                        <span class="categoryFont">[${question.q_category}]</span>&nbsp;&nbsp;<span><c:out
+                                            value="${fn:substring(question.q_content,0,29)}"/>...</span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span class="categoryFont">[${question.q_category}]</span>&nbsp;&nbsp;<span><c:out
+                                            value="${question.q_content}"/></span>
+                                    </c:otherwise>
+                                </c:choose>
+                                <div class="arrow-wrap">
+                                    <span class="arrow-top">↑</span>
+                                    <span class="arrow-bottom">↓</span>
                                 </div>
-                             </c:otherwise>
-                             </c:choose>
-                    	   </div>
-                    	</c:forEach>
+                            </div>
+                            <div class="anw">
+                                <p class="questionBox"><span class="qusestion_content"><c:out
+                                        value="${question.q_content}"/></span></p>
+                                <c:choose>
+                                    <c:when test="${empty question.answerDTO}">
+                                        <div class="answerSts">
+                                            <strong>답변대기</strong>
+                                            <p style="margin-left:10px;">
+                                                아직 질문에 답변이 달리지 않았습니다.
+                                            </p>
+                                        </div>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <div class="answerSts">
+                                            <strong>답변완료</strong>
+                                            <p style="margin-left:10px;">${question.answerDTO.a_content}</p>
+                                        </div>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                        </c:forEach>
                     </div>
                 </div>
             </div>
@@ -288,83 +296,81 @@
     </article>
 </main>
 <!--qna modal-->
-        <div id="QnAmodalWrap">
-           <div class="modalBody">
-           <div class="modalHeader">
-             <span id="closeBtn" class="closeBtn">&times;</span>
-             <h4 class="modal-title" id="myModalLabel">인사담당자에게 질문하기</h4>
-           </div>
-              <form class="qnaForm">
-                <input type="hidden" name="q_type" id="q_type" value="seeker"/>
-                <input type="hidden" name="company_no" id="company_no" value="${JPdetail.company_no}" />
-                <div class="form-group">
-                  <label for="q_category">카테고리</label>
-                  <select class="form-control" name="q_category" id="q_category">
+<div id="QnAmodalWrap">
+    <div class="modalBody">
+        <div class="modalHeader">
+            <span id="closeBtn" class="closeBtn">&times;</span>
+            <h4 class="modal-title" id="myModalLabel">인사담당자에게 질문하기</h4>
+        </div>
+        <form class="qnaForm">
+            <input type="hidden" name="q_type" id="q_type" value="seeker"/>
+            <input type="hidden" name="company_no" id="company_no" value="${JPdetail.company_no}"/>
+            <div class="form-group">
+                <label for="q_category">카테고리</label>
+                <select class="form-control" name="q_category" id="q_category">
                     <option value="q_category" selected disabled>선택해주세요</option>
                     <option value="채용일반">채용일반</option>
                     <option value="경력사항">경력사항</option>
                     <option value="근무환경">근무환경</option>
                     <option value="기타">기타</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="q_content">문의 내용</label>
-                  <textarea class="form-control" name="q_content" id="q_content" placeholder="문의내용을 입력하세요." rows="10"></textarea>
-                </div>
-                <div class="modalFooter">
-                    <button type="button" class="btn" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn" id="qnaSub">작성</button>
-                </div>
-              </form>
-           </div>
-        </div>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="q_content">문의 내용</label>
+                <textarea class="form-control" name="q_content" id="q_content" placeholder="문의내용을 입력하세요."
+                          rows="10"></textarea>
+            </div>
+            <div class="modalFooter">
+                <button type="button" class="btn" data-dismiss="modal">Close</button>
+                <button type="button" class="btn" id="qnaSub">작성</button>
+            </div>
+        </form>
+    </div>
+</div>
 <!--qna modal-->
 <!-- message modal -->
-    <div id="modalWrap">
-       <div class="modalBody">
-       <div class="modalHeader">
-         <span id="messageCloseBtn" class="messageCloseBtn">&times;</span>
-         <h4 class="modal-title" id="myModalLabel">쪽지 보내기</h4>
-       </div>
-          <form class="msg_form">
-              <input type="hidden" name="mes_sender" id="mes_sender" value="${sessionScope.memberNo}"/>
-                <div class="form-group">
-                  <label for="to">To</label>
-                  <input type="text" value="${JPdetail.company_name}" class="form-control" id="mes_receiver" name="mes_receiver" disabled>
-                  <input type="hidden" value="${recruiterNo}" class="form-control" id="mes_receiver" name="mes_receiver">
-                </div>
-                <div class="form-group">
-                  <label for="mes_content">Message</label>
-                  <textarea class="form-control" id="mes_content" name="mes_content" rows="10"></textarea>
-                </div>
-                <div class="modalFooter">
-                    <button type="button" class="btn" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn" id="sendBtn">Send</button>
-                </div>
-          </form>
-       </div>
+<div id="modalWrap">
+    <div class="modalBody">
+        <div class="modalHeader">
+            <span id="messageCloseBtn" class="messageCloseBtn">&times;</span>
+            <h4 class="modal-title" id="myModalLabel">쪽지 보내기</h4>
+        </div>
+        <form class="msg_form">
+            <input type="hidden" name="mes_sender" id="mes_sender" value="${sessionScope.memberNo}"/>
+            <div class="form-group">
+                <label for="to">To</label>
+                <input type="text" value="${JPdetail.company_name}" class="form-control" id="mes_receiver"
+                       name="mes_receiver" disabled>
+                <input type="hidden" value="${recruiterNo}" class="form-control" id="mes_receiver" name="mes_receiver">
+            </div>
+            <div class="form-group">
+                <label for="mes_content">Message</label>
+                <textarea class="form-control" id="mes_content" name="mes_content" rows="10"></textarea>
+            </div>
+            <div class="modalFooter">
+                <button type="button" class="btn" data-dismiss="modal">Close</button>
+                <button type="button" class="btn" id="sendBtn">Send</button>
+            </div>
+        </form>
     </div>
+</div>
 <!-- message modal -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script>
     // 페이지가 완전히 로드된 후 실행
-    $(document).ready(function() {
-        // 조회수 갱신을 위한 Ajax 요청
+    $(document).ready(function () {
+        var postingNo = $("#posting_no").val();
         $.ajax({
-            url: '/recruiter/JPlist', // 서버의 조회수 증가 API URL
+            url: '/recruiter/JPdetail/getViewCount/' + postingNo,
             type: 'GET',
-            data: {posting_no: ${posting_no}}, // 게시물 번호 전송
-            success: function(response) {
-                // 서버에서 새 조회수를 응답으로 받아와 웹 페이지에 갱신
-                $('#postingCount').text(response.newPostingCount);
+            success: function (response) {
+                $('#postingCnt').text(response.newViewCount);
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.error('조회수 갱신 실패:', status, error);
             }
         });
     });
-
-
 
 
     $(document).ready(function () {
@@ -501,8 +507,8 @@
 <!-- qna 및 message script -->
 <script>
     //QnA 아코디언
-    $(".que").click(function() {
-       $(this).next(".anw").stop().slideToggle(300);
+    $(".que").click(function () {
+        $(this).next(".anw").stop().slideToggle(300);
         $(this).toggleClass('on').siblings().removeClass('on');
         $(this).next(".anw").siblings(".anw").slideUp(300); // 1개씩 펼치기
     });
@@ -514,26 +520,26 @@
 
     modal.style.display = 'none'; // 페이지 로드 시 모달 숨김
 
-    writeBtn.addEventListener('click', function(event) {
-      event.preventDefault(); // 폼 제출 동작 막기
-      modal.style.display = 'block';
+    writeBtn.addEventListener('click', function (event) {
+        event.preventDefault(); // 폼 제출 동작 막기
+        modal.style.display = 'block';
     });
 
-    closeBtn.addEventListener('click', function() {
-      modal.style.display = 'none';
-    });
-
-    window.addEventListener('click', function(event) {
-      if (event.target === modal) {
+    closeBtn.addEventListener('click', function () {
         modal.style.display = 'none';
-      }
+    });
+
+    window.addEventListener('click', function (event) {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
     });
 
     //QnA 남기기
-    $("#qnaSub").click(function(){
+    $("#qnaSub").click(function () {
         var msg = "1:1 문의를 남기시겠습니까?";
 
-        if(!confirm(msg)) {
+        if (!confirm(msg)) {
             return false;
         }
 
@@ -541,20 +547,20 @@
         console.log(jsonStr);
 
         $.ajax({
-            url : '${cPath}/qna/recruiter/write',
+            url: '${cPath}/qna/recruiter/write',
             type: 'POST',
             data: $(".qnaForm").serialize(),
-            success: function(data) {
+            success: function (data) {
                 console.log(data);
                 alert("문의를 남겼습니다. ");
                 $("#QnAmodalWrap").hide();
                 $("#mes_content").val('');
             },
-             error: function(jqXHR, textStatus, errorThrown) {
-                  console.error('Error:', errorThrown);
-                  console.error('Error:', jqXHR);
-                  console.error('Error:', textStatus);
-             }
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error('Error:', errorThrown);
+                console.error('Error:', jqXHR);
+                console.error('Error:', textStatus);
+            }
         });
     });
 
@@ -565,27 +571,27 @@
 
     messageModal.style.display = 'none'; // 페이지 로드 시 모달 숨김
 
-    btn.addEventListener('click', function(event) {
-      event.preventDefault(); // 폼 제출 동작 막기
-      messageModal.style.display = 'block';
+    btn.addEventListener('click', function (event) {
+        event.preventDefault(); // 폼 제출 동작 막기
+        messageModal.style.display = 'block';
     });
 
-    messageCloseBtn.addEventListener('click', function() {
-      messageModal.style.display = 'none';
-    });
-
-    window.addEventListener('click', function(event) {
-      if (event.target === modal) {
+    messageCloseBtn.addEventListener('click', function () {
         messageModal.style.display = 'none';
-      }
+    });
+
+    window.addEventListener('click', function (event) {
+        if (event.target === modal) {
+            messageModal.style.display = 'none';
+        }
     });
 
 
     //message 보내기
-    $("#sendBtn").click(function(){
+    $("#sendBtn").click(function () {
         var msg = "쪽지를 보내시겠습니까?";
 
-        if(!confirm(msg)) {
+        if (!confirm(msg)) {
             return false;
         }
 
@@ -593,20 +599,20 @@
         console.log(jsonStr);
 
         $.ajax({
-            url : '${cPath}/message/write',
+            url: '${cPath}/message/write',
             type: 'POST',
             data: $(".msg_form").serialize(),
-            success: function(data) {
+            success: function (data) {
                 console.log(data);
                 alert("쪽지를 보냈습니다.");
                 $("#modalWrap").hide();
                 $("#mes_content").val('');
             },
-             error: function(jqXHR, textStatus, errorThrown) {
-                  console.error('Error:', errorThrown);
-                  console.error('Error:', jqXHR);
-                  console.error('Error:', textStatus);
-             }
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error('Error:', errorThrown);
+                console.error('Error:', jqXHR);
+                console.error('Error:', textStatus);
+            }
         });
     });
 </script>
