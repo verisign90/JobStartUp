@@ -2,9 +2,14 @@ package com.pickmeup.jobstartup.recruiter.jobposting.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.pickmeup.jobstartup.common.paging.Criteria;
+import com.pickmeup.jobstartup.common.paging.PagingResponse;
 import com.pickmeup.jobstartup.member.entity.Member;
+import com.pickmeup.jobstartup.qna.dto.QuestionDTO;
+import com.pickmeup.jobstartup.qna.service.QnAService;
 import com.pickmeup.jobstartup.recruiter.apply.dto.JobDTO;
 import com.pickmeup.jobstartup.recruiter.apply.dto.LocDTO;
+import com.pickmeup.jobstartup.recruiter.apply.service.ApplyService;
 import com.pickmeup.jobstartup.recruiter.jobposting.dto.JobPostingDTO;
 import com.pickmeup.jobstartup.recruiter.jobposting.dto.SearchDTO;
 import com.pickmeup.jobstartup.recruiter.jobposting.service.JobPostingService;
@@ -36,6 +41,9 @@ public class JobPostingController {
 
     @Autowired
     private PostingBookmarkServiceImpl postingBookmarkService;
+
+    private final ApplyService applyService;
+    private final QnAService qnAService;
 
 
 
@@ -210,18 +218,39 @@ public class JobPostingController {
 
     //상세조회
     @GetMapping("/JPdetail/{posting_no}")
-    public String detail(@PathVariable("posting_no") int posting_no,HttpSession session, Model model) throws Exception {
-        postingCnt(posting_no, session);
-
+    public String detail (@PathVariable("posting_no") int posting_no, Model model) throws Exception {
         JobPostingDTO JPdetail = jobPostingService.selectJPdetail(posting_no);
-        int memberNo = getMemberNoFromSecurityContext();
+
+        int memberNo = 0;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null) {
+            Object principal = authentication.getPrincipal();
+            if (principal instanceof UserDetails) {
+                Member member = postingBookmarkService.findMemberByUsername(((UserDetails) principal).getUsername());
+                memberNo = member.getMember_no();
+            }
+        }
+
+        //Message no 전달
+        long companyNo = JPdetail.getCompany_no();
+        long recruiterNo = applyService.getMemberNoByCompany(companyNo);
+
+        //Question&Answer List 전달
+        PagingResponse<QuestionDTO> questionPage = qnAService.getCompanyQnAList(companyNo, new Criteria());
+
+        System.out.println("companyNo : "+companyNo+ ", questionPage : "+questionPage.getList().toString());
+
         List<ResumeDTO> resumeList = resumeService.selectResumeList(memberNo);
 
+        System.out.println(JPdetail.toString());
         model.addAttribute("JPdetail", JPdetail);
         model.addAttribute("postingNo", posting_no);
         model.addAttribute("memberNo", memberNo);
         model.addAttribute("resumeList", resumeList);
 
+        //메세지 및 QnA list
+        model.addAttribute("recruiterNo", recruiterNo);
+        model.addAttribute("questionPage", questionPage);
         return "recruiter/jobPosting/JPdetail";
     }
 
