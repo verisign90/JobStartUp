@@ -74,13 +74,14 @@
                         </li>
                         <li class="scroll-to-section nav-member-name">
                             <c:choose>
-                                <c:when test="${sessionScope.role != null}">
-                                <div id="someElement" data-member-no="${sessionScope.memberNo}"></div>
-                                <span><sec:authentication property="name" /> 님</span>
+                            <c:when test="${sessionScope.role != null}">
+                            <div id="someElement" data-member-no="${sessionScope.memberNo}"></div>
+                            <span><sec:authentication property="name"/> 님</span>
                         </li>
                         <li class="scroll-to-section">
                                 <span id="message_img_hover">
-                                    <a id="message" href="${cPath}/message/list" style="display: flex; align-items: center;">
+                                    <a id="message" href="${cPath}/message/list"
+                                       style="display: flex; align-items: center;">
                                         <img id="message_img" src="${cPath}/img/message/messageList.png"
                                              style="width:25px;"
                                              onmouseover="this.src='${cPath}/img/message/openMessage.png'"
@@ -115,11 +116,11 @@
     </div>
 </header>
 <!-- ***** Header Area End ***** -->
-</div>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
     var memberNo = document.getElementById("someElement").getAttribute("data-member-no");
+
     function send_message() {
         websocket = new SockJS("/message/list");
         websocket.onopen = function (evt) {
@@ -150,9 +151,8 @@
     function onError(evt) {
     }
 
-    $(document).ready(function(){
-            send_message();
+    $(document).ready(function () {
+        send_message();
     });
-
 </script>
 </html>

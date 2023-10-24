@@ -97,7 +97,7 @@
 
 
     // Menu elevator animation
-    $('.scroll-to-section a[href*=\\#]:not([href=\\#])').on('click', function () {
+    $('.scroll-to-section a[href^="#"]:not(.dropdown-toggle)').on('click', function (e) {
         if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
             var target = $(this.hash);
             target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
@@ -116,27 +116,35 @@
     });
 
     $(document).ready(function () {
+        // 스크롤 시 onScroll 함수 호출
         $(document).on("scroll", onScroll);
 
-        //smoothscroll
-        $('.scroll-to-section a[href^="#"]').on('click', function (e) {
+        // 스무스 스크롤 로직
+        $('.scroll-to-section a[href^="#"]:not(.dropdown-toggle)').on('click', function (e) {
             e.preventDefault();
             $(document).off("scroll");
 
             $('.scroll-to-section a').each(function () {
                 $(this).removeClass('active');
-            })
+            });
+
             $(this).addClass('active');
 
-            var target = this.hash,
-                menu = target;
-            var target = $(this.hash);
+            var target = this.hash;
+            var $target = $(target);
+
             $('html, body').stop().animate({
-                scrollTop: (target.offset().top) + 1
+                scrollTop: ($target.offset().top) + 1
             }, 500, 'swing', function () {
                 window.location.hash = target;
                 $(document).on("scroll", onScroll);
             });
+        });
+
+        // 드롭다운 앵커 태그 클릭 이벤트 처리
+        $('.dropdown-toggle').on('click', function (e) {
+            e.preventDefault();
+            $(this).parent().toggleClass('open');
         });
     });
 
