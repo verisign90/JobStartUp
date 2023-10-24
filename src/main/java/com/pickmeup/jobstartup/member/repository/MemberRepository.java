@@ -61,4 +61,13 @@ public interface MemberRepository {
     
     //메뉴 리스트
     ArrayList<MenuDTO> getMenuListBymemberType(@Param("memberType") String memberType, @Param("menu_level") long menu_level);
+
+    //탈퇴하기
+    void withdrawal(Long member_no);
+
+    //현재 입사지원 여부
+    int countStatus(Long member_no);
+
+    //username으로 member_no 찾기
+    Long findMemberNoByUsername(String username);
 }
