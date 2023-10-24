@@ -118,9 +118,8 @@ public class JoinController {
             model.addAttribute("errorMessage", e.getMessage());
             return "member/joinCompany";
         }
-        return "redirect:/apply/apply";
+        return "redirect:/jobfair/wait";
     }
-
     //개인회원 아이디 중복 확인
     @PostMapping("/checkDuplicate")
     @ResponseBody
