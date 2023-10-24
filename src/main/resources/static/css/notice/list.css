@@ -21,7 +21,7 @@ a {text-decoration: none; cursor: pointer;color: #666}
 }
 
 .notice_content {
-   padding: 8% 15% 6% 15%;
+   padding : 200px 250px 100px 250px;
 }
 
 .webtong_tab_type03 { display:table; width:100%; table-layout:fixed; border-left:1px solid #e7e7e7; margin-bottom : 50px;}
@@ -219,7 +219,7 @@ section.notice {
 }
 
 .category_bar {
-  width: 1040px;
+  width: 997px;
   margin: 0 auto;
 }
 

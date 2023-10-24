@@ -18,7 +18,7 @@ public class MainController {
     public final MainService mainService;
 
     @GetMapping("/")
-    public String mainPage02(Model model){
+    public String mainPage(Model model){
         List<ApplyDTO> applyDTOList = mainService.getCompanyList();
         List<JobFairDTO> jobFairDTO = mainService.getJobFairList();
         List<JobPostDTO> jobPostingList= mainService.getJobPostingList();

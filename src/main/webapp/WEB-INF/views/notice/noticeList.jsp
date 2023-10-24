@@ -1,13 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="cPath" value="<%=request.getContextPath() %>"/>
 <!DOC TYPE html>
 <html lang="ko" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt">
 <head>
     <title>Notice List</title>
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
-    <link rel="stylesheet" href="/css/notice/list.css" type="text/css"/>
+    <link rel="stylesheet" href="${cPath}/css/notice/list.css" type="text/css"/>
     <c:set var="category" value="${param.category}"/>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -101,16 +102,15 @@
 <!-- Footer start -->
 <%@ include file="../layout/layoutFooter.jsp" %>
 <!-- Footer end -->
-<%@include file="../layout/layoutFooter.jsp" %>
-<script src="/css/template/vendor/jquery/jquery.min.js"></script>
-<script src="/css/template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="/css/template/assets/js/owl-carousel.js"></script>
-<script src="/css/template/assets/js/animation.js"></script>
-<script src="/css/template/assets/js/imagesloaded.js"></script>
-<script src="/css/template/assets/js/popup.js"></script>
-<script src="/css/template/assets/js/custom.js"></script>
-<script src="/css/template/assets/js/side.js"></script>
 
+<script src="${cPath}/css/template/vendor/jquery/jquery.min.js"></script>
+<script src="${cPath}/css/template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="${cPath}/css/template/assets/js/owl-carousel.js"></script>
+<script src="${cPath}/css/template/assets/js/animation.js"></script>
+<script src="${cPath}/css/template/assets/js/imagesloaded.js"></script>
+<script src="${cPath}/css/template/assets/js/popup.js"></script>
+<script src="${cPath}/css/template/assets/js/custom.js"></script>
+<script src="${cPath}/css/template/assets/js/side.js"></script>
 <script>
     window.onload = () => {
         findAllPost();

@@ -56,6 +56,8 @@ public class NoticeController {
         criteria.setCategory(category);
         PagingResponse<NoticeDTO> noticePage = noticeService.getList(criteria);
 
+        System.out.println("목록조회가 안돼 : "+noticePage.getList().size());
+
         //to jason
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());

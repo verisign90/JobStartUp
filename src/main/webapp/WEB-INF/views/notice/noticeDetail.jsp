@@ -12,24 +12,33 @@
     <link rel="stylesheet" href="/css/notice/detail.css" type="text/css">
 </head>
 <body>
+<!-- ***** Nav start ***** -->
+<%@ include file="../layout/layoutNav.jsp" %>
+<div id="top" data-wow-duration="1s" data-wow-delay="0.5s">
+    <div class="header-text" data-wow-duration="1s" data-wow-delay="1s">
+    </div>
+</div>
+<!-- ***** Nav End ***** -->
 <c:if test="${sessionScope.role == 3}">
     <%@ include file="../layout/layoutAdminSidebar.jsp" %>
 </c:if>
 <article class="post">
+   <h3>게시글 보기</h3>
     <section class="contents">
-        <h4>게시글 보기</h4>
         <section class="view">
-            <h3><small>[${noticeDTO.not_category}]</small>&nbsp${noticeDTO.not_title}</h3>
+            <h5 class="centerClass"><small>[${noticeDTO.not_category}]</small>&nbsp${noticeDTO.not_title}</h5>
             <section class="posting">
                 <div class="date">
                     <c:if test="${!empty noticeDTO.not_modDate}">
-                        <h5><fmt:parseDate value="${noticeDTO.not_modDate}" pattern="yyyy-MM-dd'T'HH:mm"
+                        <h7><fmt:parseDate value="${noticeDTO.not_modDate}" pattern="yyyy-MM-dd'T'HH:mm"
                                            var="parsedDateTime" type="both"/>
-                            <fmt:formatDate value="${parsedDateTime}" pattern="YYYY-MM-dd HH:mm:ss"/></h5>
+                            <fmt:formatDate value="${parsedDateTime}" pattern="YYYY-MM-dd HH:mm:ss"/></h7>
                     </c:if>
-                    <h5><fmt:parseDate value="${noticeDTO.not_regDate}" pattern="yyyy-MM-dd'T'HH:mm"
+                    <c:if test="${empty noticeDTO.not_modDate}">
+                    <h7><fmt:parseDate value="${noticeDTO.not_regDate}" pattern="yyyy-MM-dd'T'HH:mm"
                                        var="parsedDateTime" type="both"/>
-                        <fmt:formatDate value="${parsedDateTime}" pattern="YYYY-MM-dd HH:mm:ss"/></h5>
+                        <fmt:formatDate value="${parsedDateTime}" pattern="YYYY-MM-dd HH:mm:ss"/></h7>
+                    </c:if>
                 </div>
 
                 <div class="content">${noticeDTO.not_content}</div>
@@ -38,18 +47,32 @@
                     <c:if test="${!empty noticeDTO.fileDTOList}">
                         <c:forEach var="file" items="${noticeDTO.fileDTOList}">
                             <span id="img"><img src="${cPath}/image/notice/${file.notFile_savName}"
-                                                style="width:300px;"/></span>
+                                                style="width:500px;"/></span>
                         </c:forEach>
                     </c:if>
                 </div>
             </section>
         </section>
     </section>
-    <div class="btn">
-        <button type="button" name="list"><a href="/notice/list">목록가기</a></button>
-        <button type="button" name="modify"><a href="/notice/modify/${noticeDTO.not_no}">수정하기</a></button>
-        <button type="submit" type="button" name="delete"><a href="/notice/delete/${noticeDTO.not_no}">삭제하기</a></button>
+    <div class="btnDiv">
+        <p class="btnP">
+            <span><a class="subBtn" href="/notice/list">목록가기</a></span>
+            <span><a class="subBtn" href="/notice/modify/${noticeDTO.not_no}">수정하기</a></span>
+            <span><a class="subBtn" href="/notice/delete/${noticeDTO.not_no}">삭제하기</a></span>
+        </p>
     </div>
 </article>
+<!-- Footer start -->
+<%@ include file="../layout/layoutFooter.jsp" %>
+<!-- Footer end -->
+
+<script src="${cPath}/css/template/vendor/jquery/jquery.min.js"></script>
+<script src="${cPath}/css/template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="${cPath}/css/template/assets/js/owl-carousel.js"></script>
+<script src="${cPath}/css/template/assets/js/animation.js"></script>
+<script src="${cPath}/css/template/assets/js/imagesloaded.js"></script>
+<script src="${cPath}/css/template/assets/js/popup.js"></script>
+<script src="${cPath}/css/template/assets/js/custom.js"></script>
+<script src="${cPath}/css/template/assets/js/side.js"></script>
 </body>
 </html>

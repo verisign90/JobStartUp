@@ -13,6 +13,13 @@
     <link rel="stylesheet" href="/css/notice/writeForm.css" type="text/css">
 </head>
 <body>
+<!-- ***** Nav start ***** -->
+<%@ include file="../layout/layoutNav.jsp" %>
+<div id="top" data-wow-duration="1s" data-wow-delay="0.5s">
+    <div class="header-text" data-wow-duration="1s" data-wow-delay="1s">
+    </div>
+</div>
+<!-- ***** Nav End ***** -->
 <c:if test="${sessionScope.role == 3}">
     <%@ include file="../layout/layoutAdminSidebar.jsp" %>
 </c:if>
@@ -39,14 +46,26 @@
                     <div id='att_zone'
                          data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'></div>
                 </div>
-                <div class="btn">
-                    <button type="button" name="list"><a href="/notice/list">목록가기</a></button>
-                    <button type="submit" type="button" name="sign">등록하기</button>
+                <div class="btnP">
+                    <button type="button" class="subBtn" name="list"><a href="/notice/list">목록가기</a></button>
+                    <button type="submit" class="subBtn" type="button" name="sign">등록하기</button>
                 </div>
             </form>
         </div>
     </section>
 </article>
+<!-- Footer start -->
+<%@ include file="../layout/layoutFooter.jsp" %>
+<!-- Footer end -->
+
+<script src="${cPath}/css/template/vendor/jquery/jquery.min.js"></script>
+<script src="${cPath}/css/template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="${cPath}/css/template/assets/js/owl-carousel.js"></script>
+<script src="${cPath}/css/template/assets/js/animation.js"></script>
+<script src="${cPath}/css/template/assets/js/imagesloaded.js"></script>
+<script src="${cPath}/css/template/assets/js/popup.js"></script>
+<script src="${cPath}/css/template/assets/js/custom.js"></script>
+<script src="${cPath}/css/template/assets/js/side.js"></script>
 <script>
     (
         imageView = function imageView(att_zone, notFile_orgName) {
@@ -70,6 +89,56 @@
                     imageLoader(f);
                 }
             }
+
+            // 파일 유효성 검사 함수
+            validateFile = function (file) {
+                var regex = new RegExp("(.*?)\.(jpg|png|gif)$");
+                var maxSize = 5242880;
+
+                if (!regex.test(file.name.toLowerCase())) {
+                    alert("지원되는 이미지 형식은 jpg, png, gif 입니다.");
+                    return false;
+                }
+
+                if (file.size > maxSize) {
+                    alert("파일 크기는 최대 5MB까지 허용됩니다.");
+                    return false;
+                }
+                return true;
+            }
+
+
+            // 탐색기에서 드래그앤 드롭 사용
+            attZone.addEventListener('dragenter', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }, false)
+
+            attZone.addEventListener('dragover', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+            }, false)
+
+            attZone.addEventListener('drop', function (e) {
+                var files = {};
+                e.preventDefault();
+                e.stopPropagation();
+                var dt = e.dataTransfer;
+                files = dt.files;
+
+               // 파일 개수 제한 검사
+                if (sel_files.length + files.length > 5) {
+                    alert("파일은 최대 5개까지 첨부할 수 있습니다.");
+                    return;
+                }
+
+                for (f of files) {
+                    if (validateFile(f)) {
+                        imageLoader(f);
+                    }
+                }
+            }, false)
 
             // 탐색기에서 드래그앤 드롭 사용
             attZone.addEventListener('dragenter', function (e) {
