@@ -47,12 +47,14 @@
                 </li>
             </c:forEach>
         </ul>
-        <div id="registering_jobfair">
-            <a href="${pageContext.request.contextPath}/admin/jobfair/write" class="button-link">
-                등록하기
-            </a>
-        </div>
-        <div class="pagination">
+        <c:if test="${sessionScope.role == 3}">
+            <div id="registering_jobfair">
+                <a href="${pageContext.request.contextPath}/admin/jobfair/write" class="button-link">
+                    등록하기
+                </a>
+            </div>
+        </c:if>
+        <%--<div class="pagination">
             <c:if test="${currentPage > 1}">
                 <a href="${pageContext.request.contextPath}/jobfair/list?page=${currentPage - 1}">이전</a>
             </c:if>
@@ -69,7 +71,7 @@
             <c:if test="${currentPage < totalPages}">
                 <a href="${pageContext.request.contextPath}/jobfair/list?page=${currentPage + 1}">다음</a>
             </c:if>
-        </div>
+        </div>--%>
     </article>
 </main>
 <%@include file="../layout/layoutFooter.jsp" %>

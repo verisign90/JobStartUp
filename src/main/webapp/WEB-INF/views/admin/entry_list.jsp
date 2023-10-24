@@ -64,24 +64,24 @@
                 </li>
             </c:forEach>
         </ul>
-        <div class="pagination">
-            <c:if test="${currentPage > 1}">
-                <a href="${pageContext.request.contextPath}/jobfair/list?page=${currentPage - 1}">이전</a>
-            </c:if>
-            <c:forEach begin="1" end="${totalPages}" var="pageNum">
-                <c:choose>
-                    <c:when test="${pageNum == currentPage}">
-                        <span class="current">${pageNum}</span>
-                    </c:when>
-                    <c:otherwise>
-                        <a href="${pageContext.request.contextPath}/jobfair/list?page=${pageNum}">${pageNum}</a>
-                    </c:otherwise>
-                </c:choose>
-            </c:forEach>
-            <c:if test="${currentPage < totalPages}">
-                <a href="${pageContext.request.contextPath}/jobfair/list?page=${currentPage + 1}">다음</a>
-            </c:if>
-        </div>
+        <%--        <div class="pagination">
+                    <c:if test="${currentPage > 1}">
+                        <a href="${pageContext.request.contextPath}/jobfair/list?page=${currentPage - 1}">이전</a>
+                    </c:if>
+                    <c:forEach begin="1" end="${totalPages}" var="pageNum">
+                        <c:choose>
+                            <c:when test="${pageNum == currentPage}">
+                                <span class="current">${pageNum}</span>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="${pageContext.request.contextPath}/jobfair/list?page=${pageNum}">${pageNum}</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                    <c:if test="${currentPage < totalPages}">
+                        <a href="${pageContext.request.contextPath}/jobfair/list?page=${currentPage + 1}">다음</a>
+                    </c:if>
+                </div>--%>
     </article>
 </main>
 <%@include file="../layout/layoutFooter.jsp" %>
