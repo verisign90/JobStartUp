@@ -71,8 +71,8 @@
 	font-size:.9em;
 }
 
-#board {
-    padding: 8% 15% 6% 15%;
+.board {
+    padding : 200px 250px 100px 250px;
 }
 
 .title {
@@ -82,3 +82,14 @@
 .writeTitle {
     text-align : center;
 }
+
+. .btnP {
+      display: flex;
+      align-items: center;
+      display:inline-block;
+  }
+
+  .subBtn {
+  display:inline-block; /* 수정 */
+  }
+

@@ -34,7 +34,7 @@
     <%@ include file="../layout/layoutAdminSidebar.jsp" %>
 </c:if>
 <main>
-    <article style="margin-left: 100px; margin-right: 100px; margin-top: 200px">
+    <article style="margin: 200px 250px 50px;">
         <div class="row">
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card border-left-primary shadow h-100 py-2">

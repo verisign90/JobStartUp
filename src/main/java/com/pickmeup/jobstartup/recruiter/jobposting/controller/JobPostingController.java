@@ -90,7 +90,7 @@ public class JobPostingController {
     //목록 조회
     @GetMapping("/JPlist")
     public String JPlist(@RequestParam(value = "page", defaultValue = "1") int page,
-                         @RequestParam(value = "size", defaultValue = "10") int size, Model model) throws Exception {
+                         @RequestParam(value = "size", defaultValue = "12") int size, Model model) throws Exception {
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
@@ -124,7 +124,7 @@ public class JobPostingController {
     //목록 조회 (검색) 추가
     @GetMapping("/JPlistBySearch")
     public String JPlistBySearch(@RequestParam(value = "page", defaultValue = "1") int page,
-                                 @RequestParam(value = "size", defaultValue = "10") int size,
+                                 @RequestParam(value = "size", defaultValue = "9") int size,
                                  SearchDTO searchDTO, Model model) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());

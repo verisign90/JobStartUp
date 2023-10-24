@@ -21,7 +21,7 @@
     <%@ include file="../layout/layoutAdminSidebar.jsp" %>
 </c:if>
 <main>
-    <article style="margin: 0 100px">
+    <article style="margin: 200px 250px 50px;">
         <ul style="padding-left: 8px; margin-left: 10px;">
             <li class="jobfair_list">
                 <div class="board_no">

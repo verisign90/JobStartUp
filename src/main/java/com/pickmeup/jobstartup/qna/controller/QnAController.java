@@ -96,7 +96,11 @@ public class QnAController {
     //Company QnA List
     @PostMapping("/recruiter/list")
     public String companyQnAList(HttpSession session, @RequestParam("company_no") String company_no, Criteria criteria, Model model) throws Exception {
-        long companyNo = Long.parseLong(company_no);
+        long companyNo = 0;
+        if(company_no==null){
+            companyNo = (long) session.getAttribute("companyNo");
+        }
+            companyNo = Long.parseLong(company_no);
         Integer roleNo = (Integer) session.getAttribute("role");
         if (company_no == null || roleNo != 2) {
             return "redirect:/login";
@@ -144,6 +148,9 @@ public class QnAController {
         String message = "안녕하세요, JobStartUp입니다. <br/> 회원님이 남기신 QnA에 답변이 달렸습니다. <br/> 홈페이지에 접속해 답변을 확인하세요!<br/> http://localhost:8050/qna/list<br/>";
         MailDTO mailDTO = new MailDTO(email, title, message);
         mailService.mailSend(mailDTO);
+        if(roleNo == 2) {
+            return "redirect:/qna/recruiter/list";
+        }
         return "redirect:/qna/list";
     }
 

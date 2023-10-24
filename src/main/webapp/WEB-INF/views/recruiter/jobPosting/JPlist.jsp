@@ -15,6 +15,9 @@
 </head>
 <body>
 <%@ include file="../../layout/layoutNav.jsp" %>
+<div id="top" data-wow-duration="1s" data-wow-delay="0.5s">
+    <div class="header-text" data-wow-duration="1s" data-wow-delay="1s"></div>
+</div>
 <main class="main-content">
         <!-- 검색 -->
         <div class="searchBar">
@@ -68,16 +71,14 @@
                             <a href="${cPath}/recruiter/JPdetail/${jobPosting.posting_no}" target="_blank">
                                 <div class="info-items service-item first-service">
                                     <strong class="posting_title">${jobPosting.posting_title}</strong><br/>
-                                    <strong class="company_name"><a>${jobPosting.company_name}</a></strong>
+                                    <span class="company_name">${jobPosting.company_name}</span>
                                     <div>
                                         <%--<span>${JPlist.company_address_detail}</span>--%>
-                                        <span class="company_address">${fn:substring(jobPosting.company_address_detail, 6, 12)}</span>
+                                        <span class="company_address">${fn:substring(jobPosting.company_address_detail, 0, 6)}</span>
                                         |
                                         <span class="posting_career">${jobPosting.posting_career}</span>
                                         |
                                         <span class="posting_academy">${jobPosting.posting_academy}</span>
-                                        <span>
-                                    </span>
                                     </div>
                                 </div>
                             </a>
@@ -126,16 +127,15 @@
                             <input type="hidden" name="posting_no" ${jobPostingListBySearch.posting_no}>
                             <a href="${cPath}/recruiter/JPdetail/${jobPostingListBySearch.posting_no}" target="_blank">
                                 <div class="info-items service-item first-service">
-                                    <h3 class="posting_title">${jobPostingListBySearch.posting_title}</h3>
+                                    <strong class="posting_title">${jobPostingListBySearch.posting_title}</strong><br/>
+                                    <span class="company_name">${jobPostingListBySearch.company_name}</span>
                                     <div>
+                                        <%--<span>${JPlist.company_address_detail}</span>--%>
                                         <span class="company_address">${fn:substring(jobPostingListBySearch.company_address_detail, 0, 6)}</span>
+                                        |
                                         <span class="posting_career">${jobPostingListBySearch.posting_career}</span>
+                                        |
                                         <span class="posting_academy">${jobPostingListBySearch.posting_academy}</span>
-                                        <span class="posting_labor">${jobPostingListBySearch.posting_labor}</span>
-                                        <span class="posting_salary">${jobPostingListBySearch.posting_salary}</span>
-                                        <span>
-                            <strong class="company_name"><a>${jobPostingListBySearch.company_name}</a></strong>
-                        </span>
                                     </div>
                                 </div>
                             </a>
@@ -221,15 +221,7 @@
             .catch(error => console.error('Error:', error));
     }
 </script>
-<%--<script>
-    function toggleCheckbox(element) {
-        var checkbox = element.querySelector('input[type="checkbox"]');
-        checkbox.checked = !checkbox.checked;
 
-        var locDetailName = element.querySelector('.loc-detail-name');
-        locDetailName.classList.toggle('selected');
-    }
-</script>--%>
 <script>
     $(document).ready(function () {
         $('#searchInput').on('focus', function () {

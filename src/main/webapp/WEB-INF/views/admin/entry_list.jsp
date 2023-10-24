@@ -21,7 +21,7 @@
     <%@ include file="../layout/layoutAdminSidebar.jsp" %>
 </c:if>
 <main>
-    <article style="margin: 0 100px">
+    <article style="margin: 200px 250px 50px;">
         <ul style="padding-left: 8px; margin-left: 8px;">
             <li class="jobfair_list">
                 <div class="board_no">
@@ -43,11 +43,11 @@
                     <div class="board_no">${company.JOBFAIRENTRY_NO}</div>
                     <div class="board_job_fair">
                         <a href="${pageContext.request.contextPath}/jobfair/detail/${company.JOBFAIR_NO}">
-                            <div>${company.JOBFAIR_NO}</div>
+                            <div>${company.JOBFAIR_TITLE}</div>
                         </a>
                     </div>
                     <a href="${pageContext.request.contextPath}/jobfair/companyInfo/${company.COMPANY_NO}">
-                        <div class="board_company">${company.COMPANY_NO}</div>
+                        <div class="board_company">${company.COMPANY_NAME}</div>
                     </a>
                     <div class="board_btn">
                         <a href="${pageContext.request.contextPath}/admin/entry/apply?jobFairEntryNo=${company.JOBFAIRENTRY_NO}&companyNo=${company.COMPANY_NO}"

@@ -2,27 +2,74 @@
     padding : 200px 250px 100px 250px;
 
 }
-/*-------------------------------------------------------------*/
-/*채용정보 css*/
-.posting_title{
-    margin-bottom: 40px;
+
+.searchBar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+.selectType {
+    text-align: center;
 }
 
-.company_address, .posting_academy, .posting_labor, .posting_salary {
-    font-size: 15px;
+.selectType select,
+.selectType input[type="text"],
+.selectType button {
+    margin-right: 10px;
+    padding: 8px 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.selectType select {
+    /* 원하는 스타일로 변경 */
+    background-color:#fff;
+    color:#333;
+    /* 중략 */
+}
+
+.selectType input[type="text"] {
+    width:300px;
+    /* 중략 */
+}
+
+.selectType button {
+    background: linear-gradient(to right, #5478ed, #2ed4fb); /*  그라데이션 색상 코드를 입력. */
+    color:#fff;
+    cursor:pointer ;
+}
+
+
+/*-------------------------------------------------------------*/
+/*채용정보 css*/
+
+
+
+.posting_title{
+    margin-bottom: 16px;
+}
+
+.company_address, .posting_academy, .posting_labor, .posting_salary, .posting_career {
+    font-size: 12px;
 }
 .company_name{
-    font-size: 20px;
+    font-size: 14px;
 }
 .jobPostingList-container{
     margin: 50px;
+    justify-items: center; /* 수평 가운데 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
 }
 .info-container {
     /*border: 1px solid green;*/
-    grid-column-gap: 50px;
+    grid-column-gap: 10px;
     padding: 10px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+
 }
 
 .info-items {
@@ -38,12 +85,12 @@
 }
 
 .service-item{
-    height: auto;
-    width: 90%;
-    padding: 38px!important;
+    margin-left:11%;
+    height: 180px;
+    width: 80%;
+    padding: 30px!important;
     margin-bottom: 20px!important;
 }
-
 
 /* pagination */
 .pagination {
@@ -64,3 +111,14 @@
     color:#0000FF; /* 원하는 링크 색상으로 변경하세요 */
 }
 
+.nav-member-name{
+    margin-top: 7px!important;
+}
+.nav-message-img{
+    margin-bottom: 6px;
+}
+
+footer{
+    margin-top:0px!important;
+    padding-top:0px!important;
+}

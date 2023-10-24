@@ -139,23 +139,23 @@
       <!-- pagenation start -->
       	<nav aria-label="Page navigation" >
       		<ul class="pagenation" style="margin:0 0">
-      		<c:set var="page" value="${questionPage.pagination}" />
-      		<c:if test="${page.firstPage>5}">
-      			<li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="movePage(${page.firstPage-5})">pre</a></li>
-      		</c:if>
-      		<c:forEach var="pNo" begin="${page.firstPage}" end="${page.lastPage}" step="1">
-      		 <c:choose>
-      		 <c:when test="${pNo != criteria.currentPageNo}">
-      			<li class="page-item"><span><a class="page-link" href="javascript:void(0);" onclick="movePage(${pNo})">${pNo}</a></span></li>
-      		 </c:when>
-      		  <c:otherwise>
-      		    <li class="page-item"><span>${pNo}</span></li>
-      		  </c:otherwise>
-      		 </c:choose>
-      		</c:forEach>
-      		<c:if test="${page.lastPage<page.totalPageCount}">
-      			<li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="movePage(${page.firstPage+5})">next</a></li>
-      		</c:if>
+                <c:set var="page" value="${questionPage.pagination}" />
+                <c:if test="${page.firstPage>5}">
+                    <li class="page_item"><a class="page-link" href="javascript:void(0);" onclick="movePage(${page.firstPage-5})">pre</a></li>
+                </c:if>
+                <c:forEach var="pNo" begin="${page.firstPage}" end="${page.lastPage}" step="1">
+                 <c:choose>
+                 <c:when test="${pNo != criteria.currentPageNo}">
+                    <li class="page_item"><a class="page_link" href="javascript:void(0);" onclick="movePage(${pNo})">${pNo}</a></li>
+                 </c:when>
+                  <c:otherwise>
+                    <li class="page_item">${pNo}</li>
+                  </c:otherwise>
+                 </c:choose>
+                </c:forEach>
+                <c:if test="${page.lastPage<page.totalPageCount}">
+                    <li class="page_item"><a class="page_link" href="javascript:void(0);" onclick="movePage(${page.firstPage+5})">next</a></li>
+                </c:if>
       		</ul>
       	</nav>
       <!-- pagenation end -->

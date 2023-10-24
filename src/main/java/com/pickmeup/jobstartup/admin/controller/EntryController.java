@@ -34,6 +34,7 @@ public class EntryController {
         try {
             Map<String, Object> paginationResult = entryService.getAllEntryCompany(page, size);
             List<EntryCompanyDTO> entryCompanyList = (List<EntryCompanyDTO>) paginationResult.get("entryCompanyList");
+            System.out.println(entryCompanyList);
             int totalPages = (int) paginationResult.get("totalPages");
 
             model.addAttribute("entryCompanyList", entryCompanyList);
@@ -50,7 +51,7 @@ public class EntryController {
     }
 
     @GetMapping("/entry/apply")
-    public String applyEntryCompany (@Param("jobFairEntryNo") Long jobFairEntryNo, @Param("companyNo") Long companyNo){
+    public String applyEntryCompany(@Param("jobFairEntryNo") Long jobFairEntryNo, @Param("companyNo") Long companyNo) {
         entryService.applyEntryCompany(jobFairEntryNo, companyNo);
 
         return "redirect:/admin/entry/list";
@@ -58,13 +59,11 @@ public class EntryController {
 
 
     @GetMapping("/entry/reject")
-    public String rejectEntryCompany (@Param("jobFairEntryNo") Long jobFairEntryNo, @Param("companyNo") Long companyNo){
+    public String rejectEntryCompany(@Param("jobFairEntryNo") Long jobFairEntryNo, @Param("companyNo") Long companyNo) {
         entryService.rejectEntryCompany(jobFairEntryNo, companyNo);
 
         return "redirect:/admin/entry/list";
     }
-
-
 
 
 }
