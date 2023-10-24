@@ -33,39 +33,39 @@
                     <input type="hidden" name="JOBFAIR_NO" value="${jobFair.JOBFAIR_NO}">
                 </div>
                 <div>
-                    <label for="title">제목:</label>
+                    <label for="title">제목 </label>
                     <input type="text" id="title" name="JOBFAIR_TITLE" value="${jobFair.JOBFAIR_TITLE}">
                 </div>
                 <div>
-                    <label for="sdate">시작일:</label>
+                    <label for="sdate">시작일 </label>
                     <input type="datetime-local" id="sdate" name="JOBFAIR_SDATE" value="${jobFair.JOBFAIR_SDATE}">
                 </div>
                 <div>
-                    <label for="edate">종료일:</label>
+                    <label for="edate">종료일 </label>
                     <input type="datetime-local" id="edate" name="JOBFAIR_EDATE" value="${jobFair.JOBFAIR_EDATE}">
                 </div>
                 <div>
-                    <label for="place">장소:</label>
+                    <label for="place">장소 </label>
                     <input type="text" id="place" name="JOBFAIR_PLACE" value="${jobFair.JOBFAIR_PLACE}">
                 </div>
                 <div>
-                    <label for="target">대상:</label>
+                    <label for="target">대상 </label>
                     <input type="text" id="target" name="JOBFAIR_TARGET" value="${jobFair.JOBFAIR_TARGET}">
                 </div>
                 <div>
-                    <label for="host">주최:</label>
+                    <label for="host">주최 </label>
                     <input type="text" id="host" name="JOBFAIR_HOST" value="${jobFair.JOBFAIR_HOST}">
                 </div>
                 <div>
-                    <label for="site">사이트:</label>
+                    <label for="site">사이트 </label>
                     <input type="text" id="site" name="JOBFAIR_SITE" value="${jobFair.JOBFAIR_SITE}">
                 </div>
                 <div>
-                    <label for="loc_code">위치 코드:</label>
+                    <label for="loc_code">위치 코드 </label>
                     <input type="text" id="loc_code" name="JOBFAIR_LOC_CODE" value="${jobFair.JOBFAIR_LOC_CODE}">
                 </div>
                 <div>
-                    <label for="editor">내용:</label>
+                    <label for="editor">내용 </label>
                     <textarea id="editor" name="JOBFAIR_CONTENT">${jobFair.JOBFAIR_CONTENT}</textarea>
                 </div>
                 <input type="submit" value="등록하기"/>

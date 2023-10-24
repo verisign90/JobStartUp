@@ -163,7 +163,6 @@
             </div>
         </div>
     </section>
-    </c:forEach>
     </div>
     </div>
     <!-- pagenation start -->
