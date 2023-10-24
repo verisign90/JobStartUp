@@ -69,39 +69,40 @@
 </div>
 
 <div id="services" class="services section">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 offset-lg-2">
-                <div class="section-heading  wow fadeInDown" data-wow-duration="1s" data-wow-delay="0.5s">
-                    <h4>Today's <em> Company &amp; Job Posting</em> for you</h4>
-                    <img src="/css/template/assets/images/heading-line-dec.png" alt="">
-                    <p class="font-class"> 당신을 위한 오늘의 <span>기업</span> 과 <a href="" target="_parent"> 공고 </a> 입니다.
-                        확인해보세요!</p>
-                </div>
-            </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2">
+        <div class="section-heading  wow fadeInDown" data-wow-duration="1s" data-wow-delay="0.5s">
+          <h4>Today's <em> Company &amp; Job Posting</em> for you</h4>
+          <img src="/css/template/assets/images/heading-line-dec.png" alt="">
+          <p class="font-class"> 당신을 위한 오늘의 <span>기업</span> 과 <a href="" target="_parent"> 공고 </a> 입니다. 확인해보세요!</p>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 
 <!-- 관련 기업 소개 -->
 <div class="container">
-    <div class="row">
-        <c:if test="${not empty applyDTOList }">
-            <c:forEach items="${applyDTOList}" var="apply">
-                <div class="col-lg-3">
-                    <div class="service-item first-service">
-                        <div class="icon"><img src="/image/apply/${apply.logo_orgname}"/></div>
-                        <h4>${apply.company_name}</h4>
-                        <p>${apply.company_address_detail}</p>
-                        <p>${apply.company_hp}</p>
-                        <div class="text-button">
-                            <a href="#">Job Posting More<i class="fa fa-arrow-right"></i></a>
-                        </div>
-                    </div>
+  <div class="row">
+    <c:if test="${not empty applyDTOList }">
+      <c:forEach items="${applyDTOList}" var="apply" varStatus="status">
+       <c:if test="${status.index < 8}">
+         <div class="col-lg-3">
+            <div class="service-item first-service">
+                <div class="icon"><img src="/image/apply/${apply.logo_savname}"/></div>
+                <h4>${apply.company_name}</h4>
+                <p>${apply.company_address_detail}</p>
+                <p>${apply.company_hp}</p>
+                <div class="text-button">
+                  <a href="#">Job Posting More<i class="fa fa-arrow-right"></i></a>
                 </div>
-            </c:forEach>
+            </div>
+         </div>
         </c:if>
-    </div>
+      </c:forEach>
+    </c:if>
+  </div>
 </div>
 <!-- 관련 기업 소개 -->
 

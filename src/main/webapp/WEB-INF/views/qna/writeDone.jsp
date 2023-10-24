@@ -24,8 +24,8 @@
         <h3>문의가 정상적으로 등록되었습니다.<br>이용해주셔서 감사합니다.</h3>
         <p>영업일 기준으로 3일 이내에 답변드립니다.</p>
         <div>
-            <button type="button" name="home">홈으로</button>
-            <button type="button" name="go">나의 문의 목록</button>
+            <button type="button" name="home"><a href="/">홈으로</a></button>
+            <button type="button" name="go"><a href="/qna/list">나의 문의 목록</a></button>
         </div>
     </section>
 </article>
