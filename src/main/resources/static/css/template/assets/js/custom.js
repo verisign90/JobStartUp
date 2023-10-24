@@ -3,7 +3,7 @@
     "use strict";
 
     // Header Type = Fixed
-    $(window).scroll(function() {
+    $(window).scroll(function () {
         var scroll = $(window).scrollTop();
         var box = $('.header-text').height();
         var header = $('header').height();
@@ -18,20 +18,20 @@
 
     $('.loop').owlCarousel({
         center: true,
-        items:1,
-        loop:true,
+        items: 1,
+        loop: true,
         autoplay: true,
         nav: true,
-        margin:0,
-        responsive:{
-            1200:{
-                items:5
+        margin: 0,
+        responsive: {
+            1200: {
+                items: 5
             },
-            992:{
-                items:3
+            992: {
+                items: 3
             },
-            760:{
-                items:2
+            760: {
+                items: 2
             }
         }
     });
@@ -42,16 +42,16 @@
         closeButton: ".modal_close"
     });
 
-    $(function() {
+    $(function () {
         // Calling Login Form
-        $("#login_form").click(function() {
+        $("#login_form").click(function () {
             $(".social_login").hide();
             $(".user_login").show();
             return false;
         });
 
         // Calling Register Form
-        $("#register_form").click(function() {
+        $("#register_form").click(function () {
             $(".social_login").hide();
             $(".user_register").show();
             $(".header_title").text('Register');
@@ -59,7 +59,7 @@
         });
 
         // Going back to Social Forms
-        $(".back_btn").click(function() {
+        $(".back_btn").click(function () {
             $(".user_login").hide();
             $(".user_register").hide();
             $(".social_login").show();
@@ -69,7 +69,7 @@
     });
 
     // Acc
-    $(document).on("click", ".naccs .menu div", function() {
+    $(document).on("click", ".naccs .menu div", function () {
         var numberIndex = $(this).index();
 
         if (!$(this).is("active")) {
@@ -88,8 +88,8 @@
 
 
     // Menu Dropdown Toggle
-    if($('.menu-trigger').length){
-        $(".menu-trigger").on('click', function() {
+    if ($('.menu-trigger').length) {
+        $(".menu-trigger").on('click', function () {
             $(this).toggleClass('active');
             $('.header-area .nav').slideToggle(200);
         });
@@ -97,13 +97,13 @@
 
 
     // Menu elevator animation
-    $('.scroll-to-section a[href*=\\#]:not([href=\\#])').on('click', function() {
-        if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+    $('.scroll-to-section a[href*=\\#]:not([href=\\#])').on('click', function () {
+        if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
             var target = $(this.hash);
-            target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+            target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
             if (target.length) {
                 var width = $(window).width();
-                if(width < 991) {
+                if (width < 991) {
                     $('.menu-trigger').removeClass('active');
                     $('.header-area .nav').slideUp(200);
                 }
@@ -142,12 +142,12 @@
 
     function onScroll(event) {
         var scrollPos = $(document).scrollTop();
-        $('.nav a').each(function() {
+        $('.nav a').each(function () {
             var currLink = $(this);
             var hrefValue = currLink.attr("href");
 
-            // href 값이 #로 시작하는 경우만 처리
-            if (hrefValue && hrefValue.startsWith("#")) {
+            // href 값이 #로 시작하며, # 문자만을 포함하고 있지 않은 경우만 처리
+            if (hrefValue && hrefValue.startsWith("#") && hrefValue.length > 1) {
                 var refElement = $(hrefValue);
                 if (refElement.position().top <= scrollPos && refElement.position().top + refElement.height() > scrollPos) {
                     $('.nav ul li a').removeClass("active");
@@ -159,8 +159,9 @@
         });
     }
 
+
     // Acc
-    $(document).on("click", ".naccs .menu div", function() {
+    $(document).on("click", ".naccs .menu div", function () {
         var numberIndex = $(this).index();
 
         if (!$(this).is("active")) {
@@ -179,25 +180,25 @@
 
 
     // Page loading animation
-    $(window).on('load', function() {
+    $(window).on('load', function () {
 
         $('#js-preloader').addClass('loaded');
 
     });
 
 
-
     // Window Resize Mobile Menu Fix
     function mobileNav() {
         var width = $(window).width();
-        $('.submenu').on('click', function() {
-            if(width < 767) {
-                $('.submenu ul').removeClass('active');(function ($) {
+        $('.submenu').on('click', function () {
+            if (width < 767) {
+                $('.submenu ul').removeClass('active');
+                (function ($) {
 
                     "use strict";
 
                     // Header Type = Fixed
-                    $(window).scroll(function() {
+                    $(window).scroll(function () {
                         var scroll = $(window).scrollTop();
                         var box = $('.header-text').height();
                         var header = $('header').height();
@@ -212,20 +213,20 @@
 
                     $('.loop').owlCarousel({
                         center: true,
-                        items:1,
-                        loop:true,
+                        items: 1,
+                        loop: true,
                         autoplay: true,
                         nav: true,
-                        margin:0,
-                        responsive:{
-                            1200:{
-                                items:5
+                        margin: 0,
+                        responsive: {
+                            1200: {
+                                items: 5
                             },
-                            992:{
-                                items:3
+                            992: {
+                                items: 3
                             },
-                            760:{
-                                items:2
+                            760: {
+                                items: 2
                             }
                         }
                     });
@@ -236,16 +237,16 @@
                         closeButton: ".modal_close"
                     });
 
-                    $(function() {
+                    $(function () {
                         // Calling Login Form
-                        $("#login_form").click(function() {
+                        $("#login_form").click(function () {
                             $(".social_login").hide();
                             $(".user_login").show();
                             return false;
                         });
 
                         // Calling Register Form
-                        $("#register_form").click(function() {
+                        $("#register_form").click(function () {
                             $(".social_login").hide();
                             $(".user_register").show();
                             $(".header_title").text('Register');
@@ -253,7 +254,7 @@
                         });
 
                         // Going back to Social Forms
-                        $(".back_btn").click(function() {
+                        $(".back_btn").click(function () {
                             $(".user_login").hide();
                             $(".user_register").hide();
                             $(".social_login").show();
@@ -263,7 +264,7 @@
                     });
 
                     // Acc
-                    $(document).on("click", ".naccs .menu div", function() {
+                    $(document).on("click", ".naccs .menu div", function () {
                         var numberIndex = $(this).index();
 
                         if (!$(this).is("active")) {
@@ -282,8 +283,8 @@
 
 
                     // Menu Dropdown Toggle
-                    if($('.menu-trigger').length){
-                        $(".menu-trigger").on('click', function() {
+                    if ($('.menu-trigger').length) {
+                        $(".menu-trigger").on('click', function () {
                             $(this).toggleClass('active');
                             $('.header-area .nav').slideToggle(200);
                         });
@@ -291,13 +292,13 @@
 
 
                     // Menu elevator animation
-                    $('.scroll-to-section a[href*=\\#]:not([href=\\#])').on('click', function() {
-                        if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+                    $('.scroll-to-section a[href*=\\#]:not([href=\\#])').on('click', function () {
+                        if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
                             var target = $(this.hash);
-                            target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+                            target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
                             if (target.length) {
                                 var width = $(window).width();
-                                if(width < 991) {
+                                if (width < 991) {
                                     $('.menu-trigger').removeClass('active');
                                     $('.header-area .nav').slideUp(200);
                                 }
@@ -336,7 +337,7 @@
 
                     function onScroll(event) {
                         var scrollPos = $(document).scrollTop();
-                        $('.nav a').each(function() {
+                        $('.nav a').each(function () {
                             var currLink = $(this);
                             var hrefValue = currLink.attr("href");
 
@@ -354,7 +355,7 @@
                     }
 
                     // Acc
-                    $(document).on("click", ".naccs .menu div", function() {
+                    $(document).on("click", ".naccs .menu div", function () {
                         var numberIndex = $(this).index();
 
                         if (!$(this).is("active")) {
@@ -373,19 +374,18 @@
 
 
                     // Page loading animation
-                    $(window).on('load', function() {
+                    $(window).on('load', function () {
 
                         $('#js-preloader').addClass('loaded');
 
                     });
 
 
-
                     // Window Resize Mobile Menu Fix
                     function mobileNav() {
                         var width = $(window).width();
-                        $('.submenu').on('click', function() {
-                            if(width < 767) {
+                        $('.submenu').on('click', function () {
+                            if (width < 767) {
                                 $('.submenu ul').removeClass('active');
                                 $(this).find('ul').toggleClass('active');
                             }
@@ -393,7 +393,7 @@
                     }
 
 //up
-                    $('#up').click(function() {
+                    $('#up').click(function () {
                         $('html, body').animate({
                             scrollTop: 0
                         }, 400);
@@ -408,7 +408,7 @@
     }
 
 //up
-    $('#up').click(function() {
+    $('#up').click(function () {
         $('html, body').animate({
             scrollTop: 0
         }, 400);
