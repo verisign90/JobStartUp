@@ -1,3 +1,11 @@
+.post {
+   padding : 200px 250px 100px 250px;
+}
+
+.view {
+    margin-top : 10px;
+    margin-bottom : 10px;
+}
 
 .view small{
   font-size: 0.8rem;
@@ -34,29 +42,43 @@
   color:#aaa;
 }
 
-
-.btn {
-  display: flex;
-  justify-content: space-between;
+.content, .file{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding-top : 10px;
+    padding-bottom : 10px;
 }
 
-.btn button {
-  width: 30%;
-  border: 0;
-  margin-top: 30px;
-  transition: 0.5s;
+.btnDiv {
+    text-align: right;
 }
 
-.btn button[name=modify], .btn button[name=list] {
-  background: #ddd;
+.btnP {
+    display: flex;
+    align-items: center;
+    display:inline-block;
 }
 
-.btn button[name=delete] {
-  background: #666;
-  color: white;
+.subBtn {
+    width: 60px;
+    height: 44px;
+    background: #eee;
+    font-size: .9rem;
+    border: 0;
+    border-radius: 5px;
+    font-weight: 400;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    display:inline-block; /* 수정 */
 }
 
-.btn button[name=list]:hover, .btn button[name=modify]:hover, .btn button[name=delete]:hover, .secret button:hover {
-  background: #111;
-  color: white;
+.centerClass {
+    text-align : center;
+    margin-bottom: 20px;
+}
+
+.contents {
+    margin-top: 50px;
 }

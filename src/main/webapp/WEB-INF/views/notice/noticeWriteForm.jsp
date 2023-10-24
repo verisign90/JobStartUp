@@ -23,7 +23,7 @@
 <c:if test="${sessionScope.role == 3}">
     <%@ include file="../layout/layoutAdminSidebar.jsp" %>
 </c:if>
-<article id="board">
+<article class="board">
    <div class="title">
     <h3>공지사항</h3>
    </div>

@@ -175,7 +175,7 @@
             div.appendChild(fileSpan);
             div.appendChild(btn);
             return div;
-        }
+        };
     };
 
     $(document).ready(function () {
@@ -238,6 +238,85 @@
             }
         }
     }
+
+/*
+// 파일 선택 시 유효성 검사
+document.getElementById('qFile_orgName').addEventListener('change', function(event) {
+  var files = event.target.files; // 선택된 파일들
+
+  // 최대 첨부 가능한 파일 개수
+  var maxFiles = 3;
+
+  // 허용되는 파일 확장자
+  var allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'pdf'];
+
+  // 최대 허용 파일 크기 (5MB)
+  var maxFileSize = 5 * 1024 * 1024;
+
+  // 유효성 검사 함수 호출
+  validateFiles(files);
+
+  function validateFiles(files) {
+    for (var i = 0; i < files.length; i++) {
+      var file = files[i];
+      var fileName = file.name;
+      var fileSize = file.size;
+      var fileExtension = getFileExtension(fileName);
+
+      if (!isAllowedExtension(fileExtension)) {
+        alert('허용되지 않는 파일 형식입니다.');
+        clearFileInput();
+        return;
+      }
+
+      if (fileSize > maxFileSize) {
+        alert('파일 크기가 너무 큽니다. 최대 크기는 ' + formatBytes(maxFileSize) + '입니다.');
+        clearFileInput();
+        return;
+      }
+    }
+
+    if (files.length > maxFiles) {
+      alert('최대 첨부 가능한 파일 개수를 초과하였습니다. 최대 ' + maxFiles + '개까지 첨부할 수 있습니다.');
+      clearFileInput();
+    }
+
+    // 유효성 검사를 모두 통과한 경우, 추가적인 로직을 수행할 수 있습니다.
+    // 예: 첨부된 파일 정보를 화면에 표시하는 등의 처리
+    displayFileInfo(files);
+
+    function getFileExtension(fileName) {
+       return fileName.split('.').pop().toLowerCase();
+     }
+
+     function isAllowedExtension(extension) {
+       return allowedExtensions.includes(extension);
+     }
+
+     function formatBytes(bytes, decimals=2) {
+       if (bytes === 0) return '0 Bytes';
+       const k = 1024;
+       const dm = decimals <0 ? decimals : Math.pow(10, decimals);
+       const sizes=['Bytes','KB','MB','GB','TB'];
+       const i=Math.floor(Math.log(bytes)/Math.log(k));
+
+       return parseFloat((bytes/Math.pow(k,i)).toFixed(dm))+' '+sizes[i];
+     }
+
+     function clearFileInput() {
+       document.getElementById('qFile_orgName').value='';
+     }
+
+     function displayFileInfo(files){
+         for(var i=0;i<files.length;i++){
+             console.log("파일 이름:", files[i].name);
+             console.log("파일 크기:", formatBytes(files[i].size));
+         }
+         console.log("총",files.length,"개의 파일이 첨부되었습니다.");
+
+     }
+)};
+*/
 </script>
 </body>
 </html>

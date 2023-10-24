@@ -35,8 +35,20 @@
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
-                        <li class="scroll-to-section"><a href="${cPath}/jobfair/list">취업박람회</a></li>
-                        <li class="scroll-to-section"><a href="${cPath}/recruiter/JPlist">채용공고</a></li>
+                        <li class="scroll-to-section dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">취업박람회<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <!-- 드롭다운 항목 추가 -->
+                                <li><a href="${cPath}/jobfair/list"> 목록 보기</a></li>
+                            </ul>
+                        </li>
+                        <li class="scroll-to-section dropdown">
+                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">채용공고<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <!-- 드롭다운 항목 추가 -->
+                                    <li><a href="${cPath}/recruiter/JPlist">목록 보기</a></li>
+                                </ul>
+                        </li>
                         <c:if test="${sessionScope.role == 1}">
                             <li class="scroll-to-section"><a href="${cPath}/seeker/mypageHome">개인서비스</a></li>
                         </c:if>
@@ -44,7 +56,15 @@
                             <li class="scroll-to-section"><a
                                     href="${cPath}/recruiter/myPage?company_no=${sessionScope.companyNo}">기업서비스</a></li>
                         </c:if>
-                        <li class="scroll-to-section"><a href="${cPath}/notice/list">고객센터</a></li>
+                        <li class="scroll-to-section dropdown">
+                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">고객센터<b class="caret"></b></a>
+                             <ul class="dropdown-menu">
+                                 <!-- 드롭다운 항목 추가 -->
+                                 <li><a href="${cPath}/notice/list">공지사항</a></li>
+                                 <li><a href="${cPath}/qna/list">QnA</a></li>
+                                 <li><a href="${cPath}/qna/write">문의 작성</a></li>
+                             </ul>
+                        </li>
                         <li class="scroll-to-section" style="min-width: 100px">
                             <a href="${cPath}/admin/dashboard">
                                 <c:if test="${sessionScope.role == 3}">관리자</c:if>
