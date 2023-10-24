@@ -18,8 +18,6 @@
     <!-- 기업 마이 페이지 (private edited) -->
     <link rel="stylesheet" href="/css/recruiter/mypage/recruiterCompanyInfoEdited.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/base.css">
-    <link rel="stylesheet" href="/css/qna/list.css" type="text/css">
-    <script src="/js/recruiter/mypage/recruiterCompanyInfoEdited.js"></script>
     <link rel="stylesheet" href="/css/recruiter/mypage/recruiterCompanyInfoEdited.css" type="text/css">
 </head>
 <body>
@@ -37,7 +35,10 @@
                 <h3 class="general-font">기업 일반 정보 수정</h3>
             </div>
 
-            <form id="form" class = "form" action="#" method="post">
+            <form id="form" class = "form" action="/recruiter/myPage/editGeneralInfo" method="post">
+                <input type="hidden" name="company_no" value="${generalInfo.company_no}"/>
+                <input type="hidden" name="member_no" value="${generalInfo.member_no}"/>
+                <input type="hidden" name="member_id" value="${generalInfo.member_id}"/>
                 <div class="form-control1">
                     <label for="member_name">이름</label>
                     <input type="text" id="member_name" name="member_name" value="${generalInfo.member_name}"/>

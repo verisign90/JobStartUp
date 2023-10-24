@@ -51,8 +51,8 @@
                                 <div class ="profile-edit-button-2">
                                     <button type="button" id="profile-edit-button" class="edit-button">로고 수정</button>
                                     <button type="button" class="edit-button" onclick="location.href='/recruiter/myPage/downloadComLogo/${recruiterFileDTO.company_no}'">로고 저장</button>
-                                    <button type="button" class="edit-button">정보 수정</button>
-                                    <button type="button" class="edit-button">회원 탈퇴</button>
+                                    <button type="button" class="edit-button" onclick="location.href='/recruiter/myPage/generalInfo/${recruiterFileDTO.company_no}'">일반 수정</button>
+                                    <button type="button" class="edit-button" onclick="location.href='/recruiter/myPage/editCompanyInfo/${recruiterFileDTO.company_no}'">기업 수정</button>
                                 </div>
                             </div>
                         </div>
@@ -79,7 +79,7 @@
                                     <td>${recruiterMyPageDTO.company_address_detail}</td>
                                 </tr>
                                 <tr>
-                                    <th>위치</th>
+                                    <th>사이트</th>
                                     <td>${recruiterMyPageDTO.company_site}</td>
                                 </tr>
                             </tbody>

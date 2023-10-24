@@ -134,7 +134,7 @@
         ]]>
     </select>
 
-    <!-- 기업 페이지 : 일반 정보 수정 -->
+    <!-- 기업 페이지 : 일반 정보 조회 -->
     <select id="getGeneralInfo" resultType="com.pickmeup.jobstartup.recruiter.mypage.dto.RecruiterGeneralInfoDTO">
         <![CDATA[
             SELECT m.member_no, m.member_id, m.member_type, m.member_name, m.member_pw,
@@ -144,5 +144,15 @@
             WHERE c.company_no = #{company_no}
         ]]>
     </select>
+
+    <!-- 기업 페이지 : 일반 정보 수정 -->
+    <update id="updateGeneralInfo" parameterType="map">
+        <![CDATA[
+            UPDATE member
+            SET member_name=#{member_name},member_sex=#{member_sex},member_hp=#{member_hp},
+                member_email=#{member_email},member_loc=#{member_loc}, member_birth=#{member_birth}
+            WHERE member_no=#{member_no}
+        ]]>
+    </update>
 
 </mapper>
