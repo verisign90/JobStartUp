@@ -3,6 +3,7 @@ package com.pickmeup.jobstartup.member.controller;
 import com.pickmeup.jobstartup.member.dto.JoinCommonDTO;
 import com.pickmeup.jobstartup.member.dto.JoinCompanyDTO;
 import com.pickmeup.jobstartup.member.entity.Member;
+import com.pickmeup.jobstartup.member.repository.MemberRepository;
 import com.pickmeup.jobstartup.member.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -12,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,6 +30,8 @@ import java.util.Random;
 @RequestMapping("/join")
 public class JoinController {
     private final MemberService memberService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final MemberRepository memberRepository;
 
     //회원가입 - 개인회원, 기업회원 버튼 보여주기
     @GetMapping("/select")
@@ -130,7 +135,7 @@ public class JoinController {
     }
 
     //4자리 인증번호 받기
-   /* @PostMapping("/phoneCheck")
+   @PostMapping("/phoneCheck")
     @ResponseBody
     public ResponseEntity<Map<String, String>> phoneCheck(HttpSession session,
                                                           @RequestParam String userPhoneNumber) {
@@ -142,7 +147,7 @@ public class JoinController {
 
         Map<String, String> response = new HashMap<>();
         return new ResponseEntity<>(response, HttpStatus.OK);
-    }*/
+    }
 
     //문자로 받은 4자리 인증번호와 사용자가 입력한 4자리 인증번호가 일치하는지 확인
     @PostMapping("/verifyCode")
@@ -182,4 +187,55 @@ public class JoinController {
     public boolean checkDuplicateBusinessNo(@RequestParam String business_no) {
         return memberService.isDuplicateBusinessNo(business_no);
     }
+
+    //탈퇴하기
+    @GetMapping("/withdrawal")
+    public String withdrawal(Model model, Authentication authentication){
+        if (authentication != null && authentication.isAuthenticated()) {
+            // 현재 로그인한 사용자의 UserDetails 객체를 가져옴
+            Object principal = authentication.getPrincipal();
+            if (principal instanceof UserDetails) {
+                String username = ((UserDetails) principal).getUsername();
+                model.addAttribute("username", username);
+            }
+        }
+        return "member/withdrawal";
+    }
+
+    @PostMapping("/withdrawal")
+    public String withdrawal(@RequestParam String password, Authentication authentication, Model model) {
+        if (authentication == null || !authentication.isAuthenticated()) {
+            model.addAttribute("error", "로그인이 필요한 서비스입니다.");
+            return "redirect:/login";
+        }
+
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String username = userDetails.getUsername();
+        Long member_no = memberService.findMemberNoByUsername(username);
+
+        int countStatus = memberRepository.countStatus(member_no);
+        if (countStatus > 0) {
+            model.addAttribute("error", "진행 중인 신청이 있어 탈퇴할 수 없습니다");
+            return "member/withdrawal";
+        }
+
+        // 사용자 정보를 데이터베이스에서 조회
+        Member member = memberRepository.findByUsername(username);
+        if (member == null) {
+            model.addAttribute("error", "사용자 정보를 찾을 수 없습니다");
+            return "member/withdrawal";
+        }
+
+        // 비밀번호 일치 확인
+        if (!bCryptPasswordEncoder.matches(password, member.getMember_pw())) {
+            model.addAttribute("error", "비밀번호가 일치하지 않습니다");
+            return "member/withdrawal";
+        }
+
+        // 회원 탈퇴 처리
+        memberService.withdrawal(member_no);
+
+        return "redirect:/logout";
+    }
+
 }
