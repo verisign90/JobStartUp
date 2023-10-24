@@ -97,11 +97,11 @@
     </div>
 </header>
 <!-- ***** Header Area End ***** -->
-</div>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
     var memberNo = document.getElementById("someElement").getAttribute("data-member-no");
+
     function send_message() {
         websocket = new SockJS("/message/list");
         websocket.onopen = function (evt) {
