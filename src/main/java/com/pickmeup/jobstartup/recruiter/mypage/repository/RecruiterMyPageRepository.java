@@ -43,7 +43,10 @@ public interface RecruiterMyPageRepository {
     //기업 페이지: calendar 삭제
     int deleteRecruCalendar(RecruiterCalendarDTO recruiterCalendarDTO);
 
-    //기업 페이지: 일반 정보 수정
+    //기업 페이지: 일반 정보 조회
     RecruiterGeneralInfoDTO getGeneralInfo(int company_no);
+
+    //기업 페이지: 일반 정보 수정
+    int updateGeneralInfo(Map<String, Object> map);
 
 }

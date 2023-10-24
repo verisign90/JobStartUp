@@ -42,4 +42,7 @@ public interface RecruiterMyPageService {
 
     //기업 페이지: 일반 정보 수정
     RecruiterGeneralInfoDTO getGeneralInfo(int company_no);
+    
+    //기업 페이지
+    int updateGeneralInfo(Map<String, Object> map);
 }

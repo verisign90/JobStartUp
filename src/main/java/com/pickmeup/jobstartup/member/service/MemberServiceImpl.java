@@ -12,9 +12,11 @@ import net.nurigo.sdk.message.request.SingleMessageSendingRequest;
 import net.nurigo.sdk.message.response.SingleMessageSentResponse;
 import net.nurigo.sdk.message.service.DefaultMessageService;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +27,9 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final ModelMapper modelMapper;
     private final BCryptPasswordEncoder passwordEncoder;
-//    private final DefaultMessageService messageService;
+    private final DefaultMessageService messageService;
     private final UserSecurityService userSecurityService;
+    private final AuthenticationManager authenticationManager;
 
     //아이디 중복 여부 검사
     @Override
@@ -128,26 +131,26 @@ public class MemberServiceImpl implements MemberService {
         return true;
     }
 
-//    //4자리 인증번호 받기
-//    @Override
-//    public boolean sendSMS(String userPhoneNumber, String randomNumber) {
-//        Message message = new Message();
-//        message.setFrom("01047975797");
-//        message.setTo(userPhoneNumber);
-//        message.setText("인증번호는 " + randomNumber + "입니다.");
-//
-//        try {
-//            SingleMessageSentResponse response = messageService.sendOne(new SingleMessageSendingRequest(message));
-//
-//            if("2000".equals(response.getStatusCode())) {
-//                return true;
-//            } else {
-//                return false;
-//            }
-//        } catch(Exception e) {
-//            return false;
-//        }
-//    }
+    //4자리 인증번호 받기
+    @Override
+    public boolean sendSMS(String userPhoneNumber, String randomNumber) {
+        Message message = new Message();
+        message.setFrom("01096275797");
+        message.setTo(userPhoneNumber);
+        message.setText("인증번호는 " + randomNumber + "입니다.");
+
+        try {
+            SingleMessageSentResponse response = messageService.sendOne(new SingleMessageSendingRequest(message));
+
+            if("2000".equals(response.getStatusCode())) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch(Exception e) {
+            return false;
+        }
+    }
 
     @Override
     public boolean isDuplicateEmail(String emailInput) {
@@ -225,14 +228,28 @@ public class MemberServiceImpl implements MemberService {
     //회원 번호로 멤버 객체 가져오기
     @Override
     public Member getMember(String memberId) {
-        Member member =memberRepository.selectMemberById(memberId);
+        Member member = memberRepository.selectMemberById(memberId);
         return member;
     }
 
     //회원 번호로 멤버 객체 가져오기
     @Override
     public Member getMemberNo(long memberNo) {
-        Member member =memberRepository.selectMemberByNo(memberNo);
+        Member member = memberRepository.selectMemberByNo(memberNo);
         return member;
+    }
+
+    //탈퇴하기
+    @Override
+    public void withdrawal(Long member_no) {
+        memberRepository.withdrawal(member_no);
+        SecurityContextHolder.getContext().setAuthentication(null);
+        log.info("사용자 탈퇴 처리 완료: {}", member_no);
+    }
+
+    //username으로 member_no 찾기
+    @Override
+    public Long findMemberNoByUsername(String username) {
+        return memberRepository.findMemberNoByUsername(username);
     }
 }

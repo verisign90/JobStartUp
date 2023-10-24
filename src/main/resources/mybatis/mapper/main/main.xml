@@ -5,7 +5,7 @@
     <select id="getCompanyList" resultType="com.pickmeup.jobstartup.recruiter.apply.dto.ApplyDTO">
         <![CDATA[
             SELECT * FROM company
-            WHERE COMPANY_NO >= 45 and COMPANY_NO <= 66
+            where company_no > 6
         ]]>
     </select>
 

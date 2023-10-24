@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -160,10 +161,16 @@ public class RecruiterMyPageServiceImpl implements RecruiterMyPageService{
         return recruiterCalendarDTO;
     }
 
-    //기업 페이지: 일반 정보 수정
+    //기업 페이지: 일반 정보 조회
     @Override
     public RecruiterGeneralInfoDTO getGeneralInfo(int company_no) {
         return recruiterMyPageRepository.getGeneralInfo(company_no);
+    }
+
+    //기업 페이지: 일반 정보 수정
+    @Override
+    public int updateGeneralInfo(Map<String, Object> map){
+        return recruiterMyPageRepository.updateGeneralInfo(map);
     }
 
 

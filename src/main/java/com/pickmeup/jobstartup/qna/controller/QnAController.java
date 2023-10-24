@@ -145,7 +145,7 @@ public class QnAController {
 
         String email = member.getMember_email();
         String title = "[JobStartUp] "+member.getMember_id()+ "님, QnA 답변이 달렸습니다!";
-        String message = "안녕하세요, JobStartUp입니다. <br/> 회원님이 남기신 QnA에 답변이 달렸습니다. <br/> 홈페이지에 접속해 답변을 확인하세요!<br/> http://localhost:8050/qna/list<br/>";
+        String message = "안녕하세요, JobStartUp입니다.  회원님이 남기신 QnA에 답변이 달렸습니다. 홈페이지에 접속해 답변을 확인하세요! http://172.30.1.61:8050/qna/list<br/>";
         MailDTO mailDTO = new MailDTO(email, title, message);
         mailService.mailSend(mailDTO);
         if(roleNo == 2) {

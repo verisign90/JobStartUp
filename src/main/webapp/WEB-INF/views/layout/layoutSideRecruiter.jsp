@@ -39,7 +39,7 @@
         </div>
         <div class="nav-menu">
             <ul>
-                <li><a class="side_a" href="${cPath}/recruiter/myPage?company_no=${recruiterMyPageDTO.company_no}"><span
+                <li><a class="side_a" href="${cPath}/recruiter/myPage?company_no=${company_no}"><span
                         class="icon-pie-chart mr-3"></span>MY 홈</a></li>
                 <li class="accordion">
                     <a href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
@@ -94,7 +94,7 @@
                         </div>
                     </div>
                 </li>
-                <li class="accordion">
+<!--                <li class="accordion">
                     <a href="#" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false"
                        aria-controls="collapseFive" class="collapsible">
                         <span class="icon-home mr-3"></span>MY 회원정보
@@ -108,7 +108,7 @@
                             </ul>
                         </div>
                     </div>
-                </li>
+                </li>-->
             </ul>
         </div>
     </div>

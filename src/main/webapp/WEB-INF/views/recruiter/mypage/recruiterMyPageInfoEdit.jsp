@@ -37,7 +37,7 @@
                 <h3>기업 고유 정보 수정</h3>
             </div>
 
-            <form id="form" class="form" action="/recruiter/myPage/editCompanyInfo/${applyDTO.company_no}"
+            <form id="form" class="form" action="/recruiter/myPage/editGeneralInfo/${applyDTO.company_no}"
                                 method="post" enctype="multipart/form-data" onsubmit="return onSubmitForm();">
 
                 <input type="hidden" name="company_no" value="${applyDTO.company_no}"/>
@@ -133,7 +133,7 @@
                     </div>
 
                     <div class="form-control1">
-                        <label for="upperLoc">회사 주소 코드</label>
+                        <label for="upperLoc">회사 주소 코드(주소에 맞춰 넣어주세요)</label>
                         <select id="upperLoc" class="upper" name="upperLoc" onchange="loadLowerLoc()" required>
                             <option value="">선택</option>
                             <c:forEach items="${upperLoc}" var="upLoc">

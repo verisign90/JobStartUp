@@ -1,5 +1,6 @@
 package com.pickmeup.jobstartup.recruiter.mypage.controller;
 
+import com.pickmeup.jobstartup.member.service.MemberService;
 import com.pickmeup.jobstartup.recruiter.apply.dto.ApplyDTO;
 import com.pickmeup.jobstartup.recruiter.apply.dto.FileDTO;
 import com.pickmeup.jobstartup.recruiter.apply.dto.JobDTO;
@@ -7,6 +8,7 @@ import com.pickmeup.jobstartup.recruiter.apply.dto.LocDTO;
 import com.pickmeup.jobstartup.recruiter.apply.service.ApplyService;
 import com.pickmeup.jobstartup.recruiter.mypage.dto.*;
 import com.pickmeup.jobstartup.recruiter.mypage.service.RecruiterMyPageService;
+import com.pickmeup.jobstartup.recruiter.mypage.service.RecruiterMyPageServiceImpl;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FileUtils;
@@ -15,6 +17,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -168,7 +172,9 @@ public class RecruiterMyPageController {
         model.addAttribute("appListPaging",new RecruiterPagingDTO(criteria,totalCount));
         return "/recruiter/mypage/recruiterMyList";
     }
-    
+
+    /* 기업 정보 수정 이원화 */
+
     //기업 페이지: 일반 정보 수정폼
     @GetMapping("/myPage/generalInfo/{company_no}")
     public String getGeneralInfo(@ModelAttribute("company_no") int company_no,
@@ -178,12 +184,25 @@ public class RecruiterMyPageController {
         model.addAttribute("generalInfo",generalInfo);
         return "/recruiter/mypage/recruiterMyPageMInfoEdit";
     }
-    
+
+    //기업 페이지: 일반 정보 수정
+    @PostMapping("/myPage/editGeneralInfo")
+    public String updateGeneralInfo(@ModelAttribute("company_no") int company_no,
+                                      @RequestParam Map<String, Object> map,
+                                      ModelAndView modelAndView){
+
+        System.out.println("controller"+company_no);
+        System.out.println("controller"+map);
+
+        recruiterMyPageService.updateGeneralInfo(map);
+        /*modelAndView.setViewName("redirect:/recruiter/myPage");*/
+        return "redirect:/recruiter/myPage";
+    }
+
 
 
     /* apply code */
-
-    //기업 페이지: 정보 수정 (요청)
+    //기업 페이지: 정보 수정폼
     @GetMapping("/myPage/editCompanyInfo/{company_no}")
     public String updateCompanyInfoForm(@ModelAttribute("company_no") int company_no,
                                         Model model) {
@@ -202,8 +221,8 @@ public class RecruiterMyPageController {
         return "/recruiter/mypage/recruiterMyPageInfoEdit";
     }
 
-    //기업 페이지: 정보 수정
-    @PostMapping("/myPage/editCompanyInfo/{company_no}")
+    //기업 페이지: 정보 수정(요청)
+    @PostMapping("/myPage/editCompanyInfoReq")
     public String updateCompanyInfo(@ModelAttribute("company_no") int company_no,
                                     @ModelAttribute("applyDTO") ApplyDTO applyDTO,
                                     @RequestParam("document") MultipartFile[] files,
@@ -251,7 +270,9 @@ public class RecruiterMyPageController {
         }
         applyService.insertFile(fileDTOList);
 
-        return "redirect:/recruiter/myPage?company_no="+company_no;
+        return "/recruiter/mypage/recruiterMyPage"  ;
     }
+
+
 
 }
