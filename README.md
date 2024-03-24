@@ -13,7 +13,7 @@
 * 언어 - Java17<br>
 * 프레임워크/라이브러리 - MyBatis, Spring Boot, Spring Security, Spring Boot Validation<br>
 * 데이터베이스 - Oracle, Oracle Cloud<br>
-* 프론트엔드 - html, css, javascript, jQuery, ajax, Bootstarp5, JSP<br>
+* 프론트엔드 - html, css, javascript, jQuery, ajax, Bootstrap5, JSP<br>
 * 개발도구 - IntelliJ<br>
 
 ## 담당 기능
